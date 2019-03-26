@@ -52,8 +52,11 @@ The directory structure of your new project looks like this:
 ├── models             <- Trained and serialized models, model predictions, or model summaries
 │
 ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
+│   │                     the creator's initials, and a short `-` delimited description, e.g.
+│   │                     `1.0-jqp-initial-data-exploration`.
+│   │                     Notebooks not in dev subdirectory should be succint and contain no
+│   │                     function definitions
+│   └── dev            <- Rapid prototyping notebooks
 │
 ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
 │
@@ -63,8 +66,8 @@ The directory structure of your new project looks like this:
 ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
 │                         generated with `pip freeze > requirements.txt`
 │
-├── src                <- Source code for use in this project.
-│   ├── __init__.py    <- Makes src a Python module
+├── <REPO_NAME>                <- Source code for use in this project.
+│   ├── __init__.py    <- Makes <REPO_NAME> a Python module
 │   │
 │   ├── data           <- Scripts to download or generate data
 │   │   └── make_dataset.py
