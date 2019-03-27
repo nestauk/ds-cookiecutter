@@ -1,0 +1,41 @@
+#!/bin/ipython
+# Note: ipy file suffix neccessary for running with %run magic
+
+%matplotlib inline
+
+## Reload changed code
+%load_ext autoreload
+%autoreload 2
+
+## Import basic scientific stack
+import numpy as np
+import scipy as sp
+import pandas as pd
+import matplotlib.pyplot as plt
+
+## Paths
+
+from pathlib import Path
+import sys
+project_dir = Path('..').resolve()  # project directory e.g. `/home/user/GIT/nesta`
+sys.path.append(str(project_dir))  # run scripts from project directory base
+data_path = project_dir / 'data'  # Don't hard-code data path
+
+## Logging
+import logging
+
+logger = logging.getLogger()
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+# File handler
+fhandler = logging.FileHandler(filename='notebooks.log', mode='a')
+fhandler.setFormatter(formatter)
+logger.addHandler(fhandler)
+logger.setLevel(logging.INFO)
+
+# Stream handler
+shandler = logging.StreamHandler(sys.stdout)
+shandler.setLevel(logging.INFO)
+shandler.setFormatter(formatter)
+logger.addHandler(shandler)
+
