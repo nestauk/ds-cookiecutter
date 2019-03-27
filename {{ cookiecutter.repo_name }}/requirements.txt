@@ -1,3 +1,10 @@
+numpy
+scipy
+pandas
+matplotlib
+jupyter
+ipython
+
 # local package
 -e .
 
