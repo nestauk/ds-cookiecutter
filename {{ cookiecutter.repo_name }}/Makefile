@@ -1,4 +1,4 @@
-.PHONY: clean data lint requirements sync_data_to_s3 sync_data_from_s3
+.PHONY: git pipeline all clean data lint requirements sync_data_to_s3 sync_data_from_s3
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -16,6 +16,18 @@ else
 HAS_CONDA=True
 endif
 
+# Define utility variable to help calling Python from the virtual environment
+ifeq ($(CONDA_DEFAULT_ENV),$(PROJECT_NAME))
+    ACTIVATE_ENV := true
+else
+    ACTIVATE_ENV := source activate $(PROJECT_NAME)
+endif
+
+# Execute python related functionalities from within the project's environment
+define execute_in_env
+	$(ACTIVATE_ENV) && $1
+endef
+
 #################################################################################
 # COMMANDS                                                                      #
 #################################################################################
@@ -24,6 +36,20 @@ endif
 git: 
 	echo -e "[filter \"nbstrip_full\"]\n clean = \"jq --indent 1 '(.cells[] | select(has(\\\"outputs\\\")) | .outputs) = []  | (.cells[] | select(has(\\\"execution_count\\\")) | .execution_count) = null  | .metadata = {\\\"language_info\\\": {\\\"name\\\": \\\"python\\\", \\\"pygments_lexer\\\": \\\"ipython3\\\"}} | .cells[].metadata = {} '\"\n smudge = cat\n required = true\n " >> .git/config
 
+
+## DVC
+pipeline:
+	-dvc pull
+ifneq ($(wildcard pipe/Dvcfile), )
+	dvc repro pipe/Dvcfile
+else
+	$(error No file pipe/Dvcfile to build pipeline)
+endif
+
+all: 
+	make create_environment
+	$(call execute_in_env, make requirements)
+	$(call execute_in_env, make pipeline)
 
 ## Install Python Dependencies
 requirements: test_environment
@@ -46,17 +72,17 @@ lint:
 ## Upload Data to S3
 sync_data_to_s3:
 ifeq (default,$(PROFILE))
-	aws s3 sync data/ s3://$(BUCKET)/data/
+	aws s3 sync data/raw s3://$(BUCKET)/data/raw
 else
-	aws s3 sync data/ s3://$(BUCKET)/data/ --profile $(PROFILE)
+	aws s3 sync data/raw s3://$(BUCKET)/data/raw --profile $(PROFILE)
 endif
 
 ## Download Data from S3
 sync_data_from_s3:
 ifeq (default,$(PROFILE))
-	aws s3 sync s3://$(BUCKET)/data/ data/
+	aws s3 sync s3://$(BUCKET)/data/raw data/raw
 else
-	aws s3 sync s3://$(BUCKET)/data/ data/ --profile $(PROFILE)
+	aws s3 sync s3://$(BUCKET)/data/raw data/raw --profile $(PROFILE)
 endif
 
 ## Set up python interpreter environment

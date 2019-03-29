@@ -58,6 +58,8 @@ The directory structure of your new project looks like this:
 │   │                     function definitions
 │   └── dev            <- Rapid prototyping notebooks
 │
+├── pipe               <- Contains DVC pipeline files
+│
 ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
 │
 ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.

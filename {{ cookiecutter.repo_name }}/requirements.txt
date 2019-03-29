@@ -9,6 +9,7 @@ ipython
 -e .
 
 # external requirements
+dvc
 click
 Sphinx
 coverage
