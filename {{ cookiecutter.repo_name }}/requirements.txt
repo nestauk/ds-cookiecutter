@@ -9,6 +9,7 @@ ipython
 -e .
 
 # external requirements
+jq
 click
 Sphinx
 coverage
