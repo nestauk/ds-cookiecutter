@@ -38,6 +38,10 @@ git:
 
 
 ## DVC
+dvc:
+	dvc init
+	git commit -m 'init DVC'
+
 pipeline:
 	-dvc pull
 ifneq ($(wildcard pipe/Dvcfile), )
