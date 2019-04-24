@@ -15,10 +15,10 @@ import matplotlib.pyplot as plt
 
 ## Paths
 
-from pathlib import Path
+from dotenv import find_dotenv
 import sys
-project_dir = Path('..').resolve()  # project directory e.g. `/home/user/GIT/nesta`
-data_path = project_dir / 'data'  # Don't hard-code data path
+project_dir = find_dotenv().rstrip('/.env')  # project directory e.g. `/home/user/GIT/nesta`
+data_path = f'{project_dir}/data'  # Don't hard-code data path
 
 ## Logging
 import logging
