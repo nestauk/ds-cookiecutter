@@ -75,7 +75,11 @@ target/
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
 
-# exclude data/interim from source control by default
+# exclude data/{raw,externa,interim} from source control by default
+# data/aux can be tracked by github as this will contain hand-written content
+# data/processed is not ignored as outputs should be tracked by DVC
+/data/raw/
+/data/external/
 /data/interim/
 
 # Mac OS-specific storage files
