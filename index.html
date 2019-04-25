@@ -11,7 +11,7 @@
     <link rel="img/favicon.ico">
 
     
-    <title>Cookiecutter Data Science - Cookiecutter Data Science @ Nesta</title>
+    <title>Cookiecutter Data Science @ Nesta - Cookiecutter Data Science @ Nesta</title>
     
 
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -87,7 +87,7 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#cookiecutter-data-science">Cookiecutter Data Science</a></li>
+        <li class="first-level active"><a href="#cookiecutter-data-science-nesta">Cookiecutter Data Science @ Nesta</a></li>
             <li class="second-level"><a href="#high-level-aims">High-level aims</a></li>
                 
             <li class="second-level"><a href="#getting-started">Getting started</a></li>
@@ -98,12 +98,12 @@
             <li class="second-level"><a href="#structure">Structure</a></li>
                 
                 <li class="third-level"><a href="#overview">Overview</a></li>
-                <li class="third-level"><a href="#data-folder">Data folder</a></li>
-                <li class="third-level"><a href="#data-and-model-version-control-with-dvc">Data and model version control with DVC</a></li>
-                <li class="third-level"><a href="#notebooks">Notebooks</a></li>
                 <li class="third-level"><a href="#analysis-is-a-dag">Analysis is a DAG</a></li>
                 <li class="third-level"><a href="#build-from-the-environment-up">Build from the environment up</a></li>
                 <li class="third-level"><a href="#keep-secrets-and-configuration-out-of-version-control">Keep secrets and configuration out of version control</a></li>
+                <li class="third-level"><a href="#data-folder">Data folder</a></li>
+                <li class="third-level"><a href="#data-and-model-version-control-with-dvc">Data and model version control with DVC</a></li>
+                <li class="third-level"><a href="#notebooks">Notebooks</a></li>
                 <li class="third-level"><a href="#git">Git</a></li>
                 <li class="third-level"><a href="#style-and-documentation">Style and Documentation</a></li>
                 <li class="third-level"><a href="#no-hard-coding">No hard-coding</a></li>
@@ -117,7 +117,7 @@
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="cookiecutter-data-science">Cookiecutter Data Science</h1>
+<h1 id="cookiecutter-data-science-nesta">Cookiecutter Data Science @ Nesta</h1>
 <p><em>A logical, reasonably standardized, project structure for reproducible and collaborative pre-production data science work.</em></p>
 <h2 id="high-level-aims">High-level aims</h2>
 <ul>
@@ -207,76 +207,18 @@
     └── tox.ini            &lt;- tox file with settings for running tox; see tox.testrun.org
 </code></pre>
 
-<h3 id="data-folder">Data folder</h3>
-<h4 id="dataraw"><code>data/raw</code></h4>
-<p>Don't ever edit your raw data, especially not manually, and especially not in Excel. Don't overwrite your raw data. Don't save multiple versions of the raw data. Treat the data (and its format) as immutable. The code you write should move the raw data through a pipeline to your final analysis. You shouldn't have to run all of the steps every time you want to make a new figure (see <a href="#analysis-is-a-dag">Analysis is a DAG</a>), but anyone should be able to reproduce the final products with only the code in <code>src</code> and the data in <code>data/raw</code>.</p>
-<p>Also, if data is immutable, it doesn't need source control in the same way that code does. 
-Raw data should be stored with s3 <a href="https://aws.amazon.com/s3/">AWS S3</a>. Currently by default, we ask for an S3 bucket and use <a href="http://docs.aws.amazon.com/cli/latest/reference/s3/index.html">AWS CLI</a> to sync data in the <code>data/raw</code> folder with the server.</p>
-<p><code>data/raw</code> is in <code>.gitignore</code> by default.</p>
-<p>Two make commands - <code>make sync_data_from_s3</code> and <code>make sync_data_to_s3</code> - can be used to sync data to and from the configured s3 bucket (<code>BUCKET</code> in <code>Makefile</code>)</p>
-<h4 id="dataexternal"><code>data/external</code></h4>
-<p>This folder should contain data from third-party sources which for some reason is not stored in <code>data/raw</code>, with any files living here retrievable online from persistent URL's with scripts to download these contained in <code>src/data</code> or as a <code>make</code> command with <code>data/README.md</code> detailing how to obtain these.</p>
-<p><code>data/external</code> is in <code>.gitignore</code> by default.</p>
-<h4 id="datainterim"><code>data/interim</code></h4>
-<p>This folder is for intermediate data that has been transformed but is not a fully processed output, perhaps as it is the output of a rough notebook.
-This is up to the individual user to manage as nothing important should live here.</p>
-<p><code>data/interim</code> is in <code>.gitignore</code> by default.</p>
-<h4 id="dataaux"><code>data/aux</code></h4>
-<p>Some analyses may not be runnable from start to finish without human intervention, these "hand-written" datasets should be stored in <code>data/aux</code> and tracked in git. For example, clusters for unsupervised learning may need to be labelled or certain rows of a dataset dropped after manual inspection. <strong><em>For this reason it is important that analyses are exactly reproducable where possible as if clusters change then so will their label indices (see <a href="#no-hard-coding">seeds and workers</a>)</em></strong>. </p>
-<h4 id="dataprocessed"><code>data/processed</code></h4>
-<p>This folder should contain transformed and processed data that is to be used in the final analysis or is a data output of the final analysis.</p>
-<p>Anything here should be version controlled with DVC (see <a href="#data-and-model-version-control-with-dvc">Data and model version control with DVC</a>) and ideally backed up and synced using s3.</p>
-<h3 id="data-and-model-version-control-with-dvc">Data and model version control with DVC</h3>
-<p><a href="https://dvc.org">DVC</a> is an open-source version control system for Machine Learning Projects designed to make models and data shareable and reproducible.</p>
-<p><img alt="" src="https://dvc.org/static/img/flow-large.png" /></p>
-<p><a href="https://dvc.org/doc/get-started">Short</a> and <a href="https://dvc.org/doc/tutorial">long</a> tutorials are available within their documentation.
- An example tutorial specific to this cookiecutter is being developed (see <a href="#tutorial">Tutorial</a>).</p>
-<h4 id="brief-overview">Brief overview</h4>
-<p>DVC integrates with and works very similar to git, for example:</p>
-<ul>
-<li><code>dvc add images</code> tracks a file just like <code>git add</code></li>
-<li><code>dvc remote add myrepo s3://mybucket</code> adds a remote just like <code>git remote add</code></li>
-<li><code>dvc push</code> pushes changes just like <code>git push</code></li>
-</ul>
-<p>DVC also allows the expression of DAG's. <code>dvc run -f cnn.dvc -d images -o model cnn.py</code> generates a <code>cnn.dvc</code> file which contains MD5 hashes for each of the dependencies (<code>images</code>), outputs (<code>model</code>), and the file which is executed (<code>cnn.py</code>) along with the dependency information.</p>
-<p>The dependencies and outputs will be stored in the DVC cache, while <code>cnn.dvc</code> can be tracked by Git to link the given model output to the current commit.</p>
-<p>Running <code>dvc repro cnn.dvc</code> will reproduce this step, and if the current hashes exist in the DVC cache then no work will be done which may save re-running expensive training steps when sharing a repository.</p>
-<h3 id="notebooks">Notebooks</h3>
-<p>Notebooks are for exploration and communication</p>
-<p>Notebook packages like the <a href="http://jupyter.org/">Jupyter notebook</a> are effective tools for exploratory data analysis and fast prototyping; however, they can pose challenges when reproducing an analysis and when trying to track changes with git. When we use notebooks in our work, we often subdivide the <code>notebooks</code> folder. For example, <code>notebooks/exploratory</code> contains initial explorations, whereas <code>notebooks/reports</code> is more polished work that can be exported as html to the <code>reports</code> directory.</p>
-<p>Since notebooks are challenging objects for source control (e.g., diffs of the <code>json</code> are often not human-readable and merging is near impossible), we recommended not collaborating directly with others on Jupyter notebooks. There are two steps we recommend for using notebooks effectively:</p>
-<h4 id="naming">Naming</h4>
-<p>Follow a naming convention that shows the owner and the order the analysis was done in. We use the format <code>&lt;step&gt;_&lt;initials&gt;_&lt;description&gt;.ipynb</code> (e.g., <code>01_jmg_eda.ipynb</code>).</p>
-<h4 id="refactoring">Refactoring</h4>
-<p>Refactor the good parts (frequently). Don't write code to do the same task in multiple notebooks. If it's a data preprocessing task, put it in the pipeline at <code>src/data/make_dataset.py</code>. If it's useful utility code, refactor it to <code>src</code>. </p>
-<p>Now by default we turn the project into a Python package (see the <code>setup.py</code> file). You can import your code and use it in notebooks with a cell like the following:</p>
-<pre><code>from src.data import make_dataset
-</code></pre>
-
-<h4 id="pre-amble">pre-amble</h4>
-<pre><code>%run notebook_preamble.ipy
-</code></pre>
-
-<p>Matplotlib inline</p>
-<p>Autoreload</p>
-<p>Imports core python scientific stack</p>
-<p>Define <code>project_dir</code> and <code>data_path</code></p>
-<p>Setup logging to log both within notebook and to <code>notebooks.log</code></p>
-<h4 id="git-filter">Git filter</h4>
-<p>Strips output from a notebook before doing anything with git.</p>
-<h4 id="share-with-gists">Share with gists</h4>
-<p>Because output is not shareable within a repo, need an easy way to share rough analysis.
-Use <a href="https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/gist_it/readme.html">Gist it</a>!</p>
 <h3 id="analysis-is-a-dag">Analysis is a DAG</h3>
-<p>Often in an analysis you have long-running steps that preprocess data or train models. If these steps have been run already (and you have stored the output somewhere like the <code>data/interim</code> directory), you don't want to wait to rerun them every time. We prefer <a href="https://www.gnu.org/software/make/"><code>make</code></a> for managing steps that depend on each other, especially the long-running ones. Make is a common tool on Unix-based platforms. Following the <a href="https://www.gnu.org/software/make/"><code>make</code> documentation</a>, <a href="https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html#Makefile-Conventions">Makefile conventions</a>, and <a href="http://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Portable-Make.html#Portable-Make">portability guide</a> will help ensure your Makefiles work effectively across systems. Here are <a href="http://zmjones.com/make/">some</a> <a href="http://blog.kaggle.com/2012/10/15/make-for-data-scientists/">examples</a> to <a href="https://web.archive.org/web/20150206054212/http://www.bioinformaticszen.com/post/decomplected-workflows-makefiles/">get started</a>. A number of data folks use <code>make</code> as their tool of choice, including <a href="https://bost.ocks.org/mike/make/">Mike Bostock</a>.</p>
+<p>Often in an analysis you have long-running steps that preprocess data or train models. If these steps have been run already, you don't want to wait to rerun them every time.
+<a href="https://www.gnu.org/software/make/"><code>make</code></a> is one of the simplest ways for managing steps that depend on each other, especially the long-running ones. Make is a common tool on Unix-based platforms. Following the <a href="https://www.gnu.org/software/make/"><code>make</code> documentation</a>, <a href="https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html#Makefile-Conventions">Makefile conventions</a>, and <a href="http://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Portable-Make.html#Portable-Make">portability guide</a> will help ensure your Makefiles work effectively across systems. Here are <a href="http://zmjones.com/make/">some</a> <a href="http://blog.kaggle.com/2012/10/15/make-for-data-scientists/">examples</a> to <a href="https://web.archive.org/web/20150206054212/http://www.bioinformaticszen.com/post/decomplected-workflows-makefiles/">get started</a>. A number of data folks use <code>make</code> as their tool of choice, including <a href="https://bost.ocks.org/mike/make/">Mike Bostock</a>.</p>
 <p>There are other tools for managing DAGs that are written in Python instead of a DSL (e.g., <a href="http://luigi.readthedocs.org/en/stable/index.html">Luigi</a> and <a href="http://pythonhosted.org/airflow/cli.html">Airflow</a>). Feel free to use these if they are more appropriate for your analysis though.</p>
-<p><strong><em><a href="#data-and-model-version-control-with-dvc">DVC</a></em></strong></p>
+<p>While <code>make</code> is good for managing quick, and simple steps rerunning a complicated DAG may take a large amount of time to perform when perhaps only the last stage has actually changed. Of course, one could only run the last stage but how do you know with certainty that no other long lived stage has changed since you last ran it.</p>
+<p>This is why we need data and model version control (see <a href="#data-and-model-version-control-with-dvc">DVC</a>).</p>
 <h3 id="build-from-the-environment-up">Build from the environment up</h3>
 <p>The first step in reproducing an analysis is always reproducing the computational environment it was run in. You need the same tools, the same libraries, and the same versions to make everything play nicely together.</p>
-<p>One effective approach to this is use <a href="https://virtualenv.pypa.io/en/latest/">virtualenv</a> (we recommend <a href="https://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a> for managing virtualenvs). By listing all of your requirements in the repository (we include a <code>requirements.txt</code> file) you can easily track the packages needed to recreate the analysis. Here is a good workflow:</p>
+<p>One effective approach to this is use <a href="https://docs.conda.io/en/latest/">conda</a> (or <a href="https://virtualenv.pypa.io/en/latest/">virtualenv</a> + <a href="https://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a>). By listing all of your requirements in the repository (we include a <code>requirements.txt</code> file) you can easily track the packages needed to recreate the analysis. Here is a good workflow:</p>
 <ol>
-<li>Run <code>mkvirtualenv</code> when creating a new project</li>
-<li><code>pip install</code> the packages that your analysis needs</li>
+<li>Run <code>make create_environment</code> when creating a new project</li>
+<li><code>pip install</code> or <code>conda install</code> the packages that your analysis needs</li>
 <li>Run <code>pip freeze &gt; requirements.txt</code> to pin the exact package versions used to recreate the analysis</li>
 <li>If you find you need to install another package, run <code>pip freeze &gt; requirements.txt</code> again and commit the changes to version control.</li>
 </ol>
@@ -320,6 +262,77 @@ aws_secret_access_key=myprojectsecretkey
 </code></pre>
 
 <p>You can add the profile name when initialising a project; assuming no applicable environment variables are set, the profile credentials will be used be default.</p>
+<h3 id="data-folder">Data folder</h3>
+<h4 id="dataraw"><code>data/raw</code></h4>
+<p>Don't ever edit your raw data, especially not manually, and especially not in Excel. Don't overwrite your raw data. Don't save multiple versions of the raw data. Treat the data (and its format) as immutable. The code you write should move the raw data through a pipeline to your final analysis. You shouldn't have to run all of the steps every time you want to make a new figure (see <a href="#analysis-is-a-dag">Analysis is a DAG</a>), but anyone should be able to reproduce the final products with only the code in <code>src</code> and the data in <code>data/raw</code>.</p>
+<p>Also, if data is immutable, it doesn't need source control in the same way that code does. 
+Raw data should be stored with s3 <a href="https://aws.amazon.com/s3/">AWS S3</a>. Currently by default, we ask for an S3 bucket and use <a href="http://docs.aws.amazon.com/cli/latest/reference/s3/index.html">AWS CLI</a> to sync data in the <code>data/raw</code> folder with the server.</p>
+<p><code>data/raw</code> is in <code>.gitignore</code> by default.</p>
+<p>Two make commands - <code>make sync_data_from_s3</code> and <code>make sync_data_to_s3</code> - can be used to sync data to and from the configured s3 bucket (<code>BUCKET</code> in <code>Makefile</code>)</p>
+<h4 id="dataexternal"><code>data/external</code></h4>
+<p>This folder should contain data from third-party sources which for some reason is not stored in <code>data/raw</code>, with any files living here retrievable online from persistent URL's with scripts to download these contained in <code>src/data</code> or as a <code>make</code> command with <code>data/README.md</code> detailing how to obtain these.</p>
+<p><code>data/external</code> is in <code>.gitignore</code> by default.</p>
+<h4 id="datainterim"><code>data/interim</code></h4>
+<p>This folder is for intermediate data that has been transformed but is not a fully processed output, perhaps as it is the output of a rough notebook.
+This is up to the individual user to manage as nothing important should live here.</p>
+<p><code>data/interim</code> is in <code>.gitignore</code> by default.</p>
+<h4 id="dataaux"><code>data/aux</code></h4>
+<p>Some analyses may not be runnable from start to finish without human intervention, these "hand-written" datasets should be stored in <code>data/aux</code> and tracked in git. For example, clusters for unsupervised learning may need to be labelled or certain rows of a dataset dropped after manual inspection. <strong><em>For this reason it is important that analyses are exactly reproducable where possible as if clusters change then so will their label indices (see <a href="#no-hard-coding">seeds and workers</a>)</em></strong>. </p>
+<h4 id="dataprocessed"><code>data/processed</code></h4>
+<p>This folder should contain transformed and processed data that is to be used in the final analysis or is a data output of the final analysis.</p>
+<p>Anything here should be version controlled with DVC (see <a href="#data-and-model-version-control-with-dvc">Data and model version control with DVC</a>) and ideally backed up and synced using s3.</p>
+<h3 id="data-and-model-version-control-with-dvc">Data and model version control with DVC</h3>
+<p><a href="https://dvc.org">DVC</a> is an open-source version control system for Machine Learning Projects designed to make models and data shareable and reproducible.</p>
+<p><img alt="" src="https://dvc.org/static/img/flow-large.png" /></p>
+<p><a href="https://dvc.org/doc/get-started">Short</a> and <a href="https://dvc.org/doc/tutorial">long</a> tutorials are available within their documentation.
+ An example tutorial specific to this cookiecutter is being developed (see <a href="#tutorial">Tutorial</a>).</p>
+<h4 id="brief-overview">Brief overview</h4>
+<p>DVC integrates with and works very similar to git, for example:</p>
+<ul>
+<li><code>dvc add images</code> tracks a file just like <code>git add</code></li>
+<li><code>dvc remote add myrepo s3://mybucket</code> adds a remote just like <code>git remote add</code></li>
+<li><code>dvc push</code> pushes changes just like <code>git push</code></li>
+</ul>
+<p>DVC also allows the expression of DAG's. <code>dvc run -f cnn.dvc -d images -o model cnn.py</code> generates a <code>cnn.dvc</code> file which contains MD5 hashes for each of the dependencies (<code>images</code>), outputs (<code>model</code>), and the file which is executed (<code>cnn.py</code>) along with the dependency information.</p>
+<p>The dependencies and outputs will be stored in the DVC cache, while <code>cnn.dvc</code> can be tracked by Git to link the given model output to the current commit.</p>
+<p>Running <code>dvc repro cnn.dvc</code> will reproduce this step, and if the current hashes exist in the DVC cache then no work will be done which may save re-running expensive training steps when sharing a repository.</p>
+<h4 id="convenience-commands">Convenience commands</h4>
+<p>A few convenience commands have been added to <code>Makefile</code>.</p>
+<ul>
+<li><code>make dvc</code> initialises a DVC repository and tracks the relevant bits and config in GIT.</li>
+<li><code>make pipeline</code> will pull DVC cache from the remote (if one exists), and then reproduce the pipeline defined in <code>pipe/Dvcfile</code> (if it exists).</li>
+</ul>
+<h3 id="notebooks">Notebooks</h3>
+<p>Notebook packages like <a href="http://jupyter.org/">Jupyter notebook</a> are effective tools for exploratory data analysis, fast prototyping, and communicating results; however, they can pose challenges when reproducing an analysis and when trying to track changes with git. </p>
+<p>Since notebooks are challenging objects for source control (e.g., diffs of the <code>json</code> are often not human-readable and merging is a nightmare), collaborating directly with others on Jupyter notebooks should not be attempted.</p>
+<h4 id="naming">Naming</h4>
+<p>Follow a naming convention that shows the owner and the order the analysis was done in. We use the format <code>&lt;step&gt;_&lt;initials&gt;_&lt;description&gt;.ipynb</code> (e.g., <code>01_jmg_eda.ipynb</code>).</p>
+<h4 id="refactoring">Refactoring</h4>
+<p>Refactor the good parts (frequently). Don't write code to do the same task in multiple notebooks. If it's a data preprocessing task, put it in the pipeline at <code>src/data/make_dataset.py</code>. If it's useful utility code, refactor it to <code>src</code>. </p>
+<p>Now by default we turn the project into a Python package (see the <code>setup.py</code> file). You can import your code and use it in notebooks with a cell like the following:</p>
+<pre><code>from src.data import make_dataset
+</code></pre>
+
+<h4 id="reducing-boilerplate">Reducing boilerplate</h4>
+<p>The first cell of most notebooks look mostly the same: a lot of library imports, a few IPython magic commands, and a few variable definitions. This can be simplified by factoring out the common parts into a <code>notebooks/notebook_preamble.ipy</code> file which can be run at the top of a notebook as follows:</p>
+<pre><code>%run notebook_preamble.ipy
+</code></pre>
+
+<p>This provides a few pieces of functionality:</p>
+<ul>
+<li>Sets matplotlib to inline</li>
+<li>Loads the autoreload extension and configures it such that changes from <code>src</code> will immediately be re-imported into the notebook</li>
+<li>Imports core python scientific stack (numpy/scipy/pandas/matplotlib)</li>
+<li>Defines <code>project_dir</code> and <code>data_path</code> variables to avoid hard-coded paths</li>
+<li>Sets up logging to log both within the notebook and to <code>notebooks.log</code></li>
+</ul>
+<h4 id="git-filter">Git filter</h4>
+<p>As mentioned above, source control with notebooks is tricky. One way to increase the readability of <code>diff</code>'s is to use a Git filter to strip notebooks of their output before performing any action with git.</p>
+<p>This is done using a short <a href="https://stedolan.github.io/jq/">jq</a> command. The git filter is automatically installed to <code>.git/config</code> and <code>.gitattributes</code> when starting a cookiecutter project, but anyone cloning/forking the repository will need to install the filter manually by running <code>make git</code>.</p>
+<h4 id="share-with-gists">Share with gists</h4>
+<p>As the git filter above stops the sharing of outputs directly via. the git repository, another way is needed to share the outputs of quick and dirty analysis.
+We suggest using Gists, particularly the <a href="https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/gist_it/readme.html">Gist it</a> notebook extension which adds a button to your notebook that will instantly turn the notebook into a gist and upload it to your github (as public/private) as long.
+This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator"><code>jupyter_nbextensions_configurator</code></a> and a <a href="https://github.com/settings/tokens">github personal access token</a>.</p>
 <h3 id="git">Git</h3>
 <p>There are many different ways to use Git each with their pros and cons, therefore we give pretty minimal guidance on how to use it.</p>
 <p>Never commit directly to <code>master</code> or <code>dev</code>, always branch off <code>dev</code>, rebase if necessary, and merge. </p>
@@ -332,10 +345,64 @@ e.g. new feature, improved model, bug fix NOT interim work.  </p>
 <p>The <code>make lint</code> command can be used to use <code>flake8</code> to check adherence. 
 If a lot of things are flgged then the <code>autopep8</code> can be installed and used to autoformat these: <code>autopep8 --aggressive --aggressive --in-place &lt;filename&gt;</code></p>
 <h4 id="doc-strings">Doc-strings</h4>
-<p>Proposal to add a <code>#UTILS</code> flag at the end of a docstring for functions/classes that should be put into a utilities package for re-use across projects and subject to more rigorous testing and standardisation.</p>
+<p><a href="https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html">Google doc-strings</a> should be written for every exposable function/class.</p>
+<p>In addition, it is proposed to add a <code>#UTILS</code> flag at the end of a docstring for functions/classes that should be put into a utilities package for re-use across projects and subject to more rigorous testing and standardisation.</p>
 <h4 id="data-readme">Data README</h4>
+<p><code>data/README.md</code> should document everything in <code>data/{raw,external,aux,processed}</code>. For example</p>
+<pre><code># raw
+
+Empty
+
+# external
+
+## something_from_online.xlsx
+
+&lt;Details about what the file contains&gt;
+
+Obtained via `wget` by running `make external`
+
+### Columns
+
+&lt;column name 0&gt; : &lt;brief description&gt;
+      ...
+&lt;column name N&gt; : &lt;brief description&gt;
+
+# aux
+
+## drop_ids.txt
+
+Contains one id corresponding to &lt;column name 0&gt; in 
+`external/something_from_online.xlsx` per line which 
+should be dropped due to formatting errors.
+
+# processed
+
+## processed_dataset.csv
+
+Cleaned and processed version of `data/external/something_from_online.xlsx`.
+
+Produced by running `make_dataset.py`
+
+### Columns
+
+&lt;column name 0&gt; : &lt;brief description&gt;
+      ...
+&lt;column name N&gt; : &lt;brief description&gt;
+
+</code></pre>
+
 <h4 id="logging">Logging</h4>
-<h4 id="requirements_1">Requirements</h4>
+<p><code>logging</code> module should be used over <code>print</code> statements. There are multiple reasons for this such as the ability to log severity levels, use timestamps, and know the origin of a log message.</p>
+<p>The <a href="https://docs.python.org/3/howto/logging-cookbook.html">Logging cookbook</a> is a good resource to understand how the <code>logging</code> module works but the cookiecutter is setup such that logging is setup with a good default using both <a href="https://github.com/nestauk/cookiecutter-data-science-nesta/blob/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/logging.yaml"><code>logging.yaml</code></a> and <a href="https://github.com/nestauk/cookiecutter-data-science-nesta/blob/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/%7B%7B%20cookiecutter.repo_name%20%7D%7D/__init__.py"><code>src/__init__.py</code></a>.</p>
+<p>In order to setup logging to both <code>stdout</code>/<code>stderr</code> and to <code>info.log</code> and <code>errors.log</code> all one needs to do is import the <code>src</code> repository and initalise a logger object:</p>
+<pre><code class="python">import &lt;repo_name&gt;
+import logging
+
+logger = logging.getLogger(__name__)
+logger.info('Logs at INFO level to info.log')
+logger.info('Logs at ERROR level to errors.log')
+</code></pre>
+
 <h3 id="no-hard-coding">No hard-coding</h3>
 <p>Few things scupper colloborative analysis like hard-coding configuration parameters deep in the code-base. Where possible we believe that data/configuration and code should remain separate.
 Several different entities can end up being buried in code for which we provide a solution to avoiding.</p>
@@ -371,7 +438,7 @@ This can be done by setting the seeds for the PRNG's used at the start of any an
   A guide to performing EDA on a new dataset and producing a summary report of the output - this would also assist in the data auditing process (see the Nesta <a href="https://www.nesta.org.uk/blog/red-lines-grey-area/">blog</a>).</li>
 </ul>
 <h2 id="thanks">Thanks</h2>
-<p>Finally, a huge thanks to <a href="http://drivendata.github.io/cookiecutter-data-science/">Drivendata</a> and the <a href="https://cookiecutter.readthedocs.org/en/latest/">Cookiecutter</a> project (<a href="https://github.com/audreyr/cookiecutter">github</a>).</p></div>
+<p>Finally, a thanks to <a href="http://drivendata.github.io/cookiecutter-data-science/">Drivendata</a> and the <a href="https://cookiecutter.readthedocs.org/en/latest/">Cookiecutter</a> project (<a href="https://github.com/audreyr/cookiecutter">github</a>).</p></div>
         
         
     </div>
@@ -463,5 +530,5 @@ This can be done by setting the seeds for the PRNG's used at the start of any an
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2019-04-25 11:36:48
+Build Date UTC : 2019-04-25 12:37:30
 -->
