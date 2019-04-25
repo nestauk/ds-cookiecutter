@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A project template and directory structure for Nesta Python data science projects.">
+    
+    
+    <link rel="img/favicon.ico">
+
+    
+    <title>Home - Cookiecutter Data Science @ Nesta</title>
+    
+
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="css/base.min.css" rel="stylesheet">
+    <link href="css/cinder.min.css" rel="stylesheet">
+    <link href="css/highlight.min.css" rel="stylesheet">
+    <link href="css/extra.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>
+    WebFont.load({
+        google: {
+            families: ['Open Sans', 'PT Sans']
+        }
+    });
+    </script>
+
+    
+
+     
+</head>
+
+<body class="homepage" >
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href=".">Cookiecutter Data Science @ Nesta</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/nestauk/cookiecutter-data-science-nesta/edit/master/docs/docs/index.md"><i class="fab fa-github"></i> Edit on GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#cookiecutter-data-science">Cookiecutter Data Science</a></li>
+            <li class="second-level"><a href="#high-level-aims">High-level aims</a></li>
+                
+            <li class="second-level"><a href="#getting-started">Getting started</a></li>
+                
+                <li class="third-level"><a href="#requirements">Requirements</a></li>
+                <li class="third-level"><a href="#starting-a-new-project">Starting a new project</a></li>
+                <li class="third-level"><a href="#reproducing-analysis-for-an-existing-project">Reproducing analysis for an existing project</a></li>
+            <li class="second-level"><a href="#structure">Structure</a></li>
+                
+                <li class="third-level"><a href="#overview">Overview</a></li>
+                <li class="third-level"><a href="#data-folder">Data folder</a></li>
+                <li class="third-level"><a href="#data-and-model-version-control-with-dvc">Data and model version control with DVC</a></li>
+                <li class="third-level"><a href="#notebooks">Notebooks</a></li>
+                <li class="third-level"><a href="#analysis-is-a-dag">Analysis is a DAG</a></li>
+                <li class="third-level"><a href="#build-from-the-environment-up">Build from the environment up</a></li>
+                <li class="third-level"><a href="#keep-secrets-and-configuration-out-of-version-control">Keep secrets and configuration out of version control</a></li>
+                <li class="third-level"><a href="#git">Git</a></li>
+                <li class="third-level"><a href="#style-and-documentation">Style and Documentation</a></li>
+                <li class="third-level"><a href="#no-hard-coding">No hard-coding</a></li>
+            <li class="second-level"><a href="#cookiecutter-in-practice">Cookiecutter in practice</a></li>
+                
+            <li class="second-level"><a href="#future">Future</a></li>
+                
+            <li class="second-level"><a href="#thanks">Thanks</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="cookiecutter-data-science">Cookiecutter Data Science</h1>
+<p><em>A logical, reasonably standardized, project structure for reproducible and collaborative pre-production data science work.</em></p>
+<h2 id="high-level-aims">High-level aims</h2>
+<ul>
+<li>Shouldn’t get in the way of rapid prototyping of ideas for an individual</li>
+<li>Analysis of one user should be runnable and reproducable by another user without changes</li>
+<li>Minimal computation and data transfer when rerunning the pipeline after changes</li>
+<li>Long-term integrity of the code-base without intervention</li>
+<li>Version control for data, models, outputs/metrics</li>
+<li>Reduce time to productionise analysis</li>
+</ul>
+<h2 id="getting-started">Getting started</h2>
+<p>While this template focuses on Python, the general project structure can be used with another language after removing the Python boilerplate in the repo such as the the files in the <code>src</code> (<strong><em>note</em></strong> that <code>src</code> will actually be named the same as your repo name) folder, and the Sphinx documentation skeleton in <code>docs</code>).</p>
+<h3 id="requirements">Requirements</h3>
+<ul>
+<li>Python 3.6+</li>
+<li><a href="http://cookiecutter.readthedocs.org/en/latest/installation.html">cookiecutter Python package</a> &gt;= 1.4.0: <code>pip install cookiecutter</code></li>
+<li>A *NIX system (e.g. Linux/OSX) is required to ensure full functionality.</li>
+</ul>
+<h3 id="starting-a-new-project">Starting a new project</h3>
+<p>Starting a new project is as easy as running this command at the command line. No need to create a directory first, the cookiecutter will do it for you.</p>
+<pre><code class="nohighlight">cookiecutter https://github.com/nestauk/cookiecutter-data-science-nesta
+</code></pre>
+
+<h3 id="reproducing-analysis-for-an-existing-project">Reproducing analysis for an existing project</h3>
+<p>If the project structure has been adhered to then reproducing the analysis should be a one-liner (assuming your <code>.env</code> contains everything it needs to - nothing by default).</p>
+<pre><code class="nohighlight">make all
+</code></pre>
+
+<h2 id="structure">Structure</h2>
+<h3 id="overview">Overview</h3>
+<pre><code class="nohighlight">    ├── LICENSE
+    ├── Makefile           &lt;- Makefile with commands like `make data` or `make dvc`
+    ├── README.md          &lt;- The top-level README for developers using this project.
+    ├── data
+    │   ├── README.md
+    │   ├── external       &lt;- Data from third party sources.
+    │   ├── interim        &lt;- Intermediate data that has been transformed.
+    │   ├── processed      &lt;- The final, canonical data sets for modeling.
+    │   ├── aux            &lt;- Non-automatable human interventions, e.g. hand selected record ID's to ignore
+    │   └── raw            &lt;- The original, immutable data dump.
+    │
+    ├── docs               &lt;- A default Sphinx project; see sphinx-doc.org for details
+    │
+    ├── logging.yaml       &lt;- Logging config
+    │
+    ├── models             &lt;- Trained and serialized models, model predictions, or model summaries
+    │
+    ├── model_config.yaml  &lt;- Model configuration parameters
+    │
+    ├── notebooks          &lt;- Jupyter notebooks. Notebooks at the top level should have a markdown header
+    │   │                     outlining the notebook and should avoid function calls in favour of factored out code.
+    │   ├── notebook_preamble.ipy
+    │   │                     
+    │   └── dev            &lt;- Development notebooks. Naming convention is a number (for ordering),
+    │                         the creator's initials, and a short `_` delimited description, e.g.
+    │                         `01_jmg_eda.ipynb`.
+    │
+    ├── pipe               &lt;- Contains DVC pipeline files
+    │
+    ├── references         &lt;- Data dictionaries, manuals, and all other explanatory materials.
+    │
+    ├── reports            &lt;- Generated analysis as HTML, PDF, LaTeX, etc.
+    │   └── figures        &lt;- Generated graphics and figures to be used in reporting
+    │
+    ├── requirements.txt   &lt;- The requirements file for reproducing the analysis environment, e.g.
+    │                         generated with `pip freeze &gt; requirements.txt`
+    │
+    ├── setup.py           &lt;- makes project pip installable (pip install -e .) so {{ cookiecutter.repo_name }} can be imported
+    │
+    ├── {{ cookiecutter.repo_name }}                &lt;- Source code for use in this project.
+    │   ├── __init__.py    &lt;- Makes {{ cookiecutter.repo_name }} a Python module
+    │   │
+    │   ├── data           &lt;- Scripts to download or generate data
+    │   │   └── make_dataset.py
+    │   │
+    │   ├── features       &lt;- Scripts to turn raw data into features for modeling
+    │   │   └── build_features.py
+    │   │
+    │   ├── models         &lt;- Scripts to train models and then use trained models to make
+    │   │   │                 predictions
+    │   │   ├── predict_model.py
+    │   │   └── train_model.py
+    │   │
+    │   └── visualization  &lt;- Scripts to create exploratory and results oriented visualizations
+    │       └── visualize.py
+    │
+    └── tox.ini            &lt;- tox file with settings for running tox; see tox.testrun.org
+</code></pre>
+
+<h3 id="data-folder">Data folder</h3>
+<h4 id="dataraw"><code>data/raw</code></h4>
+<p>Don't ever edit your raw data, especially not manually, and especially not in Excel. Don't overwrite your raw data. Don't save multiple versions of the raw data. Treat the data (and its format) as immutable. The code you write should move the raw data through a pipeline to your final analysis. You shouldn't have to run all of the steps every time you want to make a new figure (see <a href="#analysis-is-a-dag">Analysis is a DAG</a>), but anyone should be able to reproduce the final products with only the code in <code>src</code> and the data in <code>data/raw</code>.</p>
+<p>Also, if data is immutable, it doesn't need source control in the same way that code does. 
+Raw data should be stored with s3 <a href="https://aws.amazon.com/s3/">AWS S3</a>. Currently by default, we ask for an S3 bucket and use <a href="http://docs.aws.amazon.com/cli/latest/reference/s3/index.html">AWS CLI</a> to sync data in the <code>data/raw</code> folder with the server.</p>
+<p><code>data/raw</code> is in <code>.gitignore</code> by default.</p>
+<p>Two make commands - <code>make sync_data_from_s3</code> and <code>make sync_data_to_s3</code> - can be used to sync data to and from the configured s3 bucket (<code>BUCKET</code> in <code>Makefile</code>)</p>
+<h4 id="dataexternal"><code>data/external</code></h4>
+<p>This folder should contain data from third-party sources which for some reason is not stored in <code>data/raw</code>, with any files living here retrievable online from persistent URL's with scripts to download these contained in <code>src/data</code> or as a <code>make</code> command with <code>data/README.md</code> detailing how to obtain these.</p>
+<p><code>data/external</code> is in <code>.gitignore</code> by default.</p>
+<h4 id="datainterim"><code>data/interim</code></h4>
+<p>This folder is for intermediate data that has been transformed but is not a fully processed output, perhaps as it is the output of a rough notebook.
+This is up to the individual user to manage as nothing important should live here.</p>
+<p><code>data/interim</code> is in <code>.gitignore</code> by default.</p>
+<h4 id="dataaux"><code>data/aux</code></h4>
+<p>Some analyses may not be runnable from start to finish without human intervention, these "hand-written" datasets should be stored in <code>data/aux</code> and tracked in git. For example, clusters for unsupervised learning may need to be labelled or certain rows of a dataset dropped after manual inspection. <strong><em>For this reason it is important that analyses are exactly reproducable where possible as if clusters change then so will their label indices (see <a href="#no-hard-coding">seeds and workers</a>)</em></strong>. </p>
+<h4 id="dataprocessed"><code>data/processed</code></h4>
+<p>This folder should contain transformed and processed data that is to be used in the final analysis or is a data output of the final analysis.</p>
+<p>Anything here should be version controlled with DVC (see <a href="#data-and-model-version-control-with-dvc">Data and model version control with DVC</a>) and ideally backed up and synced using s3.</p>
+<h3 id="data-and-model-version-control-with-dvc">Data and model version control with DVC</h3>
+<p><a href="https://dvc.org">DVC</a> is an open-source version control system for Machine Learning Projects designed to make models and data shareable and reproducible.</p>
+<p><img alt="" src="https://dvc.org/static/img/flow-large.png" /></p>
+<p><a href="https://dvc.org/doc/get-started">Short</a> and <a href="https://dvc.org/doc/tutorial">long</a> tutorials are available within their documentation.
+ An example tutorial specific to this cookiecutter is being developed (see <a href="#tutorial">Tutorial</a>).</p>
+<h4 id="brief-overview">Brief overview</h4>
+<p>DVC integrates with and works very similar to git, for example:</p>
+<ul>
+<li><code>dvc add images</code> tracks a file just like <code>git add</code></li>
+<li><code>dvc remote add myrepo s3://mybucket</code> adds a remote just like <code>git remote add</code></li>
+<li><code>dvc push</code> pushes changes just like <code>git push</code></li>
+</ul>
+<p>DVC also allows the expression of DAG's. <code>dvc run -f cnn.dvc -d images -o model cnn.py</code> generates a <code>cnn.dvc</code> file which contains MD5 hashes for each of the dependencies (<code>images</code>), outputs (<code>model</code>), and the file which is executed (<code>cnn.py</code>) along with the dependency information.</p>
+<p>The dependencies and outputs will be stored in the DVC cache, while <code>cnn.dvc</code> can be tracked by Git to link the given model output to the current commit.</p>
+<p>Running <code>dvc repro cnn.dvc</code> will reproduce this step, and if the current hashes exist in the DVC cache then no work will be done which may save re-running expensive training steps when sharing a repository.</p>
+<h3 id="notebooks">Notebooks</h3>
+<p>Notebooks are for exploration and communication</p>
+<p>Notebook packages like the <a href="http://jupyter.org/">Jupyter notebook</a> are effective tools for exploratory data analysis and fast prototyping; however, they can pose challenges when reproducing an analysis and when trying to track changes with git. When we use notebooks in our work, we often subdivide the <code>notebooks</code> folder. For example, <code>notebooks/exploratory</code> contains initial explorations, whereas <code>notebooks/reports</code> is more polished work that can be exported as html to the <code>reports</code> directory.</p>
+<p>Since notebooks are challenging objects for source control (e.g., diffs of the <code>json</code> are often not human-readable and merging is near impossible), we recommended not collaborating directly with others on Jupyter notebooks. There are two steps we recommend for using notebooks effectively:</p>
+<h4 id="naming">Naming</h4>
+<p>Follow a naming convention that shows the owner and the order the analysis was done in. We use the format <code>&lt;step&gt;_&lt;initials&gt;_&lt;description&gt;.ipynb</code> (e.g., <code>01_jmg_eda.ipynb</code>).</p>
+<h4 id="refactoring">Refactoring</h4>
+<p>Refactor the good parts (frequently). Don't write code to do the same task in multiple notebooks. If it's a data preprocessing task, put it in the pipeline at <code>src/data/make_dataset.py</code>. If it's useful utility code, refactor it to <code>src</code>. </p>
+<p>Now by default we turn the project into a Python package (see the <code>setup.py</code> file). You can import your code and use it in notebooks with a cell like the following:</p>
+<pre><code>from src.data import make_dataset
+</code></pre>
+
+<h4 id="pre-amble">pre-amble</h4>
+<pre><code>%run notebook_preamble.ipy
+</code></pre>
+
+<p>Matplotlib inline</p>
+<p>Autoreload</p>
+<p>Imports core python scientific stack</p>
+<p>Define <code>project_dir</code> and <code>data_path</code></p>
+<p>Setup logging to log both within notebook and to <code>notebooks.log</code></p>
+<h4 id="git-filter">Git filter</h4>
+<p>Strips output from a notebook before doing anything with git.</p>
+<h4 id="share-with-gists">Share with gists</h4>
+<p>Because output is not shareable within a repo, need an easy way to share rough analysis.
+Use <a href="https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/gist_it/readme.html">Gist it</a>!</p>
+<h3 id="analysis-is-a-dag">Analysis is a DAG</h3>
+<p>Often in an analysis you have long-running steps that preprocess data or train models. If these steps have been run already (and you have stored the output somewhere like the <code>data/interim</code> directory), you don't want to wait to rerun them every time. We prefer <a href="https://www.gnu.org/software/make/"><code>make</code></a> for managing steps that depend on each other, especially the long-running ones. Make is a common tool on Unix-based platforms. Following the <a href="https://www.gnu.org/software/make/"><code>make</code> documentation</a>, <a href="https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html#Makefile-Conventions">Makefile conventions</a>, and <a href="http://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Portable-Make.html#Portable-Make">portability guide</a> will help ensure your Makefiles work effectively across systems. Here are <a href="http://zmjones.com/make/">some</a> <a href="http://blog.kaggle.com/2012/10/15/make-for-data-scientists/">examples</a> to <a href="https://web.archive.org/web/20150206054212/http://www.bioinformaticszen.com/post/decomplected-workflows-makefiles/">get started</a>. A number of data folks use <code>make</code> as their tool of choice, including <a href="https://bost.ocks.org/mike/make/">Mike Bostock</a>.</p>
+<p>There are other tools for managing DAGs that are written in Python instead of a DSL (e.g., <a href="http://luigi.readthedocs.org/en/stable/index.html">Luigi</a> and <a href="http://pythonhosted.org/airflow/cli.html">Airflow</a>). Feel free to use these if they are more appropriate for your analysis though.</p>
+<p><strong><em><a href="#data-and-model-version-control-with-dvc">DVC</a></em></strong></p>
+<h3 id="build-from-the-environment-up">Build from the environment up</h3>
+<p>The first step in reproducing an analysis is always reproducing the computational environment it was run in. You need the same tools, the same libraries, and the same versions to make everything play nicely together.</p>
+<p>One effective approach to this is use <a href="https://virtualenv.pypa.io/en/latest/">virtualenv</a> (we recommend <a href="https://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a> for managing virtualenvs). By listing all of your requirements in the repository (we include a <code>requirements.txt</code> file) you can easily track the packages needed to recreate the analysis. Here is a good workflow:</p>
+<ol>
+<li>Run <code>mkvirtualenv</code> when creating a new project</li>
+<li><code>pip install</code> the packages that your analysis needs</li>
+<li>Run <code>pip freeze &gt; requirements.txt</code> to pin the exact package versions used to recreate the analysis</li>
+<li>If you find you need to install another package, run <code>pip freeze &gt; requirements.txt</code> again and commit the changes to version control.</li>
+</ol>
+<p>If you have more complex requirements for recreating your environment, consider a virtual machine based approach such as <a href="https://www.docker.com/">Docker</a> or <a href="https://www.vagrantup.com/">Vagrant</a>. Both of these tools use text-based formats (Dockerfile and Vagrantfile respectively) you can easily add to source control to describe how to create a virtual machine with the requirements you need.</p>
+<h3 id="keep-secrets-and-configuration-out-of-version-control">Keep secrets and configuration out of version control</h3>
+<p>You <em>really</em> don't want to leak your AWS secret key or Postgres username and password on Github. Enough said — see the <a href="http://12factor.net/config">Twelve Factor App</a> principles on this point. Here's one way to do this:</p>
+<h4 id="store-your-secrets-and-config-variables-in-a-special-file">Store your secrets and config variables in a special file</h4>
+<p>Create a <code>.env</code> file in the project root folder. Thanks to the <code>.gitignore</code>, this file should never get committed into the version control repository. Here's an example:</p>
+<pre><code class="nohighlight"># example .env file
+DATABASE_URL=postgres://username:password@localhost:5432/dbname
+AWS_ACCESS_KEY=myaccesskey
+AWS_SECRET_ACCESS_KEY=mysecretkey
+OTHER_VARIABLE=something
+</code></pre>
+
+<h4 id="use-a-package-to-load-these-variables-automatically">Use a package to load these variables automatically.</h4>
+<p>If you look at the stub script in <code>src/data/make_dataset.py</code>, it uses a package called <a href="https://github.com/theskumar/python-dotenv">python-dotenv</a> to load up all the entries in this file as environment variables so they are accessible with <code>os.environ.get</code>. Here's an example snippet adapted from the <code>python-dotenv</code> documentation:</p>
+<pre><code class="python"># src/data/dotenv_example.py
+import os
+from dotenv import load_dotenv, find_dotenv
+
+# find .env automagically by walking up directories until it's found
+dotenv_path = find_dotenv()
+
+# load up the entries as environment variables
+load_dotenv(dotenv_path)
+
+database_url = os.environ.get(&quot;DATABASE_URL&quot;)
+other_variable = os.environ.get(&quot;OTHER_VARIABLE&quot;)
+</code></pre>
+
+<h4 id="aws-cli-configuration">AWS CLI configuration</h4>
+<p>When using Amazon S3 to store data, a simple method of managing AWS access is to set your access keys to environment variables. However, managing mutiple sets of keys on a single machine (e.g. when working on multiple projects) it is best to use a <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html">credentials file</a>, typically located in <code>~/.aws/credentials</code>. A typical file might look like:</p>
+<pre><code>[default]
+aws_access_key_id=myaccesskey
+aws_secret_access_key=mysecretkey
+
+[another_project]
+aws_access_key_id=myprojectaccesskey
+aws_secret_access_key=myprojectsecretkey
+</code></pre>
+
+<p>You can add the profile name when initialising a project; assuming no applicable environment variables are set, the profile credentials will be used be default.</p>
+<h3 id="git">Git</h3>
+<p>There are many different ways to use Git each with their pros and cons, therefore we give pretty minimal guidance on how to use it.</p>
+<p>Never commit directly to <code>master</code> or <code>dev</code>, always branch off <code>dev</code>, rebase if necessary, and merge. </p>
+<p>Only make meaningful PR’s back to dev with commits addressing one issue
+e.g. new feature, improved model, bug fix NOT interim work.  </p>
+<p><strong><em>Beware:</em></strong> Branching off anything other than <code>master</code>/<code>dev</code> that someone else has created that is a WIP, many merge conflicts may arise or history may change.</p>
+<h3 id="style-and-documentation">Style and Documentation</h3>
+<h4 id="pep8">PEP8</h4>
+<p>Basic <a href="https://www.python.org/dev/peps/pep-0008/">PEP8</a> and style requirements apply.</p>
+<p>The <code>make lint</code> command can be used to use <code>flake8</code> to check adherence. 
+If a lot of things are flgged then the <code>autopep8</code> can be installed and used to autoformat these: <code>autopep8 --aggressive --aggressive --in-place &lt;filename&gt;</code></p>
+<h4 id="doc-strings">Doc-strings</h4>
+<p>Proposal to add a <code>#UTILS</code> flag at the end of a docstring for functions/classes that should be put into a utilities package for re-use across projects and subject to more rigorous testing and standardisation.</p>
+<h4 id="data-readme">Data README</h4>
+<h4 id="logging">Logging</h4>
+<h4 id="requirements_1">Requirements</h4>
+<h3 id="no-hard-coding">No hard-coding</h3>
+<p>Few things scupper colloborative analysis like hard-coding configuration parameters deep in the code-base. Where possible we believe that data/configuration and code should remain separate.
+Several different entities can end up being buried in code for which we provide a solution to avoiding.</p>
+<h4 id="paths">Paths</h4>
+<p>Hard-coding paths to data - e.g. `"/home/nesta/project/data/raw/file.csv" - means that everytime someone wishes to run your analysis they have to find every path and correct it to their system. Furthermore, if there are several contributors to a repository then different users paths will cause a lot of unneccessary diff's at best and a lot of merge conflicts to resolve at worst.</p>
+<p>For this reason <strong><em>never</em></strong> hard-code a folder path. Use the <code>project_dir</code> variable (see <a href="https://github.com/nestauk/cookiecutter-data-science-nesta/blob/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/%7B%7B%20cookiecutter.repo_name%20%7D%7D/data/make_dataset.py#L39">example</a>) to refer to paths, e.g. <code>f'{project_dir}/data/raw/file.csv'</code>. </p>
+<p>For some analyses you may be using the same raw data across multiple projects and not have the disk space to store multiple copies in the respective <a href="#data-folder"><code>data/raw</code></a> folders.
+Rather than reference a hard-coded external directory (e.g. <code>/storage/file.csv</code>), one should create a <a href="https://www.unixtutorial.org/unix-symlink-example">symlink</a> from both <code>data/raw</code> folders pointing to the external directory such that <code>f'{project_dir}/data/raw/file.csv'</code> will actually reference <code>/storage/file.csv</code> without requiring the data to be stored multiple times.</p>
+<h4 id="parameters">Parameters</h4>
+<p>A data science project typically involves at least several dozen decisions on what thresholds, hyper-parameters etc. to use which if buried in the code-base will never be on the radar of someone who didn't write the code and is often forgotten even by the person who wrote it!</p>
+<p>Tracking these choices in <code>model_config.yaml</code> gives these high visibility and makes the analysis more transparent. YAML is easy to read, <a href="https://learnxinyminutes.com/docs/yaml/">easy to write</a>, and easy to load:</p>
+<pre><code class="python">import yaml
+fname = f'{project_dir}/model_config.yaml'
+with open(fname, 'r') as f:
+    params = yaml.safe_load(f)
+</code></pre>
+
+<p>Alternatively, you may wish to use your favourite configuration parser.</p>
+<h4 id="seeds-and-workers">Seeds and workers</h4>
+<p>Pseudo-random number generation (PRNG) lies at the core of many of the bread and butter data science techniques, and it is therefore important to keep track of the seeds used for each analysis to ensure that results are as exactly reproducible as possible across runs.
+This can be done by setting the seeds for the PRNG's used at the start of any analysis by using <code>numpy.random.seed(0)</code> and <code>random.seed(0)</code>. <strong><em>Note:</em></strong> avoid calling this at multiple points throughout the code as re-seeding the PRNG will cause the same numbers to be drawn again in the same order.</p>
+<p>Certain algorithms such as <a href="https://radimrehurek.com/gensim/models/word2vec.html">Gensim's Word2Vec</a> implementation use Python's built-in hash-function which is <a href="https://docs.python.org/3.7/using/cmdline.html#miscellaneous-options">seeded by the environment variable <code>PYTHONHASHSEED</code></a> meaning that the environment variable needs to be set with <code>export PYTHONHASHSEED=0</code> to ensure reproducibility.</p>
+<p>Finally, another consideration is the number of threads/cores to use for analysis and to make this easy configurable. Different users may have different computational resources available to them and may opt to run on more or fewer cores. Furthermore, this choice may affect reproducibility as many multi-threaded algorithms are not exactly reproducible due to OS thread scheduling therefore if exact reproducibility is necessary then only one worker should be used.</p>
+<h2 id="cookiecutter-in-practice">Cookiecutter in practice</h2>
+<p>A <a href="tutorial/">tutorial</a> is currently being developed showing how this project structure works in practice end-to-end for a simple analysis of the Gateway to Research data trying to predict which UK research council funded a research proposal based on its abstract.</p>
+<h2 id="future">Future</h2>
+<ul>
+<li>Nesta "utils" package 
+  A well tested toolbox package containing frequently re-used code. See <a href="#doc-strings">Doc-strings</a> for a proposal to start flagging functions for integration.</li>
+<li>Plotting style
+  Consistent visual grammar of graphics to produce consistent high quality plots for various outputs (papers, blogs, reports, presentations etc.).</li>
+<li>EDA framework
+  A guide to performing EDA on a new dataset and producing a summary report of the output - this would also assist in the data auditing process (see the Nesta <a href="https://www.nesta.org.uk/blog/red-lines-grey-area/">blog</a>).</li>
+</ul>
+<h2 id="thanks">Thanks</h2>
+<p>Finally, a huge thanks to <a href="http://drivendata.github.io/cookiecutter-data-science/">Drivendata</a> and the <a href="https://cookiecutter.readthedocs.org/en/latest/">Cookiecutter</a> project (<a href="https://github.com/audreyr/cookiecutter">github</a>).</p></div>
+        
+        
+    </div>
+
+    <footer class="col-md-12 text-center">
+        
+        <hr>
+        <p>
+        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+
+        
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap-3.0.3.min.js"></script>
+    <script src="js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>var base_url = "."</script>
+    
+    <script src="js/base.js"></script>
+    <script src="search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
+
+<!--
+MkDocs version : 1.0.4
+Build Date UTC : 2019-04-25 11:33:10
+-->
