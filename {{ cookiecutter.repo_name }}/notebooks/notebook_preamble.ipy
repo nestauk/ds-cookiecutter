@@ -1,25 +1,6 @@
 #!/bin/ipython
 # Note: ipy file suffix neccessary for running with %run magic
 
-%matplotlib inline
-
-## Reload changed code
-%load_ext autoreload
-%autoreload 2
-
-## Import basic scientific stack
-import numpy as np
-import scipy as sp
-import pandas as pd
-import matplotlib.pyplot as plt
-
-## Paths
-
-from dotenv import find_dotenv
-import sys
-project_dir = find_dotenv().rstrip('/.env')  # project directory e.g. `/home/user/GIT/nesta`
-data_path = f'{project_dir}/data'  # Don't hard-code data path
-
 ## Logging
 import logging
 
@@ -37,4 +18,27 @@ shandler = logging.StreamHandler(sys.stdout)
 shandler.setLevel(logging.INFO)
 shandler.setFormatter(formatter)
 logger.addHandler(shandler)
+
+## Plotting
+try:
+  %matplotlib inline
+except:
+  logger.warning("Couldn't configure matplotlib inline backend.")
+
+## Reload changed code
+%load_ext autoreload
+%autoreload 2
+
+## Import basic scientific stack
+import numpy as np
+import scipy as sp
+import pandas as pd
+import matplotlib.pyplot as plt
+
+## Paths
+
+from dotenv import find_dotenv
+import sys
+project_dir = find_dotenv().rstrip('/.env')  # project directory e.g. `/home/user/GIT/nesta`
+data_path = f'{project_dir}/data'  # Don't hard-code data path
 
