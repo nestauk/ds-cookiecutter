@@ -1,8 +1,12 @@
 #!/bin/ipython
 # Note: ipy file suffix neccessary for running with %run magic
 
+# Import our repo as a module
+import {{ cookiecutter.repo_name }}
+
 ## Logging
 import logging
+import sys
 
 logger = logging.getLogger()
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -36,9 +40,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 ## Paths
-
-from dotenv import find_dotenv
-import sys
-project_dir = find_dotenv().rstrip('/.env')  # project directory e.g. `/home/user/GIT/nesta`
-data_path = f'{project_dir}/data'  # Don't hard-code data path
-
+# project directory e.g. `/home/user/GIT/nesta`
+project_dir = {{ cookiecutter.repo_name }}.project_dir
+data_path = f'{project_dir}/data'
