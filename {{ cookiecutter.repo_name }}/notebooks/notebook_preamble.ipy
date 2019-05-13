@@ -9,19 +9,24 @@ import logging
 import sys
 
 logger = logging.getLogger()
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+formatter = logging.Formatter(fmt)
 
-# File handler
-fhandler = logging.FileHandler(filename='notebooks.log', mode='a')
+# File handler - log everything in a file to avoid slowing down notebooks
+fhandler = logging.FileHandler(filename='session.log', mode='a')
 fhandler.setFormatter(formatter)
 logger.addHandler(fhandler)
-logger.setLevel(logging.INFO)
+fhandler.setLevel(logging.DEBUG)
 
-# Stream handler
-shandler = logging.StreamHandler(sys.stdout)
-shandler.setLevel(logging.INFO)
-shandler.setFormatter(formatter)
-logger.addHandler(shandler)
+# Stream handler - warnings in the terminal where jupyter starts
+if sys.stdout != sys.__stdout__:
+  shandler = logging.StreamHandler(sys.__stdout__)
+  shandler.setLevel(logging.WARNING)
+  shandler.setFormatter(formatter)
+  logger.addHandler(shandler)
+
+# General level
+logger.setLevel(logging.INFO)
 
 ## Plotting
 try:
