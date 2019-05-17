@@ -13,8 +13,12 @@ error_out = str(project_dir / 'errors.log')
 
 # Read log config file
 with open(project_dir / 'logging.yaml', 'rt') as f:
-    config = yaml.safe_load(f.read())
-logging.config.dictConfig(config)
+    logging_config = yaml.safe_load(f.read())
+logging.config.dictConfig(logging_config)
 
 # Define module logger
 logger = logging.getLogger(__name__)
+
+# Model config
+with open(project_dir / 'model_config.yaml', 'rt') as f:
+    config = yaml.safe_load(f.read())
