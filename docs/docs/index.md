@@ -2,6 +2,11 @@
 
 _A logical, reasonably standardized, project structure for reproducible and collaborative pre-production data science work._
 
+## Disclaimers:
+* The workflow and the documentation here of it are works in progress and may currently be incomplete or inconsistent in parts - please raise issues where you spot this is the case.
+
+* The foundations of this document are heavily borrowed (large parts of it verbatim) from the great work [[http://drivendata.github.io/cookiecutter-data-science/][here]] by the people at [Drivendata](http://drivendata.github.io/cookiecutter-data-science/).
+
 ## High-level aims
 
 * Shouldn’t get in the way of rapid prototyping of ideas for an individual
@@ -108,12 +113,13 @@ make all
 Often in an analysis you have long-running steps that preprocess data or train models. If these steps have been run already, you don't want to wait to rerun them every time.
 [`make`](https://www.gnu.org/software/make/) is one of the simplest ways for managing steps that depend on each other, especially the long-running ones. Make is a common tool on Unix-based platforms. Following the [`make` documentation](https://www.gnu.org/software/make/), [Makefile conventions](https://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html#Makefile-Conventions), and [portability guide](http://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Portable-Make.html#Portable-Make) will help ensure your Makefiles work effectively across systems. Here are [some](http://zmjones.com/make/) [examples](http://blog.kaggle.com/2012/10/15/make-for-data-scientists/) to [get started](https://web.archive.org/web/20150206054212/http://www.bioinformaticszen.com/post/decomplected-workflows-makefiles/). A number of data folks use `make` as their tool of choice, including [Mike Bostock](https://bost.ocks.org/mike/make/).
 
-There are other tools for managing DAGs that are written in Python instead of a DSL (e.g., [Luigi](http://luigi.readthedocs.org/en/stable/index.html) and [Airflow](http://pythonhosted.org/airflow/cli.html)). Feel free to use these if they are more appropriate for your analysis though.
+There are other tools for managing DAGs that are written in Python instead of a DSL (e.g., [Luigi](http://luigi.readthedocs.org/en/stable/index.html) which is used in [Nesta's production system](https://github.com/nestauk/nesta/tree/dev/nesta/production)) - though these generally impose more constraints which can slow down the prototyping stage.
 
-While `make` is good for managing quick, and simple steps rerunning a complicated DAG may take a large amount of time to perform when perhaps only the last stage has actually changed. Of course, one could only run the last stage but how do you know with certainty that no other long lived stage has changed since you last ran it.
+While `make` is good for managing quick, and simple steps rerunning a complicated DAG may take a large amount of time to perform when perhaps only the last stage has actually changed. Of course, one could only run the last stage but how do you know with certainty that no other long lived stage has changed since you last ran it?
 
 This is why we need data and model version control (see [DVC](#data-and-model-version-control-with-dvc)).
 
+Several generic `make` commands are made [available](make_commands) within the cookiecutter for performing certain tasks.
 
 ### Build from the environment up
 
@@ -313,7 +319,10 @@ e.g. new feature, improved model, bug fix NOT interim work.
 Basic [PEP8](https://www.python.org/dev/peps/pep-0008/) and style requirements apply.
 
 The `make lint` command can be used to use `flake8` to check adherence. 
-If a lot of things are flgged then the `autopep8` can be installed and used to autoformat these: `autopep8 --aggressive --aggressive --in-place <filename>`
+<!-- If a lot of things are flgged then the `autopep8` package can be installed and used to autoformat these: `autopep8 --aggressive --aggressive --in-place <filename>`. -->
+
+Code formatting can be heavily opinion based with much debate over things such as linelengths etc.
+We recommend the use of [`black`](https://black.readthedocs.io/en/stable/) which gives fast, deterministic code-formatting that avoids wasting mental energy of worrying about code formatting and improves code review speed by formatting code in a way that produces smaller diffs. It is convenient to run from the command line or incorporate into your favourite [editor](https://black.readthedocs.io/en/stable/editor_integration.html).
 
 #### Doc-strings
 
@@ -425,15 +434,32 @@ Finally, another consideration is the number of threads/cores to use for analysi
 
 ## Cookiecutter in practice
 
-A [tutorial](tutorial.md) is currently being developed showing how this project structure works in practice end-to-end for a simple analysis of the Gateway to Research data trying to predict which UK research council funded a research proposal based on its abstract.
+A [tutorial](tutorial.md) outline has been developed and will be collaboratively updated as we adopt this new way of working. The tutorial outlines how this project structure works in practice end-to-end for a simple analysis of the Gateway to Research data trying to predict which UK research council funded a research proposal based on its abstract.
 
-## Future
+## Roadmap
 
-* Nesta "utils" package 
-  A well tested toolbox package containing frequently re-used code. See [Doc-strings](#doc-strings) for a proposal to start flagging functions for integration.
+* Complete the roadmap
+
+* [`data_getters.labs`](https://github.com/nestauk/data_getters/issues/6)
+
+  If the need to share an analysis adhering to this workflow across repositories arises, this generally suggests that it should probably be put into the production system; however this might not be possible to do quickly, or may be slightly premature.
+  
+  In this case, outputs to share should be pushed to the s3 `nesta-data-getters` and a thin wrapper function added to the ~labs~ subpackage of `data_getters` that fetches this data, and signposts to the original analysis.
+  
+  ~labs~ will be periodically reviewed to asssess whether components should be productionised or deprecated.
+  
+  
+* Plans to outline and implement a procedure for factoring out `#UTILS` functions into [nesta.packages](https://github.com/nestauk/nesta/nesta/packages)
+
+* Testing 
+
+  A guide for how to write tests for Data science code will be developed and testing requirements will be phased which will require a given level of testing for *all* code, data, models that are used as a component of *any* analysis which is exposed beyond the developers team.
+
 * Plotting style
+
   Consistent visual grammar of graphics to produce consistent high quality plots for various outputs (papers, blogs, reports, presentations etc.).
 * EDA framework
+
   A guide to performing EDA on a new dataset and producing a summary report of the output - this would also assist in the data auditing process (see the Nesta [blog](https://www.nesta.org.uk/blog/red-lines-grey-area/)).
 
 ## Thanks
