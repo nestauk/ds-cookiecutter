@@ -11,7 +11,7 @@
     <link rel="../img/favicon.ico">
 
     
-    <title>gateway-to-cookies - Cookiecutter Data Science @ Nesta</title>
+    <title>Tutorial - Cookiecutter Data Science @ Nesta</title>
     
 
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -87,12 +87,600 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#gateway-to-cookies">gateway-to-cookies</a></li>
+        <li class="first-level active"><a href="#introduction">Introduction</a></li>
+        <li class="first-level "><a href="#the-repository">The Repository</a></li>
+        <li class="first-level "><a href="#loading-cleaning-and-preprocessing">Loading, Cleaning and Preprocessing</a></li>
+            <li class="second-level"><a href="#loading">Loading</a></li>
+                
+            <li class="second-level"><a href="#eda">EDA</a></li>
+                
+            <li class="second-level"><a href="#cleaning">Cleaning</a></li>
+                
+            <li class="second-level"><a href="#pre-processing">Pre-processing</a></li>
+                
+            <li class="second-level"><a href="#pause-lab-book">⏸ Pause - Lab Book</a></li>
+                
+            <li class="second-level"><a href="#refactoring">Refactoring</a></li>
+                
+                <li class="third-level"><a href="#datareadmemd">data/README.md</a></li>
+                <li class="third-level"><a href="#baking_cookiesdatamake_datasetpy">baking_cookies/data/make_dataset.py</a></li>
+                <li class="third-level"><a href="#baking_cookiesdatasqlpy">baking_cookies/data/sql.py</a></li>
+                <li class="third-level"><a href="#baking_cookiesdatamake_gtrpy">baking_cookies/data/make_gtr.py</a></li>
+                <li class="third-level"><a href="#baking_cookiesfeaturestext_preprocessingpy">baking_cookies/features/text_preprocessing.py</a></li>
+                <li class="third-level"><a href="#guidelines">Guidelines</a></li>
+        <li class="first-level "><a href="#training-a-model">Training a model</a></li>
+            <li class="second-level"><a href="#exercise">Exercise:</a></li>
+                
+        <li class="first-level "><a href="#data-and-model-version-control-with-dvc">Data (and model) version control with DVC</a></li>
+            <li class="second-level"><a href="#what-is-dvc">What is DVC?</a></li>
+                
+            <li class="second-level"><a href="#how-does-it-work">How does it work?</a></li>
+                
+            <li class="second-level"><a href="#putting-baking_cookies-under-dvc">Putting baking_cookies under DVC</a></li>
+                
+                <li class="third-level"><a href="#dvc-init">dvc init</a></li>
+                <li class="third-level"><a href="#conda-env-export-gt-conda_environmentyaml-ampamp-git-add-conda_environmentyaml">conda env export &gt; ../conda_environment.yaml &amp;&amp; git add ../conda_environment.yaml</a></li>
+                <li class="third-level"><a href="#process-gtr-data">Process GtR data</a></li>
+                <li class="third-level"><a href="#aside-what-does-a-dvc-file-look-like">Aside: what does a .dvc file look like?</a></li>
+                <li class="third-level"><a href="#test-train-split">Test-train split</a></li>
+                <li class="third-level"><a href="#train-model">Train-model</a></li>
+                <li class="third-level"><a href="#evaluate-model">Evaluate model</a></li>
+                <li class="third-level"><a href="#dvc-remote-add-d-myremote-s3nesta-dvc-testdvc">dvc remote add -d myremote s3://nesta-dvc-test/dvc</a></li>
+                <li class="third-level"><a href="#dvc-push-r-myremote">dvc push -r myremote</a></li>
+            <li class="second-level"><a href="#share-the-model">Share the model</a></li>
+                
+            <li class="second-level"><a href="#make-changes-to-the-model">Make changes to the model</a></li>
+                
+                <li class="third-level"><a href="#exercise_1">EXERCISE</a></li>
+            <li class="second-level"><a href="#revisit-an-old-model-incomplete">Revisit an old model [Incomplete]</a></li>
+                
+        <li class="first-level "><a href="#publishable-notebooks-incomplete">Publishable notebooks [Incomplete]</a></li>
+        <li class="first-level "><a href="#testing-incomplete">Testing [Incomplete]</a></li>
+        <li class="first-level "><a href="#toolstips-incomplete">Tools/tips [Incomplete]</a></li>
+            <li class="second-level"><a href="#nbextensions-configurator">nbextensions + configurator</a></li>
+                
+                <li class="third-level"><a href="#gist-it">Gist-it</a></li>
+                <li class="third-level"><a href="#autopep8">Autopep8</a></li>
+                <li class="third-level"><a href="#hide-input">Hide input</a></li>
+                <li class="third-level"><a href="#select-codemirror-keymap">Select CodeMirror Keymap</a></li>
+                <li class="third-level"><a href="#executetime">ExecuteTime</a></li>
+            <li class="second-level"><a href="#magics">Magics</a></li>
+                
+                <li class="third-level"><a href="#debug">%debug</a></li>
+                <li class="third-level"><a href="#pdb">%pdb</a></li>
+                <li class="third-level"><a href="#env-set_env">%env / %set_env</a></li>
+                <li class="third-level"><a href="#run">%run</a></li>
+                <li class="third-level"><a href="#psearch">%psearch</a></li>
+                <li class="third-level"><a href="#autoreload">%autoreload</a></li>
+            <li class="second-level"><a href="#profilers">Profilers</a></li>
+                
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="gateway-to-cookies">gateway-to-cookies</h1></div>
+<p><span style="color:red"><b>NOTE TO NON-NESTA VISITORS</b>: This tutorial is incomplete </span></p>
+<h1 id="introduction">Introduction</h1>
+<p>In this tutorial we are going to cover the workflow for creating a supervised model. In this instance, we will train a classifier to predict the name of the body who funded a research project from Gateway to Research based on its abstract text.</p>
+<p>The main aims of this tutorial are to learn how to structure the repository, prototype, and factor out code into modules so that the model and any processed data can be reproduced by anyone else with a simple command.</p>
+<p>In this tutorial, we will:</p>
+<ol>
+<li>Collect raw data from MySQL</li>
+<li>Explore the data in a notebook</li>
+<li>Write a data README</li>
+<li>Clean and preprocess the data</li>
+<li>Factor out cleaning and preprocessing code into modules</li>
+<li>Prototype feature extraction and model in a notebook</li>
+<li>Train and save the modelling pipeline</li>
+<li>Factor out feature extraction and modelling code into modules</li>
+<li>Put model and data under version control</li>
+<li>Update model
+<!-- 11. Create a publishable analysis notebook --></li>
+</ol>
+<p>Along the way, we should also keep a lab book, to document what we’ve been doing.</p>
+<h1 id="the-repository">The Repository</h1>
+<p>To begin with, clone the repository into a directory on your machine with the <code>git clone</code> command:</p>
+<pre><code>$ git clone https://github.com/nestauk/baking-cookies.git
+$ # OR: git clone git@github.com:nestauk/baking-cookies.git
+</code></pre>
+<p>Move in to the repository directory:</p>
+<pre><code>$ cd baking-cookies
+</code></pre>
+<p>If you type <code>git branch</code>, you can see that you are on the <code>master</code> branch. In general, we want to maintain the master branch for completely finished work, so we will work from the <code>dev</code> branch instead (within the settings for a Github repository you can change the default branch from <code>master</code> if you wish).</p>
+<pre><code>$ git checkout dev
+</code></pre>
+<p>From <code>dev</code> we will create two more branches. One will be for the sub-project - creating our model - and another will be your personal branch for work in progress (WIP).
+We make this second one because it is possible that both you and someone else will be prototyping for this sub-project at the same time, and it will be better if you have separate spaces to do this.
+For example, this allows you to backup your work by pushing to the remote without worrying about someone else pulling in those changes. 
+<strong>Do not use someone else's personal branch</strong> : personal branches are liable to be deleted/rebased/make breaking changes.</p>
+<p>Use the <code>-b</code> flag to create and checkout your new branches simultaneously. I’m going to use my initials ("gr") for the second branch, but you can use your own if you prefer.</p>
+<pre><code>$ git checkout -b gtr-predict-funder
+$ git checkout -b gtr-predict-funder-gr-wip
+</code></pre>
+<p>On your personal branch, you can prototype in notebooks that aren’t intended for mass readership (though you may still want to make them readable enough to show collaborators).
+This is where we will work until we’re ready to write more polished code and produce models.</p>
+<p>While we’re getting set up, we should install the repository package in to the Python environment you want to use.</p>
+<pre><code>$ pip install -e .
+</code></pre>
+<p>We recommend (disk space permitting) that you have one environment per project. You can initialise a new conda environment by running <code>make create_environment</code>, and install the environment requirements in <code>conda_environment.yaml</code> with <code>make requirements</code>.
+When adding requirements to <code>conda_environment.yaml</code> only add the major dependencies (e.g. <code>pandas</code> not everything it depends on), and do not restrict the version numbers too much (e.g. <code>- pandas=0.24.2</code> rather than <code>- pandas=0.24.2=py37he6710b0_0</code>) - this will avoid difficulties with other people on different operating systems not being able to reproduce your environment.</p>
+<h1 id="loading-cleaning-and-preprocessing">Loading, Cleaning and Preprocessing</h1>
+<p>You might have noticed that there is a <code>notebooks</code> folder in the project root directory.
+In here, there is a subdirectory, <code>dev</code>. This folder is for any notebooks that can be considered work in progress. See our <a href="https://nestauk.github.io/cookiecutter-data-science-nesta/#notebooks">guide to using notebooks</a>.</p>
+<p>Launch jupyter and create a notebook in <code>notebooks/dev/</code> for cleaning and processing the data. With our naming convention in mind, we will call this notebook <a href="https://github.com/nestauk/baking-cookies/blob/gtr-projects/notebooks/dev/01_gr_gtr_projects.ipynb"><code>01_gr_gtr_projects</code></a>.</p>
+<h2 id="loading">Loading</h2>
+<p>The data we need for this tutorial is on Nesta’s MySQL database.
+From the screenshot below you can see how we will write some simple code to grab the table we need, but there are also a few important things to note:</p>
+<ol>
+<li>The first cell in the notebook magic runs the preamble script. This loads some useful data science libraries and runs some useful boilerplate code so that we can quickly access variables such as the project directory. You can adapt this script to your project’s needs.</li>
+<li>We hard code <code>config_path</code> to point to the location of our database config file. This is fine for now because we are working in a notebook that no one else is expected to be able to run seamlessly, but we will change it later.</li>
+<li>
+<p>After collecting the data, we show the head of the dataframe. Printing and showing outputs at stages along the prototyping should be standard practice so that if you do show someone else the notebook, they can easily see what’s going on, without needing to run the code.</p>
+<p><img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_14-44-14.png" /></p>
+</li>
+</ol>
+<p>After loading and inspecting the data we will add another cell that saves it locally as a flat file to our <code>raw</code> directory.</p>
+<pre><code>projects.to_csv(f'{data_path}/raw/gtr_projects.csv', index=False)
+</code></pre>
+<p><a id="orgfd3d6e7"></a></p>
+<h2 id="eda">EDA</h2>
+<p>All new data should be explored before it is worked with in any serious capacity.
+<strong>NOTE</strong>: The EDA in this tutorial is not very rigorous. More rigorous guidelines for EDA are on the <a href="https://nestauk.github.io/cookiecutter-data-science-nesta/#roadmap">roadmap</a>. This section of the tutorial will be updated accordingly in the future.</p>
+<p>Here we will use <code>pandas_profiling</code> and some more specific exploration. If you don’t have it you can easily install it with</p>
+<pre><code>$ pip install pandas-profiling
+</code></pre>
+<p>The profiler produces a standard output, and covers many data quality elements.
+It’s likely to be useful for anyone else looking at this dataset, so we will also save it in the <code>reports</code> directory as a html file.</p>
+<p><img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_14-48-04.png" /></p>
+<p>Now we can dive in to the specific features that we’re interested in. First we look at the distribution of funders.</p>
+<p><img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_14-48-26.png" />
+It looks like we have fairly good representation from all of the funders, with over 5,000 projects for each of them apart from NC3Rs. </p>
+<p>Let’s also look at the distribution of abstract text lengths.</p>
+<p><img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_14-49-05.png" />
+There’s a peak at around 4,000 characters which presumably relates to a length limitation imposed on submitted abstracts. However, there’s also a peak close to 0. Let’s take a look at the distributions by funder and also have a closer look at that low end.</p>
+<p><img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_14-49-22.png" /></p>
+<p><img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_14-49-32.png" />
+It looks like there’s some projects with very few characters which we will probably discard. However, there are a high frequency of abstracts with lengths at around 250 and 350 characters. Does this correspond to another word limit, or is there something else happening?</p>
+<p>We can print out the highest frequency texts for each funder:</p>
+<p><img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_14-50-00.png" />
+It’s pretty clear that there is some placeholder text that is repeated many times throughout the dataset.</p>
+<h2 id="cleaning">Cleaning</h2>
+<p>From all of this information, we can make some decisions about data cleaning:</p>
+<ol>
+<li>Drop all projects with abstracts that have fewer than 150 characters</li>
+<li>Drop projects where the abstract matches any of the placeholder texts</li>
+<li>For good measure, we will also drop all but one of any duplicate abstracts</li>
+</ol>
+<p>Step 2 is an example of where we will use the <a href="https://nestauk.github.io/cookiecutter-data-science-nesta/#data-folder"><code>aux</code> data folder</a>. This is reserved for small pieces of information that have been manually created and are used in any preprocessing, analysis or modelling. In this case, we will save the two abstracts in a <code>.txt</code> file.</p>
+<p><img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_14-52-01.png" /></p>
+<p>Now we can prototype our cleaning function in the notebook and test it on the dataframe.</p>
+<p><img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_14-52-20.png" />
+    Looks good.</p>
+<h2 id="pre-processing">Pre-processing</h2>
+<p>The last step is to prepare our abstracts for modelling by cleaning and tokenizing the raw text.</p>
+<p>To do that, copy and paste <a href="https://gist.github.com/georgerichardson/bbde2b4a5cdde7fedd24d3d157db5ca5">this chunk of code</a> below into a cell and run it.</p>
+<p>Finally, we can check that this works by applying it to the text.</p>
+<p><img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_14-53-31.png" /></p>
+<p>Looks good. From here we’re ready to take our first step to factoring out our code into a more reproducible and shareable form.</p>
+<p>After exploration and writing cleaning functions, we need to preprocess the text.</p>
+<p><a id="org703e9a6"></a></p>
+<h2 id="pause-lab-book">⏸ Pause - Lab Book</h2>
+<p>Remember near the beginning, we said we would keep a lab book of what we were doing?
+So far we’ve just been forging ahead with coding. That’s great, but before we go too far, we should record what we’ve done.</p>
+<p>A lab book is a personal thing and it's up to you how you keep it whether it be paper, google docs, markdown etc.
+What is most important is that you keep one. Write down what you tried (even if it failed), references to useful blogs/papers, fixes to bugs/install issues, and issues in the data you discover as you go.
+We suggest that you review your lab-book regularly, e.g. daily or weekly, and add information relevant to others as issues/comments on an issue. 
+One particularly important thing to document in a common issue thread are any outliers/issues/odd entries in a dataset.</p>
+<h2 id="refactoring">Refactoring</h2>
+<p>Now at the end of the <code>make_dataset</code> stage (before we apply/train any models to generate features).</p>
+<p>Here we factor out our functions from our notebooks, write any docstrings necessary, update data Readme's etc.</p>
+<p><a id="org4e7f088"></a></p>
+<h3 id="datareadmemd"><a href="https://github.com/nestauk/baking-cookies/blob/gtr-projects/data/README.md"><code>data/README.md</code></a></h3>
+<p>Write the <a href="https://nestauk.github.io/cookiecutter-data-science-nesta/#style-and-documentation">data Readme</a>.</p>
+<p><a id="org90b413c"></a></p>
+<h3 id="baking_cookiesdatamake_datasetpy"><a href="https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/data/make_dataset.py"><code>baking_cookies/data/make_dataset.py</code></a></h3>
+<ul>
+<li>Write a function which collects or reads the raw data</li>
+<li><code>.env</code> file points to config location of the MySQL config file</li>
+<li>Also use <code>model_config.yaml</code> which is tracked to get parameters for data processing</li>
+</ul>
+<h3 id="baking_cookiesdatasqlpy"><a href="https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/data/sql.py"><code>baking_cookies/data/sql.py</code></a></h3>
+<p>Put our generic <code>get_engine</code> function here and add a <a href="https://nestauk.github.io/cookiecutter-data-science-nesta/#style-and-documentation"><code>#UTILS</code> flag</a> to the docstring as this is a reusable component that we don't wish to keep repeating across repositories.</p>
+<h3 id="baking_cookiesdatamake_gtrpy"><a href="https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/data/gtr.py"><code>baking_cookies/data/make_gtr.py</code></a></h3>
+<ul>
+<li>Factor out the data processing functions from the notebook</li>
+<li>Defines file in and file out</li>
+<li>Loads in any <code>aux</code> data</li>
+</ul>
+<h3 id="baking_cookiesfeaturestext_preprocessingpy"><a href="https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/features/text_preprocessing.py"><code>baking_cookies/features/text_preprocessing.py</code></a></h3>
+<ul>
+<li>Generic functions for text preprocessing that might be applied to other data too</li>
+<li>Add <code>#UTILS</code> flag</li>
+</ul>
+<p>This is a good point to make a PR. Add someone to review.
+In the mean time you can get on with other tasks etc. (put “closes #<issue number>” in commit message) </p>
+<h3 id="guidelines"><strong>Guidelines</strong></h3>
+<p>We have a few guidelines to suggest how you should structure files. 
+If you find these are not sensible for your use-case please report this on this <a href="https://github.com/nestauk/cookiecutter-data-science-nesta/issues/29">issue</a>.</p>
+<ul>
+<li>Segregate functions into files/folders based on functionality and then dataset where possible.
+    You might want to put functionality relating to: data in <code>baking_cookies/data</code>; functionality that produces features in <code>baking_cookies/features</code>; functionality that produces models in <code>baking_cookies/models</code>.</li>
+<li>
+<p>Each high-level component (e.g. the creation of the cleaned and pre-processed Gateway to Research dataset) should be callable in one function with a prefix <code>make_</code> that accepts paths and parameters as arguments. </p>
+<ul>
+<li><code>make_</code> functions should perform any necessary setup IO work (e.g. read data from disk), call a function with a <code>process_</code> prefix, then perform any necessary IO tear-down work (e.g. save data to disk).</li>
+<li><code>process_</code> functions should accept data and parameters (i.e. not paths) and return data - they should not perform IO!</li>
+</ul>
+<p>It may not always be possible to adhere to this pattern but stick to it where possible.
+(<code>make_</code> and <code>process_</code> are terrible names which need to be renamed - perhaps <code>make_</code> and <code>run_</code>? <a href="https://github.com/nestauk/baking-cookies/issues/9">discuss here</a>)</p>
+</li>
+<li>
+<p>Parameters should not be hard-coded but specified in <code>model_config.yaml</code>, loaded from the dictionary <code>baking_cookies.config</code>, and passed into the <code>make_</code> prefixed function.</p>
+<p>You could load the config in the <code>make_</code> function but consider whether this decreases transparency - less informative doc-strings for <code>make_</code> - or generalisability.</p>
+</li>
+<li>
+<p>Don't use <code>print</code>, use the logging module, e.g. <code>logger = logging.getLogger(__name__); logger.info('Logging at info level goes into `info.log`')</code></p>
+</li>
+</ul>
+<h1 id="training-a-model">Training a model</h1>
+<p>We now have a cleaned dataset so now we wish to proceed with prototyping a model that predicts the lead Funder from the abstract texts.
+The steps we need to follow are:</p>
+<ol>
+<li>Make an issue and new branch for model training</li>
+<li>Create a <a href="https://github.com/nestauk/baking-cookies/blob/gtr-projects/notebooks/dev/02_gr_gtr_funder_model.ipynb">new notebook</a></li>
+<li>Load cleaned data</li>
+</ol>
+<p><img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_15-45-52.png" />
+4.  Train test split and save outputs (IDs)
+5.  Create model pipeline (for training purposes)
+   <img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_15-45-57.png" />
+6.  Fit and evaluate (at this point you might copy paste evaluation to lab book)
+7.  Save model
+   <img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_15-46-02.png" />
+8.  Add notebooks into WIP branch
+9.  Factor out code and make a PR into <code>gtr-projects</code></p>
+<p>The model is very simple, it calculates TF-IDF features for each abstract and performs a logistic regression. 
+Take a look through the <a href="https://github.com/nestauk/baking-cookies/blob/gtr-projects/notebooks/dev/02_gr_gtr_funder_model.ipynb">notebook</a> to see the prototyping of the model, and compare this to the factored out code to understand where each of the constituent parts have gone.
+We have split up the model pipeline into its constituent parts. This means that changes can be made to one part of the model pipeline (e.g. the train-test split strategy/size) without having to worry about searching through the full pipeline code. This also makes code easier to test. The constituent parts we have chosen are:</p>
+<ul>
+<li><a href="https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/models/train_test_split.py">Train-test split</a></li>
+<li><a href="https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/models/train_model.py">Training the model</a></li>
+<li><a href="https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/models/evaluate.py">Evaluating the model</a></li>
+</ul>
+<p>Again we follow the <code>make_</code>, <code>process_</code> conventions; however in <a href="https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/models/train_model.py"><code>train_model.py</code></a> the model parameters are loaded in <code>make_train_model()</code>.</p>
+<h2 id="exercise"><strong>Exercise:</strong></h2>
+<p>Change this so that the config parameters are loaded in <code>__main__</code>, and add an option to pass in whether a <code>grid_search</code> is <code>True</code> or <code>False</code> from the command line using the <code>click</code> library (Hint: see <a href="https://github.com/nestauk/baking-cookies/blob/dev/baking_cookies/data/make_dataset.py">~make<sub>dataset.py</sub></a>).</p>
+<p><a id="orge80df29"></a></p>
+<h1 id="data-and-model-version-control-with-dvc">Data (and model) version control with DVC</h1>
+<p><a id="org5406865"></a></p>
+<h2 id="what-is-dvc">What is DVC?</h2>
+<p>Data version control system for machine learning projects - makes data, models, and metrics shareable and reproducible.</p>
+<p><img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_16-47-20.png" /></p>
+<ul>
+<li>Language agnostic</li>
+<li>Integrates with Git</li>
+<li>Storage: S3, Azure, GCP, SSH, etc.</li>
+<li>Lightweight pipelines</li>
+<li>Metric tracking</li>
+<li>Open-Source and Self-Served : <strong>Free</strong></li>
+</ul>
+<p><strong>Use cases</strong></p>
+<ul>
+<li>How do you avoid discrepancies between versions of source code and versions of data or models?</li>
+<li>How do you keep track of which hyperparameter/feature changes contributed most to your target metric? And how do you recover old models without wasting time for the model to retrain?</li>
+<li>How do you run a model's evaluation again without re-running everything?</li>
+<li>How do you share models that take a long time to run (or maybe require a GPU) with colleagues who don't have time to wait / access to a GPU.</li>
+</ul>
+<p><a id="org5327fd3"></a></p>
+<h2 id="how-does-it-work">How does it work?</h2>
+<p>DVC tracks <code>&lt;data or model filename&gt;.dvc</code> meta-data files within your project's git repository which track the command and inputs necessary to compute a given output (e.g. dataset or model).
+The actual data files are stored outside of the repository in a local cache (which can be pushed/fetched from remote data storage such as S3).</p>
+<p>For example: The <code>model.pkl</code> file is a <a href="http://www.tldp.org/LDP/intro-linux/html/sect_03_03.html">file-link</a> to a file in the local cache (in folder <code>.dvc/cache</code>) which corresponds to the MD5 hash stored in <code>model.pkl.dvc</code>.</p>
+<p>If we change something in our DVC pipeline that results in <code>model.pkl</code> being different then <code>model.pkl.dvc</code> will reflect these changes in the MD5 hashes. We can then track the model version by tracking <code>model.pkl.dvc</code> in git (<code>git add model.pkl.dvc &amp;&amp; git commit -m'New model' &amp;&amp; git push</code>) and back-up the model (<code>dvc push</code>).</p>
+<p><img alt="img" src="../DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_16-49-27.png" /></p>
+<p><a href="https://dvc.org/doc/understanding-dvc/how-it-works">See the docs</a> for more.</p>
+<p><a id="orgb626dd1"></a></p>
+<h2 id="putting-baking_cookies-under-dvc">Putting <code>baking_cookies</code> under DVC</h2>
+<p><strong><em>*NOTE</em></strong>*: This provides a high-level overview of how to specify a pipeline (DAG) in DVC (with git and S3 integration) such that the pipeline is shareable and reproducible; however more in-depth tutorials are available in the <a href="https://dvc.org/doc">extensive DVC documentation</a>.</p>
+<p>To recap, thus far we've developed a pipeline that:</p>
+<ul>
+<li>Fetches Gateway to Research project data</li>
+<li>Processes it</li>
+<li>Builds a train-test split</li>
+<li>Trains a model on the abstract texts to predict who funded the work</li>
+<li>Evaluates the classifier on the test set.</li>
+</ul>
+<p>Now a colleague wants to try out the model and see if they can do better so we put the data and model under version control with DVC so we can track changes in these and easily share and receive models.</p>
+<p>We write a script <a href="https://github.com/nestauk/baking-cookies/blob/7-dvc/pipe/specify_dag.sh"><code>pipe/specify_dag.sh</code></a> that specifies our pipeline commands as well as each stages dependencies and outputs and run the following to put the pipeline into DVC:</p>
+<pre><code>$ dvc init
+$ cd pipe
+$ sh specify_dag.sh
+$ dvc remote add -d myremote s3://nesta-dvc-test/dvc~
+</code></pre>
+<p>Let's look at this process step by step:</p>
+<h3 id="dvc-init"><code>dvc init</code></h3>
+<p>This initialises a DVC project.</p>
+<p>A new directory <code>.dvc/</code> will be created with <code>config</code> and <code>.gitignore</code> files and <code>cache</code> directory.
+<strong>These files and directories are hidden from the user generally and are not meant to be manipulated directly.</strong></p>
+<p><code>.dvc/cache</code> is one of the most important DVC directories. It will hold all the contents of tracked data files.
+Note that <code>.dvc/.gitignore</code> lists this directory, which means that the cache directory is not under Git control. This is your local cache and you cannot push it to any Git remote.</p>
+<p>We do want to put <code>.dvc/.gitignore</code> and <code>.dvc/config</code> under Git control, <code>dvc init</code> automatically runs <code>git add .dvc/.gitignore .dvc/config</code> (but not <code>git commit</code>).</p>
+<p><a id="org3dc9862"></a></p>
+<h3 id="conda-env-export-gt-conda_environmentyaml-ampamp-git-add-conda_environmentyaml"><code>conda env export &gt; ../conda_environment.yaml &amp;&amp; git add ../conda_environment.yaml</code></h3>
+<p>This command saves our conda environment so that the exact same package versions will be used.</p>
+<p>This environment can be reproduced using <code>conda env create -f conda_environment.yaml</code>.</p>
+<p><a id="org6bee2c4"></a></p>
+<h3 id="process-gtr-data">Process GtR data</h3>
+<pre><code>$ dvc run -w ..\
+    -d model_config.yaml\
+    -d data/raw/gtr_projects.csv\
+    -d data/aux/gtr_projects_abstractText_drop.txt\
+    -d baking_cookies/data/gtr.py\
+    -d baking_cookies/features/text_preprocessing.py\
+    -o data/processed/gtr_tokenised.csv\
+    python baking_cookies/data/gtr.py
+
+Running command:
+        python baking_cookies/data/gtr.py
+...
+&lt;output from baking_cookies/data/gtr.py&gt;
+...
+Adding '../data/processed/gtr_tokenised.csv' to '../data/processed/.gitignore'.
+Saving '../data/processed/gtr_tokenised.csv' to '../.dvc/cache/27/67c6f0baf2a51b5a92f4957ea3dcf9'.
+Saving information to 'gtr_tokenised.csv.dvc'.
+
+To track the changes with git, run:
+
+        git add ../data/processed/.gitignore gtr_tokenised.csv.dvc
+</code></pre>
+<p>We specify a stage of the pipeline using <code>dvc run ...</code>. The <code>-w ..</code> arguement tells us that the directory that commands are run from is one level up (recall we are in <code>pipe/</code>); <code>-d &lt;filename&gt;</code> specifies that this stage of the pipeline is dependent on the code/data in <code>&lt;filename&gt;</code>; <code>-o &lt;filename&gt;</code> specifies that this stage outputs <code>&lt;filename&gt;</code> and this should be tracked by DVC; and finally <code>python baking_cookies/data/gtr.py</code> is the command for this stage of the pipeline.</p>
+<p>This stage of the pipeline reads and processes the data and depends on:</p>
+<ul>
+<li><code>model_config.yaml</code> - Our configuration parameters</li>
+<li><code>data/raw/gtr_projects.csv</code> - The raw input data</li>
+<li><code>data/aux/gtr_projects_abstractText_drop.txt</code> - Auxilliary data</li>
+<li><code>baking_cookies/data/gtr.py</code> - The script being run</li>
+<li><code>baking_cookies/features/text_preprocessing.py</code> - Local imports made by the script being run</li>
+</ul>
+<p>This stage produces one output <code>data/processed/gtr_tokenised.csv</code> - our clean data.</p>
+<pre><code>$ cat ../data/processed/.gitignore
+
+/gtr_tokenised.csv
+</code></pre>
+<p>The <code>.gitignore</code> file simply tells git not to concern itself with <code>gtr_tokenised.csv</code> as this is under the control of DVC (This isn't super important but means that you get much tidier <code>git status</code> summaries).</p>
+<p><code>$ git add ../data/processed/.gitignore gtr_tokenised.csv.dvc</code> - Finally, we put any <code>.gitignore</code> and <code>.dvc</code> files produced under git control as prompted by the output of <code>dvc run</code>.</p>
+<p><a id="org1889c9b"></a></p>
+<h3 id="aside-what-does-a-dvc-file-look-like">Aside: what does a <code>.dvc</code> file look like?</h3>
+<pre><code>$ cat gtr_tokenised.csv.dvc
+
+md5: 19308d54c21c4da498b6ae1c75ac6126
+cmd: python baking_cookies/data/gtr.py
+wdir: ..
+deps:
+- md5: c25d832b9757fd567397ea729274eed9
+  path: model_config.yaml
+- md5: f5c1443e275ad5701ac630af8eeb6ede
+  path: data/raw/gtr_projects.csv
+- md5: 30657b88561c8e78088c0a725361acea
+  path: data/aux/gtr_projects_abstractText_drop.txt
+- md5: 86b848be732b81aa5ef1cc8121e55256
+  path: baking_cookies/data/gtr.py
+- md5: 3f6f7389173deba6c9567075a264d1c4
+  path: baking_cookies/features/text_preprocessing.py
+outs:
+- md5: 2767c6f0baf2a51b5a92f4957ea3dcf9
+  path: data/processed/gtr_tokenised.csv
+  cache: true
+  metric: false
+  persist: false
+</code></pre>
+<p><code>.dvc</code> files are a simple YAML format consist of a list. We can see that at the top-level <code>gtr_tokenised.csv.dvc</code> contains:</p>
+<ul>
+<li><code>md5</code>: md5 checksum for this stage</li>
+<li><code>cmd</code>: the command being run in this stage</li>
+<li><code>wdir</code>: the directory that <code>cmd</code> is run from</li>
+<li><code>deps</code>: a list of dependencies for this stage</li>
+<li><code>outs</code>: a list of outputs for this stage</li>
+</ul>
+<p>A dependency entry consists of such fields:</p>
+<ul>
+<li><code>path</code>: path to the dependency, relative to the <code>wdir</code> path;</li>
+<li><code>md5</code>: md5 checksum for the dependency;</li>
+</ul>
+<p>An output entry consists of such fields:</p>
+<ul>
+<li><code>path</code>: path to the output, relative to the <code>wdir</code> path;</li>
+<li><code>md5</code>: md5 checksum for the output;</li>
+<li><code>cache</code>: whether or not dvc should cache the output;</li>
+<li><code>metric</code>: whether or not this file is a metric file;</li>
+</ul>
+<p>See <a href="https://dvc.org/doc/user-guide/dvc-file-format">here</a> for more information on the <code>.dvc</code> file format.</p>
+<h3 id="test-train-split">Test-train split</h3>
+<pre><code>$ dvc run -w ..\
+  -d model_config.yaml\
+  -d data/processed/gtr_tokenised.csv\
+  -d baking_cookies/models/train_test_split.py\
+  -o data/processed/gtr_leadFunder_id_train.csv\
+  -o data/processed/gtr_leadFunder_id_test.csv\
+  python baking_cookies/models/train_test_split.py
+
+Running command:
+        python baking_cookies/models/train_test_split.py
+...
+&lt;output from baking_cookies/models/train_test_split.py&gt;
+...
+Adding '../data/processed/gtr_leadFunder_id_train.csv' to '../data/processed/.gitignore'.
+Adding '../data/processed/gtr_leadFunder_id_test.csv' to '../data/processed/.gitignore'.
+Saving '../data/processed/gtr_leadFunder_id_train.csv' to '../.dvc/cache/96/4f0bcccdad3c991a0b971867195082'.
+Saving '../data/processed/gtr_leadFunder_id_test.csv' to '../.dvc/cache/78/90e330ddfea691db6ef5cf5b016692'.
+Saving information to 'gtr_leadFunder_id_train.csv.dvc'.
+
+To track the changes with git, run:
+
+        git add ../data/processed/.gitignore ../data/processed/.gitignore gtr_leadFunder_id_train.csv.dvc
+</code></pre>
+<p>As with the last stage of the pipeline we use <code>dvc run</code> to specify the working directory, dependencies, outputs, and command for this stage.</p>
+<p><code>$ git add ../data/processed/.gitignore gtr_leadFunder_id_train.csv.dvc</code> - once again we put any <code>.gitignore</code> and <code>.dvc</code> files produced under git control as prompted by the output of <code>dvc run</code>.</p>
+<p><a id="orgfb9954c"></a></p>
+<h3 id="train-model">Train-model</h3>
+<pre><code>$ dvc run -w ..\
+    -d model_config.yaml\
+    -d data/processed/gtr_tokenised.csv\
+    -d data/processed/gtr_leadFunder_id_train.csv\
+    -d baking_cookies/models/train_model.py\
+    -o models/gtr_leadFunder.pkl\
+    python baking_cookies/models/train_model.py
+
+Running command:
+        python baking_cookies/models/train_model.py
+...
+&lt;output from baking_cookies/models/train_model.py&gt;
+...
+Adding '../models/gtr_leadFunder.pkl' to '../models/.gitignore'.
+Saving '../models/gtr_leadFunder.pkl' to '../.dvc/cache/7e/bb48ba3d17c3b486e01b81a9d4172d'.
+Saving information to 'gtr_leadFunder.pkl.dvc'.
+
+To track the changes with git, run:
+
+        git add ../models/.gitignore gtr_leadFunder.pkl.dvc
+</code></pre>
+<p>Nothing new here, we use <code>dvc run</code> again.</p>
+<p><code>$ git add ../models/.gitignore gtr_leadFunder.pkl.dvc</code> - put any <code>.gitignore</code> and <code>.dvc</code> files produced under git control as prompted by the output of <code>dvc run</code>.</p>
+<p><strong>NOTE:</strong> Pickling does not result in reproducible hashes</p>
+<p><a id="orgf56c22a"></a></p>
+<h3 id="evaluate-model">Evaluate model</h3>
+<pre><code>$ dvc run -w ..\
+    -d model_config.yaml\
+    -d data/processed/gtr_tokenised.csv\
+    -d data/processed/gtr_leadFunder_id_test.csv\
+    -d models/gtr_leadFunder.pkl\
+    -d baking_cookies/models/evaluate.py\
+    -o reports/figures/gtr_leadFunder_confusion_matrix.png\
+    -M models/metrics.json\
+    -f Dvcfile\
+    python baking_cookies/models/evaluate.py
+
+Running command:
+        python baking_cookies/models/evaluate.py
+...
+&lt;output from baking_cookies/models/evaluate.py&gt;
+...
+Adding '../reports/figures/gtr_leadFunder_confusion_matrix.png' to '../reports/figures/.gitignore'.
+Output '../models/metrics.json' doesn't use cache. Skipping saving.
+Saving '../reports/figures/gtr_leadFunder_confusion_matrix.png' to '../.dvc/cache/56/f9cc780386215cb6a8790f8505ee2a'.
+Saving information to 'Dvcfile'.
+
+To track the changes with git, run:
+
+        git add ../reports/figures/.gitignore Dvcfile
+</code></pre>
+<p>For the last stage of the pipeline something slightly different happens - we have extra <code>-M</code> and <code>-f</code> arguements.</p>
+<p><code>-M</code> denotes a metric file - usually a small human readable file (JSON, CSV, etc.) with some numbers or other information that describes a model or other outputs. In our case it is a JSON file containing precision, recall, f1-score and support for each class in our classifier.</p>
+<p><code>-f</code> simply specifies the name of the DVC file which is generated - by default the DVC file name generated is <code>&lt;file&gt;.dvc</code> where <code>&lt;file&gt;</code> is the file name of the first output (e.g. <code>-o</code> or <code>-M</code>) as we have seen before. Giving this the special name <code>Dvcfile</code> means that running the <code>dvc repro</code> command without arguements will run this file (and thus our whole pipeline).</p>
+<p><code>$ git add Dvcfile ../models/metrics.json ../reports/figures/.gitignore</code></p>
+<p><a id="orgb1156b1"></a></p>
+<h3 id="dvc-remote-add-d-myremote-s3nesta-dvc-testdvc"><code>dvc remote add -d myremote s3://nesta-dvc-test/dvc</code></h3>
+<p>Like in Git we add a remote (e.g. a Github URL) to push our code to, here we add an S3 bucket as a remote for DVC allowing us to push/pull tracked data and models relating to different git commits to/from an s3 bucket.</p>
+<pre><code>$ cat .dvc/config
+
+['remote "myremote"']
+url = s3://nesta-dvc-test/dvc
+[core]
+remote = myremote
+</code></pre>
+<p><a id="orgf35db34"></a></p>
+<h3 id="dvc-push-r-myremote"><code>dvc push -r myremote</code></h3>
+<p>Lets push our local cache to S3.</p>
+<pre><code>$ dvc push -r myremote
+
+Preparing to upload data to 's3://nesta-dvc-test'/dvc
+Preparing to collect status from s3://nesta-dvc-test/dvc
+Collecting information from local cache...
+[##############################] 100%
+
+Collecting information from remote cache...
+[##############################] 100%
+[##############################] 100% Analysing status
+[##############################] 100% ../reports/figures/gtr_leadFunder_confusion_matrix.png
+[##############################] 100% ../data/processed/gtr_leadFunder_id_test.csv
+[##############################] 100% ../data/processed/gtr_leadFunder_id_train.csv
+[##############################] 100% ../models/gtr_leadFunder.pkl
+[##############################] 100% ../data/processed/gtr_tokenised.csv
+</code></pre>
+<p><a id="org3a1a3c3"></a></p>
+<h2 id="share-the-model">Share the model</h2>
+<pre><code>git clone https://github.com/nestauk/baking-cookies
+cd baking-cookies
+git checkout dvc-tutorial-share-1
+conda env create -f conda_environment.yaml -n baking-cookies --force
+pip install -e .  # install repo as package 
+conda activate baking-cookies
+make sync_data_from_s3  # get data/raw
+dvc pull -r myremote  # equivalent: dvc fetch &amp;&amp; dvc checkout
+cd pipe
+dvc repro
+</code></pre>
+<p><a id="org409580c"></a></p>
+<h2 id="make-changes-to-the-model">Make changes to the model</h2>
+<p>We want to now try and make improvements to the models by using Word2Vec to train embeddings and use these as features in a model.</p>
+<p><code>git checkout -b new-model-feature</code></p>
+<p>We create <code>baking-cookies/features/build_features.py</code> and <code>baking-cookies/features/w2v.py</code> which build the word embeddings - this involves a new step in our pipeline so we have to specify it using <code>dvc run</code>:</p>
+<pre><code>$ dvc run -w .. \
+    -d model_config.yaml\
+    -d data/processed/gtr_tokenised.csv\
+    -d baking-cookies/features/w2v.py\
+    -d baking-cookies/features/build_features.py\
+    -o models/gtr_w2v\
+    -o data/processed/gtr_embedding.csv\
+    python baking-cookies/features/build_features.py
+</code></pre>
+<p><code>git add ../models/.gitignore ../data/processed/.gitignore gtr_w2v.dvc</code></p>
+<p>We must also modify the train-test split and model training steps to reflect these updated features:</p>
+<p><a id="orgf741b86"></a></p>
+<h3 id="exercise_1">EXERCISE</h3>
+<ul>
+<li>Checkout `18-w2v-exercise` branch</li>
+<li>Update the <code>pipe/specify_dag.sh</code> file to reflect the updates to the pipeline</li>
+<li>Run the file to update the pipelines</li>
+<li><code>dvc_repro</code></li>
+</ul>
+<p><a id="org8e01247"></a></p>
+<h2 id="revisit-an-old-model-incomplete">Revisit an old model <span style="color:red">[Incomplete]</span></h2>
+<ul>
+<li><code>git checkout 7-dvc</code></li>
+<li><code>dvc pull</code></li>
+<li><code>dvc repro</code></li>
+</ul>
+<p>No need to run any expensive computations.</p>
+<h1 id="publishable-notebooks-incomplete">Publishable notebooks <span style="color:red">[Incomplete]</span></h1>
+<ul>
+<li>Share interim analyses as Gists</li>
+<li>Save final notebooks as html files and put in <code>reports/</code>. These are for presenting results and thus should:</li>
+<li>Document the purpose of the notebook at the top</li>
+<li>Provide discussion throughout the document</li>
+<li>Import and run functions - <em>not</em> define them</li>
+<li>Ideally be readable and understandable with the code hidden (unless you are demonstrating code usage of course)</li>
+</ul>
+<h1 id="testing-incomplete">Testing <span style="color:red">[Incomplete]</span></h1>
+<h1 id="toolstips-incomplete">Tools/tips <span style="color:red">[Incomplete]</span></h1>
+<h2 id="nbextensions-configurator">nbextensions + configurator</h2>
+<h3 id="gist-it">Gist-it</h3>
+<h3 id="autopep8">Autopep8</h3>
+<h3 id="hide-input">Hide input</h3>
+<h3 id="select-codemirror-keymap">Select CodeMirror Keymap</h3>
+<h3 id="executetime">ExecuteTime</h3>
+<h2 id="magics">Magics</h2>
+<p><a href="https://ipython.readthedocs.io/en/stable/interactive/magics.html">Full list here</a></p>
+<h3 id="debug"><code>%debug</code></h3>
+<h3 id="pdb"><code>%pdb</code></h3>
+<h3 id="env-set_env"><code>%env</code> / <code>%set_env</code></h3>
+<h3 id="run"><code>%run</code></h3>
+<h3 id="psearch"><code>%psearch</code></h3>
+<h3 id="autoreload"><code>%autoreload</code></h3>
+<h2 id="profilers">Profilers</h2>
+<ol>
+<li><code>%prun</code></li>
+<li><code>mprof</code> - https://pypi.org/project/memory-profiler/</li>
+</ol></div>
         
         
     </div>
