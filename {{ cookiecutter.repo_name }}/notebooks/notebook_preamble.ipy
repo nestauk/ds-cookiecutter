@@ -1,7 +1,38 @@
 #!/bin/ipython
 # Note: ipy file suffix neccessary for running with %run magic
 
-%matplotlib inline
+# Import our repo as a module
+import {{ cookiecutter.repo_name }}
+
+## Logging
+import logging
+import sys
+
+logger = logging.getLogger()
+fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+formatter = logging.Formatter(fmt)
+
+# File handler - log everything in a file to avoid slowing down notebooks
+fhandler = logging.FileHandler(filename='session.log', mode='a')
+fhandler.setFormatter(formatter)
+logger.addHandler(fhandler)
+fhandler.setLevel(logging.DEBUG)
+
+# Stream handler - warnings in the terminal where jupyter starts
+if sys.stdout != sys.__stdout__:
+  shandler = logging.StreamHandler(sys.__stdout__)
+  shandler.setLevel(logging.WARNING)
+  shandler.setFormatter(formatter)
+  logger.addHandler(shandler)
+
+# General level
+logger.setLevel(logging.INFO)
+
+## Plotting
+try:
+  %matplotlib inline
+except:
+  logger.warning("Couldn't configure matplotlib inline backend.")
 
 ## Reload changed code
 %load_ext autoreload
@@ -14,27 +45,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 ## Paths
-
-from dotenv import find_dotenv
-import sys
-project_dir = find_dotenv().rstrip('/.env')  # project directory e.g. `/home/user/GIT/nesta`
-data_path = f'{project_dir}/data'  # Don't hard-code data path
-
-## Logging
-import logging
-
-logger = logging.getLogger()
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-# File handler
-fhandler = logging.FileHandler(filename='notebooks.log', mode='a')
-fhandler.setFormatter(formatter)
-logger.addHandler(fhandler)
-logger.setLevel(logging.INFO)
-
-# Stream handler
-shandler = logging.StreamHandler(sys.stdout)
-shandler.setLevel(logging.INFO)
-shandler.setFormatter(formatter)
-logger.addHandler(shandler)
-
+# project directory e.g. `/home/user/GIT/nesta`
+project_dir = {{ cookiecutter.repo_name }}.project_dir
+data_path = f'{project_dir}/data'
