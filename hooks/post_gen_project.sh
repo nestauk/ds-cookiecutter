@@ -7,6 +7,8 @@ git init  # Create git repo
 echo -e $config >> .git/config  # Copy git filter
 
 git add .
+git add data/raw -f
+git add data/interim -f
 git commit -am"Setup Nesta Data Science cookiecutter"
 
 
