@@ -56,8 +56,10 @@ docs/_build/
 # PyBuilder
 target/
 
-# DotEnv configuration
+# configuration
 .env
+.config
+*.config
 
 # Database
 *.db
