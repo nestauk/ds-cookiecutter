@@ -45,15 +45,12 @@ make all
 
 ## Structure
 
-### Overview
-
-```nohighlight
+```
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data`
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
-    │   ├── README.md
-    │   ├── external       <- Data from third party sources.
+    │   ├── README.md      <- An inventory of data-sources, including schemas (or links to schemas)
     │   ├── interim        <- Intermediate data that has been transformed.
     │   ├── processed      <- The final, canonical data sets for modeling.
     │   ├── aux            <- Non-automatable human interventions, e.g. hand selected record ID's to ignore
@@ -69,6 +66,7 @@ make all
     │
     ├── notebooks          <- Jupyter notebooks. Notebooks at the top level should have a markdown header
     │   │                     outlining the notebook and should avoid function calls in favour of factored out code.
+    │   │                     
     │   ├── notebook_preamble.ipy
     │   │                     
     │   └── dev            <- Development notebooks. Naming convention is a number (for ordering),
@@ -78,32 +76,32 @@ make all
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
     ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
+    │   ├── eda            <- Generated exploratory data analysis reports
     │   └── figures        <- Generated graphics and figures to be used in reporting
     │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
+    ├── conda_environment.yaml <- A reproducable conda environment.
+    │                             installable with `conda env create -f conda_environment.yaml`
     │
     ├── setup.py           <- makes project pip installable (pip install -e .) so {{ cookiecutter.repo_name }} can be imported
     │
     ├── {{ cookiecutter.repo_name }}                <- Source code for use in this project.
     │   ├── __init__.py    <- Makes {{ cookiecutter.repo_name }} a Python module
     │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
+    │   ├── fetch_data.py  <- Script to fetch data into data/raw
     │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
+    │   ├── make_dataset.py<- Scripts to generate processed data
     │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
+    │   ├── transformers   <- Methods that perform `transform` on a dataset but not `fit` (or pre-trained models)
     │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
+    │   ├── estimators     <- Methods that perform `fit` on a dataset
+    │   │
+    │   └── visualisation  <- Scripts to create exploratory and results oriented visualisations
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.testrun.org
 ```
+
+### Overview
+
 
 
 ### Analysis is a DAG
@@ -209,7 +207,7 @@ Some analyses may not be runnable from start to finish without human interventio
 
 This folder should contain transformed and processed data that is to be used in the final analysis or is a data output of the final analysis.
 
-If using DVC, anything here should be version controlled with DVC (see [Data and model version control with DVC](#data-and-model-version-control-with-dvc)) and ideally backed up and synced using s3.
+`data/processed` is in `.gitignore` by default; however if you are using DVC you may want to remove it from `.gitignore` as anything here should be version controlled with DVC+S3 (see [Data and model version control with DVC](#data-and-model-version-control-with-dvc)).
 
 
 ### Data and model version control with DVC
