@@ -35,9 +35,11 @@ Starting a new project is as easy as running this command at the command line. N
 cookiecutter https://github.com/nestauk/cookiecutter-data-science-nesta
 ```
 
+For getting started quickly, have a look at the [quickstart](quickstart.md) or [FAQ](faq.md).
+
 ### Reproducing analysis for an existing project
 
-If the project structure has been adhered to then reproducing the analysis should be a one-liner (assuming your `.env` contains everything it needs to - nothing by default).
+If the project structure has been adhered to and an appropriate `Makefile` entry made then reproducing the analysis should be a one-liner (assuming your `.env` contains everything it needs to - nothing by default).
 
 ```nohighlight
 make all
