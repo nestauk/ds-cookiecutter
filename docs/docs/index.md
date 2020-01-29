@@ -5,7 +5,7 @@ _A logical, reasonably standardized, project structure for reproducible and coll
 ## Disclaimers:
 * The workflow and the documentation here of it are works in progress and may currently be incomplete or inconsistent in parts - please raise issues where you spot this is the case.
 
-* The foundations of this document are heavily borrowed (large parts of it verbatim) from the great work [http://drivendata.github.io/cookiecutter-data-science/][here] by the people at [Drivendata](http://drivendata.github.io/cookiecutter-data-science/).
+* The foundations of this document are heavily borrowed (large parts of it verbatim) from the great work [here](http://drivendata.github.io/cookiecutter-data-science/) by the people at [Drivendata](http://drivendata.github.io/cookiecutter-data-science/).
 
 ## High-level aims
 
@@ -55,7 +55,7 @@ make all
     │   ├── README.md      <- An inventory of data-sources, including schemas (or links to schemas)
     │   ├── interim        <- Intermediate data that has been transformed.
     │   ├── processed      <- The final, canonical data sets for modeling.
-    │   ├── aux            <- Non-automatable human interventions, e.g. hand selected record ID's to ignore
+    │   ├── aux            <- Non-automatable human interventions, e.g. hand selected IDs to ignore
     │   └── raw            <- The original, immutable data dump.
     │
     ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
@@ -66,8 +66,9 @@ make all
     │
     ├── model_config.yaml  <- Model configuration parameters
     │
-    ├── notebooks          <- Jupyter notebooks. Notebooks at the top level should have a markdown header
-    │   │                     outlining the notebook and should avoid function calls in favour of factored out code.
+    ├── notebooks          <- Jupyter notebooks. Notebooks at the top level should have a markdown 
+    │   │                     header outlining the notebook and should avoid function calls in 
+    │   │                     favour of factored out code.
     │   │                     
     │   ├── notebook_preamble.ipy
     │   │                     
@@ -84,16 +85,16 @@ make all
     ├── conda_environment.yaml <- A reproducable conda environment.
     │                             installable with `conda env create -f conda_environment.yaml`
     │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so {{ cookiecutter.repo_name }} can be imported
+    ├── setup.py           <- makes project pip installable (pip install -e .) and importable
     │
-    ├── {{ cookiecutter.repo_name }}                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes {{ cookiecutter.repo_name }} a Python module
+    ├── src <- Source code for use in this project.
+    │   ├── __init__.py    <- Makes src a Python module
     │   │
     │   ├── fetch_data.py  <- Script to fetch data into data/raw
     │   │
     │   ├── make_dataset.py<- Scripts to generate processed data
     │   │
-    │   ├── transformers   <- Methods that perform `transform` on a dataset but not `fit` (or pre-trained models)
+    │   ├── transformers   <- Methods that perform `transform` on a dataset but not `fit`
     │   │
     │   ├── estimators     <- Methods that perform `fit` on a dataset
     │   │
