@@ -9,7 +9,6 @@ ipython
 -e .
 
 # external requirements
-dvc
 jq
 click
 Sphinx

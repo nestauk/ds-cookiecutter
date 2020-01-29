@@ -37,7 +37,7 @@ The directory structure of your new project looks like this:
 
 ```
     ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make dvc`
+    ├── Makefile           <- Makefile with commands like `make data`
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
     │   ├── README.md
@@ -62,8 +62,6 @@ The directory structure of your new project looks like this:
     │   └── dev            <- Development notebooks. Naming convention is a number (for ordering),
     │                         the creator's initials, and a short `_` delimited description, e.g.
     │                         `01_jmg_eda.ipynb`.
-    │
-    ├── pipe               <- Contains DVC pipeline files
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
