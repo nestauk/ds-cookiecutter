@@ -48,9 +48,16 @@ requirements: test_environment
 	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
 
-## Make Dataset
-data: requirements
-	$(PYTHON_INTERPRETER) {{ cookiecutter.repo_name }}/data/make_dataset.py
+
+## Fetch data and sync raw to s3
+fetch:
+	$(PYTHON_INTERPRETER) {{ cookiecutter.repo_name }}/fetch_data.py
+  make sync_data_to_s3
+
+## Sync raw from s3 and make Dataset
+data:
+  make sync_data_from_s3
+	$(PYTHON_INTERPRETER) {{ cookiecutter.repo_name }}/make_dataset.py
 
 ## Delete all compiled Python files
 clean:
