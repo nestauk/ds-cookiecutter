@@ -194,12 +194,6 @@ Raw data should be stored with s3 [AWS S3](https://aws.amazon.com/s3/). Currentl
 
 Two make commands - `make sync_data_from_s3` and `make sync_data_to_s3` - can be used to sync data to and from the configured s3 bucket (`BUCKET` in `Makefile`)
 
-#### `data/external`
-
-This folder should contain data from third-party sources which for some reason is not stored in `data/raw`, with any files living here retrievable online from persistent URL's with scripts to download these contained in `src/data` or as a `make` command with `data/README.md` detailing how to obtain these.
-
-`data/external` is in `.gitignore` by default.
-
 #### `data/interim`
 
 This folder is for intermediate data that has been transformed but is not a fully processed output, perhaps as it is the output of a rough notebook.
@@ -325,20 +319,16 @@ In addition, it is proposed to add a `#UTILS` flag at the end of a docstring for
 
 #### Data README
 
-`data/README.md` should document everything in `data/{raw,external,aux,processed}`. For example
+`data/README.md` should document everything in `data/{raw,aux,processed}`. For example
 
 ```
 # raw
-
-Empty
-
-# external
 
 ## something_from_online.xlsx
 
 <Details about what the file contains>
 
-Obtained via `wget` by running `make external`
+Obtained via `wget` by running `make fetch`
 
 ### Columns
 
@@ -351,23 +341,22 @@ Obtained via `wget` by running `make external`
 ## drop_ids.txt
 
 Contains one id corresponding to <column name 0> in 
-`external/something_from_online.xlsx` per line which 
+`raw/something_from_online.xlsx` per line which 
 should be dropped due to formatting errors.
 
 # processed
 
 ## processed_dataset.csv
 
-Cleaned and processed version of `data/external/something_from_online.xlsx`.
+Cleaned and processed version of `data/raw/something_from_online.xlsx`.
 
-Produced by running `make_dataset.py`
+Produced by running `make data`
 
 ### Columns
 
 <column name 0> : <brief description>
       ...
 <column name N> : <brief description>
-
 ```
 
 #### Logging

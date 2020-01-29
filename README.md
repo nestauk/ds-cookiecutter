@@ -40,8 +40,7 @@ The directory structure of your new project looks like this:
     ├── Makefile           <- Makefile with commands like `make data`
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
-    │   ├── README.md
-    │   ├── external       <- Data from third party sources.
+    │   ├── README.md      <- An inventory of data-sources, including schemas (or links to schemas)
     │   ├── interim        <- Intermediate data that has been transformed.
     │   ├── processed      <- The final, canonical data sets for modeling.
     │   ├── aux            <- Non-automatable human interventions, e.g. hand selected record ID's to ignore

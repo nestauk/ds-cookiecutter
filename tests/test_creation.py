@@ -82,7 +82,6 @@ class TestCookieSetup(object):
     def test_folders(self):
         expected_dirs = [
             'data',
-            'data/external',
             'data/interim',
             'data/processed',
             'data/raw',
