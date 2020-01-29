@@ -77,12 +77,12 @@ target/
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
 
-# exclude data/{raw,externa,interim} from source control by default
+# exclude data/{raw,externa,interim,processed} from source control by default
 # data/aux can be tracked by github as this will contain hand-written content
-# data/processed is not ignored as outputs should be tracked by DVC
 /data/raw/
 /data/external/
 /data/interim/
+/data/processed/
 
 # Mac OS-specific storage files
 .DS_Store
@@ -90,6 +90,7 @@ target/
 # vim
 *.swp
 *.swo
+*~
 
 # Mypy cache
 .mypy_cache/
