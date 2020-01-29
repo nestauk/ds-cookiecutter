@@ -11,7 +11,7 @@
     <link rel="../img/favicon.ico">
 
     
-    <title>Make commands - Cookiecutter Data Science @ Nesta</title>
+    <title>Quickstart - Cookiecutter Data Science @ Nesta</title>
     
 
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -75,7 +75,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/nestauk/cookiecutter-data-science-nesta/edit/master/docs/docs/make_commands.md"><i class="fab fa-github"></i> Edit on GitHub</a>
+                        <a href="https://github.com/nestauk/cookiecutter-data-science-nesta/edit/master/docs/docs/quickstart.md"><i class="fab fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -87,11 +87,53 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#quickstart">Quickstart</a></li>
+            <li class="second-level"><a href="#starting-from-scratch">Starting from scratch</a></li>
+                
+                <li class="third-level"><a href="#create-cookiecutter">Create cookiecutter</a></li>
+                <li class="third-level"><a href="#create-a-virtual-environment">Create a virtual environment</a></li>
+                <li class="third-level"><a href="#first-step">First step</a></li>
+            <li class="second-level"><a href="#reproducing-someone-elses-work">Reproducing someone else's work</a></li>
+                
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<p>TODO</p></div>
+<h1 id="quickstart">Quickstart</h1>
+<h2 id="starting-from-scratch">Starting from scratch</h2>
+<h3 id="create-cookiecutter">Create cookiecutter</h3>
+<ul>
+<li><code>pip install cookiecutter</code></li>
+<li><code>cookiecutter https://github.com/nestauk/cookiecutter-data-science-nesta</code>
+  This opens a series of prompts to configure your new project (values in square brackets denote defaults):</li>
+<li><code>project_name [project_name]:</code> Type the name of your project here</li>
+<li><code>repo_name [project_name]:</code> Type the name of your repository here</li>
+<li><code>author_name [Nesta]:</code> The author of the project (you or your organisation)</li>
+<li><code>description [...]:</code> A short description of your project</li>
+<li><code>Select open_source_license: ...</code> Choose the license you wish to use </li>
+<li><code>s3_bucket ...:</code> The name of an S3 bucket to sync your raw data to</li>
+<li><code>aws_profile [default]:</code> The AWS profile name to use for syncing to S3. Choose default unless your an advanced user.</li>
+<li><code>cd &lt;repo_name&gt;</code></li>
+</ul>
+<h3 id="create-a-virtual-environment">Create a virtual environment</h3>
+<ul>
+<li>Add any libraries you know you will need into <code>conda_environment.yaml</code></li>
+<li>Run <code>make create_environment</code> - This will setup a conda environment named according to your repository, and install your project as a local, editable package</li>
+<li><code>conda activate &lt;environment name&gt;</code> (<code>conda env list</code> will list available environments if you're unsure what your environment is called)</li>
+</ul>
+<h3 id="first-step">First step</h3>
+<p>We've setup our project structure and environment, now you're ready to get going!</p>
+<p>The best first step is to write <code>&lt;repo_name&gt;/fetch_data.py</code> to fetch all your data, and store it in <code>data/raw/</code>.</p>
+<p><code>make fetch</code> will run this file and sync <code>data/raw</code> to s3 for you (as long as you setup a bucket).</p>
+<h2 id="reproducing-someone-elses-work">Reproducing someone else's work</h2>
+<ul>
+<li>Clone the repository and <code>cd</code> into the repository.</li>
+<li>Run <code>make create_environment</code> - This will setup a conda environment named according to your repository, and install your project as a local, editable package.</li>
+<li><code>conda activate &lt;environment name&gt;</code> will activate the environment (<code>conda env list</code> will list available environments if you're unsure what your environment is called)</li>
+<li>Check the README for any configuration needed (e.g. putting API keys in <code>.env</code>)</li>
+<li>Get the raw data: <code>make sync_from_s3</code></li>
+<li>Follow their documentation, or make them write some if they haven't already!</li>
+</ul></div>
         
         
     </div>
