@@ -5,7 +5,7 @@ _A logical, reasonably standardized, project structure for reproducible and coll
 ## Disclaimers:
 * The workflow and the documentation here of it are works in progress and may currently be incomplete or inconsistent in parts - please raise issues where you spot this is the case.
 
-* The foundations of this document are heavily borrowed (large parts of it verbatim) from the great work [[http://drivendata.github.io/cookiecutter-data-science/][here]] by the people at [Drivendata](http://drivendata.github.io/cookiecutter-data-science/).
+* The foundations of this document are heavily borrowed (large parts of it verbatim) from the great work [http://drivendata.github.io/cookiecutter-data-science/][here] by the people at [Drivendata](http://drivendata.github.io/cookiecutter-data-science/).
 
 ## High-level aims
 
@@ -123,12 +123,11 @@ Several generic `make` commands are made [available](make_commands) within the c
 
 The first step in reproducing an analysis is always reproducing the computational environment it was run in. You need the same tools, the same libraries, and the same versions to make everything play nicely together.
 
-One effective approach to this is use [conda](https://docs.conda.io/en/latest/) (or [virtualenv](https://virtualenv.pypa.io/en/latest/) + [virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/)). By listing all of your requirements in the repository (we include a `requirements.txt` file) you can easily track the packages needed to recreate the analysis. Here is a good workflow:
+One effective approach to this is use [conda](https://docs.conda.io/en/latest/). By listing all of your requirements in the repository (we include a `conda_environment.yaml` file) you can easily track the packages needed to recreate the analysis. Here is a good workflow:
 
- 1. Run `make create_environment` when creating a new project
- 2. `pip install` or `conda install` the packages that your analysis needs
- 3. Run `pip freeze > requirements.txt` to pin the exact package versions used to recreate the analysis
- 4. If you find you need to install another package, run `pip freeze > requirements.txt` again and commit the changes to version control.
+ 1. Add any required dependencies to `conda_environment.yaml`
+ 2. Run `make create_environment` to create an environment with the required dependencies
+ 3. Add dependencies to `conda_environment.yaml` as you go so that others can reproduce your environment
 
 If you have more complex requirements for recreating your environment, consider a virtual machine based approach such as [Docker](https://www.docker.com/) or [Vagrant](https://www.vagrantup.com/). Both of these tools use text-based formats (Dockerfile and Vagrantfile respectively) you can easily add to source control to describe how to create a virtual machine with the requirements you need.
 
@@ -186,6 +185,8 @@ You can add the profile name when initialising a project; assuming no applicable
 #### `data/raw`
 
 Don't ever edit your raw data, especially not manually, and especially not in Excel. Don't overwrite your raw data. Don't save multiple versions of the raw data. Treat the data (and its format) as immutable. The code you write should move the raw data through a pipeline to your final analysis. You shouldn't have to run all of the steps every time you want to make a new figure (see [Analysis is a DAG](#analysis-is-a-dag)), but anyone should be able to reproduce the final products with only the code in `src` and the data in `data/raw`.
+
+`src/fetch_data.py` should call scripts/functions to fetch all the raw data you need.
 
 Also, if data is immutable, it doesn't need source control in the same way that code does. 
 Raw data should be stored with s3 [AWS S3](https://aws.amazon.com/s3/). Currently by default, we ask for an S3 bucket and use [AWS CLI](http://docs.aws.amazon.com/cli/latest/reference/s3/index.html) to sync data in the `data/raw` folder with the server.
@@ -249,7 +250,7 @@ Follow a naming convention that shows the owner and the order the analysis was d
 
 #### Refactoring
 
-Refactor the good parts (frequently). Don't write code to do the same task in multiple notebooks. If it's a data preprocessing task, put it in the pipeline at `src/data/make_dataset.py`. If it's useful utility code, refactor it to `src`. 
+Refactor the good parts (frequently). Don't write code to do the same task in multiple notebooks. If it's a data preprocessing task, put it in the pipeline at `src/make_dataset.py`. If it's useful utility code, refactor it to `src`. 
 
 Now by default we turn the project into a Python package (see the `setup.py` file). You can import your code and use it in notebooks with a cell like the following:
 
@@ -289,15 +290,7 @@ This requires [`jupyter_nbextensions_configurator`](https://github.com/Jupyter-c
 
 ### Git
 
-There are many different ways to use Git each with their pros and cons, therefore we give pretty minimal guidance on how to use it.
-
-Never commit directly to `master` or `dev`, always branch off `dev`, rebase if necessary, and merge. 
-
-Only make meaningful PR’s back to dev with commits addressing one issue
-e.g. new feature, improved model, bug fix NOT interim work.  
-
-***Beware:*** Branching off anything other than `master`/`dev` that someone else has created that is a WIP, many merge conflicts may arise or history may change.
-
+There are many different ways to use Git each with their pros and cons, refer to your organisations workflow (Nesta members can find ours in the [playbook](https://github.com/nestauk/imt_playbook)).
 
 ### Style and Documentation
 
@@ -305,8 +298,7 @@ e.g. new feature, improved model, bug fix NOT interim work.
 
 Basic [PEP8](https://www.python.org/dev/peps/pep-0008/) and style requirements apply.
 
-The `make lint` command can be used to use `flake8` to check adherence. 
-<!-- If a lot of things are flgged then the `autopep8` package can be installed and used to autoformat these: `autopep8 --aggressive --aggressive --in-place <filename>`. -->
+The `make lint` command can be used to use `black` to format code.
 
 Code formatting can be heavily opinion based with much debate over things such as linelengths etc.
 We recommend the use of [`black`](https://black.readthedocs.io/en/stable/) which gives fast, deterministic code-formatting that avoids wasting mental energy of worrying about code formatting and improves code review speed by formatting code in a way that produces smaller diffs. It is convenient to run from the command line or incorporate into your favourite [editor](https://black.readthedocs.io/en/stable/editor_integration.html).
@@ -385,7 +377,7 @@ Several different entities can end up being buried in code for which we provide 
 
 Hard-coding paths to data - e.g. `"/home/nesta/project/data/raw/file.csv" - means that everytime someone wishes to run your analysis they have to find every path and correct it to their system. Furthermore, if there are several contributors to a repository then different users paths will cause a lot of unneccessary diff's at best and a lot of merge conflicts to resolve at worst.
 
-For this reason ***never*** hard-code a folder path. Use the `project_dir` variable (see [example](https://github.com/nestauk/cookiecutter-data-science-nesta/blob/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/%7B%7B%20cookiecutter.repo_name%20%7D%7D/data/make_dataset.py#L39)) to refer to paths, e.g. `f'{project_dir}/data/raw/file.csv'`. 
+For this reason ***never*** hard-code a folder path. Use the `<repo_name>.project_dir` variable to refer to paths, e.g. `f'{project_dir}/data/raw/file.csv'`. 
 
 For some analyses you may be using the same raw data across multiple projects and not have the disk space to store multiple copies in the respective [`data/raw`](#data-folder) folders.
 Rather than reference a hard-coded external directory (e.g. `/storage/file.csv`), one should create a [symlink](https://www.unixtutorial.org/unix-symlink-example) from both `data/raw` folders pointing to the external directory such that `f'{project_dir}/data/raw/file.csv'` will actually reference `/storage/file.csv` without requiring the data to be stored multiple times.
@@ -403,6 +395,8 @@ with open(fname, 'r') as f:
     params = yaml.safe_load(f)
 ```
 
+For convenience, we've set it up so you can use `import <repo_name>; <repo_name>.config` to access your YAML config.
+
 Alternatively, you may wish to use your favourite configuration parser.
 
 #### Seeds and workers
@@ -417,31 +411,29 @@ Finally, another consideration is the number of threads/cores to use for analysi
 ## Cookiecutter in practice
 
 A [tutorial](tutorial.md) outline has been developed and will be collaboratively updated as we adopt this new way of working. The tutorial outlines how this project structure works in practice end-to-end for a simple analysis of the Gateway to Research data trying to predict which UK research council funded a research proposal based on its abstract.
+NOTE: This is currently incomplete and slightly out of date.
 
 ## Roadmap
 
-* Complete the roadmap
+* Add an option to configure the cookiecutter to make easier use of DVC
 
 * [`data_getters.labs`](https://github.com/nestauk/data_getters/issues/6)
-
   If the need to share an analysis adhering to this workflow across repositories arises, this generally suggests that it should probably be put into the production system; however this might not be possible to do quickly, or may be slightly premature.
-  
-  In this case, outputs to share should be pushed to the s3 `nesta-data-getters` and a thin wrapper function added to the ~labs~ subpackage of `data_getters` that fetches this data, and signposts to the original analysis.
-  
-  ~labs~ will be periodically reviewed to asssess whether components should be productionised or deprecated.
-  
+  In this case, outputs to share should be pushed to the s3 `nesta-data-getters` and a thin wrapper function added to the `labs` subpackage of `data_getters` that fetches this data, and signposts to the original analysis. 
+  `labs` will be periodically reviewed to asssess whether components should be productionised or deprecated.
   
 * Plans to outline and implement a procedure for factoring out `#UTILS` functions into [nesta.packages](https://github.com/nestauk/nesta/nesta/packages)
 
-* Testing 
+* Code review guidelines
 
+* Testing 
   A guide for how to write tests for Data science code will be developed and testing requirements will be phased which will require a given level of testing for *all* code, data, models that are used as a component of *any* analysis which is exposed beyond the developers team.
 
+
 * Plotting style
-
   Consistent visual grammar of graphics to produce consistent high quality plots for various outputs (papers, blogs, reports, presentations etc.).
-* EDA framework
 
+* EDA framework
   A guide to performing EDA on a new dataset and producing a summary report of the output - this would also assist in the data auditing process (see the Nesta [blog](https://www.nesta.org.uk/blog/red-lines-grey-area/)).
 
 ## Thanks
