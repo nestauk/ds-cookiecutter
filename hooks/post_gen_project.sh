@@ -9,6 +9,7 @@ echo -e $config >> .git/config  # Copy git filter
 git add .
 git add data/raw -f
 git add data/interim -f
+git add data/processed -f
 git commit -am"Setup Nesta Data Science cookiecutter"
 
 
