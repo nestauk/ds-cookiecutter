@@ -1,4 +1,4 @@
-.PHONY: git dvc pipeline all clean data lint requirements sync_data_to_s3 sync_data_from_s3
+.PHONY: git all clean data lint requirements sync_data_to_s3 sync_data_from_s3
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -33,29 +33,15 @@ endef
 #################################################################################
 
 ## Setup git filter for notebooks
-git: 
+git:
 	echo -e "[filter \"nbstrip_full\"]\n clean = \"jq --indent 1 '(.cells[] | select(has(\\\"outputs\\\")) | .outputs) = []  | (.cells[] | select(has(\\\"execution_count\\\")) | .execution_count) = null  | .metadata = {\\\"language_info\\\": {\\\"name\\\": \\\"python\\\", \\\"pygments_lexer\\\": \\\"ipython3\\\"}} | .cells[].metadata = {} '\"\n smudge = cat\n required = true\n " >> .git/config
 
 
-## Initialise a DVC repository
-dvc:
-	dvc init
-	git commit -m 'init DVC'
-
-## Build DVC pipeline
-pipeline:
-	-dvc pull
-ifneq ($(wildcard pipe/Dvcfile), )
-	dvc repro pipe/Dvcfile
-else
-	$(error No file pipe/Dvcfile to build pipeline)
-endif
-
-## Make new environment, install requirements and build pipeline in new env
-all: 
+## Make new environment, install requirements and make datasets
+all:
 	make create_environment
 	$(call execute_in_env, make requirements)
-	$(call execute_in_env, make pipeline)
+	$(call execute_in_env, make data)
 
 ## Install Python Dependencies
 requirements: test_environment

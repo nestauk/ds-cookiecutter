@@ -49,7 +49,7 @@ make all
 
 ```nohighlight
     ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make dvc`
+    ├── Makefile           <- Makefile with commands like `make data`
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
     │   ├── README.md
@@ -74,8 +74,6 @@ make all
     │   └── dev            <- Development notebooks. Naming convention is a number (for ordering),
     │                         the creator's initials, and a short `_` delimited description, e.g.
     │                         `01_jmg_eda.ipynb`.
-    │
-    ├── pipe               <- Contains DVC pipeline files
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
@@ -217,7 +215,7 @@ Some analyses may not be runnable from start to finish without human interventio
 
 This folder should contain transformed and processed data that is to be used in the final analysis or is a data output of the final analysis.
 
-Anything here should be version controlled with DVC (see [Data and model version control with DVC](#data-and-model-version-control-with-dvc)) and ideally backed up and synced using s3.
+If using DVC, anything here should be version controlled with DVC (see [Data and model version control with DVC](#data-and-model-version-control-with-dvc)) and ideally backed up and synced using s3.
 
 
 ### Data and model version control with DVC
@@ -241,14 +239,9 @@ DVC also allows the expression of DAG's. `dvc run -f cnn.dvc -d images -o model 
 
 The dependencies and outputs will be stored in the DVC cache, while `cnn.dvc` can be tracked by Git to link the given model output to the current commit.
 
-Running `dvc repro cnn.dvc` will reproduce this step, and if the current hashes exist in the DVC cache then no work will be done which may save re-running expensive training steps when sharing a repository.
+Running `dvc repro cnn.dvc** will reproduce this step, and if the current hashes exist in the DVC cache then no work will be done which may save re-running expensive training steps when sharing a repository.
 
-#### Convenience commands
-
-A few convenience commands have been added to `Makefile`.
-
-* `make dvc` initialises a DVC repository and tracks the relevant bits and config in GIT.
-* `make pipeline` will pull DVC cache from the remote (if one exists), and then reproduce the pipeline defined in `pipe/Dvcfile` (if it exists).
+**We are currently working on incorporating DVC into the cookiecutter**
 
 ### Notebooks
 
