@@ -20,7 +20,7 @@ endif
 ifeq ($(CONDA_DEFAULT_ENV),$(PROJECT_NAME))
     ACTIVATE_ENV := true
 else
-    ACTIVATE_ENV := source activate $(PROJECT_NAME)
+    ACTIVATE_ENV := conda activate $(PROJECT_NAME) || source activate $(PROJECT_NAME)
 endif
 
 # Execute python related functionalities from within the project's environment
