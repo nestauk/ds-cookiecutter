@@ -20,7 +20,8 @@ endif
 ifeq ($(CONDA_DEFAULT_ENV),$(PROJECT_NAME))
     ACTIVATE_ENV := true
 else
-    ACTIVATE_ENV := source activate $(PROJECT_NAME)
+		CONDA_BASE := $(shell conda info --base)
+    ACTIVATE_ENV := source $(CONDA_BASE)/etc/profile.d/conda.sh && conda activate $(PROJECT_NAME) || source activate $(PROJECT_NAME)
 endif
 
 # Execute python related functionalities from within the project's environment
@@ -90,7 +91,7 @@ ifeq (True,$(HAS_CONDA))
 	$(call execute_in_env, pip install -e .)
 	$(call execute_in_env, jupyter contrib nbextension install --user)
 	$(call execute_in_env, jupyter-nbextensions_configurator enable --user)
-	@echo ">>> New conda env created. Activate with:\nsource activate $(PROJECT_NAME)"
+	@echo ">>> New conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
 else
 	@echo ">>> Please install a conda distribution\n"
 endif
