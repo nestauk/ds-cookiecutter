@@ -55,8 +55,7 @@ fetch:
 	make sync_data_to_s3
 
 ## Sync raw from s3 and make Dataset
-data:
-	sync_data_from_s3
+data: sync_data_from_s3
 	$(PYTHON_INTERPRETER) {{ cookiecutter.repo_name }}/make_dataset.py
 
 ## Delete all compiled Python files
