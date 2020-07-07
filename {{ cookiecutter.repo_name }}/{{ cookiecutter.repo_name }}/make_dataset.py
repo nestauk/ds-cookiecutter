@@ -8,6 +8,7 @@ import {{ cookiecutter.repo_name }}
 
 logger = logging.getLogger(__name__)
 
+
 def main():
     """ Runs data processing scripts to turn raw data from (../raw) into
         cleaned data ready to be analyzed (saved in ../processed).
@@ -16,7 +17,6 @@ def main():
     config = {{ cookiecutter.repo_name }}.config
 
     return
-
 
 
 if __name__ == "__main__":
