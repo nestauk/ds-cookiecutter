@@ -10,13 +10,17 @@ dependencies:
   - pandas
   - matplotlib
   - jupyter
+  - jupyterlab
   - ipython
+  - clang_osx-64
+  - gcc_linux-64
   # Put any conda dependencies here
 
   - pip:
     # Put any pip dependencies here (and no conda ones anywhere below)
 
   # Tooling requirements (don't edit)
+    - tornado>=5.0  # Required to stop luigi from breaking jupyter
     - tqdm
     - pyyaml
     - tables
