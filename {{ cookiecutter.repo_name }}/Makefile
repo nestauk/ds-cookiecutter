@@ -85,13 +85,30 @@ else
 endif
 
 ## Set up python interpreter environment
+## (filters conda_environment.yaml lines with "[not <PLATFORM_NAME>]" comments)
+## <PLATFORM_NAME> from https://docs.python.org/3/library/sys.html#sys.platform
 create_environment:
 ifeq (True,$(HAS_CONDA))
-	conda env create -f conda_environment.yaml
+	cat conda_environment.yaml | \
+grep "\[not .*$(shell python -c 'import sys; print(sys.platform)').*\]" -v > /tmp/environment.yaml
+	conda env create -f /tmp/environment.yaml
 	$(call execute_in_env, pip install -e .)
 	$(call execute_in_env, jupyter contrib nbextension install --user)
 	$(call execute_in_env, jupyter-nbextensions_configurator enable --user)
 	@echo ">>> New conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
+else
+	@echo ">>> Please install a conda distribution\n"
+endif
+
+## Update python environment
+## (filters conda_environment.yaml lines with "[not <PLATFORM_NAME>]" comments)
+## <PLATFORM_NAME> from https://docs.python.org/3/library/sys.html#sys.platform
+update_environment:
+ifeq (True,$(HAS_CONDA))
+	cat conda_environment.yaml | \
+grep "\[not .*$(shell python -c 'import sys; print(sys.platform)').*\]" -v > /tmp/environment.yaml
+	conda env update -f /tmp/environment.yaml
+	@echo ">>> Updated conda env"
 else
 	@echo ">>> Please install a conda distribution\n"
 endif

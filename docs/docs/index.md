@@ -127,7 +127,7 @@ The first step in reproducing an analysis is always reproducing the computationa
 One effective approach to this is use [conda](https://docs.conda.io/en/latest/). By listing all of your requirements in the repository (we include a `conda_environment.yaml` file) you can easily track the packages needed to recreate the analysis. Here is a good workflow:
 
  1. Add any required dependencies to `conda_environment.yaml`
- 2. Run `make create_environment` to create an environment with the required dependencies
+ 2. Run `make create_environment` to create an environment with the required dependencies (or `make update_environment` to update an already created environment)
  3. Add dependencies to `conda_environment.yaml` as you go so that others can reproduce your environment
 
 If you have more complex requirements for recreating your environment, consider a virtual machine based approach such as [Docker](https://www.docker.com/) or [Vagrant](https://www.vagrantup.com/). Both of these tools use text-based formats (Dockerfile and Vagrantfile respectively) you can easily add to source control to describe how to create a virtual machine with the requirements you need.

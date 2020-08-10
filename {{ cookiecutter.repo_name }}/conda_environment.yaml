@@ -10,7 +10,10 @@ dependencies:
   - pandas
   - matplotlib
   - jupyter
+  - jupyterlab
   - ipython
+  - clang_osx-64  # [not linux]
+  - gcc_linux-64  # [not darwin]
   # Put any conda dependencies here
 
   - pip:
