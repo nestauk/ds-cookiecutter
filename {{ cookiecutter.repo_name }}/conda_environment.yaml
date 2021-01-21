@@ -43,3 +43,4 @@ dependencies:
   - jq
   - pytest
   - mypy
+  - jupytext
