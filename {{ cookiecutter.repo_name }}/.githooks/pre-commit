@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+function branchStartsWithNumber {
+    CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    ISSUE_NUMBER=(${CURRENT_BRANCH//_/ })
+    [ -n "$ISSUE_NUMBER" ] && [ "$ISSUE_NUMBER" -eq "$ISSUE_NUMBER" ] 2> /dev/null
+    if [ $? -ne 0 ]; then
+	echo "Error: Branch ${CURRENT_BRANCH} does not start with a relevant issue number followed by an underscore." >&2
+	exit 1
+    fi
+}
+
+function forbidCommitTo {
+    branch="$(git rev-parse --abbrev-ref HEAD)"
+    if [ "$branch" == "$1" ]; then
+	echo "Error: Do not work directly on $1 branch. Checkout a new or different branch first." >&2
+	exit 1
+    fi
+}
+
+forbidCommitTo "dev"
+forbidCommitTo "master"
+branchStartsWithNumber
