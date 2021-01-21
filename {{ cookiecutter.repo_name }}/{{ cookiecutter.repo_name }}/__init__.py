@@ -28,5 +28,7 @@ if logging_config:
 logger = logging.getLogger(__name__)
 
 # Model config
-with open(project_dir / "{{ cookiecutter.repo_name }}" / "model_config.yaml", "rt") as f:
+with open(
+    project_dir / "{{ cookiecutter.repo_name }}" / "model_config.yaml", "rt"
+) as f:
     config = yaml.safe_load(f.read())
