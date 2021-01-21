@@ -1,4 +1,4 @@
-.PHONY: git all clean data lint requirements sync_data_to_s3 sync_data_from_s3
+.PHONY: git clean lint sync_data_to_s3 sync_data_from_s3
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -37,27 +37,6 @@ endef
 git:
 	echo -e "[filter \"nbstrip_full\"]\n clean = \"jq --indent 1 '(.cells[] | select(has(\\\"outputs\\\")) | .outputs) = []  | (.cells[] | select(has(\\\"execution_count\\\")) | .execution_count) = null  | .metadata = {\\\"language_info\\\": {\\\"name\\\": \\\"python\\\", \\\"pygments_lexer\\\": \\\"ipython3\\\"}} | .cells[].metadata = {} '\"\n smudge = cat\n required = true\n " >> .git/config
 
-
-## Make new environment, install requirements and make datasets
-all:
-	make create_environment
-	$(call execute_in_env, make requirements)
-	$(call execute_in_env, make data)
-
-## Install Python Dependencies
-requirements: test_environment
-	$(call execute_in_env, conda env update -f conda_environment.yaml)
-	$(call execute_in_env, pip install -e .)
-
-## Fetch data and sync raw to s3
-fetch:
-	$(PYTHON_INTERPRETER) {{ cookiecutter.repo_name }}/fetch_data.py
-	make sync_data_to_s3
-
-## Sync raw from s3 and make Dataset
-data:
-	sync_data_from_s3
-	$(PYTHON_INTERPRETER) {{ cookiecutter.repo_name }}/make_dataset.py
 
 ## Delete all compiled Python files
 clean:
@@ -112,16 +91,6 @@ grep "\[not .*$(shell python -c 'import sys; print(sys.platform)').*\]" -v > /tm
 else
 	@echo ">>> Please install a conda distribution\n"
 endif
-
-## Test python environment is setup correctly
-test_environment:
-	$(PYTHON_INTERPRETER) test_environment.py
-
-#################################################################################
-# PROJECT RULES                                                                 #
-#################################################################################
-
-
 
 #################################################################################
 # Self Documenting Commands                                                     #
