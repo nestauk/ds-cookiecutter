@@ -20,4 +20,5 @@ function forbidCommitTo {
 
 forbidCommitTo "dev"
 forbidCommitTo "master"
+forbidCommitTo "main"
 branchStartsWithNumber
