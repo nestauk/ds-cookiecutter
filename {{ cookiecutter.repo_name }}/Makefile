@@ -34,6 +34,7 @@ endef
 #################################################################################
 
 install: git create_environment
+
 ## Setup git filter for notebooks
 git:
 	bash bin/git_setup.sh
@@ -74,9 +75,9 @@ grep "\[not .*$(shell python -c 'import sys; print(sys.platform)').*\]" -v > /tm
 	$(call execute_in_env, pip install -e .)
 	$(call execute_in_env, jupyter contrib nbextension install --user)
 	$(call execute_in_env, jupyter-nbextensions_configurator enable --user)
-	@echo ">>> New conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
+	@echo ">>> New conda env created. Activate with: conda activate $(PROJECT_NAME)"
 else
-	@echo ">>> Please install a conda distribution\n"
+	@echo ">>> Please install a conda distribution"
 endif
 
 ## Update python environment
@@ -89,7 +90,7 @@ grep "\[not .*$(shell python -c 'import sys; print(sys.platform)').*\]" -v > /tm
 	conda env update -f /tmp/environment.yaml
 	@echo ">>> Updated conda env"
 else
-	@echo ">>> Please install a conda distribution\n"
+	@echo ">>> Please install a conda distribution"
 endif
 
 #################################################################################
