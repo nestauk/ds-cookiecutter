@@ -33,6 +33,7 @@ endef
 # COMMANDS                                                                      #
 #################################################################################
 
+install: git create_environment
 ## Setup git filter for notebooks
 git:
 	bash bin/git_setup.sh

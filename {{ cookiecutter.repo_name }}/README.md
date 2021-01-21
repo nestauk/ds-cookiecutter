@@ -3,6 +3,9 @@
 
 {{cookiecutter.description}}
 
+## Setup
+
+To configure git and build the environment simply run `make install`.
 ## Code-style
 
 Please run `make lint` to format your code to a common style, and to lint code with flake8.
