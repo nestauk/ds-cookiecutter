@@ -3,6 +3,10 @@
 
 {{cookiecutter.description}}
 
+## Code-style
+
+Please run `make lint` to format your code to a common style, and to lint code with flake8.
+
 ## Approach to notebooks
 
 Jupyter notebooks are great for exploration and presentation but cause problems for working collaboratively.
