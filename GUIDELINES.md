@@ -25,7 +25,7 @@ Code reviewers: it is on you to ensure that this style guide has been followed: 
 
 tldr; Avoid using `pandas` except for where it makes things ridiculously simple. That is not so say that you should not use `pandas`, but rather that you should generally assume that `pandas` is making your life harder.
 
-Code containing lots of `pandas` operations are almost impossible to review, and therefore have the capacity to accululate vast numbers of bugs.
+Code containing lots of `pandas` operations are almost impossible to review, and therefore have the capacity to accumulate vast numbers of bugs.
 
 * In general, `pandas` makes column-wise operations and IO (reading/writing files) dead easy. That said, `pandas` column-wise operations are inherited from `numpy`, and `numpy` is generally accepted in the place of dataframes.
 * `pandas` is enormous, in many ways. If it can be omitted from your code then you can make big savings in terms of memory usage and requirements clashes, and even CPU time.
@@ -142,7 +142,7 @@ For example `14_readme`, which indicates that [this branch](https://github.com/n
 
 You should generally favour having a `dev` branch, in addition to your `main` (`master`) branch. Never commit to `dev`, `master` or `main`. 
 
-Only pull requests from branches named `{GitHub issue number}_{tinyLowerCamelDescription}` shouuld ever be accepted.
+Only pull requests from branches named `{GitHub issue number}_{tinyLowerCamelDescription}` should ever be accepted.
 
 Please make all PRs and issues reasonably small: they should be trying to achieve roughly one task. Inevitably some simple tasks spawn large numbers of utils, and sometimes these detract from the original PR. In this case, you should stack an new PR on top of your "base" PR, for example as `{GitHub issue number}_{differentLowerCamelDescription}`. In this case the PR / Git merging tree will look like:
 
