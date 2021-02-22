@@ -27,7 +27,7 @@ tldr; Avoid using `pandas` except for where it makes things ridiculously simple.
 
 Code containing lots of `pandas` operations are almost impossible to review, and therefore have the capacity to accululate vast numbers of bugs.
 
-* In general, `pandas` makes column-wise operations and IO (reading/writing files) dead easy. That said, `pandas` column-wise operations are inherited from `numpy`, and ``numpy` is generally accepted in the place of dataframes.
+* In general, `pandas` makes column-wise operations and IO (reading/writing files) dead easy. That said, `pandas` column-wise operations are inherited from `numpy`, and `numpy` is generally accepted in the place of dataframes.
 * `pandas` is enormous, in many ways. If it can be omitted from your code then you can make big savings in terms of memory usage and requirements clashes, and even CPU time.
 * Instead of Googling how to achieve something in `pandas` with an obscure chaining of functions, break the problem down and solve it yourself. It is highly unlikely that the `pandas` approach to reshaping your data will beat using tools from `numpy`, `itertools`, `functools` and `toolz`, even if you switch to representing data in `numpy` arrays or even as `list` of `dict` (`[{'value': 21}, {'value': 45}]`).
 
@@ -74,7 +74,7 @@ You should implement unit tests for each of your functions, something which is g
 * Module / file names / directory names: `module`, `file_name.py`, `dir_name`
 * Global* / constants: `A_GLOBAL_VARIABLE`
 
-\* Global at the module level, not the `global` level. Don't use `global`, ever.
+\* here we use "Global" to mean constants in scope at the module level, not the `global` level. Don't use `global`, ever.
 
 ### Encouraged
 
@@ -90,26 +90,26 @@ You should implement unit tests for each of your functions, something which is g
 
 ```python
 def something(args):
-	for item_collection in args:          # 1 tab
-		if item_collection.exists():      # 2 tabs
-			the_sum = 0                   # 3 tabs
-			for item in item_collection:
-				the_sum += item.value()   # 4 tabs
-			print(the_sum)
+    for item_collection in args:    # 1 tab
+        if item_collection.exists():   # 2 tabs
+            the_sum = 0                   # 3 tabs
+            for item in item_collection:
+                the_sum += item.value()      # 4 tabs
+            print(the_sum)
 ```
 
 can become:
 
 ```python
 def sum_values(item_collection):
-	the_sum = sum(item.value() for item in item_collection)
-	print(the_sum)
+    the_sum = sum(item.value() for item in item_collection)
+    print(the_sum)
 
 def something(args):
-	for item_collection in args:          # 1 tab
-		if not item_collection.exists():  # 2 tabs
-			continue
-		sum_values(item_collection)
+    for item_collection in args:       # 1 tab
+        if not item_collection.exists():  # 2 tabs
+            continue
+        sum_values(item_collection)
 ```
 
 * Put a space before starting block comments `# like this`, `#not this`
