@@ -56,8 +56,7 @@ You should implement unit tests for each of your functions, something which is g
 ### Encouraged
 
 * Favour `logging` over `print`
-* Favour using `GLOBAL_VARIABLES` near the top of your code rather than *any* hard-coded variables in your code. These can be more easily factored out into config, and at least puts many of your design decisions in one place.
-
+* Favour using configuration files, or (faster/lazier/less good/ok) `GLOBAL_VARIABLES` near the top of your code, rather than repeated use of hard-coded variables in your code, particularly when with URL and file path variables like `s3://path/to/some/fixed/place`, but also for repeated numeric hyperparameters.
 
 ## Critical thinking
 
