@@ -23,7 +23,7 @@ Code reviewers: it is on you to ensure that this style guide has been followed: 
 
 ## `python is not pandas`
 
-tldr; Avoid using `pandas` except for where it makes things ridiculously simple. That is not so say that you should not use `pandas`, but rather that you should generally assume that `pandas` is making your life harder.
+tldr; Using `pandas` as a means to perform transformations or calculations on your data should be avoided, unless it clearly simplifies the logic and readability of your code. That is not so say that you should not use `pandas`, but rather that you justify to yourself that `pandas` isn't making your life harder in lieu of using standard `python` tools.
 
 Code containing lots of `pandas` operations are almost impossible to review, and therefore have the capacity to accumulate vast numbers of bugs.
 
@@ -46,6 +46,8 @@ You should implement unit tests for each of your functions, something which is g
 ## Programming
 
 ### Mandatory
+
+*NB: eventually these checks will be automatic*
 
 * Don't compare boolean values to `True` or `False`.
 * Favour `is not condition` over `not condition is`
@@ -84,6 +86,8 @@ You should implement unit tests for each of your functions, something which is g
 
 ## Spaces and spacing
 
+*NB: that using the autoformatter [black](https://pypi.org/project/black/) in your IDE will resolve almost all of the following*
+
 ### Encouraged
 
 * Use the absolute minimum number of indents of your code. You can achieve this by writing modular code, and inverting logic, for example:
@@ -114,7 +118,7 @@ def something(args):
 
 * Put a space before starting block comments `# like this`, `#not this`
 * Inline comments need two spaces before them `a = 2  # like this`
-* Keep lines to 79 characters or less. You can achieve this by utilising other parts of this guideline, particularly with regards to creating modular code. Splitting over multiple lines is, of course, permissible so long as it doesn't conflict with legibility.
+* Keep lines to 88 (officially 79) characters or less. You can achieve this by utilising other parts of this guideline, particularly with regards to creating modular code. Splitting over multiple lines is, of course, permissible so long as it doesn't conflict with legibility.
 * When declaring default values, never put spaces around operators like `=`, i.e `def this_is_ok(param=1)`, `def this_is_NOT_ok(param = 1)`. Otherwise, all operators must always have a single space on either side.
 
 
@@ -124,15 +128,18 @@ def something(args):
 
 * At least *a basic docstring* is required for every function/method and class
 * Full, explanatory docstrings are required for all function/methods and classes *if* it will be used in the main body of a code routine.
+* Use Google-style: https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html
+* If you are using type hints then then you can write e.g. `my_arg (str): description` as simply `my_arg: description`.
+
 
 ### Encouraged
 
 * Don't state the obvious in comments
-
+* Before writing a comment, consider whether that information would be better be encoded in a useful variable or function name.
 
 ## Workflow
 
-This builds on a much greater body of work, laid out in [nestauk/DAP_playbook](https://github.com/nestauk/DAP_playbook). For avoidance of doubt, branches must be linked to a GitHub issue and named accordingly:
+This builds on a much greater body of work, laid out in [nestauk/DAP_playbook](https://github.com/nestauk/DAP_playbook/tree/dev/github). For avoidance of doubt, branches must be linked to a GitHub issue and named accordingly:
 
 ```bash
 {GitHub issue number}_{tinyLowerCamelDescription}
