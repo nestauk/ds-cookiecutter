@@ -56,9 +56,8 @@ You should implement unit tests for each of your functions, something which is g
 
 ### Encouraged
 
-* Favour `logging` over `print`
-* Favour using `GLOBAL_VARIABLES` near the top of your code rather than *any* hard-coded variables in your code. These can be more easily factored out into config, and at least puts many of your design decisions in one place.
-
+* Favour [`logging`](https://docs.python.org/3/howto/logging.html) over `print`
+* Favour using configuration files, or (faster/lazier/less good/ok) `GLOBAL_VARIABLES` near the top of your code, rather than repeated use of hard-coded variables in your code, particularly when with URL and file path variables like `s3://path/to/some/fixed/place`, but also for repeated numeric hyperparameters.
 
 ## Critical thinking
 
@@ -66,16 +65,16 @@ You should implement unit tests for each of your functions, something which is g
 * How many copies of the data am I making?
 * Where do my variables go out of scope?
 * How can I avoid creating a new variable at all costs? (think iterator, scope, `lru_cache`)
-
+* Have I made sure that I only run expensive or time consuming overhead processes as few times as possible?
 ## Naming conventions
 
 ### Mandatory
 
-* Functions / methods: `function`, `my_function`
-* Variables / attributes: `variable`, `my_var`
-* Class: `Model`, `MyClass`
-* Module / file names / directory names: `module`, `file_name.py`, `dir_name`
-* Global* / constants: `A_GLOBAL_VARIABLE`
+* Functions / methods: `function`, `my_function` (snake case)
+* Variables / attributes: `variable`, `my_var` (snake case)
+* Class: `Model`, `MyClass` (camel case)
+* Module / file names / directory names: `module`, `file_name.py`, `dir_name` (camel case)
+* Global* / constants: `A_GLOBAL_VARIABLE` (screaming snake case)
 
 \* here we use "Global" to mean constants in scope at the module level, not the `global` level. Don't use `global`, ever.
 
@@ -113,7 +112,7 @@ def sum_values(item_collection):
 def something(args):
     for item_collection in args:       # 1 tab
         if not item_collection.exists():  # 2 tabs
-            continue
+            continue    # 3 tabs
         sum_values(item_collection)
 ```
 
@@ -121,6 +120,7 @@ def something(args):
 * Inline comments need two spaces before them `a = 2  # like this`
 * Keep lines to 88 (officially 79) characters or less. You can achieve this by utilising other parts of this guideline, particularly with regards to creating modular code. Splitting over multiple lines is, of course, permissible so long as it doesn't conflict with legibility.
 * When declaring default values, never put spaces around operators like `=`, i.e `def this_is_ok(param=1)`, `def this_is_NOT_ok(param = 1)`. Otherwise, all operators must always have a single space on either side.
+* Separate function and class arguments with a comma and a space, i.e. `do_thing(1, b=2)` and not `do_thing(1,b=2)`.
 
 
 ## Comments and docs
