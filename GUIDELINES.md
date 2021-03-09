@@ -25,11 +25,12 @@ Code reviewers: it is on you to ensure that this style guide has been followed: 
 
 tldr; Using `pandas` as a means to perform transformations or calculations on your data should be avoided, unless it clearly simplifies the logic and readability of your code. That is not so say that you should not use `pandas`, but rather that you justify to yourself that `pandas` isn't making your life harder in lieu of using standard `python` tools.
 
-Code containing lots of `pandas` operations are almost impossible to review, and therefore have the capacity to accumulate vast numbers of bugs.
+We appreciate that `pandas` is a gateway into `python` programming for many people, and for that reason it becomes habitual way of coding. However... code containing lots of `pandas` operations are almost impossible to review, and therefore have the capacity to accumulate vast numbers of bugs.
 
 * In general, `pandas` makes column-wise operations and IO (reading/writing files) dead easy. That said, `pandas` column-wise operations are inherited from `numpy`, and `numpy` is generally accepted in the place of dataframes.
 * `pandas` is enormous, in many ways. If it can be omitted from your code then you can make big savings in terms of memory usage and requirements clashes, and even CPU time.
 * Instead of Googling how to achieve something in `pandas` with an obscure chaining of functions, break the problem down and solve it yourself. It is highly unlikely that the `pandas` approach to reshaping your data will beat using tools from `numpy`, `itertools`, `functools` and `toolz`, even if you switch to representing data in `numpy` arrays or even as `list` of `dict` (`[{'value': 21}, {'value': 45}]`).
+* If you would like guidance, tips or ideas on how to un`panda` your code then ask on the `dev` Slack Channel - we're all here to help!
 
 
 ## Design patterns
@@ -156,5 +157,3 @@ Please make all PRs and issues reasonably small: they should be trying to achiev
     dev <-- 123_originalThing <-- 423_differentThing <-- 578_anotherDifferentThing
     
 We can then merge the PR `123_originalThing` into `dev`, then `423_differentThing` into `dev` (after calling `git merge dev` on `423_differentThing`), etc until the chain is merged entirely. The nominated reviewer should review the entire chain, before the merge can go ahead. PRs should only be merged if all tests and a review has been signed off.
-
-It is on the reviewer to ensure that this style guide has been followed: there are no points for being lenient, but there [non-redeemable] points for being opinionated! We should all feel pressured into making sure that our code meets an acceptable standard.
