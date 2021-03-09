@@ -97,11 +97,11 @@ The following questions should be going through your mind when developing your c
 
 ```python
 def something(args):
-    for item_collection in args:    # 1 tab
-        if item_collection.exists():   # 2 tabs
-            the_sum = 0                   # 3 tabs
+    for item_collection in args:         # 1 tab
+        if item_collection.exists():     # 2 tabs
+            the_sum = 0                  # 3 tabs
             for item in item_collection:
-                the_sum += item.value()      # 4 tabs
+                the_sum += item.value()  # 4 tabs
             print(the_sum)
 ```
 
@@ -113,10 +113,10 @@ def sum_values(item_collection):
     print(the_sum)
 
 def something(args):
-    for item_collection in args:       # 1 tab
-        if not item_collection.exists():  # 2 tabs
-            continue    # 3 tabs
-        sum_values(item_collection)
+    for item_collection in args:         # 1 tab
+        if not item_collection.exists(): # 2 tabs
+            continue  # 3 tabs, buts unindents following lines
+        sum_values(item_collection)      # 2 tabs
 ```
 
 * Put a space before starting block comments `# like this`, `#not this`
