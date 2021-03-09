@@ -61,11 +61,14 @@ You should implement unit tests for each of your functions, something which is g
 
 ## Critical thinking
 
+The following questions should be going through your mind when developing your code. If you don't quite understand the wording or intention of the following questions then we encourage you to ask in the `dev` Slack channel!
+
 * Surely this simple problem already has an elegant solution?
-* How many copies of the data am I making?
+* How many copies of the data am I making in memory?
 * Where do my variables go out of scope?
 * How can I avoid creating a new variable at all costs? (think iterator, scope, `lru_cache`)
-* Have I made sure that I only run expensive or time consuming overhead processes as few times as possible?
+* Have I made sure that I only run expensive or time consuming processes as few times as possible?
+
 ## Naming conventions
 
 ### Mandatory
