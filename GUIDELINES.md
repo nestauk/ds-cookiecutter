@@ -1,4 +1,4 @@
-# Technical and working style and guidelines
+# Technical and working style guidelines
 
 *Challenging this documentation is encouraged. Please set up an issue for challenges, additions or corrections. For explanations, please consult the `dev` Slack channel*
 
