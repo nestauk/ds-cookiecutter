@@ -7,11 +7,13 @@
 # BLK - Black - flake8-black
 # C - complexity - n/a
 # D - docstrings - flake8-docstrings
+# DAR - darglint (checks docstrings) - darglint
 # E - pycodestyle errors - n/a
 # F - pyflakes - n/a
 # I - Import order - flake8-import-order
+# N - PEP8 naming - pep8-naming
 # W - pycodestyle warnings - n/a
-select = BLK,C,E,F,W
+select = B,B9,BLK,C,D,DAR,E,F,I,N,W
 
 # E203 - whitespace before ':'
 # E501 - line length (dealt with by bugbear)
@@ -20,8 +22,7 @@ ignore = E203,E501,W503
 
 max-complexity = 10
 max-line-length = 80
-application-import-names = {{ cookiecutter.repo_name }},tests
+application-import-names = {{ cookiecutter.repo_name }}
 import-order-style = google
-per-file-ignores =
-    tests/*:ANN
 docstring-convention = google
+exclude=*/notebooks/,setup.py
