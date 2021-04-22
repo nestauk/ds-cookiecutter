@@ -1,11 +1,23 @@
 #!/bin/bash
-set -euo pipefail
+set -eo pipefail
 
 source "$PWD/.env.shared"
+source "$PWD/bin/conda-activate.sh"
 
-DESCRIPTION=$(pip show $PROJECT_NAME | grep Summary | cut -d " " -f2-)
+# Fetch description of package (setup.py and conda make this horrible)
+DESCRIPTION=$(conda-activate && pip show $PROJECT_NAME | grep Summary | cut -d " " -f2-)
 
 # Create
 gh repo create nestauk/$PROJECT_NAME --$PROJECT_OPENNESS -d "$DESCRIPTION" -y
-# Set default branch to `dev`
-gh api -X PATCH -F default_branch=dev repos/nestauk/$PROJECT_NAME
+
+# push initial branches
+git push --all
+
+# Set:
+# - default branch to `dev`
+# - squash merge as only option
+gh api -X PATCH\
+ -F default_branch=dev\
+ -F allow_merge_commit=false\
+ -F allow_rebase_merge=false\
+  repos/nestauk/$PROJECT_NAME --silent

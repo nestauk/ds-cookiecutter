@@ -12,11 +12,11 @@ conda-update = {shell = "source .env.shared && conda env update -f $PROJECT_NAME
 # One-stop setup
 _install-editable = {shell = "pip install -e ."}
 _setup-bucket = {shell = "sh bin/create_bucket.sh"}
-_setup-git = "pre-commit install"
-_setup-github = {shell = "sh bin/create_repo.sh"}
+# _setup-git = "pre-commit install"
+_setup-git = {shell = "source .env.shared && source bin/conda-activate.sh && conda-activate && pre-commit install"}
+_setup-github = {shell = "bash bin/create_repo.sh"}
 _setup-metaflow = {shell = "sh bin/install_metaflow_aws.sh"}
 init = [
-  "conda-create",
   "install",
   "_setup-github",
   "_setup-bucket",
