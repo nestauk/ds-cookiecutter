@@ -1,5 +1,4 @@
-{{cookiecutter.project_name}}
-==============================
+# {{cookiecutter.project_name}}
 
 {{cookiecutter.description}}
 
@@ -19,6 +18,8 @@ Use [Jupytext](https://jupytext.readthedocs.io/en/latest/) to automatically conv
 
 This allows us to separate code from output data, facilitating easier re-factoring, testing, execution, and code review.
 
---------
+---
 
-<p><small>Project based on the <a target="_blank" href="https://github.com/nestauk/cookiecutter-data-science-nesta">Nesta cookiecutter data science project template</a>.</small></p>
+<small><p>Project based on the <a target="_blank" href="https://github.com/nestauk/cookiecutter-data-science-nesta">Nesta cookiecutter data science project template</a>
+(<a href="http://nestauk.github.io/cookiecutter-data-science-nesta">Read the docs here</a>).
+</small>
