@@ -1,6 +1,6 @@
 # Data Science Cookiecutter
 
-_A logical, reasonably standardized, project structure for reproducible and collaborative pre-production data science work at Nesta._
+_A standard project structure for reproducible and collaborative data science projects @ Nesta._
 
 [Online documentation](http://nestauk.github.io/cookiecutter-data-science-nesta)
 
