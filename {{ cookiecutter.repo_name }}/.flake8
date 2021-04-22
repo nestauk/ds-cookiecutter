@@ -23,6 +23,6 @@ ignore = E203,E501,W503
 max-complexity = 10
 max-line-length = 80
 application-import-names = {{ cookiecutter.repo_name }}
-import-order-style = google
+import-order-style = smarkets
 docstring-convention = google
 exclude=*/notebooks/,setup.py
