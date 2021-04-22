@@ -12,7 +12,7 @@
   ```bash
   $ pip install poethepoet
   ```
-- [git-crypt](https://github.com/AGWA/git-crypt) [optional - required if `auto_config` set to true (the default)] - required for metaflow on AWS
+- [git-crypt](https://github.com/AGWA/git-crypt) - required for metaflow on AWS
   ```bash
   $ brew install git-crypt  # mac
   $ apt-get install -y git-crypt  # Ubuntu linux:
@@ -31,6 +31,12 @@
     ```bash
     $ gh auth login  # (and follow the instructions)
     ```
+
+- Have a Nesta AWS account configured with `awscli`
+  - **Note to any non-Nesta visitors:** You can still use the cookiecutter by:
+  - Choosing `auto_config` as "false" when setting up the cookiecutter
+  - Remove references to `_setup-metaflow` in `pyproject.toml` before running `poe install`
+  - If using `poe init` - replace references to `nestauk` with your github organisation in `bin/create_repo.sh`
 
 We recommend taking the time to install and configure the optional dependencies as this one-time setup allows you to use the `auto_config` which should save you a lot of time.
 
@@ -54,7 +60,6 @@ We recommend taking the time to install and configure the optional dependencies 
     - **Careful**: This needs to not conflict with any existing s3 bucket name
     - This value can be reconfigured in `.env.shared`
   - `auto_config`: Whether to automatically create a conda environment; github repo; S3 bucket; and configure AWS with metaflow.
-    - Requires optional requirement `git-crypt` to have been installed
     - Requires optional requirement `gh` (the Github cli) to have been installed and configured (with `gh auth login`)
 
 - If you selected `auto_config` as "true", the following actions have happened:
