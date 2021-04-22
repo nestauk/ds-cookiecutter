@@ -1,0 +1,54 @@
+# name: {{ cookiecutter.repo_name }}
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pip
+  - python=3.8
+  # - defaults::numpy==X.Y.Z
+  # - defaults::scipy==X.Y.Z
+  # Put any dependencies that are not available with pip here (e.g. graph-tool)
+
+  - pip:
+    - numpy
+    - scipy
+    - pandas
+    - matplotlib
+    - altair
+    - altair_saver
+    # Put any pip dependencies HERE (and no conda ones anywhere below)
+
+    ## Tooling requirements (edit at your own peril)
+    # Reports
+    - pandoc
+    - pandoc-crossref
+    # Notebook support
+    - ipykernel
+    - jupytext
+    # Pipelines
+    - metaflow
+    # Code formatting / linting
+    - flake8
+    - flake8-black
+    - flake8-import-order
+    - flake8-bandit
+    - flake8-bugbear
+    - black
+    - mypy
+    # Documentation
+    - Sphinx
+    - sphinxcontrib-napoleon
+    # AWS
+    - awscli
+    # Testing
+    - pytest
+    # Configuration
+    - python-dotenv
+    # Utility
+    - tqdm
+    - filelock
+    - typer
+    - sh
+    # Git
+    - pre-commit
+    - pre-commit-hooks
