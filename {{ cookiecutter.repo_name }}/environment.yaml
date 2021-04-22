@@ -40,6 +40,7 @@ dependencies:
       # Documentation
       - Sphinx
       - sphinxcontrib-napoleon
+      - sphinx-rtd-theme
       # AWS
       - awscli
       # Testing
