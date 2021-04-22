@@ -1,25 +1,21 @@
 # {{cookiecutter.project_name}}
 
-{{cookiecutter.description}}
-
 ## Setup
 
-To configure git and build the environment simply run `make install`.
+- Meet the data science cookiecutter [requirements](http://nestauk.github.io/cookiecutter-data-science-nesta), in brief:
+  - Install: `poe`, `git-crypt`
+  - Have a Nesta AWS account configured with `awscli`
+- Run `poe install` to configure the development environment:
+  - Setup the conda environment
+  - Configure pre-commit
+  - Configure metaflow to use AWS
 
-## Code-style
+## Contributor guidelines
 
-Please run `make lint` to format your code to a common style, and to lint code with flake8.
-
-## Approach to notebooks
-
-Jupyter notebooks are great for exploration and presentation but cause problems for working collaboratively.
-
-Use [Jupytext](https://jupytext.readthedocs.io/en/latest/) to automatically convert notebooks to and from `.py` format, commit the `.py` version (`.ipynb` files are ignored by git).
-
-This allows us to separate code from output data, facilitating easier re-factoring, testing, execution, and code review.
+[Technical and working style guidelines](https://github.com/nestauk/cookiecutter-data-science-nesta/blob/master/GUIDELINES.md)
 
 ---
 
-<small><p>Project based on the <a target="_blank" href="https://github.com/nestauk/cookiecutter-data-science-nesta">Nesta cookiecutter data science project template</a>
+<small><p>Project based on <a target="_blank" href="https://github.com/nestauk/cookiecutter-data-science-nesta">Nesta's data science project template</a>
 (<a href="http://nestauk.github.io/cookiecutter-data-science-nesta">Read the docs here</a>).
 </small>
