@@ -3,7 +3,7 @@ site_description: A project template and directory structure for Nesta Python da
 site_favicon: favicon.ico
 repo_url: https://github.com/nestauk/cookiecutter-data-science-nesta
 edit_uri: edit/master/docs/docs
-copyright: 
+copyright:
 theme: cinder
 extra_css:
   - css/extra.css

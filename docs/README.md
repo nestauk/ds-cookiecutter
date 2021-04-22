@@ -1,5 +1,4 @@
-Generating the docs
-----------
+## Generating the docs
 
 Install requirements:
 

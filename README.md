@@ -18,7 +18,7 @@ $ pip install cookiecutter
 
 or
 
-``` bash
+```bash
 $ conda config --add channels conda-forge
 $ conda install cookiecutter
 ```

@@ -1,4 +1,5 @@
 <span style="color:red"><b>NOTE TO NON-NESTA VISITORS</b>: This tutorial is incomplete </span>
+
 # Introduction
 
 In this tutorial we are going to cover the workflow for creating a supervised model. In this instance, we will train a classifier to predict the name of the body who funded a research project from Gateway to Research based on its abstract text.
@@ -38,7 +39,7 @@ If you type `git branch`, you can see that you are on the `master` branch. In ge
 
 From `dev` we will create two more branches. One will be for the sub-project - creating our model - and another will be your personal branch for work in progress (WIP).
 We make this second one because it is possible that both you and someone else will be prototyping for this sub-project at the same time, and it will be better if you have separate spaces to do this.
-For example, this allows you to backup your work by pushing to the remote without worrying about someone else pulling in those changes. 
+For example, this allows you to backup your work by pushing to the remote without worrying about someone else pulling in those changes.
 **Do not use someone else's personal branch** : personal branches are liable to be deleted/rebased/make breaking changes.
 
 Use the `-b` flag to create and checkout your new branches simultaneously. I’m going to use my initials ("gr") for the second branch, but you can use your own if you prefer.
@@ -56,14 +57,12 @@ While we’re getting set up, we should install the repository package in to the
 We recommend (disk space permitting) that you have one environment per project. You can initialise a new conda environment by running `make create_environment`, and install the environment requirements in `conda_environment.yaml` with `make requirements`.
 When adding requirements to `conda_environment.yaml` only add the major dependencies (e.g. `pandas` not everything it depends on), and do not restrict the version numbers too much (e.g. `- pandas=0.24.2` rather than `- pandas=0.24.2=py37he6710b0_0`) - this will avoid difficulties with other people on different operating systems not being able to reproduce your environment.
 
-
 # Loading, Cleaning and Preprocessing
 
 You might have noticed that there is a `notebooks` folder in the project root directory.
 In here, there is a subdirectory, `dev`. This folder is for any notebooks that can be considered work in progress. See our [guide to using notebooks](https://nestauk.github.io/cookiecutter-data-science-nesta/#notebooks).
 
 Launch jupyter and create a notebook in `notebooks/dev/` for cleaning and processing the data. With our naming convention in mind, we will call this notebook [`01_gr_gtr_projects`](https://github.com/nestauk/baking-cookies/blob/gtr-projects/notebooks/dev/01_gr_gtr_projects.ipynb).
-
 
 ## Loading
 
@@ -73,13 +72,12 @@ From the screenshot below you can see how we will write some simple code to grab
 1.  The first cell in the notebook magic runs the preamble script. This loads some useful data science libraries and runs some useful boilerplate code so that we can quickly access variables such as the project directory. You can adapt this script to your project’s needs.
 2.  We hard code `config_path` to point to the location of our database config file. This is fine for now because we are working in a notebook that no one else is expected to be able to run seamlessly, but we will change it later.
 3.  After collecting the data, we show the head of the dataframe. Printing and showing outputs at stages along the prototyping should be standard practice so that if you do show someone else the notebook, they can easily see what’s going on, without needing to run the code.
-    
+
     ![img](DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_14-44-14.png)
 
 After loading and inspecting the data we will add another cell that saves it locally as a flat file to our `raw` directory.
 
     projects.to_csv(f'{data_path}/raw/gtr_projects.csv', index=False)
-
 
 <a id="orgfd3d6e7"></a>
 
@@ -100,7 +98,7 @@ It’s likely to be useful for anyone else looking at this dataset, so we will a
 Now we can dive in to the specific features that we’re interested in. First we look at the distribution of funders.
 
 ![img](DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_14-48-26.png)
-It looks like we have fairly good representation from all of the funders, with over 5,000 projects for each of them apart from NC3Rs. 
+It looks like we have fairly good representation from all of the funders, with over 5,000 projects for each of them apart from NC3Rs.
 
 Let’s also look at the distribution of abstract text lengths.
 
@@ -117,7 +115,6 @@ We can print out the highest frequency texts for each funder:
 ![img](DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_14-50-00.png)
 It’s pretty clear that there is some placeholder text that is repeated many times throughout the dataset.
 
-
 ## Cleaning
 
 From all of this information, we can make some decisions about data cleaning:
@@ -133,7 +130,7 @@ Step 2 is an example of where we will use the [`aux` data folder](https://nestau
 Now we can prototype our cleaning function in the notebook and test it on the dataframe.
 
 ![img](DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_14-52-20.png)
-    Looks good.
+Looks good.
 
 ## Pre-processing
 
@@ -149,7 +146,6 @@ Looks good. From here we’re ready to take our first step to factoring out our 
 
 After exploration and writing cleaning functions, we need to preprocess the text.
 
-
 <a id="org703e9a6"></a>
 
 ## ⏸ Pause - Lab Book
@@ -159,7 +155,7 @@ So far we’ve just been forging ahead with coding. That’s great, but before w
 
 A lab book is a personal thing and it's up to you how you keep it whether it be paper, google docs, markdown etc.
 What is most important is that you keep one. Write down what you tried (even if it failed), references to useful blogs/papers, fixes to bugs/install issues, and issues in the data you discover as you go.
-We suggest that you review your lab-book regularly, e.g. daily or weekly, and add information relevant to others as issues/comments on an issue. 
+We suggest that you review your lab-book regularly, e.g. daily or weekly, and add information relevant to others as issues/comments on an issue.
 One particularly important thing to document in a common issue thread are any outliers/issues/odd entries in a dataset.
 
 ## Refactoring
@@ -168,61 +164,58 @@ Now at the end of the `make_dataset` stage (before we apply/train any models to 
 
 Here we factor out our functions from our notebooks, write any docstrings necessary, update data Readme's etc.
 
-
 <a id="org4e7f088"></a>
 
 ### [`data/README.md`](https://github.com/nestauk/baking-cookies/blob/gtr-projects/data/README.md)
 
 Write the [data Readme](https://nestauk.github.io/cookiecutter-data-science-nesta/#style-and-documentation).
 
-
 <a id="org90b413c"></a>
 
 ### [`baking_cookies/data/make_dataset.py`](https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/data/make_dataset.py)
 
--   Write a function which collects or reads the raw data
--   `.env` file points to config location of the MySQL config file
--   Also use `model_config.yaml` which is tracked to get parameters for data processing
+- Write a function which collects or reads the raw data
+- `.env` file points to config location of the MySQL config file
+- Also use `model_config.yaml` which is tracked to get parameters for data processing
 
 ### [`baking_cookies/data/sql.py`](https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/data/sql.py)
 
 Put our generic `get_engine` function here and add a [`#UTILS` flag](https://nestauk.github.io/cookiecutter-data-science-nesta/#style-and-documentation) to the docstring as this is a reusable component that we don't wish to keep repeating across repositories.
 
-
 ### [`baking_cookies/data/make_gtr.py`](https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/data/gtr.py)
 
--   Factor out the data processing functions from the notebook
--   Defines file in and file out
--   Loads in any `aux` data
+- Factor out the data processing functions from the notebook
+- Defines file in and file out
+- Loads in any `aux` data
 
 ### [`baking_cookies/features/text_preprocessing.py`](https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/features/text_preprocessing.py)
 
--   Generic functions for text preprocessing that might be applied to other data too
--   Add `#UTILS` flag
+- Generic functions for text preprocessing that might be applied to other data too
+- Add `#UTILS` flag
 
 This is a good point to make a PR. Add someone to review.
-In the mean time you can get on with other tasks etc. (put “closes #<issue number>” in commit message) 
+In the mean time you can get on with other tasks etc. (put “closes #<issue number>” in commit message)
 
 ### **Guidelines**
 
-We have a few guidelines to suggest how you should structure files. 
+We have a few guidelines to suggest how you should structure files.
 If you find these are not sensible for your use-case please report this on this [issue](https://github.com/nestauk/cookiecutter-data-science-nesta/issues/29).
 
--   Segregate functions into files/folders based on functionality and then dataset where possible.
-    You might want to put functionality relating to: data in `baking_cookies/data`; functionality that produces features in `baking_cookies/features`; functionality that produces models in `baking_cookies/models`.
--   Each high-level component (e.g. the creation of the cleaned and pre-processed Gateway to Research dataset) should be callable in one function with a prefix `make_` that accepts paths and parameters as arguments. 
-    
-    -   `make_` functions should perform any necessary setup IO work (e.g. read data from disk), call a function with a `process_` prefix, then perform any necessary IO tear-down work (e.g. save data to disk).
-    -   `process_` functions should accept data and parameters (i.e. not paths) and return data - they should not perform IO!
-    
-    It may not always be possible to adhere to this pattern but stick to it where possible.
-    (`make_` and `process_` are terrible names which need to be renamed - perhaps `make_` and `run_`? [discuss here](https://github.com/nestauk/baking-cookies/issues/9))
+- Segregate functions into files/folders based on functionality and then dataset where possible.
+  You might want to put functionality relating to: data in `baking_cookies/data`; functionality that produces features in `baking_cookies/features`; functionality that produces models in `baking_cookies/models`.
+- Each high-level component (e.g. the creation of the cleaned and pre-processed Gateway to Research dataset) should be callable in one function with a prefix `make_` that accepts paths and parameters as arguments.
 
--   Parameters should not be hard-coded but specified in `model_config.yaml`, loaded from the dictionary `baking_cookies.config`, and passed into the `make_` prefixed function.
+  - `make_` functions should perform any necessary setup IO work (e.g. read data from disk), call a function with a `process_` prefix, then perform any necessary IO tear-down work (e.g. save data to disk).
+  - `process_` functions should accept data and parameters (i.e. not paths) and return data - they should not perform IO!
 
-    You could load the config in the `make_` function but consider whether this decreases transparency - less informative doc-strings for `make_` - or generalisability.
+  It may not always be possible to adhere to this pattern but stick to it where possible.
+  (`make_` and `process_` are terrible names which need to be renamed - perhaps `make_` and `run_`? [discuss here](https://github.com/nestauk/baking-cookies/issues/9))
 
--   Don't use `print`, use the logging module, e.g. ``logger = logging.getLogger(__name__); logger.info('Logging at info level goes into `info.log`')``
+- Parameters should not be hard-coded but specified in `model_config.yaml`, loaded from the dictionary `baking_cookies.config`, and passed into the `make_` prefixed function.
+
+  You could load the config in the `make_` function but consider whether this decreases transparency - less informative doc-strings for `make_` - or generalisability.
+
+- Don't use `print`, use the logging module, e.g. `` logger = logging.getLogger(__name__); logger.info('Logging at info level goes into `info.log`') ``
 
 # Training a model
 
@@ -233,23 +226,17 @@ The steps we need to follow are:
 2.  Create a [new notebook](https://github.com/nestauk/baking-cookies/blob/gtr-projects/notebooks/dev/02_gr_gtr_funder_model.ipynb)
 3.  Load cleaned data
 
-   ![img](DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_15-45-52.png)
-4.  Train test split and save outputs (IDs)
-5.  Create model pipeline (for training purposes)
-   ![img](DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_15-45-57.png)
-6.  Fit and evaluate (at this point you might copy paste evaluation to lab book)
-7.  Save model
-   ![img](DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_15-46-02.png)
-8.  Add notebooks into WIP branch
-9.  Factor out code and make a PR into `gtr-projects`
+![img](DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_15-45-52.png) 4. Train test split and save outputs (IDs) 5. Create model pipeline (for training purposes)
+![img](DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_15-45-57.png) 6. Fit and evaluate (at this point you might copy paste evaluation to lab book) 7. Save model
+![img](DS_workflow_tutorial_-__Nesta_Cookie_Cutter_Basic_ML_Tutorial/screenshot_2019-08-13_15-46-02.png) 8. Add notebooks into WIP branch 9. Factor out code and make a PR into `gtr-projects`
 
-The model is very simple, it calculates TF-IDF features for each abstract and performs a logistic regression. 
+The model is very simple, it calculates TF-IDF features for each abstract and performs a logistic regression.
 Take a look through the [notebook](https://github.com/nestauk/baking-cookies/blob/gtr-projects/notebooks/dev/02_gr_gtr_funder_model.ipynb) to see the prototyping of the model, and compare this to the factored out code to understand where each of the constituent parts have gone.
 We have split up the model pipeline into its constituent parts. This means that changes can be made to one part of the model pipeline (e.g. the train-test split strategy/size) without having to worry about searching through the full pipeline code. This also makes code easier to test. The constituent parts we have chosen are:
 
--   [Train-test split](https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/models/train_test_split.py)
--   [Training the model](https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/models/train_model.py)
--   [Evaluating the model](https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/models/evaluate.py)
+- [Train-test split](https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/models/train_test_split.py)
+- [Training the model](https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/models/train_model.py)
+- [Evaluating the model](https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/models/evaluate.py)
 
 Again we follow the `make_`, `process_` conventions; however in [`train_model.py`](https://github.com/nestauk/baking-cookies/blob/gtr-projects/baking_cookies/models/train_model.py) the model parameters are loaded in `make_train_model()`.
 
@@ -258,15 +245,15 @@ Again we follow the `make_`, `process_` conventions; however in [`train_model.py
 Change this so that the config parameters are loaded in `__main__`, and add an option to pass in whether a `grid_search` is `True` or `False` from the command line using the `click` library (Hint: see [~make<sub>dataset.py</sub>](https://github.com/nestauk/baking-cookies/blob/dev/baking_cookies/data/make_dataset.py)).
 
 <a id="org5406865"></a>
+
 # Publishable notebooks <span style="color:red">[Incomplete]</span>
 
 - Share interim analyses as Gists
 - Save final notebooks as html files and put in `reports/`. These are for presenting results and thus should:
   - Document the purpose of the notebook at the top
   - Provide discussion throughout the document
-  - Import and run functions - *not* define them
+  - Import and run functions - _not_ define them
   - Ideally be readable and understandable with the code hidden (unless you are demonstrating code usage of course)
-
 
 # Testing <span style="color:red">[Incomplete]</span>
 
@@ -275,21 +262,32 @@ Change this so that the config parameters are loaded in `__main__`, and add an o
 ## nbextensions + configurator
 
 ### Gist-it
+
 ### Autopep8
+
 ### Hide input
+
 ### Select CodeMirror Keymap
+
 ### ExecuteTime
 
 ## Magics
+
 [Full list here](https://ipython.readthedocs.io/en/stable/interactive/magics.html)
 
 ### `%debug`
+
 ### `%pdb`
+
 ### `%env` / `%set_env`
+
 ### `%run`
+
 ### `%psearch`
+
 ### `%autoreload`
+
 ## Profilers
 
 1.  `%prun`
-2. `mprof` - https://pypi.org/project/memory-profiler/
+2.  `mprof` - https://pypi.org/project/memory-profiler/

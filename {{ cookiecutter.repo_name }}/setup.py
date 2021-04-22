@@ -1,4 +1,6 @@
-from setuptools import find_packages, setup
+"""{{cookiecutter.repo_name }}."""
+from setuptools import find_packages
+from setuptools import setup
 
 setup(
     name="{{ cookiecutter.repo_name }}",

@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 # Create git repo
 git init

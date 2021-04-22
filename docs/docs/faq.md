@@ -27,10 +27,10 @@ Save trained models in `models/` as something like a pickle (`.pkl`) file.
 
 Use `make sync_data_from_s3` to get the data from `data/raw` (as long as whoever set up the repo has configured an s3 bucket and used `make sync_data_to_s3`).
 
-
 ## How do I format code?
 
 Running `make lint` will format code in the directory named after your repo using [`black`](https://black.readthedocs.io/).
+
 > Black makes code review faster by producing the smallest diffs possible. Blackened code looks the same regardless of the project you’re reading. Formatting becomes transparent after a while and you can focus on the content instead.
 
 ## Where do I save figures?
@@ -48,7 +48,8 @@ Common sense applies but generally:
 - If it creates a visualisation, put it in `visualisation/`
 
 ## What is a `dev` notebook?
-`dev` notebooks are for exploration and experimention. 
+
+`dev` notebooks are for exploration and experimention.
 
 A guiding principle: If someone else has to look inside your `dev` notebook, something has gone wrong (see "What shouldn't be in a notebook?")
 
@@ -56,8 +57,8 @@ A guiding principle: If someone else has to look inside your `dev` notebook, som
 
 Notebooks should serve two purposes:
 
-1) Exploration/experimentation: `notebooks/dev`
-2) Presention: `notebooks/`
+1. Exploration/experimentation: `notebooks/dev`
+2. Presention: `notebooks/`
 
 If you have a notebook containing code that creates an asset (fetches data/processes data/defines a model/trains a model/produces a final plot etc. ), this should be refactored into a `.py` file in the source directory (see "Where should I put "X" functionality?").
 
@@ -79,6 +80,7 @@ gtr_data:
 ```
 
 Fetch the value in the relevant file like so:
+
 ```python
 
 import <repo_name>
@@ -105,5 +107,3 @@ The cookiecutter installs a git hook to strip notebooks of output before commiti
 If you `git clone` a cookiecutter repo and plan on making commits you should run `make git` to install this git hook.
 
 Notebooks should be shared with collaborators outside of the main git repository, either exported as HTML or as a gist using something like [gist-it](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/gist_it/readme.html).
-
-

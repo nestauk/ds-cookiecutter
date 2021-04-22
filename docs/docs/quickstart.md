@@ -11,7 +11,7 @@
   - `repo_name [project_name]:` Type the name of your repository here
   - `author_name [Nesta]:` The author of the project (you or your organisation)
   - `description [...]:` A short description of your project
-  - `Select open_source_license: ...` Choose the license you wish to use 
+  - `Select open_source_license: ...` Choose the license you wish to use
   - `s3_bucket ...:` The name of an S3 bucket to sync your raw data to
   - `aws_profile [default]:` The AWS profile name to use for syncing to S3. Choose default unless your an advanced user.
 - `cd <repo_name>`
