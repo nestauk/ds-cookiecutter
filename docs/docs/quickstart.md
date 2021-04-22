@@ -1,68 +1,86 @@
 # Quickstart
 
-## Getting started
-
-While this template focuses on Python, the general project structure can be used with another language after removing the Python boilerplate in the repo such as the the files in the `src` (**_note_** that `src` will actually be named the same as your repo name) folder, and the Sphinx documentation skeleton in `docs`).
-
-### Requirements
+## Requirements
 
 - Python 3.6+
-- [cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0: `pip install cookiecutter`
-- A \*NIX system (e.g. Linux/OSX) is required to ensure full functionality.
+- A \*NIX system (e.g. Linux/macOS) - Windows might work, but we don't support it
+- [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
+  ```bash
+  $ pip install cookiecutter
+  ```
+- [poe Python package](https://github.com/nat-n/poethepoet) - for running tasks
+  ```bash
+  $ pip install poethepoet
+  ```
+- [git-crypt](https://github.com/AGWA/git-crypt) [optional - required if `auto_config` set to true (the default)] - required for metaflow on AWS
+  ```bash
+  $ brew install git-crypt  # mac
+  $ apt-get install -y git-crypt  # Ubuntu linux:
+  ```
+- [github CLI](https://github.com/cli/cli) [optional - required if `auto_config` set to true (the default)] - for automatic creation and configuration of a Github repo
 
-### Starting a new project
+  - To install
 
-Starting a new project is as easy as running this command at the command line. No need to create a directory first, the cookiecutter will do it for you.
+    ```bash
+    $ brew install gh  # mac
+    ```
 
-```nohighlight
-cookiecutter https://github.com/nestauk/cookiecutter-data-science-nesta
-```
+    Linux: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 
-For getting started quickly, have a look at the [quickstart](quickstart.md) or [FAQ](faq.md).
+  - To configure
+    ```bash
+    $ gh auth login  # (and follow the instructions)
+    ```
 
-### Reproducing analysis for an existing project
-
-If the project structure has been adhered to and an appropriate `Makefile` entry made then reproducing the analysis should be a one-liner (assuming your `.env` contains everything it needs to - nothing by default).
-
-```nohighlight
-make all
-```
+We recommend taking the time to install and configure the optional dependencies as this one-time setup allows you to use the `auto_config` which should save you a lot of time.
 
 ## Starting from scratch
 
-### Create cookiecutter
-
-- `pip install cookiecutter`
-- `cookiecutter https://github.com/nestauk/cookiecutter-data-science-nesta`
+- Ensure you have installed the requirements detailed in the [README](https://github.com/nestauk/cookiecutter-data-science-nesta)
+- Run `cookiecutter https://github.com/nestauk/cookiecutter-data-science-nesta`
   This opens a series of prompts to configure your new project (values in square brackets denote defaults):
-  - `project_name [project_name]:` Type the name of your project here
-  - `repo_name [project_name]:` Type the name of your repository here
-  - `author_name [Nesta]:` The author of the project (you or your organisation)
-  - `description [...]:` A short description of your project
-  - `Select open_source_license: ...` Choose the license you wish to use
-  - `s3_bucket ...:` The name of an S3 bucket to sync your raw data to
-  - `aws_profile [default]:` The AWS profile name to use for syncing to S3. Choose default unless your an advanced user.
-- `cd <repo_name>`
 
-### Create a virtual environment
+  - `project_name`: Type the name of your project here
+  - `repo_name`: Type the name of your repository here
+    - The default is a processed version of `project_name` that is compatible with python package names
+  - `author_name`: The author of the project
+  - `description`: A short description of your project
+  - `openness`: Whether the project is "public" (default) or "private"
+    - You should only make a project private if you have a good reason
+    - If "public" then an MIT license will be generated; otherwise the license will be a copyright placeholder
+    - If you choose `auto_config` as "true" then the Github repo created will obey this setting
+  - `s3_bucket`: The name of an S3 bucket to store assets for this project
+    - If you choose `auto_config` as "true" then this bucket will be created for you
+    - **Careful**: This needs to not conflict with any existing s3 bucket name
+    - This value can be reconfigured in `.env.shared`
+  - `auto_config`: Whether to automatically create a conda environment; github repo; S3 bucket; and configure AWS with metaflow.
+    - Requires optional requirement `git-crypt` to have been installed
+    - Requires optional requirement `gh` (the Github cli) to have been installed and configured (with `gh auth login`)
 
-- Add any libraries you know you will need into `conda_environment.yaml`
-- Run `make create_environment` - This will setup a conda environment named according to your repository, and install your project as a local, editable package
-- `conda activate <environment name>` (`conda env list` will list available environments if you're unsure what your environment is called)
+- If you selected `auto_config` as "true", the following actions have happened:
 
-### First step
+  - A conda environment, `project_name`, has been created (with the project package installed in editable mode)
+  - Git pre-commit hooks have been configured and installed
+  - The Nesta metaflow config has been fetched and decrypted. It should exist in `~/.metaflowconfig/config.json`
+  - A github repo `github.com/nestauk/project_name` has been created and configured
+  - An s3 bucket `project_name` has been created
 
-We've setup our project structure and environment, now you're ready to get going!
+- If you selected `auto_config` as "false", you will need to do the above manually (or run `poe init`):
+  - Run `poe install` to configure the development environment:
+    - Setup the conda environment
+    - Configure pre-commit
+    - Configure metaflow to use AWS
+  - Manually create an S3 bucket `s3_bucket` (or run `bash bin/create_bucket.sh`)
+  - Manually create a github repository (or run `bash bin/create_repo.sh`)
 
-The best first step is to write `<repo_name>/fetch_data.py` to fetch all your data, and store it in `data/raw/`.
-
-`make fetch` will run this file and sync `data/raw` to s3 for you (as long as you setup a bucket).
-
-## Reproducing someone else's work
+## Collaborating on an existing project
 
 - Clone the repository and `cd` into the repository.
-- Run `make create_environment` - This will setup a conda environment named according to your repository, and install your project as a local, editable package.
-- `conda activate <environment name>` will activate the environment (`conda env list` will list available environments if you're unsure what your environment is called)
-- Check the README for any configuration needed (e.g. putting API keys in `.env`)
-- Get the raw data: `make sync_from_s3`
+- Run `poe install` to configure the development environment:
+  - Setup the conda environment
+  - Configure pre-commit
+  - Configure metaflow to use AWS
+- `conda activate project_name`
+- Check the project's `README` for any additional configuration needed (e.g. putting API keys in `.env`)
+- Pull any required inputs into `inputs/` by running `poe inputs-pull`
 - Follow their documentation, or make them write some if they haven't already!
