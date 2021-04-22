@@ -12,3 +12,11 @@ git checkout -b dev
 git checkout -b 0_setup_cookiecutter  # Issue numbers don't start at zero so this won't conflict
 git add .
 git commit -am "Setup Nesta Data Science cookiecutter"
+
+# Do everything if configured
+if [ {{ cookiecutter.auto_config }} == "true" ]
+then
+ poe init
+else
+ echo "Did not autoconfigure, please run 'poe init' manually"
+fi
