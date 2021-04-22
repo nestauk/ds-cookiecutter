@@ -1,111 +1,25 @@
-# Cookiecutter Data Science @ Nesta
+# Nesta Data Science Cookiecutter
 
-_A logical, reasonably standardized, project structure for reproducible and collaborative pre-production data science work._
+_A standard project structure for reproducible and collaborative data science projects @ Nesta._
 
-## Disclaimers:
-* The workflow and the documentation here of it are works in progress and may currently be incomplete or inconsistent in parts - please raise issues where you spot this is the case.
+- [Tell me about the different directories]()
+- [Tell me about the different features]()
+- [Tell me where X goes]()
 
-* The foundations of this document are heavily borrowed (large parts of it verbatim) from the great work [here](http://drivendata.github.io/cookiecutter-data-science/) by the people at [Drivendata](http://drivendata.github.io/cookiecutter-data-science/).
+- [Just get me started with a new project]()
+- [FAQ]()
+- [Show me some example project structures]()
 
 ## High-level aims
 
-* Shouldn’t get in the way of rapid prototyping of ideas for an individual
-* Analysis of one user should be runnable and reproducable by another user without changes
-* Minimal computation and data transfer when rerunning the pipeline after changes
-* Long-term integrity of the code-base without intervention
-* Version control for data, models, outputs/metrics
-* Reduce time to productionise analysis
-
-## Getting started
-
-While this template focuses on Python, the general project structure can be used with another language after removing the Python boilerplate in the repo such as the the files in the `src` (***note*** that `src` will actually be named the same as your repo name) folder, and the Sphinx documentation skeleton in `docs`).
-
-### Requirements
-
- - Python 3.6+
- - [cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0: `pip install cookiecutter`
- - A *NIX system (e.g. Linux/OSX) is required to ensure full functionality.
-
-
-### Starting a new project
-
-Starting a new project is as easy as running this command at the command line. No need to create a directory first, the cookiecutter will do it for you.
-
-```nohighlight
-cookiecutter https://github.com/nestauk/cookiecutter-data-science-nesta
-```
-
-For getting started quickly, have a look at the [quickstart](quickstart.md) or [FAQ](faq.md).
-
-### Reproducing analysis for an existing project
-
-If the project structure has been adhered to and an appropriate `Makefile` entry made then reproducing the analysis should be a one-liner (assuming your `.env` contains everything it needs to - nothing by default).
-
-```nohighlight
-make all
-```
+- Shouldn’t get in the way of rapid prototyping of ideas for an individual
+- Analysis of one user should be runnable and reproducable by another user without changes
+- Minimal computation and data transfer when rerunning the pipeline after changes
+- Long-term integrity of the code-base without intervention
+- Version control for data, models, outputs/metrics
+- Reduce time to productionise analysis
 
 ## Structure
-
-```
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data`
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── README.md      <- An inventory of data-sources, including schemas (or links to schemas)
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   ├── aux            <- Non-automatable human interventions, e.g. hand selected IDs to ignore
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── logging.yaml       <- Logging config
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── model_config.yaml  <- Model configuration parameters
-    │
-    ├── notebooks          <- Jupyter notebooks. Notebooks at the top level should have a markdown 
-    │   │                     header outlining the notebook and should avoid function calls in 
-    │   │                     favour of factored out code.
-    │   │                     
-    │   ├── notebook_preamble.ipy
-    │   │                     
-    │   └── dev            <- Development notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `_` delimited description, e.g.
-    │                         `01_jmg_eda.ipynb`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   ├── eda            <- Generated exploratory data analysis reports
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── conda_environment.yaml <- A reproducable conda environment.
-    │                             installable with `conda env create -f conda_environment.yaml`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) and importable
-    │
-    ├── src <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── fetch_data.py  <- Script to fetch data into data/raw
-    │   │
-    │   ├── make_dataset.py<- Scripts to generate processed data
-    │   │
-    │   ├── transformers   <- Methods that perform `transform` on a dataset but not `fit`
-    │   │
-    │   ├── estimators     <- Methods that perform `fit` on a dataset
-    │   │
-    │   └── visualisation  <- Scripts to create exploratory and results oriented visualisations
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.testrun.org
-```
-
-### Overview
-
-
 
 ### Analysis is a DAG
 
