@@ -18,7 +18,8 @@ select = B,B9,BLK,C,D,DAR,E,F,I,N,W
 # E203 - whitespace before ':'
 # E501 - line length (dealt with by bugbear)
 # W503 - linebreak before binary op
-ignore = E203,E501,W503
+# S101 - warns about assert being removed when compiled
+ignore = E203,E501,W503,S101
 
 max-complexity = 10
 max-line-length = 80
@@ -26,3 +27,5 @@ application-import-names = {{ cookiecutter.repo_name }}
 import-order-style = smarkets
 docstring-convention = google
 exclude=*/notebooks/,setup.py
+per-file-ignores =
+    tests/*:S
