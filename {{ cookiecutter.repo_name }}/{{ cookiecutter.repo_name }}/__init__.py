@@ -15,7 +15,7 @@ def get_yaml_config(file_path: Path) -> Optional[dict]:
 
 
 # Define project base directory
-project_dir = Path(__file__).resolve().parents[1]
+PROJECT_DIR = Path(__file__).resolve().parents[1]
 
 
 # Read log config file
