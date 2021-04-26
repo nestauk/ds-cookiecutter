@@ -100,7 +100,7 @@ setup-github:
 
 .PHONY: pip-install
 pip-install:
-	$(call execute_in_env, pip install -e .)
+	$(call execute_in_env, pip install -e ".[dev]")
 
 #################################################################################
 # Self Documenting Commands                                                     #
