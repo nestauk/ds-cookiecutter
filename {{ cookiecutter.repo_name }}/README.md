@@ -3,9 +3,9 @@
 ## Setup
 
 - Meet the data science cookiecutter [requirements](http://nestauk.github.io/cookiecutter-data-science-nesta), in brief:
-  - Install: `poe`, `git-crypt`
+  - Install: `git-crypt`
   - Have a Nesta AWS account configured with `awscli`
-- Run `poe install` to configure the development environment:
+- Run `make install` to configure the development environment:
   - Setup the conda environment
   - Configure pre-commit
   - Configure metaflow to use AWS

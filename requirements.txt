@@ -2,4 +2,3 @@ mkdocs
 mkdocs-cinder
 cookiecutter
 pytest
-poethepoet

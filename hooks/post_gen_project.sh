@@ -16,7 +16,7 @@ git commit -am "Setup Nesta Data Science cookiecutter"
 # Do everything if configured
 if [ {{ cookiecutter.auto_config }} == "true" ]
 then
- poe init
+ make init
 else
- echo "Did not autoconfigure, please run 'poe init' manually"
+ echo "Did not autoconfigure, please run 'make init' manually"
 fi
