@@ -12,5 +12,6 @@ extra_css:
 nav:
   - Home: index.md
   - Quickstart: quickstart.md
-  - Guide: structure.md
+  - Structure: structure.md
+  - Python guidelines: guidelines.md
   - FAQ: faq.md

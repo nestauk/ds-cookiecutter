@@ -4,18 +4,24 @@ _A standard project structure for reproducible and collaborative data science pr
 
 ## High-level aims
 
-- Shouldn’t get in the way of rapid prototyping of ideas for an individual
-- Analysis of one user should be runnable and reproducable by another user without changes
-- Minimal computation and data transfer when rerunning the pipeline after changes
-- Long-term integrity of the code-base without intervention
-- Version control for data, models, outputs/metrics
-- Reduce time to productionise analysis
+- Enable data-scientists @ Nesta to work with each other
+- Increase reliability of data-science @ Nesta
+- Make our projects more reproducible
+- Allow data-scientists to hand off to data-engineers
+- Give data-scientists easy access to cloud computing
+- (Light) Data version control
+- Increase the value of codebases, and accompanying documentation/reports to stakeholders
+- Keep reporting of results in sync with codebase
+- Facilitate code-reuse and refactoring into `*_DAPS` and `ds-utils` by reducing coupling and increasing code quality
+- Make code easier to understand
+
+Whilst retaining as much agility and freedom to explore as possible.
 
 ## Contents
 
-- [Just get me started with a new project](quickstart.md)
+- [Just get me started with a new project **(QUICKSTART)**](quickstart.md)
 - [Tell me where X goes](structure.md)
 - [Show me some example project structures](examples.md)
-- [What are the headline changes from the last incarnation of the cookiecutter?](changes_tldr.md)
 - [FAQ](faq.md)
 - [Roadmap](roadmap.md)
+<!-- - [What are the headline changes from the last incarnation of the cookiecutter?](changes_tldr.md) -->

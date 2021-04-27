@@ -54,6 +54,7 @@ This opens a series of prompts to configure your new project (values in square b
     - If you choose `auto_config` as "true" then this bucket will be created for you
     - **Careful**: This needs to not conflict with any existing s3 bucket name
     - This value can be reconfigured in `.env.shared`
+- `github_account`: The github account that this project will be created in
 - `auto_config`: Whether to automatically create a conda environment; github repo; S3 bucket; and configure AWS with metaflow.
     - Requires optional requirement `gh` (the Github cli) to have been installed and configured (with `gh auth login`)
 
@@ -80,9 +81,10 @@ This opens a series of prompts to configure your new project (values in square b
 - Clone the repository and `cd` into the repository.
 - Run `make install` to configure the development environment:
     - Setup the conda environment
+    - Install dependencies and local package
     - Configure pre-commit
     - Configure metaflow to use AWS
 - `conda activate project_name`
 - Check the project's `README` for any additional configuration needed (e.g. putting API keys in `.env`)
 - Pull any required inputs into `inputs/` by running `make inputs-pull`
-- Follow their documentation, or make them write some if they haven't already!
+- Follow the author's documentation, or make them write some if they haven't already!
