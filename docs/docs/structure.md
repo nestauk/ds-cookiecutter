@@ -166,7 +166,7 @@ Instead use relative paths and make use of `src.PROJECT_DIR` which will return t
 
 #### Roadmap
 
-See the [roadmap](../roadmap) for how `src/config` will be used to parameterise metaflow pipelines and version control their outputs.
+See the [roadmap](../roadmap#Metaflow) for how `src/config` will be used to parameterise metaflow pipelines and version control their outputs.
 
 
 ## Data - `inputs/data`, `outputs/data`, `outputs/.cache`
@@ -229,7 +229,7 @@ Following this approach means:
 
 ### Roadmap
 
-On the [roadmap](../roadmap) is a speculative plan to explore the use of [pydantic](https://pydantic-docs.helpmanual.io/) to specify and validate data-schemas.
+On the [roadmap](../roadmap#Schema) is a speculative plan to explore the use of [pydantic](https://pydantic-docs.helpmanual.io/) to specify and validate data-schemas.
 
 ## Pipeline components - `src/pipeline`
 
@@ -237,7 +237,7 @@ This folder contains pipeline components. Put as much data-science as possible h
 
 We recommend the use of [metaflow](docs.metaflow.org) to write these pipeline components. 
 
-In the coming months as we roll out [utilities and documentation to smooth out some of the rough edges of metaflow](../roadmap#metaflow), this will become less of a recommendation and more of a stipulation.
+In the coming months as we roll out [utilities and documentation to smooth out some of the rough edges of metaflow](../roadmap#Metaflow), this will become less of a recommendation and more of a stipulation.
 
 Using metaflow:
 - Gives us lightweight version control of data and models
@@ -253,7 +253,7 @@ For example, this could be functions shared across different pieces of analysis 
 
 ### Roadmap
 
-Over time there should be a decreasing need to add things to `utils` as we begin to develop a  [data science utilities package (`ds-utils`)](../roadmap#ds-utils).
+Over time there should be a decreasing need to add things to `utils` as we begin to develop a  [data science utilities package (`ds-utils`)](../roadmap#`ds-utils`).
 
 ## Analysis - `src/analysis`
 
@@ -335,7 +335,7 @@ We are currently evaluating how we report data-science work - both at the projec
 
 Minimally, you should write reports in markdown putting them in `outputs/reports` and referencing plots in `outputs/figures`.
 
-We are [experimenting](../roadmap#reporting) with a toolchain using [pandoc](https://pandoc.org/) to generate HTML and PDF (LaTeX) outputs from a single ([pandoc flavoured](https://pandoc.org/MANUAL.html#pandocs-markdown)) markdown file, including facilitating the trivial inclusion of interactive [altair](https://altair-viz.github.io/index.html) plots within HTML outputs.
+We are [experimenting](../roadmap#Reporting) with a toolchain using [pandoc](https://pandoc.org/) to generate HTML and PDF (LaTeX) outputs from a single ([pandoc flavoured](https://pandoc.org/MANUAL.html#pandocs-markdown)) markdown file, including facilitating the trivial inclusion of interactive [altair](https://altair-viz.github.io/index.html) plots within HTML outputs.
 
 # Tree
 
