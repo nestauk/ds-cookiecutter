@@ -8,20 +8,26 @@
     <meta name="description" content="A project template and directory structure for Nesta Python data science projects.">
     
     
-    <link rel="../img/favicon.ico">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
     <title>FAQ - Cookiecutter Data Science @ Nesta</title>
     
 
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="../css/base.min.css" rel="stylesheet">
     <link href="../css/cinder.min.css" rel="stylesheet">
-    <link href="../css/highlight.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
     <link href="../css/extra.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,15 +35,6 @@
             <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
         <![endif]-->
-
-    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script>
-    WebFont.load({
-        google: {
-            families: ['Open Sans', 'PT Sans']
-        }
-    });
-    </script>
 
     
 
@@ -62,11 +59,47 @@
 
             <!-- Main title -->
 
-            <a class="navbar-brand" href="..">Cookiecutter Data Science @ Nesta</a>
+            
+              <a class="navbar-brand" href="..">Cookiecutter Data Science @ Nesta</a>
+            
         </div>
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../quickstart/">Quickstart</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../structure/">Structure</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../guidelines/">Python guidelines</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="./">FAQ</a>
+                    </li>
+                
+                
+                </ul>
 
             <ul class="nav navbar-nav navbar-right">
                     <li>
@@ -75,7 +108,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/nestauk/cookiecutter-data-science-nesta/edit/master/docs/docs/faq.md"><i class="fab fa-github"></i> Edit on GitHub</a>
+                        <a href="https://github.com/nestauk/ds-cookiecutter/edit/master/docs/docs/faq.md"><i class="fab fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -88,121 +121,48 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="first-level active"><a href="#faq">FAQ</a></li>
-            <li class="second-level"><a href="#how-do-i-update-conda_environmentyaml">How do I update conda_environment.yaml?</a></li>
-                
-            <li class="second-level"><a href="#i-didnt-configure-an-s3-bucket-at-start-up-how-do-i-do-it">I didn't configure an s3 bucket at start-up, how do I do it?</a></li>
-                
-            <li class="second-level"><a href="#how-should-i-put-data-into-dataraw">How should I put data into data/raw</a></li>
-                
             <li class="second-level"><a href="#where-should-i-save-models">Where should I save models?</a></li>
-                
-            <li class="second-level"><a href="#where-do-i-get-data">Where do I get data?</a></li>
-                
-            <li class="second-level"><a href="#how-do-i-format-code">How do I format code?</a></li>
-                
-            <li class="second-level"><a href="#where-do-i-save-figures">Where do I save figures?</a></li>
-                
-            <li class="second-level"><a href="#where-should-i-put-x-functionality">Where should I put "X" functionality?</a></li>
-                
-            <li class="second-level"><a href="#what-is-a-dev-notebook">What is a dev notebook?</a></li>
-                
-            <li class="second-level"><a href="#what-shouldnt-be-in-a-notebook">What shouldn't be in a notebook?</a></li>
-                
-            <li class="second-level"><a href="#how-should-i-use-model_configyaml">How should I use model_config.yaml</a></li>
-                
-            <li class="second-level"><a href="#docstrings">Docstrings</a></li>
-                
-            <li class="second-level"><a href="#sharing-notebooks">Sharing notebooks</a></li>
                 
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
 <h1 id="faq">FAQ</h1>
-<h2 id="how-do-i-update-conda_environmentyaml">How do I update <code>conda_environment.yaml</code>?</h2>
-<p>As you install extra libraries add them to <code>conda_environment.yaml</code>.</p>
-<p>If you're not sure what libraries you have installed you can use <code>conda env export</code> to print out all the versions of your current environment; however this will list dependencies too so don't blindly add everything!</p>
-<p>If you require specific versions of libraries, try to make these as general as possible to increase the probabiliity of somebody using a different machine being able to reproduce your environment.
-For example, <code>pandas &gt;0.25,&lt;0.26</code> not <code>pandas=0.25.3=py36hb3f55d8_0</code>.</p>
-<h2 id="i-didnt-configure-an-s3-bucket-at-start-up-how-do-i-do-it">I didn't configure an s3 bucket at start-up, how do I do it?</h2>
-<p>Open <code>Makefile</code> and edit the right-hand side of <code>BUCKET = ...</code> line so that is the name of your s3 bucket (don't include <code>s3://</code>).</p>
-<h2 id="how-should-i-put-data-into-dataraw">How should I put data into <code>data/raw</code></h2>
-<p>Edit <code>fetch_data.py</code> in the source folder to fetch any data from the web (from S3/SQL/an API etc.).</p>
-<p>Running <code>make fetch</code> will run this then sync the <code>data/raw</code> folder to s3</p>
+<p>Please submit questions as a <a href="https://github.com/nestauk/ds-cookiecutter/issues/new">Github issue</a> with the label "question".</p>
 <h2 id="where-should-i-save-models">Where should I save models?</h2>
-<p>Save trained models in <code>models/</code> as something like a pickle (<code>.pkl</code>) file.</p>
-<h2 id="where-do-i-get-data">Where do I get data?</h2>
-<p>Use <code>make sync_data_from_s3</code> to get the data from <code>data/raw</code> (as long as whoever set up the repo has configured an s3 bucket and used <code>make sync_data_to_s3</code>).</p>
-<h2 id="how-do-i-format-code">How do I format code?</h2>
-<p>Running <code>make lint</code> will format code in the directory named after your repo using <a href="https://black.readthedocs.io/"><code>black</code></a>.</p>
-<blockquote>
-<p>Black makes code review faster by producing the smallest diffs possible. Blackened code looks the same regardless of the project you’re reading. Formatting becomes transparent after a while and you can focus on the content instead.</p>
-</blockquote>
-<h2 id="where-do-i-save-figures">Where do I save figures?</h2>
-<p><code>reports/figures</code></p>
-<h2 id="where-should-i-put-x-functionality">Where should I put "X" functionality?</h2>
-<p>Common sense applies but generally:</p>
 <ul>
-<li>If it's specific to a dataset, create a subfolder based on the dataset</li>
-<li>It it's a generic estimator (does <code>transform</code> but not <code>fit</code>) put it in <code>estimators/</code>.</li>
-<li>Pre-trained models fetched from e.g. tensorflow hub, should go here too</li>
-<li>If it's a generic transfomers (does <code>fit</code>) put it in <code>transformers/</code></li>
-<li>If it creates a visualisation, put it in <code>visualisation/</code></li>
-</ul>
-<h2 id="what-is-a-dev-notebook">What is a <code>dev</code> notebook?</h2>
-<p><code>dev</code> notebooks are for exploration and experimention. </p>
-<p>A guiding principle: If someone else has to look inside your <code>dev</code> notebook, something has gone wrong (see "What shouldn't be in a notebook?")</p>
-<h2 id="what-shouldnt-be-in-a-notebook">What shouldn't be in a notebook?</h2>
-<p>Notebooks should serve two purposes:</p>
-<p>1) Exploration/experimentation: <code>notebooks/dev</code>
-2) Presention: <code>notebooks/</code></p>
-<p>If you have a notebook containing code that creates an asset (fetches data/processes data/defines a model/trains a model/produces a final plot etc. ), this should be refactored into a <code>.py</code> file in the source directory (see "Where should I put "X" functionality?").</p>
-<h2 id="how-should-i-use-model_configyaml">How should I use <code>model_config.yaml</code></h2>
-<p>Configurable hyper-parameters should go in here.</p>
-<p>There should be no magic numbers in function bodies.</p>
-<p>If you're sure a number will not change (maybe it represents a fixed API ratelimit), define it in the main body of the file with an all-caps name to signal it's constant nature (e.g. <code>MAX_REQUESTS_PER_SEC = 30</code>).</p>
-<p>If it's a hyper-parameter (e.g. the number of trees in a random forest, or a random seed), put it in <code>model_config.yaml</code>:</p>
-<pre><code class="yaml">gtr_data:
-  random_forest:
-    seed: 0
-    n_estimators: 100
-</code></pre>
-
-<p>Fetch the value in the relevant file like so:</p>
-<pre><code class="python">
-import &lt;repo_name&gt;
-
-...
-
-seed = &lt;repo_name&gt;.config['gtr_data']['random_forest']['seed']
-</code></pre>
-
-<p>Depending on the repo size, different levels of nesting in the config may be appropriate (E.g. If you only have one model and one dataset, no nesting is fine)</p>
-<h2 id="docstrings">Docstrings</h2>
-<p>Any exposed function or class should have a google style docstring.</p>
-<p>Functions for internal use only should have a leading underscore (e.g. <code>_my_fun</code>), and do not require full docstrings.</p>
-<p>See https://www.sphinx-doc.org/en/1.7/ext/example_google.html for examples of how to format docstrings.</p>
-<h2 id="sharing-notebooks">Sharing notebooks</h2>
-<p>The cookiecutter installs a git hook to strip notebooks of output before commiting. This gives cleaner diff's, and stops repo bloat.</p>
-<p>If you <code>git clone</code> a cookiecutter repo and plan on making commits you should run <code>make git</code> to install this git hook.</p>
-<p>Notebooks should be shared with collaborators outside of the main git repository, either exported as HTML or as a gist using something like <a href="https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/gist_it/readme.html">gist-it</a>.</p></div>
+<li>If it's a pre-trained model someone has sent you: <code>inputs/models/</code></li>
+<li>If it's a model you have trained: <code>outputs/models/</code></li>
+</ul></div>
         
         
     </div>
 
-    <footer class="col-md-12 text-center">
-        
-        <hr>
-        <p>
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Adapted from the <a href="http://drivendata.github.io/cookiecutter-data-science/">Drivendata data science cookiecutter</a></small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
 
-        
-        
-    </footer>
+          
+          
+      </footer>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
     <script>hljs.initHighlightingOnLoad();</script>
+    
+
     <script>var base_url = ".."</script>
     
     <script src="../js/base.js"></script>
@@ -212,8 +172,11 @@ seed = &lt;repo_name&gt;.config['gtr_data']['random_forest']['seed']
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
                 <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
                 <p>

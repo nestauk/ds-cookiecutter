@@ -8,20 +8,26 @@
     <meta name="description" content="A project template and directory structure for Nesta Python data science projects.">
     
     
-    <link rel="../img/favicon.ico">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
     <title>Quickstart - Cookiecutter Data Science @ Nesta</title>
     
 
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="../css/base.min.css" rel="stylesheet">
     <link href="../css/cinder.min.css" rel="stylesheet">
-    <link href="../css/highlight.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
     <link href="../css/extra.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,15 +35,6 @@
             <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
         <![endif]-->
-
-    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script>
-    WebFont.load({
-        google: {
-            families: ['Open Sans', 'PT Sans']
-        }
-    });
-    </script>
 
     
 
@@ -62,11 +59,47 @@
 
             <!-- Main title -->
 
-            <a class="navbar-brand" href="..">Cookiecutter Data Science @ Nesta</a>
+            
+              <a class="navbar-brand" href="..">Cookiecutter Data Science @ Nesta</a>
+            
         </div>
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="./">Quickstart</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../structure/">Structure</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../guidelines/">Python guidelines</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../faq/">FAQ</a>
+                    </li>
+                
+                
+                </ul>
 
             <ul class="nav navbar-nav navbar-right">
                     <li>
@@ -75,7 +108,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/nestauk/cookiecutter-data-science-nesta/edit/master/docs/docs/quickstart.md"><i class="fab fa-github"></i> Edit on GitHub</a>
+                        <a href="https://github.com/nestauk/ds-cookiecutter/edit/master/docs/docs/quickstart.md"><i class="fab fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -88,69 +121,167 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="first-level active"><a href="#quickstart">Quickstart</a></li>
+            <li class="second-level"><a href="#requirements">Requirements</a></li>
+                
             <li class="second-level"><a href="#starting-from-scratch">Starting from scratch</a></li>
                 
-                <li class="third-level"><a href="#create-cookiecutter">Create cookiecutter</a></li>
-                <li class="third-level"><a href="#create-a-virtual-environment">Create a virtual environment</a></li>
-                <li class="third-level"><a href="#first-step">First step</a></li>
-            <li class="second-level"><a href="#reproducing-someone-elses-work">Reproducing someone else's work</a></li>
+                <li class="third-level"><a href="#create">Create</a></li>
+                <li class="third-level"><a href="#configure">Configure</a></li>
+            <li class="second-level"><a href="#collaborating-on-an-existing-project">Collaborating on an existing project</a></li>
                 
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
 <h1 id="quickstart">Quickstart</h1>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>Python 3.6+</li>
+<li>A *NIX system (e.g. Linux/macOS) - Windows might work, but we don't support it<ul>
+<li>Mac users: The commands below assume you have <a href="https://brew.sh/">homebrew</a> installed</li>
+</ul>
+</li>
+<li><a href="http://cookiecutter.readthedocs.org/en/latest/installation.html">Cookiecutter Python package</a> &gt;= 1.4.0:</li>
+</ul>
+<pre><code class="language-bash">pip install cookiecutter
+</code></pre>
+<ul>
+<li><a href="https://github.com/AGWA/git-crypt">git-crypt</a> - required for metaflow on AWS</li>
+</ul>
+<pre><code class="language-bash">brew install git-crypt  # mac
+apt-get install -y git-crypt  # Ubuntu linux:
+</code></pre>
+<ul>
+<li>
+<p><a href="https://github.com/cli/cli">github CLI</a> [<strong>OPTIONAL</strong> - required if <code>auto_config</code> set to true (the default)] - for automatic creation and configuration of a Github repo</p>
+<ul>
+<li><strong>Install</strong><ul>
+<li>Mac: <code>brew install gh</code></li>
+<li>Linux: https://github.com/cli/cli/blob/trunk/docs/install_linux.md</li>
+</ul>
+</li>
+<li><strong>Configure</strong>: <code>gh auth login</code> and answer prompts as below:<ul>
+<li><em>What account do you want to log into?</em> <strong>Github.com</strong></li>
+<li><em>What is your preferred protocol for Git operations?</em> <strong>SSH</strong></li>
+<li><em>Upload your SSH public key to your Github account?</em> Select the key you used to sign-up for 2-factor authentication with github</li>
+<li><em>How would you like to authenticate GitHub CLI?</em> <strong>Login with a web browser</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Have a Nesta AWS account configured with <code>awscli</code></p>
+<ul>
+<li><strong>Note to any non-Nesta visitors:</strong> You can still use the cookiecutter by:<ul>
+<li>Choosing <code>auto_config</code> as "false" when setting up the cookiecutter</li>
+<li>Remove the <code>setup-metaflow</code> dependency of the <code>install</code> command within <code>Makefile</code></li>
+<li>If using <code>make init</code> - replace references to <code>nestauk</code> with your github organisation in <code>bin/create_repo.sh</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>We recommend taking the time to install and configure the optional dependencies as this one-time setup allows you to use the <code>auto_config</code> option which should save you a lot of time and avoids human error during configuration.</p>
 <h2 id="starting-from-scratch">Starting from scratch</h2>
-<h3 id="create-cookiecutter">Create cookiecutter</h3>
+<h3 id="create">Create</h3>
+<p>Ensure you have installed the <a href="#Requirements">requirements</a> and then run <code>cookiecutter https://github.com/nestauk/ds-cookiecutter</code>.</p>
+<p>This opens a series of prompts to configure your new project (values in square brackets denote defaults):</p>
 <ul>
-<li><code>pip install cookiecutter</code></li>
-<li><code>cookiecutter https://github.com/nestauk/cookiecutter-data-science-nesta</code>
-  This opens a series of prompts to configure your new project (values in square brackets denote defaults):</li>
-<li><code>project_name [project_name]:</code> Type the name of your project here</li>
-<li><code>repo_name [project_name]:</code> Type the name of your repository here</li>
-<li><code>author_name [Nesta]:</code> The author of the project (you or your organisation)</li>
-<li><code>description [...]:</code> A short description of your project</li>
-<li><code>Select open_source_license: ...</code> Choose the license you wish to use </li>
-<li><code>s3_bucket ...:</code> The name of an S3 bucket to sync your raw data to</li>
-<li><code>aws_profile [default]:</code> The AWS profile name to use for syncing to S3. Choose default unless your an advanced user.</li>
-<li><code>cd &lt;repo_name&gt;</code></li>
+<li><code>project_name</code>: Type the name of your project here</li>
+<li><code>repo_name</code>: Type the name of your repository here<ul>
+<li>The default is a processed version of <code>project_name</code> that is compatible with python package names</li>
 </ul>
-<h3 id="create-a-virtual-environment">Create a virtual environment</h3>
+</li>
+<li><code>author_name</code>: The author of the project</li>
+<li><code>description</code>: A short description of your project</li>
+<li><code>openness</code>: Whether the project is "public" (default) or "private"<ul>
+<li>You should only make a project private if you have a good reason</li>
+<li>If "public" then an MIT license will be generated; otherwise the license will be a copyright placeholder</li>
+<li>If you choose <code>auto_config</code> as "true" then the Github repo created will obey this setting</li>
+</ul>
+</li>
+<li><code>s3_bucket</code>: The name of an S3 bucket to store assets for this project<ul>
+<li>If you choose <code>auto_config</code> as "true" then this bucket will be created for you</li>
+<li><strong>Careful</strong>: This needs to not conflict with any existing s3 bucket name</li>
+<li>This value can be reconfigured in <code>.env.shared</code></li>
+</ul>
+</li>
+<li><code>github_account</code>: The github account that this project will be created in</li>
+<li><code>auto_config</code>: Whether to automatically create a conda environment; github repo; S3 bucket; and configure AWS with metaflow.<ul>
+<li>Requires optional requirement <code>gh</code> (the Github cli) to have been installed and configured (with <code>gh auth login</code>)</li>
+</ul>
+</li>
+</ul>
+<h3 id="configure">Configure</h3>
 <ul>
-<li>Add any libraries you know you will need into <code>conda_environment.yaml</code></li>
-<li>Run <code>make create_environment</code> - This will setup a conda environment named according to your repository, and install your project as a local, editable package</li>
-<li><code>conda activate &lt;environment name&gt;</code> (<code>conda env list</code> will list available environments if you're unsure what your environment is called)</li>
+<li>
+<p>If you selected <code>auto_config</code> as "true", the following actions have happened:</p>
+<ul>
+<li>A conda environment, <code>project_name</code>, has been created (with the project package installed in editable mode)</li>
+<li>Git pre-commit hooks have been configured and installed</li>
+<li>The Nesta metaflow config has been fetched and decrypted. It should exist in <code>~/.metaflowconfig/config.json</code></li>
+<li>A github repo <code>github.com/nestauk/project_name</code> has been created and configured</li>
+<li>An s3 bucket <code>project_name</code> has been created</li>
 </ul>
-<h3 id="first-step">First step</h3>
-<p>We've setup our project structure and environment, now you're ready to get going!</p>
-<p>The best first step is to write <code>&lt;repo_name&gt;/fetch_data.py</code> to fetch all your data, and store it in <code>data/raw/</code>.</p>
-<p><code>make fetch</code> will run this file and sync <code>data/raw</code> to s3 for you (as long as you setup a bucket).</p>
-<h2 id="reproducing-someone-elses-work">Reproducing someone else's work</h2>
+</li>
+<li>
+<p>If you selected <code>auto_config</code> as "false", you will need to do the above manually (or run <code>make init</code>):</p>
+<ul>
+<li>Run <code>make install</code> to configure the development environment:<ul>
+<li>Setup the conda environment</li>
+<li>Configure pre-commit</li>
+<li>Configure metaflow to use AWS</li>
+</ul>
+</li>
+<li>Manually create an S3 bucket <code>s3_bucket</code> (or run <code>bash bin/create_bucket.sh</code>)</li>
+<li>Manually create a github repository (or run <code>bash bin/create_repo.sh</code>)</li>
+</ul>
+</li>
+</ul>
+<h2 id="collaborating-on-an-existing-project">Collaborating on an existing project</h2>
 <ul>
 <li>Clone the repository and <code>cd</code> into the repository.</li>
-<li>Run <code>make create_environment</code> - This will setup a conda environment named according to your repository, and install your project as a local, editable package.</li>
-<li><code>conda activate &lt;environment name&gt;</code> will activate the environment (<code>conda env list</code> will list available environments if you're unsure what your environment is called)</li>
-<li>Check the README for any configuration needed (e.g. putting API keys in <code>.env</code>)</li>
-<li>Get the raw data: <code>make sync_from_s3</code></li>
-<li>Follow their documentation, or make them write some if they haven't already!</li>
+<li>Run <code>make install</code> to configure the development environment:<ul>
+<li>Setup the conda environment</li>
+<li>Install dependencies and local package</li>
+<li>Configure pre-commit</li>
+<li>Configure metaflow to use AWS</li>
+</ul>
+</li>
+<li><code>conda activate project_name</code></li>
+<li>Check the project's <code>README</code> for any additional configuration needed (e.g. putting API keys in <code>.env</code>)</li>
+<li>Pull any required inputs into <code>inputs/</code> by running <code>make inputs-pull</code></li>
+<li>Follow the author's documentation, or make them write some if they haven't already!</li>
 </ul></div>
         
         
     </div>
 
-    <footer class="col-md-12 text-center">
-        
-        <hr>
-        <p>
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Adapted from the <a href="http://drivendata.github.io/cookiecutter-data-science/">Drivendata data science cookiecutter</a></small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
 
-        
-        
-    </footer>
+          
+          
+      </footer>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
     <script>hljs.initHighlightingOnLoad();</script>
+    
+
     <script>var base_url = ".."</script>
     
     <script src="../js/base.js"></script>
@@ -160,8 +291,11 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
                 <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
                 <p>

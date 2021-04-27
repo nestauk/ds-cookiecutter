@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A project template and directory structure for Nesta Python data science projects.">
+    
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>Python guidelines - Cookiecutter Data Science @ Nesta</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+    <link href="../css/extra.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">Cookiecutter Data Science @ Nesta</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../quickstart/">Quickstart</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../structure/">Structure</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="./">Python guidelines</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../faq/">FAQ</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/nestauk/ds-cookiecutter/edit/master/docs/docs/guidelines.md"><i class="fab fa-github"></i> Edit on GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#technical-and-working-style-guidelines">Technical and working style guidelines</a></li>
+            <li class="second-level"><a href="#foreword">Foreword</a></li>
+                
+            <li class="second-level"><a href="#python-is-not-pandas">python is not pandas</a></li>
+                
+            <li class="second-level"><a href="#design-patterns">Design patterns</a></li>
+                
+            <li class="second-level"><a href="#programming">Programming</a></li>
+                
+                <li class="third-level"><a href="#mandatory">Mandatory</a></li>
+                <li class="third-level"><a href="#encouraged">Encouraged</a></li>
+            <li class="second-level"><a href="#critical-thinking">Critical thinking</a></li>
+                
+            <li class="second-level"><a href="#naming-conventions">Naming conventions</a></li>
+                
+                <li class="third-level"><a href="#mandatory_1">Mandatory</a></li>
+                <li class="third-level"><a href="#encouraged_1">Encouraged</a></li>
+            <li class="second-level"><a href="#spaces-and-spacing">Spaces and spacing</a></li>
+                
+                <li class="third-level"><a href="#encouraged_2">Encouraged</a></li>
+            <li class="second-level"><a href="#comments-and-docs">Comments and docs</a></li>
+                
+                <li class="third-level"><a href="#mandatory_2">Mandatory</a></li>
+                <li class="third-level"><a href="#encouraged_3">Encouraged</a></li>
+            <li class="second-level"><a href="#workflow">Workflow</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="technical-and-working-style-guidelines">Technical and working style guidelines</h1>
+<p><em>Challenging this documentation is encouraged. Please set up an issue for challenges, additions or corrections. For explanations, please consult the <code>dev</code> Slack channel</em></p>
+<p>In this document we set out some basic "tips" (either mandatory or encouraged) which should guide your way of working, regardless of the task.</p>
+<ul>
+<li><a href="#foreword">Foreword</a></li>
+<li><a href="#python-is-not-pandas"><code>python is not pandas</code></a></li>
+<li><a href="#design-patterns">Design patterns</a></li>
+<li><a href="#programming">Programming</a></li>
+<li><a href="#critical-thinking">Critical thinking</a></li>
+<li><a href="#naming-conventions">Naming conventions</a></li>
+<li><a href="#spaces-and-spacing">Spaces and spacing</a></li>
+<li><a href="#comments-and-docs">Comments and docs</a></li>
+</ul>
+<h2 id="foreword">Foreword</h2>
+<p>In advance, we recommend installing the autoformatter <a href="https://pypi.org/project/black/">black</a> in your IDE. In future we will use <code>flake8</code> (or similar) for automatically checking our python codebases. </p>
+<p>Hopefully the conventions laid out here are the easy and intuitive set of <a href="https://www.python.org/dev/peps/pep-0008/">pep8</a>. </p>
+<p>Code reviewers: it is on you to ensure that this style guide has been followed: there are no points for being lenient, but there [non-redeemable] points for being opinionated! We should all feel pressured into making sure that our code meets an acceptable standard.</p>
+<h2 id="python-is-not-pandas"><code>python is not pandas</code></h2>
+<p>tldr; Using <code>pandas</code> as a means to perform transformations or calculations on your data should be avoided, unless it clearly simplifies the logic and readability of your code. That is not so say that you should not use <code>pandas</code>, but rather that you justify to yourself that <code>pandas</code> isn't making your life harder in lieu of using standard <code>python</code> tools.</p>
+<p>We appreciate that <code>pandas</code> is a gateway into <code>python</code> programming for many people, and for that reason it becomes habitual way of coding. However... code containing lots of <code>pandas</code> operations are almost impossible to review, and therefore have the capacity to accumulate vast numbers of bugs.</p>
+<ul>
+<li>In general, <code>pandas</code> makes column-wise operations and IO (reading/writing files) dead easy. That said, <code>pandas</code> column-wise operations are inherited from <code>numpy</code>, and <code>numpy</code> is generally accepted in the place of dataframes.</li>
+<li><code>pandas</code> is enormous, in many ways. If it can be omitted from your code then you can make big savings in terms of memory usage and requirements clashes, and even CPU time.</li>
+<li>Instead of Googling how to achieve something in <code>pandas</code> with an obscure chaining of functions, break the problem down and solve it yourself. It is highly unlikely that the <code>pandas</code> approach to reshaping your data will beat using tools from <code>numpy</code>, <code>itertools</code>, <code>functools</code> and <code>toolz</code>, even if you switch to representing data in <code>numpy</code> arrays or even as <code>list</code> of <code>dict</code> (<code>[{'value': 21}, {'value': 45}]</code>).</li>
+<li>If you would like guidance, tips or ideas on how to un<code>panda</code> your code then ask on the <code>dev</code> Slack Channel - we're all here to help!</li>
+</ul>
+<h2 id="design-patterns">Design patterns</h2>
+<p>Favour the following design patterns, in this order:</p>
+<ol>
+<li>Functional programming: using functions to do one thing well, not altering the original data.</li>
+<li>Modular code: using functions to eliminate duplication, improve readability and reduce indentation.</li>
+<li>Object-oriented programming: Generally avoid, unless you are customising an API (for example <code>DataFrame</code>) or defining your own API.</li>
+</ol>
+<p>If you are not, at least, adhering to a modular style then you have gone very wrong.
+You should implement unit tests for each of your functions, something which is generally more tricky for object-oriented programming.</p>
+<h2 id="programming">Programming</h2>
+<h3 id="mandatory">Mandatory</h3>
+<p><em>NB: eventually these checks will be automatic</em></p>
+<ul>
+<li>Don't compare boolean values to <code>True</code> or <code>False</code>.</li>
+<li>Favour <code>is not condition</code> over <code>not condition is</code></li>
+<li>Don't compare a value to <code>None</code> (<code>value == None</code>), always favour <code>value is None</code></li>
+</ul>
+<h3 id="encouraged">Encouraged</h3>
+<ul>
+<li>Favour <a href="https://docs.python.org/3/howto/logging.html"><code>logging</code></a> over <code>print</code></li>
+<li>Favour using configuration files, or (faster/lazier/less good/ok) <code>GLOBAL_VARIABLES</code> near the top of your code, rather than repeated use of hard-coded variables in your code, particularly when with URL and file path variables like <code>s3://path/to/some/fixed/place</code>, but also for repeated numeric hyperparameters.</li>
+</ul>
+<h2 id="critical-thinking">Critical thinking</h2>
+<p>The following questions should be going through your mind when developing your code. If you don't quite understand the wording or intention of the following questions then we encourage you to ask in the <code>dev</code> Slack channel!</p>
+<ul>
+<li>Surely this simple problem already has an elegant solution?</li>
+<li>How many copies of the data am I making in memory?</li>
+<li>Where do my variables go out of scope?</li>
+<li>How can I avoid creating a new variable at all costs? (think iterator, scope, <code>lru_cache</code>)</li>
+<li>Have I made sure that I only run expensive or time consuming processes as few times as possible?</li>
+</ul>
+<h2 id="naming-conventions">Naming conventions</h2>
+<h3 id="mandatory_1">Mandatory</h3>
+<ul>
+<li>Functions / methods: <code>function</code>, <code>my_function</code> (snake case)</li>
+<li>Variables / attributes: <code>variable</code>, <code>my_var</code> (snake case)</li>
+<li>Class: <code>Model</code>, <code>MyClass</code> (camel case)</li>
+<li>Module / file names / directory names: <code>module</code>, <code>file_name.py</code>, <code>dir_name</code> (camel case)</li>
+<li>Global* / constants: <code>A_GLOBAL_VARIABLE</code> (screaming snake case)</li>
+</ul>
+<p>* here we use "Global" to mean constants in scope at the module level, not the <code>global</code> level. Don't use <code>global</code>, ever.</p>
+<h3 id="encouraged_1">Encouraged</h3>
+<ul>
+<li>Keep all names as short and descriptive as possible. Variable names such as <code>x</code> or <code>df</code> are highly discouraged unless they are genuinely representing abstract concepts.</li>
+<li>Favour good naming conventions over helpful comments</li>
+</ul>
+<h2 id="spaces-and-spacing">Spaces and spacing</h2>
+<p><em>NB: that using the autoformatter <a href="https://pypi.org/project/black/">black</a> in your IDE will resolve almost all of the following</em></p>
+<h3 id="encouraged_2">Encouraged</h3>
+<ul>
+<li>Use the absolute minimum number of indents of your code. You can achieve this by writing modular code, and inverting logic, for example:</li>
+</ul>
+<pre><code class="language-python">def something(args):
+    for item_collection in args:         # 1 tab
+        if item_collection.exists():     # 2 tabs
+            the_sum = 0                  # 3 tabs
+            for item in item_collection:
+                the_sum += item.value()  # 4 tabs
+            print(the_sum)
+</code></pre>
+<p>can become:</p>
+<pre><code class="language-python">def sum_values(item_collection):
+    the_sum = sum(item.value() for item in item_collection)
+    print(the_sum)
+
+def something(args):
+    for item_collection in args:         # 1 tab
+        if not item_collection.exists(): # 2 tabs
+            continue  # 3 tabs, buts unindents following lines
+        sum_values(item_collection)      # 2 tabs
+</code></pre>
+<ul>
+<li>Put a space before starting block comments <code># like this</code>, <code>#not this</code></li>
+<li>Inline comments need two spaces before them <code>a = 2  # like this</code></li>
+<li>Keep lines to 88 (officially 79) characters or less. You can achieve this by utilising other parts of this guideline, particularly with regards to creating modular code. Splitting over multiple lines is, of course, permissible so long as it doesn't conflict with legibility.</li>
+<li>When declaring default values, never put spaces around operators like <code>=</code>, i.e <code>def this_is_ok(param=1)</code>, <code>def this_is_NOT_ok(param = 1)</code>. Otherwise, all operators must always have a single space on either side.</li>
+<li>Separate function and class arguments with a comma and a space, i.e. <code>do_thing(1, b=2)</code> and not <code>do_thing(1,b=2)</code>.</li>
+</ul>
+<h2 id="comments-and-docs">Comments and docs</h2>
+<h3 id="mandatory_2">Mandatory</h3>
+<ul>
+<li>At least <em>a basic docstring</em> is required for every function/method and class</li>
+<li>Full, explanatory docstrings are required for all function/methods and classes <em>if</em> it will be used in the main body of a code routine.</li>
+<li>Use Google-style: https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html</li>
+<li>If you are using type hints then then you can write e.g. <code>my_arg (str): description</code> as simply <code>my_arg: description</code>.</li>
+</ul>
+<h3 id="encouraged_3">Encouraged</h3>
+<ul>
+<li>Don't state the obvious in comments</li>
+<li>Before writing a comment, consider whether that information would be better be encoded in a useful variable or function name.</li>
+</ul>
+<h2 id="workflow">Workflow</h2>
+<p>This builds on a much greater body of work, laid out in <a href="https://github.com/nestauk/github_support/blob/dev/guidelines/README.md">nestauk/github_support</a>. For avoidance of doubt, branches must be linked to a GitHub issue and named accordingly:</p>
+<pre><code class="language-bash">{GitHub issue number}_{tinyLowerCamelDescription}
+</code></pre>
+<p>For example <code>14_readme</code>, which indicates that <a href="https://github.com/nestauk/ojd_daps/pull/24">this branch</a> refered to <a href="https://github.com/nestauk/ojd_daps/issues/14">this issue</a>.</p>
+<p>You should generally favour having a <code>dev</code> branch, in addition to your <code>main</code> (<code>master</code>) branch. Never commit to <code>dev</code>, <code>master</code> or <code>main</code>. </p>
+<p>Only pull requests from branches named <code>{GitHub issue number}_{tinyLowerCamelDescription}</code> should ever be accepted.</p>
+<p>Please make all PRs and issues reasonably small: they should be trying to achieve roughly one task. Inevitably some simple tasks spawn large numbers of utils, and sometimes these detract from the original PR. In this case, you should stack an new PR on top of your "base" PR, for example as <code>{GitHub issue number}_{differentLowerCamelDescription}</code>. In this case the PR / Git merging tree will look like:</p>
+<pre><code>dev &lt;-- 123_originalThing &lt;-- 423_differentThing &lt;-- 578_anotherDifferentThing
+</code></pre>
+<p>We can then merge the PR <code>123_originalThing</code> into <code>dev</code>, then <code>423_differentThing</code> into <code>dev</code> (after calling <code>git merge dev</code> on <code>423_differentThing</code>), etc until the chain is merged entirely. The nominated reviewer should review the entire chain, before the merge can go ahead. PRs should only be merged if all tests and a review has been signed off.</p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Adapted from the <a href="http://drivendata.github.io/cookiecutter-data-science/">Drivendata data science cookiecutter</a></small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
