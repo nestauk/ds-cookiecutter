@@ -68,14 +68,20 @@ conda-update:
 	conda env update -n ${PROJECT_NAME} -f environment.yaml
 
 .PHONY: clean
-## TODO : clean python artifacts
+## Delete all compiled Python files
 clean:
-	@echo clean
+	find . -type f -name "*.py[co]" -delete
+	find . -type d -name "__pycache__" -delete
 
 .PHONY: pre-commit
 ## Perform pre-commit actions
 pre-commit:
 	$(call execute_in_env, pre-commit)
+
+.PHONY: lint
+## Run flake8 linting on repository
+lint:
+	$(call execute_in_env, flake8)
 
 #################################################################################
 # Helper Commands (no need to explicitly document)                              #
