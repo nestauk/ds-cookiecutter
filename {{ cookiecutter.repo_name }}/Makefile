@@ -1,126 +1,116 @@
-.PHONY: git all clean data lint requirements sync_data_to_s3 sync_data_from_s3
+SHELL := /bin/bash
 
-#################################################################################
-# GLOBALS                                                                       #
-#################################################################################
-
-PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-BUCKET = {{ cookiecutter.s3_bucket }}
-PROFILE = {{ cookiecutter.aws_profile }}
-PROJECT_NAME = {{ cookiecutter.repo_name }}
-PYTHON_INTERPRETER = python3
-
-ifeq (,$(shell which conda))
-HAS_CONDA=False
+# Detect how to open things depending on our OS
+OS = $(shell uname -s)
+ifeq ($(OS),Linux)
+	OPEN=xdg-open
 else
-HAS_CONDA=True
+	OPEN=open
 endif
 
-# Define utility variable to help calling Python from the virtual environment
-ifeq ($(CONDA_DEFAULT_ENV),$(PROJECT_NAME))
-    ACTIVATE_ENV := true
-else
-		CONDA_BASE := $(shell conda info --base)
-    ACTIVATE_ENV := source $(CONDA_BASE)/etc/profile.d/conda.sh && conda activate $(PROJECT_NAME) || source activate $(PROJECT_NAME)
-endif
+PROFILE = default
+# Import env variables
+include .env.shared
+include .env
 
-# Execute python related functionalities from within the project's environment
+# Allow us to execute make commands from within our project's conda env
+# TODO: add over-ride based on some environment variable?
+#       e.g. `MAKE_NO_ENV` in `.env` set makes this do nothing
 define execute_in_env
-	$(ACTIVATE_ENV) && $1
+	source bin/conda_activate.sh && conda_activate && $1
 endef
 
-#################################################################################
-# COMMANDS                                                                      #
-#################################################################################
+.PHONY: init
+## Fully initialise a project: install; setup github repo; setup S3 bucket
+init: install setup-github setup-bucket
+	@echo INIT COMPLETE
 
-## Setup git filter for notebooks
-git:
-	echo -e "[filter \"nbstrip_full\"]\n clean = \"jq --indent 1 '(.cells[] | select(has(\\\"outputs\\\")) | .outputs) = []  | (.cells[] | select(has(\\\"execution_count\\\")) | .execution_count) = null  | .metadata = {\\\"language_info\\\": {\\\"name\\\": \\\"python\\\", \\\"pygments_lexer\\\": \\\"ipython3\\\"}} | .cells[].metadata = {} '\"\n smudge = cat\n required = true\n " >> .git/config
+.PHONY: install
+## Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS
+install: conda-create setup-git setup-metaflow
+	@echo INSTALL COMPLETE
 
+.PHONY: inputs-pull
+## Pull `inputs/` from S3
+inputs-pull:
+	$(call execute_in_env, aws s3 sync s3://${BUCKET}/inputs inputs --profile ${PROFILE})
 
-## Make new environment, install requirements and make datasets
-all:
-	make create_environment
-	$(call execute_in_env, make requirements)
-	$(call execute_in_env, make data)
+.PHONY: inputs-push
+## Push `inputs/` to S3 (WARNING: this may overwrite existing files!)
+inputs-push:
+	$(call execute_in_env, aws s3 sync inputs s3://${BUCKET}/inputs  --profile ${PROFILE})
 
-## Install Python Dependencies
-requirements: test_environment
-	$(call execute_in_env, conda env update -f conda_environment.yaml)
-	$(call execute_in_env, pip install -e .)
+.PHONY: docs
+## Build the API documentation
+docs:
+	$(call execute_in_env, sphinx-apidoc -o docs/api ${REPO_NAME})
+	$(call execute_in_env, sphinx-build -b docs/ docs/_build)
 
-## Fetch data and sync raw to s3
-fetch:
-	$(PYTHON_INTERPRETER) {{ cookiecutter.repo_name }}/fetch_data.py
-	make sync_data_to_s3
+.PHONY: docs-clean
+## Clean the built API documentation
+docs-clean:
+	rm -r docs/source/api
+	rm -r docs/_build
 
-## Sync raw from s3 and make Dataset
-data:
-	sync_data_from_s3
-	$(PYTHON_INTERPRETER) {{ cookiecutter.repo_name }}/make_dataset.py
+.PHONY: docs-open
+## Open the docs in the browser
+docs-open:
+	$(OPEN) docs/_build/index.html
 
+.PHONY: conda-create
+## Create a conda environment
+conda-create:
+	conda env create -q -n ${PROJECT_NAME} -f environment.yaml
+	$(MAKE) -s pip-install
+
+.PHONY: conda-update
+## Update the conda-environment based on changes to `environment.yaml`
+conda-update:
+	conda env update -n ${PROJECT_NAME} -f environment.yaml
+	$(MAKE) pip-install
+
+.PHONY: clean
 ## Delete all compiled Python files
 clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
 
-## Format using black and lint w/ flake8
+.PHONY: pre-commit
+## Perform pre-commit actions
+pre-commit:
+	$(call execute_in_env, pre-commit)
+
+.PHONY: lint
+## Run flake8 linting on repository
 lint:
-	black {{ cookiecutter.repo_name }}; flake8 {{ cookiecutter.repo_name }}
+	$(call execute_in_env, flake8)
 
-## Upload Data to S3
-sync_data_to_s3:
-ifeq (default,$(PROFILE))
-	aws s3 sync data/raw s3://$(BUCKET)/data/raw
-else
-	aws s3 sync data/raw s3://$(BUCKET)/data/raw --profile $(PROFILE)
-endif
-
-## Download Data from S3
-sync_data_from_s3:
-ifeq (default,$(PROFILE))
-	aws s3 sync s3://$(BUCKET)/data/raw data/raw
-else
-	aws s3 sync s3://$(BUCKET)/data/raw data/raw --profile $(PROFILE)
-endif
-
-## Set up python interpreter environment
-## (filters conda_environment.yaml lines with "[not <PLATFORM_NAME>]" comments)
-## <PLATFORM_NAME> from https://docs.python.org/3/library/sys.html#sys.platform
-create_environment:
-ifeq (True,$(HAS_CONDA))
-	cat conda_environment.yaml | \
-grep "\[not .*$(shell python -c 'import sys; print(sys.platform)').*\]" -v > /tmp/environment.yaml
-	conda env create -f /tmp/environment.yaml
-	$(call execute_in_env, pip install -e .)
-	$(call execute_in_env, jupyter contrib nbextension install --user)
-	$(call execute_in_env, jupyter-nbextensions_configurator enable --user)
-	@echo ">>> New conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
-else
-	@echo ">>> Please install a conda distribution\n"
-endif
-
-## Update python environment
-## (filters conda_environment.yaml lines with "[not <PLATFORM_NAME>]" comments)
-## <PLATFORM_NAME> from https://docs.python.org/3/library/sys.html#sys.platform
-update_environment:
-ifeq (True,$(HAS_CONDA))
-	cat conda_environment.yaml | \
-grep "\[not .*$(shell python -c 'import sys; print(sys.platform)').*\]" -v > /tmp/environment.yaml
-	conda env update -f /tmp/environment.yaml
-	@echo ">>> Updated conda env"
-else
-	@echo ">>> Please install a conda distribution\n"
-endif
-
-## Test python environment is setup correctly
-test_environment:
-	$(PYTHON_INTERPRETER) test_environment.py
+.PHONY: pip-install
+## Install our package and requirements in editable mode (including development dependencies)
+pip-install:
+	$(call execute_in_env, pip install -e ".[dev]" --quiet)
 
 #################################################################################
-# PROJECT RULES                                                                 #
+# Helper Commands (no need to explicitly document)                              #
 #################################################################################
 
+.PHONY: setup-git
+setup-git:
+	$(call execute_in_env, pre-commit install --install-hooks)
+
+.PHONY: setup-metaflow
+setup-metaflow:
+	$(call execute_in_env, ${SHELL} ./bin/install_metaflow_aws.sh)
+
+.PHONY: setup-bucket
+setup-bucket:
+	@echo S£
+	$(call execute_in_env, ${SHELL} ./bin/create_bucket.sh)
+
+.PHONY: setup-github
+setup-github:
+	@echo GH
+	$(call execute_in_env, ${SHELL} ./bin/create_repo.sh)
 
 
 #################################################################################

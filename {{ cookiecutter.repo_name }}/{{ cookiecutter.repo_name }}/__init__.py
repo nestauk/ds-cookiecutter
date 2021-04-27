@@ -1,24 +1,36 @@
+"""{{ cookiecutter.repo_name }}."""
 import logging
 import logging.config
-import yaml
 from pathlib import Path
+from typing import Optional
+
+import yaml
+from dotenv import load_dotenv
+
+
+def get_yaml_config(file_path: Path) -> Optional[dict]:
+    """Fetch yaml config and return as dict if it exists."""
+    if file_path.exists():
+        with open(file_path, "rt") as f:
+            return yaml.load(f.read(), Loader=yaml.FullLoader)
 
 
 # Define project base directory
-project_dir = Path(__file__).resolve().parents[1]
+PROJECT_DIR = Path(__file__).resolve().parents[1]
 
-# Define log output locations
-info_out = str(project_dir / 'info.log')
-error_out = str(project_dir / 'errors.log')
 
 # Read log config file
-with open(project_dir / 'logging.yaml', 'rt') as f:
-    logging_config = yaml.safe_load(f.read())
-logging.config.dictConfig(logging_config)
+_log_config_path = Path("config/logging.yaml")
+_logging_config = get_yaml_config(_log_config_path)
+if _logging_config:
+    logging.config.dictConfig(_logging_config)
 
 # Define module logger
 logger = logging.getLogger(__name__)
 
-# Model config
-with open(project_dir / 'model_config.yaml', 'rt') as f:
-    config = yaml.safe_load(f.read())
+# base/global config
+_base_config_path = Path("config/base.yaml")
+config = get_yaml_config(_base_config_path)
+
+# BUCKET and METAFLOW_PROFILE
+load_dotenv(f"{PROJECT_DIR}/.env.shared")

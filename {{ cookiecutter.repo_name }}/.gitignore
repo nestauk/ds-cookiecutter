@@ -1,3 +1,25 @@
+*.lock
+
+# Proposed convention
+scratch*
+
+# Nesta specific
+research_daps/
+*.key
+
+# Report
+*.aux
+*.bbl
+*.blg
+
+# Metaflow
+.metaflow
+metaflow.s3.*
+.run_id
+
+# Notebooks (use jupytext instead!)
+*.ipynb
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -42,12 +64,13 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
+.pytest_cache
 
 # Translations
 *.mo
 *.pot
 
-# Django stuff:
+# Django stuff:/
 *.log
 
 # Sphinx documentation
@@ -77,12 +100,13 @@ target/
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
 
-# exclude data/{raw,externa,interim,processed} from source control by default
-# data/aux can be tracked by github as this will contain hand-written content
-/data/raw/
-/data/external/
-/data/interim/
-/data/processed/
+# exclude /inputs and /outputs/data except top-level markdown
+/inputs/*
+!/inputs/*.md
+/outputs/data/*
+!/outputs/data/*.md
+/outputs/models/*
+!/outputs/models/*.md
 
 # Mac OS-specific storage files
 .DS_Store
@@ -94,3 +118,6 @@ target/
 
 # Mypy cache
 .mypy_cache/
+
+# NPM
+node_modules/
