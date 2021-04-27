@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A project template and directory structure for Nesta Python data science projects.">
     
-    
+    <link rel="canonical" href="https://nestauk.github.io/ds-cookiecutter/structure/">
     <link rel="shortcut icon" href="../img/favicon.ico">
 
     
@@ -90,6 +90,12 @@
                 
                     <li >
                         <a href="../guidelines/">Python guidelines</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../roadmap/">Roadmap</a>
                     </li>
                 
                 
@@ -326,7 +332,7 @@ Anywhere in the code base we need to load data we should do so by importing and 
 <p>On the <a href="../roadmap#Schema">roadmap</a> is a speculative plan to explore the use of <a href="https://pydantic-docs.helpmanual.io/">pydantic</a> to specify and validate data-schemas.</p>
 <h2 id="pipeline-components-srcpipeline">Pipeline components - <code>src/pipeline</code></h2>
 <p>This folder contains pipeline components. Put as much data-science as possible here.</p>
-<p>We recommend the use of <a href="docs.metaflow.org">metaflow</a> to write these pipeline components. </p>
+<p>We recommend the use of <a href="https://docs.metaflow.org">metaflow</a> to write these pipeline components. </p>
 <p>In the coming months as we roll out <a href="../roadmap#Metaflow">utilities and documentation to smooth out some of the rough edges of metaflow</a>, this will become less of a recommendation and more of a stipulation.</p>
 <p>Using metaflow:
 - Gives us lightweight version control of data and models
@@ -348,7 +354,7 @@ Anywhere in the code base we need to load data we should do so by importing and 
 <p>For example, if you are prototyping a "sentence transformer" pipeline then that pipeline component will likely end up somewhere like <code>pipeline/sentence_transformer/</code>, therefore you should place the notebooks for prototyping this features in <code>pipeline/sentence_transformer/notebooks/</code>.</p>
 <p>If you're just getting started with a project and don't have a clear sense of the separation between <code>analysis</code>, <code>pipeline</code>, and <code>getters</code> yet (or it's too premature to split functionality across multiple places) then a sensible place to start is <code>analysis/&lt;high-level-description&gt;/notebooks/</code>.</p>
 <h3 id="version-control">Version control</h3>
-<p>Since notebooks are challenging objects for source control (e.g., diffs of the <code>json</code> are often not human-readable and merging is a nightmare), we use <a href="https://jupytext.io">jupytext</a> to pair <code>.ipynb</code> files with a human-readable and git-diffable <code>.py</code> file.</p>
+<p>Since notebooks are challenging objects for source control (e.g., diffs of the <code>json</code> are often not human-readable and merging is a nightmare), we use <a href="https://jupytext.readthedocs.io">jupytext</a> to pair <code>.ipynb</code> files with a human-readable and git-diffable <code>.py</code> file.</p>
 <p>These paired <code>.py</code> files should be committed to git, <code>.ipynb</code> files are git-ignored.</p>
 <p>To ensure jupytext works correctly you should start <code>jupyter</code> (notebook/lab) from the base directory of the project so that <code>jupyter</code> detects the <code>jupytext</code> configuration that lives in <code>jupytext.toml</code>.</p>
 <h3 id="refactoring">Refactoring</h3>
@@ -363,7 +369,7 @@ Anywhere in the code base we need to load data we should do so by importing and 
 %autoreload 2
 </code></pre>
 <p>Now when you save code in a python module, the notebook will automatically load in the latest changes without you having to restart the kernel, re-import the module etc.</p>
-<p>When it comes to refactoring, open the python file <a href="jupytext.io">Jupytext</a> pairs to your notebook in your editor of choice - now your notebook code is easily-readable and in the same environment you use to write python modules.</p>
+<p>When it comes to refactoring, open the python file <a href="https://jupytext.readthedocs.io">Jupytext</a> pairs to your notebook in your editor of choice - now your notebook code is easily-readable and in the same environment you use to write python modules.</p>
 <h3 id="share-with-gists">Share with gists</h3>
 <p>As the git filter above stops the sharing of outputs directly via. the git repository, another way is needed to share the outputs of quick and dirty analysis.
 We suggest using Gists, particularly the <a href="https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/gist_it/readme.html">Gist it</a> notebook extension which adds a button to your notebook that will instantly turn the notebook into a gist and upload it to your github (as public/private) as long.
@@ -395,8 +401,7 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
 │   │   └── __init__.py              |
 │   ├── config                       |  Configuration
 │   │   ├── logging.yaml             |    logging configuration
-│   │   ├── global.yaml              |    global configuration (e.g. for tracking hyper-parameters)
-│   │   ├── .metaflow-versioning.yaml|    tracks metadata about our pipelines
+│   │   ├── base.yaml                |    global configuration (e.g. for tracking hyper-parameters)
 │   │   └── pipeline                 |    pipeline configuration files
 │   │       └── .gitkeep             |
 │   ├── getters                      |  Data getters
