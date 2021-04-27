@@ -96,7 +96,7 @@ setup-bucket:
 .PHONY: setup-github
 setup-github:
 	@echo GH
-	$(call execute_in_env, ${SHELL}./bin/create_repo.sh)
+	$(call execute_in_env, ${SHELL} ./bin/create_repo.sh)
 
 .PHONY: pip-install
 pip-install:
