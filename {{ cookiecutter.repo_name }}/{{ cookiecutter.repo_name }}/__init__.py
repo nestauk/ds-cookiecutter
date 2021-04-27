@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Optional
 
 import yaml
+from dotenv import load_dotenv
 
 
 def get_yaml_config(file_path: Path) -> Optional[dict]:
@@ -30,3 +31,6 @@ logger = logging.getLogger(__name__)
 # global config
 _global_config_path = Path("config/global.yaml")
 config = get_yaml_config(_global_config_path)
+
+# BUCKET and METAFLOW_PROFILE
+load_dotenv(f"{PROJECT_DIR}/.env.shared")
