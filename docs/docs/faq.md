@@ -66,7 +66,7 @@ Flake8 will warn you about missing docstrings and incorrectly formatted docstrin
 
 ## Sharing notebooks
 
-We use [jupytext](jupytext.io) to pair `.ipynb` files with a human-readable and git-diffable `.py` file.
+We use [jupytext](https://jupytext.io) to pair `.ipynb` files with a human-readable and git-diffable `.py` file.
 These paired `.py` files should be committed to git, `.ipynb` files are git-ignored.
 
 If you need to share the visual content of a notebook, either exported as HTML or as a gist using [gist-it](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/gist_it/readme.html).
