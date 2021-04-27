@@ -14,7 +14,7 @@ include .env.shared
 include .env
 
 # Allow us to execute make commands from within our project's conda env
-# TODO: add over-ride based on some environment variable? 
+# TODO: add over-ride based on some environment variable?
 #       e.g. `MAKE_NO_ENV` in `.env` set makes this do nothing
 define execute_in_env
 	source bin/conda_activate.sh && conda_activate && $1
@@ -31,7 +31,7 @@ install: conda-create pip-install setup-git setup-metaflow
 	@echo INSTALL COMPLETE
 
 .PHONY: inputs-pull
-## Pull `inputs/` from S3 
+## Pull `inputs/` from S3
 inputs-pull:
 	$(call execute_in_env, aws s3 sync s3://${BUCKET}/inputs inputs --profile ${PROFILE})
 
@@ -54,7 +54,7 @@ docs-clean:
 
 .PHONY: docs-open
 ## Open the docs in the browser
-docs-open: 
+docs-open:
 	$(OPEN) docs/_build/index.html
 
 .PHONY: conda-create
