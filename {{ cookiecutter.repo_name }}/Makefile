@@ -14,6 +14,8 @@ include .env.shared
 include .env
 
 # Allow us to execute make commands from within our project's conda env
+# TODO: add over-ride based on some environment variable? 
+#       e.g. `MAKE_NO_ENV` in `.env` set makes this do nothing
 define execute_in_env
 	source bin/conda-activate.sh && conda-activate && $1
 endef

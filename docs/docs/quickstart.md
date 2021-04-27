@@ -4,20 +4,26 @@
 
 - Python 3.6+
 - A \*NIX system (e.g. Linux/macOS) - Windows might work, but we don't support it
+    - Mac users: The commands below assume you have [homebrew](https://brew.sh/) installed
 - [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
 ```bash
-$ pip install cookiecutter
+pip install cookiecutter
 ```
 - [git-crypt](https://github.com/AGWA/git-crypt) - required for metaflow on AWS
 ```bash
-$ brew install git-crypt  # mac
-$ apt-get install -y git-crypt  # Ubuntu linux:
+brew install git-crypt  # mac
+apt-get install -y git-crypt  # Ubuntu linux:
 ```
 - [github CLI](https://github.com/cli/cli) [**OPTIONAL** - required if `auto_config` set to true (the default)] - for automatic creation and configuration of a Github repo
 
-    - To install on Mac: `$ brew install gh`
-    - To install on Linux: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
-    - To configure: `$ gh auth login` and follow the instructions
+    - **Install**
+        - Mac: `brew install gh`
+        - Linux: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+    - **Configure**: `gh auth login` and answer prompts as below:
+        - *What account do you want to log into?* **Github.com**
+        - *What is your preferred protocol for Git operations?* **SSH**
+        - *Upload your SSH public key to your Github account?* Select the key you used to sign-up for 2-factor authentication with github
+        - *How would you like to authenticate GitHub CLI?* **Login with a web browser**
 
 - Have a Nesta AWS account configured with `awscli`
     - **Note to any non-Nesta visitors:** You can still use the cookiecutter by:
@@ -31,7 +37,7 @@ We recommend taking the time to install and configure the optional dependencies 
 
 ### Create
 
-Ensure you have installed the [requirements](#Requirements) and then run `cookiecutter https://github.com/nestauk/cookiecutter-data-science-nesta`.
+Ensure you have installed the [requirements](#Requirements) and then run `cookiecutter https://github.com/nestauk/ds-cookiecutter`.
 
 This opens a series of prompts to configure your new project (values in square brackets denote defaults):
 

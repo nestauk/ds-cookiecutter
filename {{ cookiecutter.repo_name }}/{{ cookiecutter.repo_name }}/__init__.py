@@ -27,6 +27,6 @@ if _logging_config:
 # Define module logger
 logger = logging.getLogger(__name__)
 
-# Model config
-_model_config_path = Path("config/logging.yaml")
-config = get_yaml_config(_model_config_path)
+# global config
+_global_config_path = Path("config/global.yaml")
+config = get_yaml_config(_global_config_path)

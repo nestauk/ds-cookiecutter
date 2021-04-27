@@ -5,5 +5,5 @@
   "description": "A short description of the project.",
   "openness": ["public", "private"],
   "s3_bucket": "{{ cookiecutter.repo_name}}",
-  "auto_config": ["true", "false"]
+  "auto_config": ["false", "true"]
 }
