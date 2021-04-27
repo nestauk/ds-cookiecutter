@@ -60,7 +60,7 @@ docs-open:
 .PHONY: conda-create
 ## Create a conda environment
 conda-create:
-	conda env create -n ${PROJECT_NAME} -f environment.yaml
+	conda env create -q -n ${PROJECT_NAME} -f environment.yaml
 
 .PHONY: conda-update
 ## Update the conda-environment based on changes to `environment.yaml`
@@ -83,6 +83,11 @@ pre-commit:
 lint:
 	$(call execute_in_env, flake8)
 
+.PHONY: pip-install
+## Install our package and requirements in editable mode (including development dependencies)
+pip-install:
+	$(call execute_in_env, pip install -e ".[dev]" --quiet)
+
 #################################################################################
 # Helper Commands (no need to explicitly document)                              #
 #################################################################################
@@ -93,7 +98,6 @@ setup-git:
 
 .PHONY: setup-metaflow
 setup-metaflow:
-	@echo go with the flow
 	$(call execute_in_env, ${SHELL} ./bin/install_metaflow_aws.sh)
 
 .PHONY: setup-bucket
@@ -106,9 +110,6 @@ setup-github:
 	@echo GH
 	$(call execute_in_env, ${SHELL} ./bin/create_repo.sh)
 
-.PHONY: pip-install
-pip-install:
-	$(call execute_in_env, pip install -e ".[dev]")
 
 #################################################################################
 # Self Documenting Commands                                                     #
