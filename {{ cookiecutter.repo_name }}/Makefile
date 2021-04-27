@@ -27,7 +27,7 @@ init: install setup-github setup-bucket
 
 .PHONY: install
 ## Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS
-install: conda-create pip-install setup-git setup-metaflow
+install: conda-create setup-git setup-metaflow
 	@echo INSTALL COMPLETE
 
 .PHONY: inputs-pull
@@ -37,7 +37,7 @@ inputs-pull:
 
 .PHONY: inputs-push
 ## Push `inputs/` to S3 (WARNING: this may overwrite existing files!)
-inputs-push: # TODO conf dialogue
+inputs-push:
 	$(call execute_in_env, aws s3 sync inputs s3://${BUCKET}/inputs  --profile ${PROFILE})
 
 .PHONY: docs
@@ -61,11 +61,13 @@ docs-open:
 ## Create a conda environment
 conda-create:
 	conda env create -q -n ${PROJECT_NAME} -f environment.yaml
+	$(MAKE) -s pip-install
 
 .PHONY: conda-update
 ## Update the conda-environment based on changes to `environment.yaml`
 conda-update:
 	conda env update -n ${PROJECT_NAME} -f environment.yaml
+	$(MAKE) pip-install
 
 .PHONY: clean
 ## Delete all compiled Python files
