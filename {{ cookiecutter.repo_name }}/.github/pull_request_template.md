@@ -11,3 +11,4 @@ Checklist:
   - [ ] Major functions have docstrings
   - [ ] Appropriate information has been added to `README`s
 - [ ] I have explained the feature in this PR or (better) in `output/reports/`
+- [ ] I have requested a code review
