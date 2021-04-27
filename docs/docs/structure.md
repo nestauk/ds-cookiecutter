@@ -235,7 +235,7 @@ On the [roadmap](../roadmap#Schema) is a speculative plan to explore the use of 
 
 This folder contains pipeline components. Put as much data-science as possible here.
 
-We recommend the use of [metaflow](docs.metaflow.org) to write these pipeline components. 
+We recommend the use of [metaflow](https://docs.metaflow.org) to write these pipeline components. 
 
 In the coming months as we roll out [utilities and documentation to smooth out some of the rough edges of metaflow](../roadmap#Metaflow), this will become less of a recommendation and more of a stipulation.
 
@@ -278,7 +278,7 @@ If you're just getting started with a project and don't have a clear sense of th
 
 ### Version control
 
-Since notebooks are challenging objects for source control (e.g., diffs of the `json` are often not human-readable and merging is a nightmare), we use [jupytext](https://jupytext.io) to pair `.ipynb` files with a human-readable and git-diffable `.py` file.
+Since notebooks are challenging objects for source control (e.g., diffs of the `json` are often not human-readable and merging is a nightmare), we use [jupytext](https://jupytext.readthedocs.io) to pair `.ipynb` files with a human-readable and git-diffable `.py` file.
 
 These paired `.py` files should be committed to git, `.ipynb` files are git-ignored.
 
@@ -305,7 +305,7 @@ Add the following to your notebook (or IPython REPL):
 Now when you save code in a python module, the notebook will automatically load in the latest changes without you having to restart the kernel, re-import the module etc.
 
 
-When it comes to refactoring, open the python file [Jupytext](jupytext.io) pairs to your notebook in your editor of choice - now your notebook code is easily-readable and in the same environment you use to write python modules.
+When it comes to refactoring, open the python file [Jupytext](https://jupytext.readthedocs.io) pairs to your notebook in your editor of choice - now your notebook code is easily-readable and in the same environment you use to write python modules.
 
 ### Share with gists
 

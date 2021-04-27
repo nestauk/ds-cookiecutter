@@ -1,5 +1,6 @@
 site_name: Cookiecutter Data Science @ Nesta
 site_description: A project template and directory structure for Nesta Python data science projects.
+site_url: https://nestauk.github.io/ds-cookiecutter
 repo_url: https://github.com/nestauk/ds-cookiecutter
 edit_uri: edit/master/docs/docs
 copyright: Adapted from the <a href="http://drivendata.github.io/cookiecutter-data-science/">Drivendata data science cookiecutter</a>
@@ -14,4 +15,5 @@ nav:
   - Quickstart: quickstart.md
   - Structure: structure.md
   - Python guidelines: guidelines.md
+  - Roadmap: roadmap.md
   - FAQ: faq.md
