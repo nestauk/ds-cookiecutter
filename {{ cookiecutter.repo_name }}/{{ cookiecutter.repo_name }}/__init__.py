@@ -28,9 +28,9 @@ if _logging_config:
 # Define module logger
 logger = logging.getLogger(__name__)
 
-# global config
-_global_config_path = Path("config/global.yaml")
-config = get_yaml_config(_global_config_path)
+# base/global config
+_base_config_path = Path("config/base.yaml")
+config = get_yaml_config(_base_config_path)
 
 # BUCKET and METAFLOW_PROFILE
 load_dotenv(f"{PROJECT_DIR}/.env.shared")
