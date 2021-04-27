@@ -2,10 +2,10 @@
 set -eo pipefail
 
 source "$PWD/.env.shared"
-source "$PWD/bin/conda-activate.sh"
+source "$PWD/bin/conda_activate.sh"
 
 # Fetch description of package (setup.py and conda make this horrible)
-DESCRIPTION=$(conda-activate && pip show $PROJECT_NAME | grep Summary | cut -d " " -f2-)
+DESCRIPTION=$(conda_activate && pip show $PROJECT_NAME | grep Summary | cut -d " " -f2-)
 
 # Create
 gh repo create nestauk/$PROJECT_NAME --$PROJECT_OPENNESS -d "$DESCRIPTION" -y
