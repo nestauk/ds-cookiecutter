@@ -5,5 +5,6 @@
   "description": "A short description of the project.",
   "openness": ["public", "private"],
   "s3_bucket": "{{ cookiecutter.repo_name}}",
+  "github_account": "nestauk",
   "auto_config": ["false", "true"]
 }

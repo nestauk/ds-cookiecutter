@@ -8,7 +8,7 @@ source "$PWD/bin/conda_activate.sh"
 DESCRIPTION=$(conda_activate && pip show $PROJECT_NAME | grep Summary | cut -d " " -f2-)
 
 # Create
-gh repo create nestauk/$PROJECT_NAME --$PROJECT_OPENNESS -d "$DESCRIPTION" -y
+gh repo create $GITHUB_ACCOUNT/$PROJECT_NAME --$PROJECT_OPENNESS -d "$DESCRIPTION" -y
 
 # push initial branches
 git push --all
@@ -20,4 +20,4 @@ gh api -X PATCH\
  -F default_branch=dev\
  -F allow_merge_commit=false\
  -F allow_rebase_merge=false\
-  repos/nestauk/$PROJECT_NAME --silent
+  repos/$GITHUB_ACCOUNT/$PROJECT_NAME --silent
