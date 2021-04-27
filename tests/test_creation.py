@@ -1,12 +1,13 @@
 import os
-import pytest
 from subprocess import check_output
+
+import pytest
 from conftest import system_check
 
 
 def no_curlies(filepath):
-    """ Utility to make sure no curly braces appear in a file.
-        That is, was jinja able to render everthing?
+    """Utility to make sure no curly braces appear in a file.
+    That is, was jinja able to render everthing?
     """
     with open(filepath, "r") as f:
         data = f.read()

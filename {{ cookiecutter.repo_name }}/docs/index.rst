@@ -1,19 +1,15 @@
-.. {{ cookiecutter.project_name }} documentation master file, created by
-   sphinx-quickstart.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-{{ cookiecutter.project_name }} documentation!
-==============================================
-
-Contents:
-
 .. toctree::
-   :maxdepth: 2
+   :hidden:
+   :maxdepth: 1
 
-   getting-started
-   commands
+   api/{{ cookiecutter.repo_name }}
+   License <license>
+   Github <https://github.com/nestauk/{{ cookiecutter.project_name }}/>
 
+{{ cookiecutter.project_name }}
+===============================
+
+{{ cookiecutter.description }}
 
 
 Indices and tables
