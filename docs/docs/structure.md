@@ -351,8 +351,7 @@ We are [experimenting](../roadmap#Reporting) with a toolchain using [pandoc](htt
 │   │   └── __init__.py              |
 │   ├── config                       |  Configuration
 │   │   ├── logging.yaml             |    logging configuration
-│   │   ├── global.yaml              |    global configuration (e.g. for tracking hyper-parameters)
-│   │   ├── .metaflow-versioning.yaml|    tracks metadata about our pipelines
+│   │   ├── base.yaml                |    global configuration (e.g. for tracking hyper-parameters)
 │   │   └── pipeline                 |    pipeline configuration files
 │   │       └── .gitkeep             |
 │   ├── getters                      |  Data getters
