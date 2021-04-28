@@ -4,7 +4,7 @@
   "author_name": "Nesta",
   "description": "A short description of the project.",
   "openness": ["public", "private"],
-  "s3_bucket": "{{ cookiecutter.repo_name}}",
+  "s3_bucket": "{{ cookiecutter.repo_name.rstrip('-').replace('_', '-')}}",
   "github_account": "nestauk",
   "auto_config": ["false", "true"]
 }
