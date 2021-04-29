@@ -52,7 +52,7 @@ This opens a series of prompts to configure your new project (values in square b
     - If you choose `auto_config` as "true" then the Github repo created will obey this setting
 - `s3_bucket`: The name of an S3 bucket to store assets for this project
     - If you choose `auto_config` as "true" then this bucket will be created for you
-    - **Careful**: This needs to not conflict with any existing s3 bucket name
+    - **Careful**: This needs to not conflict with any existing s3 bucket name and [S3 bucket names](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html) must only contain lowercase letters, numbers, dots, and hyphens.
     - This value can be reconfigured in `.env.shared`
 - `github_account`: The github account that this project will be created in
 - `auto_config`: Whether to automatically create a conda environment; github repo; S3 bucket; and configure AWS with metaflow.
@@ -74,8 +74,6 @@ This opens a series of prompts to configure your new project (values in square b
         - Configure pre-commit
         - Configure metaflow to use AWS
     - Manually create an S3 bucket `s3_bucket` (or run `bash bin/create_bucket.sh`)
-
-      [S3 names](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html) must only contain lowercase letters, numbers, dots, and hyphens.
 
     - Manually create a github repository (or run `bash bin/create_repo.sh`)
 
