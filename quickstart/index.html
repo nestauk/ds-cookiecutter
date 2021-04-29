@@ -208,7 +208,7 @@ apt-get install -y git-crypt  # Ubuntu linux:
 </li>
 <li><code>s3_bucket</code>: The name of an S3 bucket to store assets for this project<ul>
 <li>If you choose <code>auto_config</code> as "true" then this bucket will be created for you</li>
-<li><strong>Careful</strong>: This needs to not conflict with any existing s3 bucket name</li>
+<li><strong>Careful</strong>: This needs to not conflict with any existing s3 bucket name and <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">S3 bucket names</a> must only contain lowercase letters, numbers, dots, and hyphens.</li>
 <li>This value can be reconfigured in <code>.env.shared</code></li>
 </ul>
 </li>
@@ -239,11 +239,12 @@ apt-get install -y git-crypt  # Ubuntu linux:
 <li>Configure metaflow to use AWS</li>
 </ul>
 </li>
-<li>Manually create an S3 bucket <code>s3_bucket</code> (or run <code>bash bin/create_bucket.sh</code>)</li>
-</ul>
-<p><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">S3 names</a> must only contain lowercase letters, numbers, dots, and hyphens.</p>
-<ul>
-<li>Manually create a github repository (or run <code>bash bin/create_repo.sh</code>)</li>
+<li>
+<p>Manually create an S3 bucket <code>s3_bucket</code> (or run <code>bash bin/create_bucket.sh</code>)</p>
+</li>
+<li>
+<p>Manually create a github repository (or run <code>bash bin/create_repo.sh</code>)</p>
+</li>
 </ul>
 </li>
 </ul>
