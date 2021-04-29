@@ -74,7 +74,6 @@ This opens a series of prompts to configure your new project (values in square b
         - Configure pre-commit
         - Configure metaflow to use AWS
     - Manually create an S3 bucket `s3_bucket` (or run `bash bin/create_bucket.sh`)
-
     - Manually create a github repository (or run `bash bin/create_repo.sh`)
 
 ## Collaborating on an existing project
