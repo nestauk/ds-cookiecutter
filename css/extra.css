@@ -1,5 +1,8 @@
-h1,
-h2,
-h3 {
-  margin-top: 77px;
+code {
+  /* --md-code-fg-color: var(--md-primary-fg-color); */
+  --md-code-fg-color: var(--md-code-hl-number-color);
+}
+
+.highlight code {
+  --md-code-fg-color: var(--md-code-fg-color);
 }

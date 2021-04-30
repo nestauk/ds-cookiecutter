@@ -1,187 +1,890 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A project template and directory structure for Nesta Python data science projects.">
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-    <link rel="canonical" href="https://nestauk.github.io/ds-cookiecutter/structure/">
-    <link rel="shortcut icon" href="../img/favicon.ico">
-
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A project template and directory structure for Nesta Python data science projects.">
+      
+      
+      
+      
+        <link rel="canonical" href="https://nestauk.github.io/ds-cookiecutter/structure/">
+      
+      <link rel="icon" href="../favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.3">
     
-    <title>Structure - Cookiecutter Data Science @ Nesta</title>
     
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-    <link href="../css/base.min.css" rel="stylesheet">
-    <link href="../css/cinder.min.css" rel="stylesheet">
-
+      
+        <title>Structure - Cookiecutter Data Science @ Nesta</title>
+      
     
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e35208c4.min.css">
+      
         
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
         
+      
     
-    <link href="../css/extra.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-        <![endif]-->
-
     
-
-     
-</head>
-
-<body>
-
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-
-            <!-- Main title -->
-
-            
-              <a class="navbar-brand" href="..">Cookiecutter Data Science @ Nesta</a>
-            
-        </div>
-
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li >
-                        <a href="..">Home</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../quickstart/">Quickstart</a>
-                    </li>
-                
-                
-                
-                    <li class="active">
-                        <a href="./">Structure</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../guidelines/">Python guidelines</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../roadmap/">Roadmap</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../faq/">FAQ</a>
-                    </li>
-                
-                
-                </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                            <i class="fas fa-search"></i> Search
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/nestauk/ds-cookiecutter/edit/master/docs/docs/structure.md"><i class="fab fa-github"></i> Edit on GitHub</a>
-                    </li>
-            </ul>
-        </div>
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="amber">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#structure" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://nestauk.github.io/ds-cookiecutter" title="Cookiecutter Data Science @ Nesta" class="md-header__button md-logo" aria-label="Cookiecutter Data Science @ Nesta" data-md-component="logo">
+      
+  <img src="../favicon.ico" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cookiecutter Data Science @ Nesta
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Structure
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="amber" type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="amber" data-md-color-accent="pink" type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/nestauk/ds-cookiecutter/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nestauk/ds-cookiecutter
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
 
-    <div class="container">
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://nestauk.github.io/ds-cookiecutter" title="Cookiecutter Data Science @ Nesta" class="md-nav__button md-logo" aria-label="Cookiecutter Data Science @ Nesta" data-md-component="logo">
+      
+  <img src="../favicon.ico" alt="logo">
+
+    </a>
+    Cookiecutter Data Science @ Nesta
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/nestauk/ds-cookiecutter/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nestauk/ds-cookiecutter
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        Quickstart
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
         
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Structure
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Structure
+      </a>
+      
         
-        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#structure">Structure</a></li>
-            <li class="second-level"><a href="#project-configuration-makefile">Project configuration - Makefile</a></li>
-                
-            <li class="second-level"><a href="#git-hooks">Git hooks</a></li>
-                
-            <li class="second-level"><a href="#reproducable-environment">Reproducable environment</a></li>
-                
-                <li class="third-level"><a href="#files">Files</a></li>
-                <li class="third-level"><a href="#commands">Commands</a></li>
-                <li class="third-level"><a href="#roadmap">Roadmap</a></li>
-            <li class="second-level"><a href="#secrets-and-configuration-env-and-srcconfig">Secrets and configuration - .env.* and src/config/*</a></li>
-                
-                <li class="third-level"><a href="#store-your-secrets-in-a-special-file">Store your secrets in a special file</a></li>
-                <li class="third-level"><a href="#store-data-science-configuration-in-srcconfig">Store Data-science configuration in src/config/</a></li>
-                <li class="third-level"><a href="#roadmap_1">Roadmap</a></li>
-            <li class="second-level"><a href="#data-inputsdata-outputsdata-outputscache">Data - inputs/data, outputs/data, outputs/.cache</a></li>
-                
-                <li class="third-level"><a href="#inputsdata">inputs/data</a></li>
-                <li class="third-level"><a href="#outputscache">outputs/.cache/</a></li>
-                <li class="third-level"><a href="#outputsdata">outputs/data</a></li>
-            <li class="second-level"><a href="#fetchingloading-data-srcgetters">Fetching/loading data - src/getters</a></li>
-                
-                <li class="third-level"><a href="#roadmap_2">Roadmap</a></li>
-            <li class="second-level"><a href="#pipeline-components-srcpipeline">Pipeline components - src/pipeline</a></li>
-                
-            <li class="second-level"><a href="#shared-utilities-srcutils">Shared utilities - src/utils</a></li>
-                
-                <li class="third-level"><a href="#roadmap_3">Roadmap</a></li>
-            <li class="second-level"><a href="#analysis-srcanalysis">Analysis - src/analysis</a></li>
-                
-            <li class="second-level"><a href="#notebooks">Notebooks</a></li>
-                
-                <li class="third-level"><a href="#where-does-the-humble-notebook-live">Where does the humble notebook live?</a></li>
-                <li class="third-level"><a href="#version-control">Version control</a></li>
-                <li class="third-level"><a href="#refactoring">Refactoring</a></li>
-                <li class="third-level"><a href="#share-with-gists">Share with gists</a></li>
-                <li class="third-level"><a href="#dont-install-jupyterjupyterlab-in-your-environment-use-ipykernel">Don't install jupyter/jupyterlab in your environment, use ipykernel</a></li>
-            <li class="second-level"><a href="#report-outputsreports">Report - outputs/reports</a></li>
-                
-        <li class="first-level "><a href="#tree">Tree</a></li>
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#project-configuration-makefile" class="md-nav__link">
+    Project configuration - Makefile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-hooks" class="md-nav__link">
+    Git hooks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reproducable-environment" class="md-nav__link">
+    Reproducable environment
+  </a>
+  
+    <nav class="md-nav" aria-label="Reproducable environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    Files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    Commands
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roadmap" class="md-nav__link">
+    Roadmap
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secrets-and-configuration-env-and-srcconfig" class="md-nav__link">
+    Secrets and configuration - .env.* and src/config/*
+  </a>
+  
+    <nav class="md-nav" aria-label="Secrets and configuration - .env.* and src/config/*">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#store-your-secrets-in-a-special-file" class="md-nav__link">
+    Store your secrets in a special file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#store-data-science-configuration-in-srcconfig" class="md-nav__link">
+    Store Data-science configuration in src/config/
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roadmap_1" class="md-nav__link">
+    Roadmap
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-inputsdata-outputsdata-outputscache" class="md-nav__link">
+    Data - inputs/data, outputs/data, outputs/.cache
+  </a>
+  
+    <nav class="md-nav" aria-label="Data - inputs/data, outputs/data, outputs/.cache">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inputsdata" class="md-nav__link">
+    inputs/data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputscache" class="md-nav__link">
+    outputs/.cache/
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputsdata" class="md-nav__link">
+    outputs/data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetchingloading-data-srcgetters" class="md-nav__link">
+    Fetching/loading data - src/getters
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetching/loading data - src/getters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roadmap_2" class="md-nav__link">
+    Roadmap
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-components-srcpipeline" class="md-nav__link">
+    Pipeline components - src/pipeline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-utilities-srcutils" class="md-nav__link">
+    Shared utilities - src/utils
+  </a>
+  
+    <nav class="md-nav" aria-label="Shared utilities - src/utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roadmap_3" class="md-nav__link">
+    Roadmap
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analysis-srcanalysis" class="md-nav__link">
+    Analysis - src/analysis
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notebooks" class="md-nav__link">
+    Notebooks
+  </a>
+  
+    <nav class="md-nav" aria-label="Notebooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-does-the-humble-notebook-live" class="md-nav__link">
+    Where does the humble notebook live?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-control" class="md-nav__link">
+    Version control
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refactoring" class="md-nav__link">
+    Refactoring
+  </a>
+  
+    <nav class="md-nav" aria-label="Refactoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tips" class="md-nav__link">
+    Tips
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#share-with-gists" class="md-nav__link">
+    Share with gists
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dont-install-jupyterjupyterlab-in-your-environment-use-ipykernel" class="md-nav__link">
+    Don't install jupyter/jupyterlab in your environment, use ipykernel
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#report-outputsreports" class="md-nav__link">
+    Report - outputs/reports
+  </a>
+  
+</li>
+      
     </ul>
-</div></div>
-        <div class="col-md-9" role="main">
+  
+</nav>
+      
+    </li>
+  
 
-<h1 id="structure">Structure</h1>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guidelines/" class="md-nav__link">
+        Python guidelines
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        Roadmap
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#project-configuration-makefile" class="md-nav__link">
+    Project configuration - Makefile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-hooks" class="md-nav__link">
+    Git hooks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reproducable-environment" class="md-nav__link">
+    Reproducable environment
+  </a>
+  
+    <nav class="md-nav" aria-label="Reproducable environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    Files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    Commands
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roadmap" class="md-nav__link">
+    Roadmap
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secrets-and-configuration-env-and-srcconfig" class="md-nav__link">
+    Secrets and configuration - .env.* and src/config/*
+  </a>
+  
+    <nav class="md-nav" aria-label="Secrets and configuration - .env.* and src/config/*">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#store-your-secrets-in-a-special-file" class="md-nav__link">
+    Store your secrets in a special file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#store-data-science-configuration-in-srcconfig" class="md-nav__link">
+    Store Data-science configuration in src/config/
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roadmap_1" class="md-nav__link">
+    Roadmap
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-inputsdata-outputsdata-outputscache" class="md-nav__link">
+    Data - inputs/data, outputs/data, outputs/.cache
+  </a>
+  
+    <nav class="md-nav" aria-label="Data - inputs/data, outputs/data, outputs/.cache">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inputsdata" class="md-nav__link">
+    inputs/data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputscache" class="md-nav__link">
+    outputs/.cache/
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputsdata" class="md-nav__link">
+    outputs/data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetchingloading-data-srcgetters" class="md-nav__link">
+    Fetching/loading data - src/getters
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetching/loading data - src/getters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roadmap_2" class="md-nav__link">
+    Roadmap
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-components-srcpipeline" class="md-nav__link">
+    Pipeline components - src/pipeline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-utilities-srcutils" class="md-nav__link">
+    Shared utilities - src/utils
+  </a>
+  
+    <nav class="md-nav" aria-label="Shared utilities - src/utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roadmap_3" class="md-nav__link">
+    Roadmap
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analysis-srcanalysis" class="md-nav__link">
+    Analysis - src/analysis
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notebooks" class="md-nav__link">
+    Notebooks
+  </a>
+  
+    <nav class="md-nav" aria-label="Notebooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-does-the-humble-notebook-live" class="md-nav__link">
+    Where does the humble notebook live?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-control" class="md-nav__link">
+    Version control
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refactoring" class="md-nav__link">
+    Refactoring
+  </a>
+  
+    <nav class="md-nav" aria-label="Refactoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tips" class="md-nav__link">
+    Tips
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#share-with-gists" class="md-nav__link">
+    Share with gists
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dont-install-jupyterjupyterlab-in-your-environment-use-ipykernel" class="md-nav__link">
+    Don't install jupyter/jupyterlab in your environment, use ipykernel
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#report-outputsreports" class="md-nav__link">
+    Report - outputs/reports
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/nestauk/ds-cookiecutter/edit/master/docs/docs/structure.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="structure">Structure<a class="headerlink" href="#structure" title="Permanent link">&para;</a></h1>
 <p>This page lays out where things belong according to high-level concepts.</p>
 <!-- There is an accompanying section for each on this page in [rationale](../rationale) explaining the reasoning behind this structure, and further guides on use. -->
 
 <p>A direct <a href="#tree">tree</a> representation of the folder hierarchy is also available.</p>
 <p><a href="../examples">Example structures</a> will soon be available to help you structure the lower-level folders which the cookiecutter leaves to you.</p>
 <p><em>In the following sections I use <code>src/</code> to denote the project name to avoid awkward <code>&lt;project_name&gt;</code> placeholders.</em></p>
-<h2 id="project-configuration-makefile">Project configuration - <code>Makefile</code></h2>
+<h2 id="project-configuration-makefile">Project configuration - <code>Makefile</code><a class="headerlink" href="#project-configuration-makefile" title="Permanent link">&para;</a></h2>
 <p>We use <a href="https://www.gnu.org/software/make/"><code>make</code></a> to manage tasks relating to project setup/configuration/recurring tasks.</p>
 <p><code>make</code> is one of the simplest ways for managing steps that depend on each other, such as project configuration and is a common tool on Unix-based platforms.</p>
 <p>Running <code>make</code> from the project base directory will document the commands available along with a short description.</p>
-<pre><code class="language-nohighlight">Available rules:
+<div class="highlight"><pre><span></span><code>Available rules:
 
 clean               Delete all compiled Python files 
 conda-create        Create a conda environment 
@@ -196,9 +899,9 @@ install             Install a project: create conda env; install local package; 
 lint                Run flake8 linting on repository 
 pip-install         Install our package and requirements in editable mode (including development dependencies) 
 pre-commit          Perform pre-commit actions 
-</code></pre>
+</code></pre></div>
 <p>Where appropriate these make commands will automatically be run in the conda environment for a project.</p>
-<h2 id="git-hooks">Git hooks</h2>
+<h2 id="git-hooks">Git hooks<a class="headerlink" href="#git-hooks" title="Permanent link">&para;</a></h2>
 <p>We use <a href="https://pre-commit.com/">pre-commit</a> to check the integrity of git commits before they happen.</p>
 <p>The steps are specified in <code>.pre-commit-config.yaml</code>.</p>
 <p>Currently the steps that are taken are:
@@ -215,7 +918,7 @@ pre-commit          Perform pre-commit actions
 <p><strong>Warning:</strong> You need to run <code>git commit</code> with your conda environment activated. This is because by default the packages used by pre-commit are installed into your project's conda environment. (note: <code>pre-commit install --install-hooks</code> will install the pre-commit hooks in the currently active environment).</p>
 <p>In time we will be <a href="../roadmap#flake8">integrating <code>flake8</code></a> into these pre-commit hooks.
 You can already lint your code using (a quite opinionated) flake8 configuration defined in <code>setup.cfg</code> by running <code>make lint</code>.</p>
-<h2 id="reproducable-environment">Reproducable environment</h2>
+<h2 id="reproducable-environment">Reproducable environment<a class="headerlink" href="#reproducable-environment" title="Permanent link">&para;</a></h2>
 <p>The first step in reproducing an analysis is always reproducing the computational environment it was run in. You need the same tools, the same libraries, and the same versions to make everything play nicely together.</p>
 <p>By listing all of your requirements in the repository you can easily track the packages needed to recreate the analysis, but what tool should we use to do that? </p>
 <p>Whilst popular for scientific computing and data-science, <a href="https://docs.conda.io/en/latest/">conda</a> poses problems for collaboration and packaging:</p>
@@ -223,7 +926,7 @@ You can already lint your code using (a quite opinionated) flake8 configuration 
 <li>It is hard to reproduce a conda-environment across operating systems</li>
 <li>It is hard to make your environment "pip-installable" if your environment is fully specified by conda</li>
 </ul>
-<h3 id="files">Files</h3>
+<h3 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h3>
 <p>Due to these difficulties, we recommend only using conda to create a virtual environment and list dependencies not available through <code>pip install</code> (one prominent example of this is <code>graph-tool</code>).</p>
 <ul>
 <li>
@@ -238,7 +941,7 @@ You can already lint your code using (a quite opinionated) flake8 configuration 
 <p>These are for dependencies that are needed during development but not needed to run the core code. For example, packages to build documentation, run tests, and <code>ipykernel</code> to run code in <code>jupyter</code> (It's likely that you never need to think about this file)</p>
 </li>
 </ul>
-<h3 id="commands">Commands</h3>
+<h3 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p><code>make conda-create</code> - Create a conda environment from <code>environment.yaml</code> and run <code>make pip-install</code>.</p>
@@ -249,61 +952,61 @@ You can already lint your code using (a quite opinionated) flake8 configuration 
 </li>
 <li><code>make pip-install</code> - Install our package and requirements in editable mode (including development dependencies).</li>
 </ul>
-<h3 id="roadmap">Roadmap</h3>
+<h3 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">&para;</a></h3>
 <p>See <a href="../roadmap">roadmap</a> for plans on improving packaging and reproducibility with <a href="../roadmap#Poetry">Poetry</a> and <a href="../roadmap#Docker">Docker</a>.</p>
-<h2 id="secrets-and-configuration-env-and-srcconfig">Secrets and configuration - <code>.env.*</code> and <code>src/config/*</code></h2>
+<h2 id="secrets-and-configuration-env-and-srcconfig">Secrets and configuration - <code>.env.*</code> and <code>src/config/*</code><a class="headerlink" href="#secrets-and-configuration-env-and-srcconfig" title="Permanent link">&para;</a></h2>
 <p>You <em>really</em> don't want to leak your AWS secret key or Postgres username and password on Github. Enough said — see the <a href="http://12factor.net/config">Twelve Factor App</a> principles on this point.</p>
-<h4 id="store-your-secrets-in-a-special-file">Store your secrets in a special file</h4>
+<h4 id="store-your-secrets-in-a-special-file">Store your secrets in a special file<a class="headerlink" href="#store-your-secrets-in-a-special-file" title="Permanent link">&para;</a></h4>
 <p>Create a <code>.env</code> file in the project root folder. Thanks to the <code>.gitignore</code>, this file should never get committed into the version control repository.</p>
 <p>Here's an example:</p>
-<pre><code class="language-nohighlight"># example .env file
+<div class="highlight"><pre><span></span><code># example .env file
 DATABASE_URL=postgres://username:password@localhost:5432/dbname
 OTHER_VARIABLE=something
-</code></pre>
+</code></pre></div>
 <p>You can use <a href="https://github.com/theskumar/python-dotenv">python-dotenv</a> to load the entries as follows:</p>
-<pre><code class="language-python">import os
-from dotenv import load_dotenv, find_dotenv
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span><span class="p">,</span> <span class="n">find_dotenv</span>
 
-load_dotenv(find_dotenv())  # Find .env and load entries
-print(os.getenv(&quot;DATABASE_URL&quot;))
-print(os.getenv(&quot;SOME_VARIABLE_NOT_IN_ENV_FILE&quot;))
-# &gt;&gt; postgres://username:password@localhost:5432/dbname
-# &gt;&gt; None
-</code></pre>
+<span class="n">load_dotenv</span><span class="p">(</span><span class="n">find_dotenv</span><span class="p">())</span>  <span class="c1"># Find .env and load entries</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;DATABASE_URL&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SOME_VARIABLE_NOT_IN_ENV_FILE&quot;</span><span class="p">))</span>
+<span class="c1"># &gt;&gt; postgres://username:password@localhost:5432/dbname</span>
+<span class="c1"># &gt;&gt; None</span>
+</code></pre></div>
 <p>We also have <code>.env.shared</code> which contains non-secret project configuration variables that are used for example by commands in our <code>Makefile</code></p>
-<h4 id="store-data-science-configuration-in-srcconfig">Store Data-science configuration in <code>src/config/</code></h4>
+<h4 id="store-data-science-configuration-in-srcconfig">Store Data-science configuration in <code>src/config/</code><a class="headerlink" href="#store-data-science-configuration-in-srcconfig" title="Permanent link">&para;</a></h4>
 <p>Few things scupper colloborative analysis like hard-coding hyper-parameters parameters deep in the code-base.</p>
 <p><code>src/config/base.yaml</code> provides a place to document choices made.</p>
 <p>For example, if you were working on a fuzzy-matching the PATSTAT patent database to the Companies House database and wanted to only merge above a certain match score you may add a section to the configuration like the following,</p>
-<pre><code class="language-yaml">patstat_companies_house:
-    match_threshold: 90
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nt">patstat_companies_house</span><span class="p">:</span>
+    <span class="nt">match_threshold</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">90</span>
+</code></pre></div>
 <p>and load that value into your code with,</p>
-<pre><code class="language-python">from src import config
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">src</span> <span class="kn">import</span> <span class="n">config</span>
 
-config[&quot;patstat_companies_house&quot;][&quot;match_threshold&quot;]
-</code></pre>
+<span class="n">config</span><span class="p">[</span><span class="s2">&quot;patstat_companies_house&quot;</span><span class="p">][</span><span class="s2">&quot;match_threshold&quot;</span><span class="p">]</span>
+</code></pre></div>
 <p>This centralisation provides a clearer log of decisions and decreases the chance that a different match threshold gets incorrectly used somewhere else in the codebase.</p>
 <hr />
 <p><strong>Aside</strong> - as well as avoiding hard-coding parameters into our code, we should <strong><em>never</em></strong> hard-code full file paths, e.g. <code>/home/alex/GIT/my_fantastic_data_project/outputs/data/foo.json</code>, this will never work on anything other than your machine.</p>
 <p>Instead use relative paths and make use of <code>src.PROJECT_DIR</code> which will return the path to your project's base directory. This means you could specify the above path as <code>f"{src.PROJECT_DIR}/outputs/data/foo.json"</code> and have it work on everyone's machine!</p>
 <hr />
-<h4 id="roadmap_1">Roadmap</h4>
+<h4 id="roadmap_1">Roadmap<a class="headerlink" href="#roadmap_1" title="Permanent link">&para;</a></h4>
 <p>See the <a href="../roadmap#Metaflow">roadmap</a> for how <code>src/config</code> will be used to parameterise metaflow pipelines and version control their outputs.</p>
-<h2 id="data-inputsdata-outputsdata-outputscache">Data - <code>inputs/data</code>, <code>outputs/data</code>, <code>outputs/.cache</code></h2>
+<h2 id="data-inputsdata-outputsdata-outputscache">Data - <code>inputs/data</code>, <code>outputs/data</code>, <code>outputs/.cache</code><a class="headerlink" href="#data-inputsdata-outputsdata-outputscache" title="Permanent link">&para;</a></h2>
 <p>Firstly, don't version control data (inputs or outputs) in git, generally you should use s3 (directly or through metaflow) to manage your data.</p>
-<h3 id="inputsdata"><code>inputs/data</code></h3>
+<h3 id="inputsdata"><code>inputs/data</code><a class="headerlink" href="#inputsdata" title="Permanent link">&para;</a></h3>
 <p>Put any data dependencies of your project that your code doesn't fetch here (E.g. if someone emailed you a spreadsheet with the results of a randomised control trial).</p>
 <p>Don't ever edit this raw data, especially not manually, and especially not in Excel. Don't overwrite your raw data. Don't save multiple versions of the raw data. Treat the data (and its format) as immutable.</p>
 <p>Store it in <a href="https://aws.amazon.com/s3/">AWS S3</a>. When the project was configured, you will have been prompted for a <code>BUCKET</code> variable (now tracked in <code>.env.shared</code>). If you used the <code>auto_config</code> option, an S3 bucket will have been setup for you too.</p>
 <p>Two make commands - <code>make inputs-pull</code> and <code>make inputs-push</code> - can be used to push and pull data from the configured s3 bucket. </p>
-<h3 id="outputscache"><code>outputs/.cache/</code></h3>
+<h3 id="outputscache"><code>outputs/.cache/</code><a class="headerlink" href="#outputscache" title="Permanent link">&para;</a></h3>
 <p>This folder is for ephemeral data and any pipeline/analysis step should be runnable following the deletion of this folder's contents.</p>
 <p>For example, this folder could be used as a file-level cache (careful about cache invalidation!); to download a file from the web before immediately reading, transforming, and saving as a clean file in <code>outputs/data</code>; or to temporary data when prototyping.</p>
-<h3 id="outputsdata"><code>outputs/data</code></h3>
+<h3 id="outputsdata"><code>outputs/data</code><a class="headerlink" href="#outputsdata" title="Permanent link">&para;</a></h3>
 <p>This folder should contain transformed/processed data that is to be used in the final analysis or is a data output of the final analysis.</p>
 <p>Try to order this folder logically. For example, you may want subfolders organised by dataset, sections of analysis, or some other hierarchy that better captures your project.</p>
-<h2 id="fetchingloading-data-srcgetters">Fetching/loading data - <code>src/getters</code></h2>
+<h2 id="fetchingloading-data-srcgetters">Fetching/loading data - <code>src/getters</code><a class="headerlink" href="#fetchingloading-data-srcgetters" title="Permanent link">&para;</a></h2>
 <p>This folder should contain modules and functions which load our data.
 Anywhere in the code base we need to load data we should do so by importing and calling a getter (except prototyping in notebooks).</p>
 <p>This means that peppering calls like <code>pd.read_csv("path/to/file", sep="\t", ...)</code> throughout the codebase should be strictly avoided.</p>
@@ -313,24 +1016,24 @@ Anywhere in the code base we need to load data we should do so by importing and 
 <li>We avoid inconsistencies such as forgetting to read a column in as a <code>str</code> instead of an <code>int</code> and thus missing leading zeroes.</li>
 <li>If we want to see what data is available, we have a folder in the project to go to and we let the code speak for itself as much as possible - e.g. the following is a lot more informative than an inline call to <code>pd.read_csv</code> like we had above</li>
 </ul>
-<pre><code class="language-python">    # File: getters/companies_house.py
-    &quot;&quot;&quot;Data getters for the companies house data.
+<div class="highlight"><pre><span></span><code>    <span class="c1"># File: getters/companies_house.py</span>
+    <span class="sd">&quot;&quot;&quot;Data getters for the companies house data.</span>
 
-    Data source: https://download.companieshouse.gov.uk/en_output.html
-    &quot;&quot;&quot;
-    import pandas as pd
+<span class="sd">    Data source: https://download.companieshouse.gov.uk/en_output.html</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-    def get_sector() -&gt; pd.DataFrame:
-        &quot;&quot;&quot;Load Companies House sector labels.
+    <span class="k">def</span> <span class="nf">get_sector</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Load Companies House sector labels.</span>
 
-        Returns:
-            Sector information for ...
-        &quot;&quot;&quot;
-        return pd.read_csv(&quot;path/to/file&quot;, sep=&quot;\t&quot;, dtype={&quot;sic_code&quot;: str})
-</code></pre>
-<h3 id="roadmap_2">Roadmap</h3>
+<span class="sd">        Returns:</span>
+<span class="sd">            Sector information for ...</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;path/to/file&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;sic_code&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
+</code></pre></div>
+<h3 id="roadmap_2">Roadmap<a class="headerlink" href="#roadmap_2" title="Permanent link">&para;</a></h3>
 <p>On the <a href="../roadmap#Schema">roadmap</a> is a speculative plan to explore the use of <a href="https://pydantic-docs.helpmanual.io/">pydantic</a> to specify and validate data-schemas.</p>
-<h2 id="pipeline-components-srcpipeline">Pipeline components - <code>src/pipeline</code></h2>
+<h2 id="pipeline-components-srcpipeline">Pipeline components - <code>src/pipeline</code><a class="headerlink" href="#pipeline-components-srcpipeline" title="Permanent link">&para;</a></h2>
 <p>This folder contains pipeline components. Put as much data-science as possible here.</p>
 <p>We recommend the use of <a href="https://docs.metaflow.org">metaflow</a> to write these pipeline components. </p>
 <p>In the coming months as we roll out <a href="../roadmap#Metaflow">utilities and documentation to smooth out some of the rough edges of metaflow</a>, this will become less of a recommendation and more of a stipulation.</p>
@@ -338,43 +1041,43 @@ Anywhere in the code base we need to load data we should do so by importing and 
 - Gives us lightweight version control of data and models
 - Gives us easy access to AWS batch computing (including GPU machines)
 - Makes it easy to take data-science code into production</p>
-<h2 id="shared-utilities-srcutils">Shared utilities - <code>src/utils</code></h2>
+<h2 id="shared-utilities-srcutils">Shared utilities - <code>src/utils</code><a class="headerlink" href="#shared-utilities-srcutils" title="Permanent link">&para;</a></h2>
 <p>This is a place to put utility functions needed across different parts of the codebase.</p>
 <p>For example, this could be functions shared across different pieces of analysis or different pipelines.</p>
-<h3 id="roadmap_3">Roadmap</h3>
+<h3 id="roadmap_3">Roadmap<a class="headerlink" href="#roadmap_3" title="Permanent link">&para;</a></h3>
 <p>Over time there should be a decreasing need to add things to <code>utils</code> as we begin to develop a  <a href="../roadmap#ds-utils">data science utilities package (<code>ds-utils</code>)</a>.</p>
-<h2 id="analysis-srcanalysis">Analysis - <code>src/analysis</code></h2>
+<h2 id="analysis-srcanalysis">Analysis - <code>src/analysis</code><a class="headerlink" href="#analysis-srcanalysis" title="Permanent link">&para;</a></h2>
 <p>Functionality in this folder takes the pipeline components (possibly combining them) and generates the plots/statistics to feed into reports.</p>
 <p>It is easier to say when shomething shouldn't be in <code>analysis</code> than when something should: If one part in <code>analysis</code> depends on another, then that suggests that the thing in common is likely either a pipeline component or a shared utility (i.e. sections of <code>analysis</code> should be completely independent).</p>
 <p>It is important that plots are persisted to disk (in <code>outputs/figures</code>).</p>
-<h2 id="notebooks">Notebooks</h2>
+<h2 id="notebooks">Notebooks<a class="headerlink" href="#notebooks" title="Permanent link">&para;</a></h2>
 <p>Notebook packages like <a href="http://jupyter.org/">Jupyter notebook</a> are effective tools for exploratory data analysis, fast prototyping, and communicating results; however, between prototyping and communicating results code should be factored out into proper python modules.</p>
-<h3 id="where-does-the-humble-notebook-live">Where does the humble notebook live?</h3>
+<h3 id="where-does-the-humble-notebook-live">Where does the humble notebook live?<a class="headerlink" href="#where-does-the-humble-notebook-live" title="Permanent link">&para;</a></h3>
 <p>Notebooks should be placed as close to the place where their functionality will eventually reside as possible.</p>
 <p>For example, if you are prototyping a "sentence transformer" pipeline then that pipeline component will likely end up somewhere like <code>pipeline/sentence_transformer/</code>, therefore you should place the notebooks for prototyping this features in <code>pipeline/sentence_transformer/notebooks/</code>.</p>
 <p>If you're just getting started with a project and don't have a clear sense of the separation between <code>analysis</code>, <code>pipeline</code>, and <code>getters</code> yet (or it's too premature to split functionality across multiple places) then a sensible place to start is <code>analysis/&lt;high-level-description&gt;/notebooks/</code>.</p>
-<h3 id="version-control">Version control</h3>
+<h3 id="version-control">Version control<a class="headerlink" href="#version-control" title="Permanent link">&para;</a></h3>
 <p>Since notebooks are challenging objects for source control (e.g., diffs of the <code>json</code> are often not human-readable and merging is a nightmare), we use <a href="https://jupytext.readthedocs.io">jupytext</a> to pair <code>.ipynb</code> files with a human-readable and git-diffable <code>.py</code> file.</p>
 <p>These paired <code>.py</code> files should be committed to git, <code>.ipynb</code> files are git-ignored.</p>
 <p>To ensure jupytext works correctly you should start <code>jupyter</code> (notebook/lab) from the base directory of the project so that <code>jupyter</code> detects the <code>jupytext</code> configuration that lives in <code>jupytext.toml</code>.</p>
-<h3 id="refactoring">Refactoring</h3>
+<h3 id="refactoring">Refactoring<a class="headerlink" href="#refactoring" title="Permanent link">&para;</a></h3>
 <p>Everybody likes to work differently. Some like to eagerly refactor, keeping as little in notebooks as possible (or even eschewing notebooks entirely);
  where as others prefer to keep everything in notebooks until the last minute.</p>
 <p>We do not require you to work one way or the other as long as by the time you submit a pull request (PR) for your feature everything is refactored into python modules.</p>
 <p>Having said this, we recommended you frequently refactor the good parts - you'll thank yourself later!</p>
 <p>A warning sign you've left it too late to refactor is if you've got duplicates of functions across the codebase rather than importing from a logical place - if it's a data preprocessing task, put it in the pipeline at <code>src/pipelines/&lt;descriptive name for task&gt;</code>; if it's useful utility code, refactor it to <code>src/utils/</code>; if it's loading data, refactor it to <code>src/getters</code>.</p>
-<h4 id="tips">Tips</h4>
-<p>Add the following to your notebook (or IPython REPL):</p>
-<pre><code>%load_ext autoreload
+<h4 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h4>
+<p>Add the following to your notebook (or IPython REPL):
+<div class="highlight"><pre><span></span><code>%load_ext autoreload
 %autoreload 2
-</code></pre>
-<p>Now when you save code in a python module, the notebook will automatically load in the latest changes without you having to restart the kernel, re-import the module etc.</p>
+</code></pre></div>
+Now when you save code in a python module, the notebook will automatically load in the latest changes without you having to restart the kernel, re-import the module etc.</p>
 <p>When it comes to refactoring, open the python file <a href="https://jupytext.readthedocs.io">Jupytext</a> pairs to your notebook in your editor of choice - now your notebook code is easily-readable and in the same environment you use to write python modules.</p>
-<h3 id="share-with-gists">Share with gists</h3>
+<h3 id="share-with-gists">Share with gists<a class="headerlink" href="#share-with-gists" title="Permanent link">&para;</a></h3>
 <p>As the git filter above stops the sharing of outputs directly via. the git repository, another way is needed to share the outputs of quick and dirty analysis.
 We suggest using Gists, particularly the <a href="https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/gist_it/readme.html">Gist it</a> notebook extension which adds a button to your notebook that will instantly turn the notebook into a gist and upload it to your github (as public/private) as long.
 This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator"><code>jupyter_nbextensions_configurator</code></a> and a <a href="https://github.com/settings/tokens">github personal access token</a>.</p>
-<h3 id="dont-install-jupyterjupyterlab-in-your-environment-use-ipykernel">Don't install <code>jupyter</code>/<code>jupyterlab</code> in your environment, use <code>ipykernel</code></h3>
+<h3 id="dont-install-jupyterjupyterlab-in-your-environment-use-ipykernel">Don't install <code>jupyter</code>/<code>jupyterlab</code> in your environment, use <code>ipykernel</code><a class="headerlink" href="#dont-install-jupyterjupyterlab-in-your-environment-use-ipykernel" title="Permanent link">&para;</a></h3>
 <p>You should avoid <code>jupyter</code>/<code>jupyterlab</code> as a dependency in the project environment.</p>
 <p>Instead add <code>ipykernel</code> as a dependency. This is a lightweight dependency that allows <code>jupyter</code>/<code>jupyterlab</code> installed elsewhere (e.g. your main conda environment or system installation) to run the code in your project.</p>
 <p>The advantages of this are:</p>
@@ -385,17 +1088,17 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
 <li>Colleagues using other editors don't have to install heavy dependencies they don't use (you wouldn't be happy if someone sent you code that depended on VScode/pycharm/spyder)</li>
 </ul>
 <p>Note: <code>ipykernel</code> is also listed in <code>requirements_dev.txt</code> so you do not need to add it.</p>
-<h2 id="report-outputsreports">Report - <code>outputs/reports</code></h2>
+<h2 id="report-outputsreports">Report - <code>outputs/reports</code><a class="headerlink" href="#report-outputsreports" title="Permanent link">&para;</a></h2>
 <p>We are currently evaluating how we report data-science work - both at the project-level and the feature-level.</p>
 <p>Minimally, you should write reports in markdown putting them in <code>outputs/reports</code> and referencing plots in <code>outputs/figures</code>.</p>
 <p>We are <a href="../roadmap#Reporting">experimenting</a> with a toolchain using <a href="https://pandoc.org/">pandoc</a> to generate HTML and PDF (LaTeX) outputs from a single (<a href="https://pandoc.org/MANUAL.html#pandocs-markdown">pandoc flavoured</a>) markdown file, including facilitating the trivial inclusion of interactive <a href="https://altair-viz.github.io/index.html">altair</a> plots within HTML outputs.</p>
-<h1 id="tree">Tree</h1>
-<pre><code class="language-nohighlight">├── bin                              |  PROJECT CONFIGURATION SCRIPTS
+<h1 id="tree">Tree<a class="headerlink" href="#tree" title="Permanent link">&para;</a></h1>
+<div class="highlight"><pre><span></span><code>├── bin                              |  PROJECT CONFIGURATION SCRIPTS
 │   ├── conda_activate.sh            |    Helper to activate conda in shell environment
 │   ├── create_bucket.sh             |    Create S3 bucket
 │   ├── create_repo.sh               |    Create Github repo
 │   └── install_metaflow_aws.sh      |    Configure Metaflow with AWS
-├── &lt;repo_name&gt;                      |  PYTHON PACKAGE
+├── src                              |  PYTHON PACKAGE
 │   ├── __init__.py                  |
 │   ├── analysis                     |  Analysis
 │   │   └── __init__.py              |
@@ -433,113 +1136,90 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
 ├── README.md                        |  
 ├── setup.py                         |  ALLOWS US TO PIP INSTALL src/
 ├── setup.cfg                        |  ADDITIONAL PROJECT CONFIGURATION, e.g. linting
-├── .pre-commit-cofig.yaml           |  DEFINES CHECKS THAT MUST PASS BEFORE git commit SUCCEEDS
-├── .gitignore                       |  TELLS git WHAT FILES WE DON'T WANT TO COMMIT
+├── .pre-commit-config.yaml          |  DEFINES CHECKS THAT MUST PASS BEFORE git commit SUCCEEDS
+├── .gitignore                       |  TELLS git WHAT FILES WE DON&#39;T WANT TO COMMIT
 ├── .github                          |  GITHUB CONFIGURATION
 │   └── pull_request_template.md     |    Template for pull-requests (check-list of things to do)
 ├── .env                             |  SECRETS (never commit to git!)
 ├── .env.shared                      |  SHARED PROJECT CONFIGURATION VARIABLES
 </code></pre></div>
-        
-        
-    </div>
+                
+              
+              
+                
 
-    
-      <footer class="col-md-12 text-center">
-          
-          
-            <hr>
-            <p>
-            <small>Adapted from the <a href="http://drivendata.github.io/cookiecutter-data-science/">Drivendata data science cookiecutter</a></small><br>
-            
-            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
-            </p>
-          
 
-          
-          
-      </footer>
-    
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="../js/bootstrap-3.0.3.min.js"></script>
-
-    
-    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
-        
-    <script>hljs.initHighlightingOnLoad();</script>
-    
-
-    <script>var base_url = ".."</script>
-    
-    <script src="../js/base.js"></script>
-    <script src="../search/main.js"></script>
-
-    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
+              
+            </article>
+          </div>
         </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../quickstart/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Quickstart
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../guidelines/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Python guidelines
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
     </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
+  </div>
+</footer>
+      
     </div>
-</div>
-    </body>
-
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.4ea5477f.min.js"></script>
+      
+    
+  </body>
 </html>

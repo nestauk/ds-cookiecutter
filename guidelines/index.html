@@ -1,162 +1,675 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A project template and directory structure for Nesta Python data science projects.">
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-    <link rel="canonical" href="https://nestauk.github.io/ds-cookiecutter/guidelines/">
-    <link rel="shortcut icon" href="../img/favicon.ico">
-
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A project template and directory structure for Nesta Python data science projects.">
+      
+      
+      
+      
+        <link rel="canonical" href="https://nestauk.github.io/ds-cookiecutter/guidelines/">
+      
+      <link rel="icon" href="../favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.3">
     
-    <title>Python guidelines - Cookiecutter Data Science @ Nesta</title>
     
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-    <link href="../css/base.min.css" rel="stylesheet">
-    <link href="../css/cinder.min.css" rel="stylesheet">
-
+      
+        <title>Python guidelines - Cookiecutter Data Science @ Nesta</title>
+      
     
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e35208c4.min.css">
+      
         
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
         
+      
     
-    <link href="../css/extra.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-        <![endif]-->
-
     
-
-     
-</head>
-
-<body>
-
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-
-            <!-- Main title -->
-
-            
-              <a class="navbar-brand" href="..">Cookiecutter Data Science @ Nesta</a>
-            
-        </div>
-
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li >
-                        <a href="..">Home</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../quickstart/">Quickstart</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../structure/">Structure</a>
-                    </li>
-                
-                
-                
-                    <li class="active">
-                        <a href="./">Python guidelines</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../roadmap/">Roadmap</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../faq/">FAQ</a>
-                    </li>
-                
-                
-                </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                            <i class="fas fa-search"></i> Search
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/nestauk/ds-cookiecutter/edit/master/docs/docs/guidelines.md"><i class="fab fa-github"></i> Edit on GitHub</a>
-                    </li>
-            </ul>
-        </div>
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="amber">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#technical-and-working-style-guidelines" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://nestauk.github.io/ds-cookiecutter" title="Cookiecutter Data Science @ Nesta" class="md-header__button md-logo" aria-label="Cookiecutter Data Science @ Nesta" data-md-component="logo">
+      
+  <img src="../favicon.ico" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cookiecutter Data Science @ Nesta
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Python guidelines
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="amber" type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="amber" data-md-color-accent="pink" type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/nestauk/ds-cookiecutter/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nestauk/ds-cookiecutter
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
 
-    <div class="container">
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://nestauk.github.io/ds-cookiecutter" title="Cookiecutter Data Science @ Nesta" class="md-nav__button md-logo" aria-label="Cookiecutter Data Science @ Nesta" data-md-component="logo">
+      
+  <img src="../favicon.ico" alt="logo">
+
+    </a>
+    Cookiecutter Data Science @ Nesta
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/nestauk/ds-cookiecutter/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nestauk/ds-cookiecutter
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        Quickstart
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../structure/" class="md-nav__link">
+        Structure
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
         
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Python guidelines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Python guidelines
+      </a>
+      
         
-        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#technical-and-working-style-guidelines">Technical and working style guidelines</a></li>
-            <li class="second-level"><a href="#foreword">Foreword</a></li>
-                
-            <li class="second-level"><a href="#python-is-not-pandas">python is not pandas</a></li>
-                
-            <li class="second-level"><a href="#design-patterns">Design patterns</a></li>
-                
-            <li class="second-level"><a href="#programming">Programming</a></li>
-                
-                <li class="third-level"><a href="#mandatory">Mandatory</a></li>
-                <li class="third-level"><a href="#encouraged">Encouraged</a></li>
-            <li class="second-level"><a href="#critical-thinking">Critical thinking</a></li>
-                
-            <li class="second-level"><a href="#naming-conventions">Naming conventions</a></li>
-                
-                <li class="third-level"><a href="#mandatory_1">Mandatory</a></li>
-                <li class="third-level"><a href="#encouraged_1">Encouraged</a></li>
-            <li class="second-level"><a href="#spaces-and-spacing">Spaces and spacing</a></li>
-                
-                <li class="third-level"><a href="#encouraged_2">Encouraged</a></li>
-            <li class="second-level"><a href="#comments-and-docs">Comments and docs</a></li>
-                
-                <li class="third-level"><a href="#mandatory_2">Mandatory</a></li>
-                <li class="third-level"><a href="#encouraged_3">Encouraged</a></li>
-            <li class="second-level"><a href="#workflow">Workflow</a></li>
-                
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#foreword" class="md-nav__link">
+    Foreword
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-is-not-pandas" class="md-nav__link">
+    python is not pandas
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-patterns" class="md-nav__link">
+    Design patterns
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programming" class="md-nav__link">
+    Programming
+  </a>
+  
+    <nav class="md-nav" aria-label="Programming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mandatory" class="md-nav__link">
+    Mandatory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encouraged" class="md-nav__link">
+    Encouraged
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#critical-thinking" class="md-nav__link">
+    Critical thinking
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naming-conventions" class="md-nav__link">
+    Naming conventions
+  </a>
+  
+    <nav class="md-nav" aria-label="Naming conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mandatory_1" class="md-nav__link">
+    Mandatory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encouraged_1" class="md-nav__link">
+    Encouraged
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spaces-and-spacing" class="md-nav__link">
+    Spaces and spacing
+  </a>
+  
+    <nav class="md-nav" aria-label="Spaces and spacing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encouraged_2" class="md-nav__link">
+    Encouraged
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comments-and-docs" class="md-nav__link">
+    Comments and docs
+  </a>
+  
+    <nav class="md-nav" aria-label="Comments and docs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mandatory_2" class="md-nav__link">
+    Mandatory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encouraged_3" class="md-nav__link">
+    Encouraged
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    Workflow
+  </a>
+  
+</li>
+      
     </ul>
-</div></div>
-        <div class="col-md-9" role="main">
+  
+</nav>
+      
+    </li>
+  
 
-<h1 id="technical-and-working-style-guidelines">Technical and working style guidelines</h1>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        Roadmap
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#foreword" class="md-nav__link">
+    Foreword
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-is-not-pandas" class="md-nav__link">
+    python is not pandas
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-patterns" class="md-nav__link">
+    Design patterns
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programming" class="md-nav__link">
+    Programming
+  </a>
+  
+    <nav class="md-nav" aria-label="Programming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mandatory" class="md-nav__link">
+    Mandatory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encouraged" class="md-nav__link">
+    Encouraged
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#critical-thinking" class="md-nav__link">
+    Critical thinking
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naming-conventions" class="md-nav__link">
+    Naming conventions
+  </a>
+  
+    <nav class="md-nav" aria-label="Naming conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mandatory_1" class="md-nav__link">
+    Mandatory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encouraged_1" class="md-nav__link">
+    Encouraged
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spaces-and-spacing" class="md-nav__link">
+    Spaces and spacing
+  </a>
+  
+    <nav class="md-nav" aria-label="Spaces and spacing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encouraged_2" class="md-nav__link">
+    Encouraged
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comments-and-docs" class="md-nav__link">
+    Comments and docs
+  </a>
+  
+    <nav class="md-nav" aria-label="Comments and docs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mandatory_2" class="md-nav__link">
+    Mandatory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encouraged_3" class="md-nav__link">
+    Encouraged
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    Workflow
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/nestauk/ds-cookiecutter/edit/master/docs/docs/guidelines.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="technical-and-working-style-guidelines">Technical and working style guidelines<a class="headerlink" href="#technical-and-working-style-guidelines" title="Permanent link">&para;</a></h1>
 <p><em>Challenging this documentation is encouraged. Please set up an issue for challenges, additions or corrections. For explanations, please consult the <code>dev</code> Slack channel</em></p>
 <p>In this document we set out some basic "tips" (either mandatory or encouraged) which should guide your way of working, regardless of the task.</p>
 <ul>
@@ -169,11 +682,11 @@
 <li><a href="#spaces-and-spacing">Spaces and spacing</a></li>
 <li><a href="#comments-and-docs">Comments and docs</a></li>
 </ul>
-<h2 id="foreword">Foreword</h2>
+<h2 id="foreword">Foreword<a class="headerlink" href="#foreword" title="Permanent link">&para;</a></h2>
 <p>In advance, we recommend installing the autoformatter <a href="https://pypi.org/project/black/">black</a> in your IDE. In future we will use <code>flake8</code> (or similar) for automatically checking our python codebases. </p>
 <p>Hopefully the conventions laid out here are the easy and intuitive set of <a href="https://www.python.org/dev/peps/pep-0008/">pep8</a>. </p>
 <p>Code reviewers: it is on you to ensure that this style guide has been followed: there are no points for being lenient, but there [non-redeemable] points for being opinionated! We should all feel pressured into making sure that our code meets an acceptable standard.</p>
-<h2 id="python-is-not-pandas"><code>python is not pandas</code></h2>
+<h2 id="python-is-not-pandas"><code>python is not pandas</code><a class="headerlink" href="#python-is-not-pandas" title="Permanent link">&para;</a></h2>
 <p>tldr; Using <code>pandas</code> as a means to perform transformations or calculations on your data should be avoided, unless it clearly simplifies the logic and readability of your code. That is not so say that you should not use <code>pandas</code>, but rather that you justify to yourself that <code>pandas</code> isn't making your life harder in lieu of using standard <code>python</code> tools.</p>
 <p>We appreciate that <code>pandas</code> is a gateway into <code>python</code> programming for many people, and for that reason it becomes habitual way of coding. However... code containing lots of <code>pandas</code> operations are almost impossible to review, and therefore have the capacity to accumulate vast numbers of bugs.</p>
 <ul>
@@ -182,7 +695,7 @@
 <li>Instead of Googling how to achieve something in <code>pandas</code> with an obscure chaining of functions, break the problem down and solve it yourself. It is highly unlikely that the <code>pandas</code> approach to reshaping your data will beat using tools from <code>numpy</code>, <code>itertools</code>, <code>functools</code> and <code>toolz</code>, even if you switch to representing data in <code>numpy</code> arrays or even as <code>list</code> of <code>dict</code> (<code>[{'value': 21}, {'value': 45}]</code>).</li>
 <li>If you would like guidance, tips or ideas on how to un<code>panda</code> your code then ask on the <code>dev</code> Slack Channel - we're all here to help!</li>
 </ul>
-<h2 id="design-patterns">Design patterns</h2>
+<h2 id="design-patterns">Design patterns<a class="headerlink" href="#design-patterns" title="Permanent link">&para;</a></h2>
 <p>Favour the following design patterns, in this order:</p>
 <ol>
 <li>Functional programming: using functions to do one thing well, not altering the original data.</li>
@@ -191,20 +704,20 @@
 </ol>
 <p>If you are not, at least, adhering to a modular style then you have gone very wrong.
 You should implement unit tests for each of your functions, something which is generally more tricky for object-oriented programming.</p>
-<h2 id="programming">Programming</h2>
-<h3 id="mandatory">Mandatory</h3>
+<h2 id="programming">Programming<a class="headerlink" href="#programming" title="Permanent link">&para;</a></h2>
+<h3 id="mandatory">Mandatory<a class="headerlink" href="#mandatory" title="Permanent link">&para;</a></h3>
 <p><em>NB: eventually these checks will be automatic</em></p>
 <ul>
 <li>Don't compare boolean values to <code>True</code> or <code>False</code>.</li>
 <li>Favour <code>is not condition</code> over <code>not condition is</code></li>
 <li>Don't compare a value to <code>None</code> (<code>value == None</code>), always favour <code>value is None</code></li>
 </ul>
-<h3 id="encouraged">Encouraged</h3>
+<h3 id="encouraged">Encouraged<a class="headerlink" href="#encouraged" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Favour <a href="https://docs.python.org/3/howto/logging.html"><code>logging</code></a> over <code>print</code></li>
 <li>Favour using configuration files, or (faster/lazier/less good/ok) <code>GLOBAL_VARIABLES</code> near the top of your code, rather than repeated use of hard-coded variables in your code, particularly when with URL and file path variables like <code>s3://path/to/some/fixed/place</code>, but also for repeated numeric hyperparameters.</li>
 </ul>
-<h2 id="critical-thinking">Critical thinking</h2>
+<h2 id="critical-thinking">Critical thinking<a class="headerlink" href="#critical-thinking" title="Permanent link">&para;</a></h2>
 <p>The following questions should be going through your mind when developing your code. If you don't quite understand the wording or intention of the following questions then we encourage you to ask in the <code>dev</code> Slack channel!</p>
 <ul>
 <li>Surely this simple problem already has an elegant solution?</li>
@@ -213,8 +726,8 @@ You should implement unit tests for each of your functions, something which is g
 <li>How can I avoid creating a new variable at all costs? (think iterator, scope, <code>lru_cache</code>)</li>
 <li>Have I made sure that I only run expensive or time consuming processes as few times as possible?</li>
 </ul>
-<h2 id="naming-conventions">Naming conventions</h2>
-<h3 id="mandatory_1">Mandatory</h3>
+<h2 id="naming-conventions">Naming conventions<a class="headerlink" href="#naming-conventions" title="Permanent link">&para;</a></h2>
+<h3 id="mandatory_1">Mandatory<a class="headerlink" href="#mandatory_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Functions / methods: <code>function</code>, <code>my_function</code> (snake case)</li>
 <li>Variables / attributes: <code>variable</code>, <code>my_var</code> (snake case)</li>
@@ -223,36 +736,36 @@ You should implement unit tests for each of your functions, something which is g
 <li>Global* / constants: <code>A_GLOBAL_VARIABLE</code> (screaming snake case)</li>
 </ul>
 <p>* here we use "Global" to mean constants in scope at the module level, not the <code>global</code> level. Don't use <code>global</code>, ever.</p>
-<h3 id="encouraged_1">Encouraged</h3>
+<h3 id="encouraged_1">Encouraged<a class="headerlink" href="#encouraged_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Keep all names as short and descriptive as possible. Variable names such as <code>x</code> or <code>df</code> are highly discouraged unless they are genuinely representing abstract concepts.</li>
 <li>Favour good naming conventions over helpful comments</li>
 </ul>
-<h2 id="spaces-and-spacing">Spaces and spacing</h2>
+<h2 id="spaces-and-spacing">Spaces and spacing<a class="headerlink" href="#spaces-and-spacing" title="Permanent link">&para;</a></h2>
 <p><em>NB: that using the autoformatter <a href="https://pypi.org/project/black/">black</a> in your IDE will resolve almost all of the following</em></p>
-<h3 id="encouraged_2">Encouraged</h3>
+<h3 id="encouraged_2">Encouraged<a class="headerlink" href="#encouraged_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Use the absolute minimum number of indents of your code. You can achieve this by writing modular code, and inverting logic, for example:</li>
 </ul>
-<pre><code class="language-python">def something(args):
-    for item_collection in args:         # 1 tab
-        if item_collection.exists():     # 2 tabs
-            the_sum = 0                  # 3 tabs
-            for item in item_collection:
-                the_sum += item.value()  # 4 tabs
-            print(the_sum)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">something</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">item_collection</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>         <span class="c1"># 1 tab</span>
+        <span class="k">if</span> <span class="n">item_collection</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>     <span class="c1"># 2 tabs</span>
+            <span class="n">the_sum</span> <span class="o">=</span> <span class="mi">0</span>                  <span class="c1"># 3 tabs</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">item_collection</span><span class="p">:</span>
+                <span class="n">the_sum</span> <span class="o">+=</span> <span class="n">item</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>  <span class="c1"># 4 tabs</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">the_sum</span><span class="p">)</span>
+</code></pre></div>
 <p>can become:</p>
-<pre><code class="language-python">def sum_values(item_collection):
-    the_sum = sum(item.value() for item in item_collection)
-    print(the_sum)
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">sum_values</span><span class="p">(</span><span class="n">item_collection</span><span class="p">):</span>
+    <span class="n">the_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">item_collection</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">the_sum</span><span class="p">)</span>
 
-def something(args):
-    for item_collection in args:         # 1 tab
-        if not item_collection.exists(): # 2 tabs
-            continue  # 3 tabs, buts unindents following lines
-        sum_values(item_collection)      # 2 tabs
-</code></pre>
+<span class="k">def</span> <span class="nf">something</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">item_collection</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>         <span class="c1"># 1 tab</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">item_collection</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span> <span class="c1"># 2 tabs</span>
+            <span class="k">continue</span>  <span class="c1"># 3 tabs, buts unindents following lines</span>
+        <span class="n">sum_values</span><span class="p">(</span><span class="n">item_collection</span><span class="p">)</span>      <span class="c1"># 2 tabs</span>
+</code></pre></div>
 <ul>
 <li>Put a space before starting block comments <code># like this</code>, <code>#not this</code></li>
 <li>Inline comments need two spaces before them <code>a = 2  # like this</code></li>
@@ -260,130 +773,107 @@ def something(args):
 <li>When declaring default values, never put spaces around operators like <code>=</code>, i.e <code>def this_is_ok(param=1)</code>, <code>def this_is_NOT_ok(param = 1)</code>. Otherwise, all operators must always have a single space on either side.</li>
 <li>Separate function and class arguments with a comma and a space, i.e. <code>do_thing(1, b=2)</code> and not <code>do_thing(1,b=2)</code>.</li>
 </ul>
-<h2 id="comments-and-docs">Comments and docs</h2>
-<h3 id="mandatory_2">Mandatory</h3>
+<h2 id="comments-and-docs">Comments and docs<a class="headerlink" href="#comments-and-docs" title="Permanent link">&para;</a></h2>
+<h3 id="mandatory_2">Mandatory<a class="headerlink" href="#mandatory_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li>At least <em>a basic docstring</em> is required for every function/method and class</li>
 <li>Full, explanatory docstrings are required for all function/methods and classes <em>if</em> it will be used in the main body of a code routine.</li>
 <li>Use Google-style: https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html</li>
 <li>If you are using type hints then then you can write e.g. <code>my_arg (str): description</code> as simply <code>my_arg: description</code>.</li>
 </ul>
-<h3 id="encouraged_3">Encouraged</h3>
+<h3 id="encouraged_3">Encouraged<a class="headerlink" href="#encouraged_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Don't state the obvious in comments</li>
 <li>Before writing a comment, consider whether that information would be better be encoded in a useful variable or function name.</li>
 </ul>
-<h2 id="workflow">Workflow</h2>
+<h2 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h2>
 <p>This builds on a much greater body of work, laid out in <a href="https://github.com/nestauk/github_support/blob/dev/guidelines/README.md">nestauk/github_support</a>. For avoidance of doubt, branches must be linked to a GitHub issue and named accordingly:</p>
-<pre><code class="language-bash">{GitHub issue number}_{tinyLowerCamelDescription}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="o">{</span>GitHub issue number<span class="o">}</span>_<span class="o">{</span>tinyLowerCamelDescription<span class="o">}</span>
+</code></pre></div>
 <p>For example <code>14_readme</code>, which indicates that <a href="https://github.com/nestauk/ojd_daps/pull/24">this branch</a> refered to <a href="https://github.com/nestauk/ojd_daps/issues/14">this issue</a>.</p>
 <p>You should generally favour having a <code>dev</code> branch, in addition to your <code>main</code> (<code>master</code>) branch. Never commit to <code>dev</code>, <code>master</code> or <code>main</code>. </p>
 <p>Only pull requests from branches named <code>{GitHub issue number}_{tinyLowerCamelDescription}</code> should ever be accepted.</p>
 <p>Please make all PRs and issues reasonably small: they should be trying to achieve roughly one task. Inevitably some simple tasks spawn large numbers of utils, and sometimes these detract from the original PR. In this case, you should stack an new PR on top of your "base" PR, for example as <code>{GitHub issue number}_{differentLowerCamelDescription}</code>. In this case the PR / Git merging tree will look like:</p>
-<pre><code>dev &lt;-- 123_originalThing &lt;-- 423_differentThing &lt;-- 578_anotherDifferentThing
-</code></pre>
-<p>We can then merge the PR <code>123_originalThing</code> into <code>dev</code>, then <code>423_differentThing</code> into <code>dev</code> (after calling <code>git merge dev</code> on <code>423_differentThing</code>), etc until the chain is merged entirely. The nominated reviewer should review the entire chain, before the merge can go ahead. PRs should only be merged if all tests and a review has been signed off.</p></div>
-        
-        
-    </div>
+<div class="highlight"><pre><span></span><code>dev &lt;-- 123_originalThing &lt;-- 423_differentThing &lt;-- 578_anotherDifferentThing
+</code></pre></div>
+<p>We can then merge the PR <code>123_originalThing</code> into <code>dev</code>, then <code>423_differentThing</code> into <code>dev</code> (after calling <code>git merge dev</code> on <code>423_differentThing</code>), etc until the chain is merged entirely. The nominated reviewer should review the entire chain, before the merge can go ahead. PRs should only be merged if all tests and a review has been signed off.</p>
+                
+              
+              
+                
 
-    
-      <footer class="col-md-12 text-center">
-          
-          
-            <hr>
-            <p>
-            <small>Adapted from the <a href="http://drivendata.github.io/cookiecutter-data-science/">Drivendata data science cookiecutter</a></small><br>
-            
-            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
-            </p>
-          
 
-          
-          
-      </footer>
-    
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="../js/bootstrap-3.0.3.min.js"></script>
-
-    
-    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
-        
-    <script>hljs.initHighlightingOnLoad();</script>
-    
-
-    <script>var base_url = ".."</script>
-    
-    <script src="../js/base.js"></script>
-    <script src="../search/main.js"></script>
-
-    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
+              
+            </article>
+          </div>
         </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../structure/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Structure
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../roadmap/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Roadmap
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
     </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
+  </div>
+</footer>
+      
     </div>
-</div>
-    </body>
-
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.4ea5477f.min.js"></script>
+      
+    
+  </body>
 </html>
