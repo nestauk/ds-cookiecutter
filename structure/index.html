@@ -904,17 +904,21 @@ pre-commit          Perform pre-commit actions
 <h2 id="git-hooks">Git hooks<a class="headerlink" href="#git-hooks" title="Permanent link">&para;</a></h2>
 <p>We use <a href="https://pre-commit.com/">pre-commit</a> to check the integrity of git commits before they happen.</p>
 <p>The steps are specified in <code>.pre-commit-config.yaml</code>.</p>
-<p>Currently the steps that are taken are:
-- Run the <a href="https://github.com/psf/black">black</a> code autoformatter
-    - This provides a consistent code style across a project and minimises messy git diffs (sometimes the code formatted by black may look "uglier" in places but this is the price we pay for having an industry standard with minimal cognitive burden)
-- Check that no large files were accidentally committed
-- Check that there are no merge conflict strings (e.g. <code>&gt;&gt;&gt;&gt;&gt;</code>) lingering in files
-- Fix the end of files to work across operating systems
-- Trim trailing whitespace in files
-- Check Toml files are well formed
-- Check Yaml files are well formed
-- Check we are no committing directly to <code>dev</code>, <code>master</code>, or <code>main</code>
-- Run the prettier formatter (covers files such as Markdown/JSON/YAML/HTML)</p>
+<p>Currently the steps that are taken are:</p>
+<ul>
+<li>Run the <a href="https://github.com/psf/black">black</a> code autoformatter<ul>
+<li>This provides a consistent code style across a project and minimises messy git diffs (sometimes the code formatted by black may look "uglier" in places but this is the price we pay for having an industry standard with minimal cognitive burden)</li>
+</ul>
+</li>
+<li>Check that no large files were accidentally committed</li>
+<li>Check that there are no merge conflict strings (e.g. <code>&gt;&gt;&gt;&gt;&gt;</code>) lingering in files</li>
+<li>Fix the end of files to work across operating systems</li>
+<li>Trim trailing whitespace in files</li>
+<li>Check Toml files are well formed</li>
+<li>Check Yaml files are well formed</li>
+<li>Check we are no committing directly to <code>dev</code>, <code>master</code>, or <code>main</code></li>
+<li>Run the prettier formatter (covers files such as Markdown/JSON/YAML/HTML)</li>
+</ul>
 <p><strong>Warning:</strong> You need to run <code>git commit</code> with your conda environment activated. This is because by default the packages used by pre-commit are installed into your project's conda environment. (note: <code>pre-commit install --install-hooks</code> will install the pre-commit hooks in the currently active environment).</p>
 <p>In time we will be <a href="../roadmap#flake8">integrating <code>flake8</code></a> into these pre-commit hooks.
 You can already lint your code using (a quite opinionated) flake8 configuration defined in <code>setup.cfg</code> by running <code>make lint</code>.</p>
