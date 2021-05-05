@@ -18,9 +18,12 @@ def get_yaml_config(file_path: Path) -> Optional[dict]:
 # Define project base directory
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 
+# Define log output locations
+info_out = str(PROJECT_DIR / "info.log")
+error_out = str(PROJECT_DIR / "errors.log")
 
 # Read log config file
-_log_config_path = Path("config/logging.yaml")
+_log_config_path = Path(__file__).parent.resolve() / "config/logging.yaml"
 _logging_config = get_yaml_config(_log_config_path)
 if _logging_config:
     logging.config.dictConfig(_logging_config)
@@ -29,7 +32,7 @@ if _logging_config:
 logger = logging.getLogger(__name__)
 
 # base/global config
-_base_config_path = Path("config/base.yaml")
+_base_config_path = Path(__file__).parent.resolve() / "config/base.yaml"
 config = get_yaml_config(_base_config_path)
 
 # BUCKET and METAFLOW_PROFILE
