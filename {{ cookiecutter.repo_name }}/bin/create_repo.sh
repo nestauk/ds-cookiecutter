@@ -1,11 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
-# shellcheck source=./conda_activate.sh
-source "$(dirname "$0")/conda_activate.sh"
+# # shellcheck source=./conda_activate.sh
+# source "$(dirname "$0")/conda_activate.sh"
 
 # Fetch description of package (setup.py and conda make this horrible)
-DESCRIPTION=$(conda_activate && pip show "$PROJECT_NAME" | grep Summary | cut -d " " -f2-)
+DESCRIPTION=$(python "$(dirname "$0")/../setup.py" --description)
 
 # Create
 gh repo create "$GITHUB_ACCOUNT/$PROJECT_NAME" --"$PROJECT_OPENNESS" -d "$DESCRIPTION" -y
