@@ -26,10 +26,6 @@ apt-get install -y git-crypt  # Ubuntu linux:
         - *How would you like to authenticate GitHub CLI?* **Login with a web browser**
 
 - Have a Nesta AWS account configured with `awscli`
-    - **Note to any non-Nesta visitors:** You can still use the cookiecutter by:
-        * Choosing `auto_config` as "false" when setting up the cookiecutter
-        * Remove the `setup-metaflow` dependency of the `install` command within `Makefile`
-        * If using `make init` - replace references to `nestauk` with your github organisation in `bin/create_repo.sh`
 
 We recommend taking the time to install and configure the optional dependencies as this one-time setup allows you to use the `auto_config` option which should save you a lot of time and avoids human error during configuration.
 
@@ -88,3 +84,12 @@ This opens a series of prompts to configure your new project (values in square b
 - Check the project's `README` for any additional configuration needed (e.g. putting API keys in `.env`)
 - Pull any required inputs into `inputs/` by running `make inputs-pull`
 - Follow the author's documentation, or make them write some if they haven't already!
+
+
+## How can I use this if I don't work at Nesta?
+
+You can still use the cookiecutter, you just need to remove a few Nesta-specific bits relating to our AWS setup:
+
+* Choosing `auto_config` as "false" when setting up the cookiecutter
+* Remove the `setup-metaflow` dependency of the `install` command within `Makefile`
+* If using `make init` - replace references to `nestauk` with your github organisation in `bin/create_repo.sh`
