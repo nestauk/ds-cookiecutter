@@ -4,7 +4,7 @@
 
 In the coming weeks we will be rolling out utilities to make working with metaflow easier.
 
-For example, you will be able to specify the following YAML file and then run a command like `run_flow sic_classifier` and the corresponding metaflow pipeline will run on AWS batch with 8 CPU's, 64GB RAM with the configuration parameters specified in `flow_kwargs`.
+For example, you will be able to specify the following YAML file and then run a command like `nestaflow sic_classifier` and the corresponding metaflow pipeline will run on AWS batch with 8 CPU's, 64GB RAM with the configuration parameters specified in `flow_kwargs`.
 
 ```yaml
 #file: src/config/pipeline/sic_classifier.yaml
