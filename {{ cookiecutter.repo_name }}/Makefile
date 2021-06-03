@@ -8,9 +8,15 @@ else
 	OPEN=open
 endif
 
+# AWS Profile
 PROFILE = default
+
+# Export all environment variables
+export
+
 # Import env variables
 include .env.shared
+$(shell touch .env)
 include .env
 
 # Allow us to execute make commands from within our project's conda env
@@ -19,6 +25,7 @@ include .env
 define execute_in_env
 	source bin/conda_activate.sh && conda_activate && $1
 endef
+
 
 .PHONY: init
 ## Fully initialise a project: install; setup github repo; setup S3 bucket
