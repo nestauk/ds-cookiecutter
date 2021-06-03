@@ -27,6 +27,18 @@ apt-get install -y git-crypt  # Ubuntu linux:
 
 - Have a Nesta AWS account configured with `awscli`
 
+    ??? info "How do I do this?"
+
+        Fetch (or generate) [security credentials from the AWS dashboard](https://console.aws.amazon.com/iam/home?#security_credential) by clicking "Create access key".
+
+        (In an environment with `awscli` installed via. pip/conda) Run `aws configure`, inputting the access key ID and secret access key ID you just generated when prompted.
+
+        In addition you should set the default region name to `eu-west-2` and the default output format to `None`.
+
+
+
+
+
 We recommend taking the time to install and configure the optional dependencies as this one-time setup allows you to use the `auto_config` option which should save you a lot of time and avoids human error during configuration.
 
 ## Starting from scratch
