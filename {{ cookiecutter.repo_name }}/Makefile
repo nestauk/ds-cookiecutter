@@ -27,6 +27,27 @@ define execute_in_env
 endef
 
 
+
+.PHONY: test-setup
+## Test that everything has been setup
+test-setup:
+	@echo Testing configuration
+
+	@# Checking S3
+	@$(call execute_in_env, (test '${IN_PYTEST}' && echo 'In test-suite: Skipping S3 checks') ||\
+	 aws s3 ls s3://${BUCKET} &> /dev/null || echo "ERROR: No bucket")
+
+	@# Github
+	@(test '${IN_PYTEST}' && echo 'In test-suite: Skipping Github checks') ||\
+	 git ls-remote &> /dev/null || echo "ERROR: No Git remote"
+
+	@# Metaflow
+	@$(call execute_in_env, python -c \
+	"import metaflow as mf;\
+	 m = mf.Metaflow();\
+	 assert m.metadata == mf.plugins.metadata.service.ServiceMetadataProvider;\
+	 assert len(m.flows) < 0;" &> /dev/null || echo "ERROR: Metaflow+AWS configuration")
+
 .PHONY: init
 ## Fully initialise a project: install; setup github repo; setup S3 bucket
 init: install setup-github setup-bucket
@@ -35,7 +56,6 @@ init: install setup-github setup-bucket
 .PHONY: install
 ## Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS
 install: conda-create setup-git setup-metaflow
-	@echo INSTALL COMPLETE
 
 .PHONY: inputs-pull
 ## Pull `inputs/` from S3
@@ -66,9 +86,13 @@ docs-open:
 
 .PHONY: conda-create
 ## Create a conda environment
-conda-create:
-	conda env create -q -n ${PROJECT_NAME} -f environment.yaml
+conda-create: .conda_exists
+
+.conda_exists:
+	conda env create -q -n ${REPO_NAME} -f environment.yaml
 	$(MAKE) -s pip-install
+	touch .conda_exists
+	@echo Created environment ${REPO_NAME}
 
 .PHONY: conda-update
 ## Update the conda-environment based on changes to `environment.yaml`

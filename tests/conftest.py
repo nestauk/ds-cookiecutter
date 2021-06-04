@@ -1,6 +1,6 @@
 import shutil
-import sys
 from pathlib import Path
+from subprocess import check_output
 
 import pytest
 from cookiecutter import main
@@ -8,20 +8,13 @@ from cookiecutter import main
 CCDS_ROOT = Path(__file__).parents[1].resolve()
 
 args = {
-    "project_name": "DrivenData",
-    "author_name": "DrivenData",
-    "open_source_license": "BSD-3-Clause",
+    "project_name": "NestaTestCookie".lower(),
+    "author_name": "Nesta",
+    "repo_name": "nestatestcookie",
 }
 
 
-def system_check(basename):
-    platform = sys.platform
-    if "linux" in platform:
-        basename = basename.lower()
-    return basename
-
-
-@pytest.fixture(scope="class", params=[{}, args])
+@pytest.fixture(scope="class", params=[args])
 def default_baked_project(tmpdir_factory, request):
     temp = tmpdir_factory.mktemp("data-project")
     out_dir = Path(temp).resolve()
@@ -31,14 +24,29 @@ def default_baked_project(tmpdir_factory, request):
         str(CCDS_ROOT), no_input=True, extra_context=pytest.param, output_dir=out_dir
     )
 
-    pn = pytest.param.get("project_name") or "project_name"
+    project_name = pytest.param.get("project_name") or "project_name"
 
-    # project name gets converted to lower case on Linux but not Mac
-    pn = system_check(pn)
-
-    proj = out_dir / pn
-    request.cls.path = proj
+    project_path = out_dir / project_name
+    request.cls.path = project_path
     yield
 
     # cleanup after
     shutil.rmtree(out_dir)
+
+
+@pytest.fixture(scope="class", params=[args])
+def conda_env(request):
+    pytest.param = request.param
+
+    repo_name = pytest.param.get("repo_name")
+
+    env_dir = (
+        Path(check_output(["conda", "info", "--base"]).decode().strip())
+        / "envs"
+        / repo_name
+    )
+
+    request.cls.env_path = env_dir
+    yield
+
+    shutil.rmtree(env_dir)
