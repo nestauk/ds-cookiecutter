@@ -2,8 +2,8 @@
 
 ## Setup
 
-- Meet the data science cookiecutter [requirements](http://nestauk.github.io/ds-cookiecutter), in brief:
-  - Install: `git-crypt`
+- Meet the data science cookiecutter [requirements](http://nestauk.github.io/ds-cookiecutter/quickstart), in brief:
+  - Install: `git-crypt` and `conda`
   - Have a Nesta AWS account configured with `awscli`
 - Run `make install` to configure the development environment:
   - Setup the conda environment
