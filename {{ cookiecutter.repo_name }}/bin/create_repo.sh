@@ -23,3 +23,4 @@ gh api -X PATCH\
 "repos/$GITHUB_ACCOUNT/$PROJECT_NAME" --silent
 
 git remote add origin "git@github.com:$GITHUB_ACCOUNT/$PROJECT_NAME"
+
