@@ -1,0 +1,5 @@
+services:
+  pytest:
+    build: .
+    volumes:
+      - ~/.aws/:/home/root/.aws
