@@ -73,7 +73,7 @@ conda-create:
 .PHONY: conda-update
 ## Update the conda-environment based on changes to `environment.yaml`
 conda-update:
-	conda env update -n ${PROJECT_NAME} -f environment.yaml
+	conda env update -n ${REPO_NAME} -f environment.yaml
 	$(MAKE) pip-install
 
 .PHONY: clean
@@ -111,7 +111,7 @@ setup-metaflow:
 
 .PHONY: setup-bucket
 setup-bucket:
-	@echo S£
+	@echo S3
 	$(call execute_in_env, ${SHELL} ./bin/create_bucket.sh)
 
 .PHONY: setup-github
