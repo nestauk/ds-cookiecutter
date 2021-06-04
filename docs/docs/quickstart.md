@@ -84,6 +84,9 @@ This opens a series of prompts to configure your new project (values in square b
     - Manually create an S3 bucket `s3_bucket` (or run `bash bin/create_bucket.sh`)
     - Manually create a github repository (or run `bash bin/create_repo.sh`)
 
+When you change directory to your created project folder, you will see that you are in a git branch `0_setup_cookiecutter`.
+Make any tweaks to the cookiecutter required by your project ([see FAQ](../faq/#what-customisations-can-i-make-when-setting-up-the-cookiecutter-without-defeating-the-point-of-having-a-standard-project-template)), commit then and then make a Pull Request to `dev`.
+
 ## Collaborating on an existing project
 
 - Clone the repository and `cd` into the repository.
