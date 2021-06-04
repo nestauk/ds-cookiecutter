@@ -41,6 +41,9 @@ test-setup:
 	@(test '${IN_PYTEST}' && echo 'In test-suite: Skipping Github checks') ||\
 	 git ls-remote &> /dev/null || echo "ERROR: No Git remote"
 
+	@# Pre-commit valid
+	$(call execute_in_env, pre-commit run -a)
+
 	@# Metaflow
 	@$(call execute_in_env, python -c \
 	"import metaflow as mf;\
