@@ -182,6 +182,7 @@ class TestCookieSetup(object):
     def test_all(self):
         """Test `make test-setup` command."""
         with ch_dir(self.path):
+            p = check_output(["make", "install"]).decode("ascii").strip()
             p = (
                 check_output(["make", "test-setup", "IN_PYTEST=true"])
                 .decode("ascii")
