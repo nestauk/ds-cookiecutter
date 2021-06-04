@@ -1,0 +1,35 @@
+name: Deploy docs to gh-pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 78_deploy_docs
+  # pull_request:
+  #   branches:
+  #     - master
+
+jobs:
+  run_test:
+    runs-on: ubuntu-latest
+    name: Deploy docs to gh-pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          $CONDA/bin/python -m pip install --upgrade pip
+          $CONDA/bin/python -m pip install -r requirements.txt
+
+      - name: Deploy
+        run: |
+          cd docs
+          $CONDA/bin/mkdocs build
+        # $CONDA/bin/mkdocs gh-deploy --clean
+
