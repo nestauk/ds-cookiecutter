@@ -1,5 +1,3 @@
-pandoc
-pandoc-crossref
 ipykernel
 jupytext
 flake8
@@ -8,7 +6,6 @@ flake8-import-order
 flake8-bandit
 flake8-bugbear
 black
-mypy
 Sphinx
 sphinxcontrib-napoleon
 sphinx-rtd-theme
