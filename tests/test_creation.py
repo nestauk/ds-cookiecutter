@@ -82,6 +82,22 @@ class TestCookieSetup(object):
         assert makefile_path.exists()
         assert no_curlies(makefile_path)
 
+    def test_curlies(self):
+        """Test miscellaneous files for no curlies."""
+        repo_name = pytest.param.get("repo_name")
+        path_stubs = [
+            ".env",
+            ".env.shared",
+            "README.md",
+            "setup.cfg",
+            "docs/conf.py",
+            "docs/index.rst",
+            f"{repo_name}/config/logging.yaml",
+            f"{repo_name}/__init__.py",
+        ]
+
+        assert all((no_curlies(self.path / path_stub) for path_stub in path_stubs))
+
     def test_folders(self):
         """Test folders we expect to exist, actually exist."""
         repo_name = pytest.param.get("repo_name")

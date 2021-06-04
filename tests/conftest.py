@@ -10,8 +10,9 @@ CCDS_ROOT = Path(__file__).parents[1].resolve()
 args = {
     "project_name": "NestaTestCookie".lower(),
     "author_name": "Nesta",
-    "repo_name": "nestatestcookie"
+    "repo_name": "nestatestcookie",
 }
+
 
 @pytest.fixture(scope="class", params=[args])
 def default_baked_project(tmpdir_factory, request):
@@ -32,14 +33,18 @@ def default_baked_project(tmpdir_factory, request):
     # cleanup after
     shutil.rmtree(out_dir)
 
+
 @pytest.fixture(scope="class", params=[args])
 def conda_env(request):
     pytest.param = request.param
 
     repo_name = pytest.param.get("repo_name")
 
-    # env_dir = Path.home().resolve() / "anaconda3" 
-    env_dir = Path(check_output(["conda", "info", "--base"]).decode().strip()) / "envs" / repo_name
+    env_dir = (
+        Path(check_output(["conda", "info", "--base"]).decode().strip())
+        / "envs"
+        / repo_name
+    )
 
     request.cls.env_path = env_dir
     yield
