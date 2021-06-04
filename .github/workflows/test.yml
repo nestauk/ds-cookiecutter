@@ -1,0 +1,41 @@
+name: Run Cookiecutter Tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  run_test:
+    runs-on: ubuntu-latest
+    name: Run pytest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          $CONDA/bin/python -m pip install --upgrade pip
+          $CONDA/bin/python -m pip install -r requirements.txt
+
+      - name: Git config
+        run: |
+          git config --global user.email test@example.com
+          git config --global user.name "Github Actions"
+          
+      - name: Run pytest
+        run: |
+          $CONDA/bin/pytest
