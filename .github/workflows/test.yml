@@ -1,0 +1,39 @@
+name: Tests
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 73_test_actions
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  run_test:
+    runs-on: ubuntu-latest
+    name: Run pytest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          $CONDA/bin/python -m pip install --upgrade pip
+          $CONDA/bin/python -m pip install -r requirements.txt
+
+      - name: Run pytest
+        run: |
+          $CONDA/bin/pytest
