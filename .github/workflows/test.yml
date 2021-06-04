@@ -1,13 +1,10 @@
-name: Tests
+name: Run Cookiecutter Tests
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - 73_test_actions
   pull_request:
     branches:
-      - dev
+      - master
 
 jobs:
   run_test:
