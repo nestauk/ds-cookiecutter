@@ -30,6 +30,5 @@ jobs:
       - name: Deploy
         run: |
           cd docs
-          $CONDA/bin/mkdocs build
-        # $CONDA/bin/mkdocs gh-deploy --clean
+          $CONDA/bin/mkdocs gh-deploy --clean
 
