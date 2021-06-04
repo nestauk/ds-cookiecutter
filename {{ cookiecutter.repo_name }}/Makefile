@@ -8,9 +8,15 @@ else
 	OPEN=open
 endif
 
+# AWS Profile
 PROFILE = default
+
+# Export all environment variables
+export
+
 # Import env variables
 include .env.shared
+$(shell touch .env)
 include .env
 
 # Allow us to execute make commands from within our project's conda env
@@ -19,6 +25,7 @@ include .env
 define execute_in_env
 	source bin/conda_activate.sh && conda_activate && $1
 endef
+
 
 .PHONY: init
 ## Fully initialise a project: install; setup github repo; setup S3 bucket
@@ -66,7 +73,7 @@ conda-create:
 .PHONY: conda-update
 ## Update the conda-environment based on changes to `environment.yaml`
 conda-update:
-	conda env update -n ${PROJECT_NAME} -f environment.yaml
+	conda env update -n ${REPO_NAME} -f environment.yaml
 	$(MAKE) pip-install
 
 .PHONY: clean
@@ -104,7 +111,7 @@ setup-metaflow:
 
 .PHONY: setup-bucket
 setup-bucket:
-	@echo S£
+	@echo S3
 	$(call execute_in_env, ${SHELL} ./bin/create_bucket.sh)
 
 .PHONY: setup-github
