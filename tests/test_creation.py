@@ -140,6 +140,7 @@ class TestCookieSetup(object):
             )
         )
 
+        print(set(abs_expected_dirs) ^ set(abs_dirs))
         assert len(set(abs_expected_dirs) ^ set(abs_dirs)) == 0
 
     @pytest.mark.usefixtures("conda_env")
