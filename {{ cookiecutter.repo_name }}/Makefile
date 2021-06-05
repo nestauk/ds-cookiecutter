@@ -48,8 +48,8 @@ test-setup:
 	@$(call execute_in_env, python -c \
 	"import metaflow as mf;\
 	 m = mf.Metaflow();\
-	 assert m.metadata == mf.plugins.metadata.service.ServiceMetadataProvider;\
-	 assert len(m.flows) > 0;" || echo "ERROR: Metaflow+AWS configuration")
+	 assert m.metadata == mf.plugins.metadata.service.ServiceMetadataProvider, m.metadata;\
+	 assert len(m.flows) > 0, m.flows;" || echo "ERROR: Metaflow+AWS configuration")
 
 .PHONY: init
 ## Fully initialise a project: install; setup github repo; setup S3 bucket
