@@ -30,14 +30,22 @@ endef
 
 .PHONY: test-setup
 ## Test that everything has been setup
-test-setup: 
-	${SHELL} ./bin/install_metaflow_aws.sh
+test-setup:
+	@echo Testing configuration
+
+	@# Checking S3
+	@$(call execute_in_env, (test '${IN_PYTEST}' && echo 'In test-suite: Skipping S3 checks') ||\
+	 aws s3 ls s3://${BUCKET} &> /dev/null || echo "ERROR: No bucket")
+
+	@# Github
+	@(test '${IN_PYTEST}' && echo 'In test-suite: Skipping Github checks') ||\
+	 git ls-remote &> /dev/null || echo "ERROR: No Git remote"
+
+	@# Pre-commit valid
+	@$(call execute_in_env, pre-commit run -a)
 
 	@# Metaflow
-	@echo $(METAFLOW_PROFILE) $(HOME)
-	ls $(HOME)/.metaflowconfig/
-	grep 195 $(HOME)/.metaflowconfig/config_ds-cookiecutter.json -c
-	python test.py || echo "ERROR: Metaflow+AWS configuration"
+	@$(call execute_in_env, python test.py || echo "ERROR: Metaflow+AWS configuration")
 
 .PHONY: init
 ## Fully initialise a project: install; setup github repo; setup S3 bucket
