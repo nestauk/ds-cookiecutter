@@ -37,5 +37,7 @@ jobs:
           git config --global user.name "Github Actions"
           
       - name: Run pytest
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          $CONDA/bin/pytest
+          $CONDA/bin/pytest -k clone
