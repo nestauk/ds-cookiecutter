@@ -37,15 +37,7 @@ test-setup:
 	@echo $(METAFLOW_PROFILE) $(HOME)
 	ls $(HOME)/.metaflowconfig/
 	grep 195 $(HOME)/.metaflowconfig/config_ds-cookiecutter.json -c
-	python -c \
-	"import metaflow as mf;\
-	 m = mf.Metaflow();\
-	 print(m.metadata;\
-	 print(mf.get_metadata());\
-	 assert m.metadata == mf.plugins.metadata.service.ServiceMetadataProvider;\
-	 print(m.flows)
-	 print(mf.Flow('HelloAWSFlow'))
-	 assert len(m.flows) > 0;" || echo "ERROR: Metaflow+AWS configuration"
+	python test.py || echo "ERROR: Metaflow+AWS configuration"
 
 .PHONY: init
 ## Fully initialise a project: install; setup github repo; setup S3 bucket
