@@ -49,7 +49,7 @@ test-setup:
 	"import metaflow as mf;\
 	 m = mf.Metaflow();\
 	 assert m.metadata == mf.plugins.metadata.service.ServiceMetadataProvider;\
-	 assert len(m.flows) > 0;" &> /dev/null || echo "ERROR: Metaflow+AWS configuration")
+	 assert len(m.flows) > 0;" || echo "ERROR: Metaflow+AWS configuration")
 
 .PHONY: init
 ## Fully initialise a project: install; setup github repo; setup S3 bucket
