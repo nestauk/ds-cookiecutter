@@ -16,8 +16,8 @@ cd research_daps
 git-crypt unlock "$PROJECT_DIR/research_daps.key" &> /dev/null
 
 # Copy metaflow config
-mkdir -p ~/.metaflowconfig
-cp research_daps/config/metaflowconfig/config.json ~/.metaflowconfig/config_ds-cookiecutter.json
+mkdir -p "$HOME/.metaflowconfig"
+cp research_daps/config/metaflowconfig/config.json "$HOME/.metaflowconfig/config_ds-cookiecutter.json"
 
 # Clean up
 \rm -rf /tmp/research_daps
