@@ -3,8 +3,6 @@ set -euo pipefail
 
 PROJECT_DIR="$(realpath "$(dirname "$0")/..")"
 
-pip install awscli metaflow
-
 # Fetch research daps key
 aws s3 cp s3://nesta-production-config/research_daps.key . --quiet
 
