@@ -52,3 +52,8 @@ jobs:
       - name: Run pytest
         run: |
           $CONDA/bin/pytest
+
+      - name: Build docs
+        run: |
+          cd docs
+          $CONDA/bin/mkdocs build
