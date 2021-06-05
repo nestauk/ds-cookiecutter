@@ -176,7 +176,7 @@ class TestCookieSetup(object):
     def test_all(self):
         """Test `make test-setup` command."""
         with ch_dir(self.path):
-            shell(["make", "install"])
+            # shell(["make", "install"])
             p = shell(["make", "test-setup", "IN_PYTEST=true"])
             print(p)
             assert "In test-suite: Skipping S3 checks" in p

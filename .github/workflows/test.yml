@@ -51,4 +51,4 @@ jobs:
 
       - name: Run pytest
         run: |
-          $CONDA/bin/pytest
+          $CONDA/bin/pytest -k all
