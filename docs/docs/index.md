@@ -16,12 +16,3 @@ _A standard project structure for reproducible and collaborative data science pr
 - Make code easier to understand
 
 Whilst retaining as much agility and freedom to explore as possible.
-
-## Contents
-
-- [Just get me started with a new project **(QUICKSTART)**](quickstart.md)
-- [Tell me where X goes](structure.md)
-- [Show me some example project structures](examples)
-- [FAQ](faq.md)
-- [Roadmap](roadmap.md)
-<!-- - [What are the headline changes from the last incarnation of the cookiecutter?](changes_tldr.md) -->
