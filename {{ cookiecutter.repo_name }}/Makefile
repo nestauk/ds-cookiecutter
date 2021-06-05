@@ -45,6 +45,9 @@ test-setup:
 	@$(call execute_in_env, pre-commit run -a)
 
 	@# Metaflow
+	@echo $METAFLOW_PROFILE $HOME
+	@echo ls $HOME/.metaflow_config/
+	@echo grep 195 $HOME/.metaflow_config/config_ds-cookiecutter.json -c
 	@$(call execute_in_env, python -c \
 	"import metaflow as mf;\
 	 m = mf.Metaflow();\
