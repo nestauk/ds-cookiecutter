@@ -40,10 +40,11 @@ test-setup:
 	python -c \
 	"import metaflow as mf;\
 	 m = mf.Metaflow();\
-	 print(m.metadata, m.flows);\
+	 print(m.metadata;\
 	 print(mf.get_metadata());\
-	 print(mf.metaflow_config.METAFLOW_CONFIG);\
 	 assert m.metadata == mf.plugins.metadata.service.ServiceMetadataProvider;\
+	 print(m.flows)
+	 print(mf.Flow('HelloAWSFlow'))
 	 assert len(m.flows) > 0;" || echo "ERROR: Metaflow+AWS configuration"
 
 .PHONY: init
