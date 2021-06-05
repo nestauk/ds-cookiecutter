@@ -183,6 +183,11 @@ class TestCookieSetup(object):
             assert "In test-suite: Skipping Github checks" in p
             assert all(("ERROR:" not in line for line in p))
 
+    def test_clone(self):
+        with ch_dir(self.path):
+            p = shell(["git", "clone", "git@github.com:nestauk/research_daps.git"])
+            print(p)
+
 
 def shell(cmd: List[str]) -> List[str]:
     """Run `cmd`, checking output and returning stripped output lines."""
