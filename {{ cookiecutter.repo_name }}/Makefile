@@ -41,12 +41,11 @@ test-setup:
 	@(test '${IN_PYTEST}' && echo 'In test-suite: Skipping Github checks') ||\
 	 git ls-remote &> /dev/null || echo "ERROR: No Git remote"
 
+	@# Pre-commit valid
+	@$(call execute_in_env, pre-commit run -a)
+
 	@# Metaflow
-	@$(call execute_in_env, python -c \
-	"import metaflow as mf;\
-	 m = mf.Metaflow();\
-	 assert m.metadata == mf.plugins.metadata.service.ServiceMetadataProvider;\
-	 assert len(m.flows) < 0;" &> /dev/null || echo "ERROR: Metaflow+AWS configuration")
+	@$(call execute_in_env, python bin/check_metaflow_aws.py || echo "ERROR: Metaflow+AWS configuration")
 
 .PHONY: init
 ## Fully initialise a project: install; setup github repo; setup S3 bucket

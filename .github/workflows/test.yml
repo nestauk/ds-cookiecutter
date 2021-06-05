@@ -28,6 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          sudo apt-get update -y && sudo apt-get install -y git-crypt
           $CONDA/bin/python -m pip install --upgrade pip
           $CONDA/bin/python -m pip install -r requirements.txt
 
@@ -35,7 +36,19 @@ jobs:
         run: |
           git config --global user.email test@example.com
           git config --global user.name "Github Actions"
-          
+
+      - name: "Set up SSH agent"
+        uses: webfactory/ssh-agent@v0.5.2
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: "Add GitHub to the SSH known hosts file"
+        run: |
+          for ip in $(dig @8.8.8.8 github.com +short); do \
+            ssh-keyscan github.com,$ip; \
+            ssh-keyscan $ip; \
+          done 2>/dev/null >> ~/.ssh/known_hosts
+
       - name: Run pytest
         run: |
           $CONDA/bin/pytest

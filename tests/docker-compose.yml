@@ -4,4 +4,4 @@ services:
       context: ..
       dockerfile: ./tests/Dockerfile
     volumes:
-      - ~/.aws/:/home/root/.aws
+      - ~/.aws/:/root/.aws

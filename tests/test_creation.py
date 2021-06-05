@@ -1,7 +1,9 @@
 import os
 import re
+import sys
 from contextlib import contextmanager
-from subprocess import check_output
+from subprocess import CalledProcessError, check_output
+from typing import List
 
 import pytest
 
@@ -42,7 +44,7 @@ class TestCookieSetup(object):
         """Test author set in `setup.py`."""
         setup_ = self.path / "setup.py"
         args = ["python", setup_, "--author"]
-        p = check_output(args).decode("ascii").strip()
+        p = "".join(shell(args))
         assert p == "Nesta"
 
     def test_readme(self):
@@ -57,7 +59,7 @@ class TestCookieSetup(object):
         """Test version set in `setup.py`."""
         setup_ = self.path / "setup.py"
         args = ["python", setup_, "--version"]
-        p = check_output(args).decode("ascii").strip()
+        p = "".join(shell(args))
         assert p == "0.1.0"
 
     def test_license(self):
@@ -70,7 +72,7 @@ class TestCookieSetup(object):
         """Test License set appropriately in `setup.py`."""
         setup_ = self.path / "setup.py"
         args = ["python", setup_, "--license"]
-        p = check_output(args).decode("ascii").strip()
+        p = "".join(shell(args))
         if pytest.param.get("openess") == "private":
             assert p == "proprietary"
         else:
@@ -140,6 +142,7 @@ class TestCookieSetup(object):
             )
         )
 
+        print(set(abs_expected_dirs) ^ set(abs_dirs))
         assert len(set(abs_expected_dirs) ^ set(abs_dirs)) == 0
 
     @pytest.mark.usefixtures("conda_env")
@@ -148,32 +151,24 @@ class TestCookieSetup(object):
         repo_name = pytest.param.get("repo_name")
 
         with ch_dir(self.path):
-            p = check_output(["make", "conda-create"]).decode("ascii").strip()
+            p = shell(["make", "conda-create"])
             assert (
-                p.splitlines()[-1] == f"Created environment {repo_name}"
+                p[-1] == f"Created environment {repo_name}"
             ), "Could not make Conda env"
             assert self.env_path.exists()
 
             # Add an extra pip dependency
             check_output(["echo", "nuts_finder", ">>", "requirements.txt"])
-            p = check_output(["make", "conda-update"]).decode("ascii").strip()
+            p = shell(["make", "conda-update"])
 
             # Add an extra conda dependency
             check_output(["echo", "  - tqdm", ">>", "environment.yaml"])
-            p = check_output(["make", "conda-update"]).decode("ascii").strip()
+            p = shell(["make", "conda-update"])
 
     def test_git(self):
         """Test expected git branches exist."""
         with ch_dir(self.path):
-            p = set(
-                (
-                    line.strip()
-                    for line in check_output(["git", "branch"])
-                    .decode("ascii")
-                    .strip()
-                    .splitlines()
-                )
-            )
+            p = set(shell(["git", "branch"]))
             # Expect to differ by one as either main/master will exist
             assert len(p ^ {"* 0_setup_cookiecutter", "dev", "main", "master"}) == 1
 
@@ -181,11 +176,26 @@ class TestCookieSetup(object):
     def test_all(self):
         """Test `make test-setup` command."""
         with ch_dir(self.path):
-            p = (
-                check_output(["make", "test-setup", "IN_PYTEST=true"])
-                .decode("ascii")
-                .strip()
-                .splitlines()
-            )
+            shell(["make", "install"])
+            p = shell(["make", "test-setup", "IN_PYTEST=true"])
+            print(p)
             assert "In test-suite: Skipping S3 checks" in p
             assert "In test-suite: Skipping Github checks" in p
+            assert all(("ERROR:" not in line for line in p))
+
+
+def shell(cmd: List[str]) -> List[str]:
+    """Run `cmd`, checking output and returning stripped output lines."""
+    try:
+        p = [
+            line.strip()
+            for line in check_output(cmd).decode("ascii").strip().splitlines()
+        ]
+    except CalledProcessError as e:
+        [print(line) for line in (e.stdout or b"").decode("ascii").splitlines()]
+        [
+            print(line, file=sys.stderr)
+            for line in (e.stderr or b"").decode("ascii").splitlines()
+        ]
+        raise e
+    return p

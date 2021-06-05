@@ -9,7 +9,9 @@ def read_lines(path):
     with open(path) as f:
         return f.read().splitlines()
 
+
 BASE_DIR = Path(__file__).parent
+
 
 setup(
     name="{{ cookiecutter.repo_name }}",
