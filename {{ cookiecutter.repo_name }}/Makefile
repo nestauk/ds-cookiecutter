@@ -49,6 +49,8 @@ test-setup:
 	"import metaflow as mf;\
 	 m = mf.Metaflow();\
 	 print(m.metadata, m.flows);\
+	 print(mf.get_metadata());\
+	 print(mf.metaflow_config.METAFLOW_CONFIG);\
 	 assert m.metadata == mf.plugins.metadata.service.ServiceMetadataProvider;\
 	 assert len(m.flows) > 0;" || echo "ERROR: Metaflow+AWS configuration")
 
