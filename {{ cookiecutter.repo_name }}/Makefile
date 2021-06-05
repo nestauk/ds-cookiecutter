@@ -45,7 +45,7 @@ test-setup:
 	@$(call execute_in_env, pre-commit run -a)
 
 	@# Metaflow
-	@$(call execute_in_env, python test.py || echo "ERROR: Metaflow+AWS configuration")
+	@$(call execute_in_env, python bin/check_metaflow_aws.py || echo "ERROR: Metaflow+AWS configuration")
 
 .PHONY: init
 ## Fully initialise a project: install; setup github repo; setup S3 bucket
