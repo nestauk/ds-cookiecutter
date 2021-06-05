@@ -28,6 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          sudo apt-get update -y && sudo apt-get install -y git-crypt
           $CONDA/bin/python -m pip install --upgrade pip
           $CONDA/bin/python -m pip install -r requirements.txt
 
