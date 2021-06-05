@@ -26,10 +26,18 @@ apt-get install -y git-crypt  # Ubuntu linux:
         - *How would you like to authenticate GitHub CLI?* **Login with a web browser**
 
 - Have a Nesta AWS account configured with `awscli`
-    - **Note to any non-Nesta visitors:** You can still use the cookiecutter by:
-        * Choosing `auto_config` as "false" when setting up the cookiecutter
-        * Remove the `setup-metaflow` dependency of the `install` command within `Makefile`
-        * If using `make init` - replace references to `nestauk` with your github organisation in `bin/create_repo.sh`
+
+    ??? info "How do I do this?"
+
+        Fetch (or generate) [security credentials from the AWS dashboard](https://console.aws.amazon.com/iam/home?#security_credential) by clicking "Create access key".
+
+        (In an environment with `awscli` installed via. pip/conda) Run `aws configure`, inputting the access key ID and secret access key ID you just generated when prompted.
+
+        In addition you should set the default region name to `eu-west-2` and the default output format to `None`.
+
+
+
+
 
 We recommend taking the time to install and configure the optional dependencies as this one-time setup allows you to use the `auto_config` option which should save you a lot of time and avoids human error during configuration.
 
@@ -76,6 +84,9 @@ This opens a series of prompts to configure your new project (values in square b
     - Manually create an S3 bucket `s3_bucket` (or run `bash bin/create_bucket.sh`)
     - Manually create a github repository (or run `bash bin/create_repo.sh`)
 
+When you change directory to your created project folder, you will see that you are in a git branch `0_setup_cookiecutter`.
+Make any tweaks to the cookiecutter required by your project ([see FAQ](../faq/#what-customisations-can-i-make-when-setting-up-the-cookiecutter-without-defeating-the-point-of-having-a-standard-project-template)), commit then and then make a Pull Request to `dev`.
+
 ## Collaborating on an existing project
 
 - Clone the repository and `cd` into the repository.
@@ -88,3 +99,12 @@ This opens a series of prompts to configure your new project (values in square b
 - Check the project's `README` for any additional configuration needed (e.g. putting API keys in `.env`)
 - Pull any required inputs into `inputs/` by running `make inputs-pull`
 - Follow the author's documentation, or make them write some if they haven't already!
+
+
+## How can I use this if I don't work at Nesta?
+
+You can still use the cookiecutter, you just need to remove a few Nesta-specific bits relating to our AWS setup:
+
+* Choosing `auto_config` as "false" when setting up the cookiecutter
+* Remove the `setup-metaflow` dependency of the `install` command within `Makefile`
+* If using `make init` - replace references to `nestauk` with your github organisation in `bin/create_repo.sh`

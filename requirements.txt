@@ -1,4 +1,5 @@
 mkdocs
-mkdocs-cinder
+mkdocs-material
+mkdocs-material-extensions
 cookiecutter
 pytest

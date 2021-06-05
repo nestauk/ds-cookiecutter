@@ -1,13 +1,61 @@
 site_name: Cookiecutter Data Science @ Nesta
 site_description: A project template and directory structure for Nesta Python data science projects.
 site_url: https://nestauk.github.io/ds-cookiecutter
+repo_name: nestauk/ds-cookiecutter
 repo_url: https://github.com/nestauk/ds-cookiecutter
 edit_uri: edit/master/docs/docs
-copyright: Adapted from the <a href="http://drivendata.github.io/cookiecutter-data-science/">Drivendata data science cookiecutter</a>
+# copyright: Adapted from the <a href="http://drivendata.github.io/cookiecutter-data-science/">Drivendata data science cookiecutter</a>
+extra:
+  homepage: https://nestauk.github.io/ds-cookiecutter
 theme:
-  name: cinder
-  disable_nav_previous_next: true
-  disable_footer: false
+  name: material
+  # disable_nav_previous_next: true
+  # disable_footer: false
+  logo: favicon.ico
+  favicon: favicon.ico
+  features:
+    - navigation.instant
+    - navigation.tracking
+    # - navigation.tabs
+    - navigation.sections
+    - navigation.top
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: pink
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: amber
+      accent: pink
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+markdown_extensions:
+  - toc:
+        permalink: true
+  - pymdownx.tabbed
+  - def_list
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid-experimental
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - footnotes
+  - pymdownx.highlight
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.superfences:
+        custom_fences:
+          - name: mermaid
+            class: mermaid-experimental
+            format: !!python/name:pymdownx.superfences.fence_code_format
 extra_css:
   - css/extra.css
 nav:
@@ -16,4 +64,5 @@ nav:
   - Structure: structure.md
   - Python guidelines: guidelines.md
   - Roadmap: roadmap.md
+  - Examples: examples/index.md
   - FAQ: faq.md

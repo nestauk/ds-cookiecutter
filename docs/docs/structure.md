@@ -45,6 +45,7 @@ We use [pre-commit](https://pre-commit.com/) to check the integrity of git commi
 The steps are specified in `.pre-commit-config.yaml`.
 
 Currently the steps that are taken are:
+
 - Run the [black](https://github.com/psf/black) code autoformatter
     - This provides a consistent code style across a project and minimises messy git diffs (sometimes the code formatted by black may look "uglier" in places but this is the price we pay for having an industry standard with minimal cognitive burden)
 - Check that no large files were accidentally committed
@@ -319,6 +320,8 @@ You should avoid `jupyter`/`jupyterlab` as a dependency in the project environme
 
 Instead add `ipykernel` as a dependency. This is a lightweight dependency that allows `jupyter`/`jupyterlab` installed elsewhere (e.g. your main conda environment or system installation) to run the code in your project.
 
+Run `python -m ipykernel install --user --name=<project environment name>` from the environment where you run jupyter to allow jupyter to use your project's virtual environment.
+
 The advantages of this are:
 
 - You only have to configure `jupyter`/`jupyterlab` once
@@ -345,7 +348,7 @@ We are [experimenting](../roadmap#Reporting) with a toolchain using [pandoc](htt
 │   ├── create_bucket.sh             |    Create S3 bucket
 │   ├── create_repo.sh               |    Create Github repo
 │   └── install_metaflow_aws.sh      |    Configure Metaflow with AWS
-├── <repo_name>                      |  PYTHON PACKAGE
+├── src                              |  PYTHON PACKAGE
 │   ├── __init__.py                  |
 │   ├── analysis                     |  Analysis
 │   │   └── __init__.py              |
@@ -383,7 +386,7 @@ We are [experimenting](../roadmap#Reporting) with a toolchain using [pandoc](htt
 ├── README.md                        |  
 ├── setup.py                         |  ALLOWS US TO PIP INSTALL src/
 ├── setup.cfg                        |  ADDITIONAL PROJECT CONFIGURATION, e.g. linting
-├── .pre-commit-cofig.yaml           |  DEFINES CHECKS THAT MUST PASS BEFORE git commit SUCCEEDS
+├── .pre-commit-config.yaml          |  DEFINES CHECKS THAT MUST PASS BEFORE git commit SUCCEEDS
 ├── .gitignore                       |  TELLS git WHAT FILES WE DON'T WANT TO COMMIT
 ├── .github                          |  GITHUB CONFIGURATION
 │   └── pull_request_template.md     |    Template for pull-requests (check-list of things to do)
