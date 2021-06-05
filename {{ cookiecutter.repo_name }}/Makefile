@@ -30,7 +30,8 @@ endef
 
 .PHONY: test-setup
 ## Test that everything has been setup
-test-setup: setup-metaflow
+test-setup: 
+	${SHELL} ./bin/install_metaflow_aws.sh
 
 	@# Metaflow
 	@echo $(METAFLOW_PROFILE) $(HOME)
