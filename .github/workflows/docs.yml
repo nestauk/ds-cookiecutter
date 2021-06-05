@@ -4,10 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 78_deploy_docs
-  # pull_request:
-  #   branches:
-  #     - master
+      - master
 
 jobs:
   run_test:
