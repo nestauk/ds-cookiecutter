@@ -3,7 +3,7 @@ import logging
 from contextlib import contextmanager
 from typing import Any, Callable, Optional
 
-from metaflow import Run, metadata
+from metaflow import get_metadata, metadata, Run
 from toolz import identity
 
 from flowrider import REPO_NAME, SRC_DIR
@@ -48,14 +48,16 @@ def auto_getter(
         return getattr(Run(f"{flow_name}/{run_id}").data, artifact)
 
     if local:
-        with _local_metadata():
+        with _metadata(f"local@{SRC_DIR.parent}"):
             return get(flow_name, run_id, artifact)
     else:
         return get(flow_name, run_id, artifact)
 
 
 @contextmanager
-def _local_metadata():
-    metadata(f"local@{SRC_DIR.parent}")
+def _metadata(ms):
+    """Context manager to use Metaflow local metadata."""
+    original_ms = get_metadata()
+    metadata(ms)
     yield
-    metadata("service")
+    metadata(original_ms)
