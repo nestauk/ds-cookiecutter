@@ -59,6 +59,11 @@ def run_flow_from_config(flow_subpath: str, tag: str, src_dir: Path = SRC_DIR) -
     config = merge_package_suffixes(config, SUFFIXES)
     logging.info(f"CONFIG: {config}")
 
+    # Put local metadata in project
+    metadata = config["preflow_kwargs"].get("metadata")
+    if metadata == "local":
+        os.environ["METAFLOW_DATASTORE_SYSROOT_LOCAL"] = str(project_dir)
+
     # Make a copy of the project (Files with `SUFFIXES` only) in a tempdir
     # TODO: bundle + son_of_a_batch points local install to /tmp/... ?
     tmp_path = bundle(
