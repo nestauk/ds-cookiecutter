@@ -5,18 +5,23 @@ import os
 from itertools import chain
 from pathlib import Path
 from shlex import quote
-from subprocess import CalledProcessError, Popen
+from subprocess import CalledProcessError, run
+from typing import Any, Dict, Iterable
 
 import toolz.curried as t
+
 from flowrider import SRC_DIR
 from flowrider.bundle import bundle
-from flowrider.config_parser import parse_config
+from flowrider.config_parser import merge_package_suffixes, parse_config
 
 
-logger = logging.getLogger(__file__)
-
-# File suffixes to bundle
-SUFFIXES = [".py", ".yaml", ".md", ".txt", ".env.shared"]
+SUFFIXES = [
+    ".py",  # Source files
+    ".yaml",  # Config
+    ".md",  # setup.py reads README.md
+    ".txt",  # E.g. requirements.txt
+    ".env.shared",  # Gets cookiecutter metadata
+]
 
 
 __all__ = ["run_flow_from_config"]
@@ -50,41 +55,23 @@ def run_flow_from_config(path: str, tag: str) -> int:
 
     # Parse config and add run id param
     config = parse_config(config_path)
-    config["flow_kwargs"]["run-id-file"] = str(
-        config_path.parent / f"{path}_{tag}.run_id"
-    )
-    config["preflow_kwargs"]["package-suffixes"] = ",".join(SUFFIXES)
-    logging.info(config)
+    # TODO add these as some form of middleware?
+    config["flow_kwargs"]["run-id-file"] = config_path.with_suffix(".run_id")
+    config = merge_package_suffixes(config, SUFFIXES)
+    logging.info(f"CONFIG: {config}")
 
-    # BUNDLE
+    # Make a copy of the project (Files with `SUFFIXES` only) in a tempdir
     tmp_path = bundle(
         project_dir,
         flow_path,
         SUFFIXES,
     )
-    os.chdir(tmp_path)
     logging.info(f"BUNDLED: [{project_dir},{flow_path}] -> {tmp_path}")
+    os.chdir(tmp_path)  # XXX: Working directory change!
 
-    run_id = execute_flow((tmp_path / path).with_suffix(".py"), **config)
+    run_id = execute_flow(Path(flow_path.with_suffix(".py").name), **config)
 
     return run_id
-
-
-def _serialise(x):
-    return x if isinstance(x, str) else json.dumps(x)
-
-
-def _parse_options(options):
-    # return t.compose_left(
-    #     t.itemmap(lambda item: (f"--{item[0]}", _serialise(item[1]))),
-    #     lambda x: x.items(),
-    #     chain.from_iterable,
-    #     t.map(quote),
-    # )(options)
-    def foo(item):
-        return quote(lambda item: (f"--{item[0]}", _serialise(item[1])))
-
-    return (foo(option) for option in options)
 
 
 def execute_flow(flow_file: Path, preflow_kwargs: dict, flow_kwargs: dict) -> int:
@@ -92,10 +79,9 @@ def execute_flow(flow_file: Path, preflow_kwargs: dict, flow_kwargs: dict) -> in
 
     Args:
         flow_file: File containing metaflow
-        params: Keys are flow parameter names (command-line notation,
-             `--`), values are parameter values (as strings).
-        metaflow_args: Keys are metaflow parameter names passed before run
-            (command-line notation, `--`), values are parameter values (as strings).
+        params: Keys are flow parameter names, values are parameter values (as strings).
+        metaflow_args: Keys are metaflow parameter names passed before run,
+            values are parameter values (as strings).
 
     Returns:
         run_id of flow
@@ -103,9 +89,6 @@ def execute_flow(flow_file: Path, preflow_kwargs: dict, flow_kwargs: dict) -> in
     Raises:
         CalledProcessError: When flow execution fails
     """
-
-    # run_id_file = flow_file.parents[0] / ".run_id"
-    run_id_file = flow_kwargs["run-id-file"]
     cmd = " ".join(
         [
             "python",
@@ -116,22 +99,37 @@ def execute_flow(flow_file: Path, preflow_kwargs: dict, flow_kwargs: dict) -> in
             *_parse_options(flow_kwargs),
         ]
     )
-    logger.info(cmd)
+    logging.info(f"RUNNING: { cmd }")
 
-    # RUN FLOW
-    proc = Popen(
-        cmd,
-        shell=True,
-    )
-    while proc.poll():
-        print("poll")
-        print(proc.communicate())
-    proc.wait()
-    return_value = proc.returncode
+    try:
+        run(cmd, shell=True, check=True)
+    except CalledProcessError as exc:
+        raise exc
 
-    if return_value != 0:
-        raise CalledProcessError(return_value, cmd)
+    with open(flow_kwargs["run-id-file"], "r") as f:
+        run_id = int(f.read())
+    return run_id
+
+
+def _serialise(x: Any) -> str:
+    """Serialise `x` to `str` falling back on JSON."""
+    if isinstance(x, str):
+        return x
+    if isinstance(x, Path):
+        return str(x)
     else:
-        with open(run_id_file, "r") as f:
-            run_id = int(f.read())
-        return run_id
+        return json.dumps(x)
+
+
+def _parse_options(options: Dict[str, Any]) -> Iterable[str]:
+    """Parse and quote `options` to be passed to metaflow.
+
+    `{"foo": {"data": [1.2, 3, "4"]}} => '--foo', '\'{"data": [1.2, 3, "4"]}\''`
+    """
+    return t.pipe(
+        options,
+        t.itemmap(lambda item: (f"--{item[0]}", _serialise(item[1]))),
+        lambda x: x.items(),
+        chain.from_iterable,
+        t.map(quote),
+    )

@@ -1,4 +1,6 @@
 #!/bin/env python
+import logging
+
 import typer
 
 from flowrider.metaflow_runner import run_flow_from_config
@@ -14,6 +16,7 @@ def run(
     """Runs `flows/$PATH.py` using configuration from `config/flows/$PATH_$TAG.yaml`."""
 
     typer.secho(f"Running {path} with tag {tag} ", fg="black", bg="yellow")
+    logging.getLogger().setLevel(logging.INFO)
     run_flow_from_config(path, tag)
 
 
