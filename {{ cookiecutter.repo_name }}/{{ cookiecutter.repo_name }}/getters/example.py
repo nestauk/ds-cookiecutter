@@ -1,38 +1,35 @@
-from metaflow import metadata
-from pydantic import BaseModel, StrictStr, ValidationError
+from typing import List
+
+from metaflow import namespace
+from pydantic import BaseModel, StrictStr
 
 from flowrider.client import auto_getter
+
+namespace("{{ cookiecutter.repo_name }}")
 
 
 class Context(BaseModel):
     ds_type: str
 
 
-def get_example() -> Context:
+class Data(BaseModel):
+    column1: List[StrictStr]
+
+
+def get_context() -> Context:
     """Lots of nice documentation detailing the artifact here..."""
     path, tag, artifact = "example/example_flow", "local", "info"
     data = Context(**auto_getter(path, tag, artifact, local=True))
     return data
 
 
+def get_data() -> Context:
+    """Lots of nice documentation detailing the artifact here..."""
+    path, tag, artifact = "example/example_flow", "local", "data"
+    data = Data.parse_obj(auto_getter(path, tag, artifact, local=True))
+    return data
+
+
 if __name__ == "__main__":
-    print(get_example())
-
-if False:
-    # %%
-    from typing import List
-    import pandas as pd
-
-    class Foo(BaseModel):
-        column1: List[StrictStr]
-
-    data = pd.DataFrame({"column1": range(10)}, dtype=str)
-    print("Success...", Foo.parse_obj(data.to_dict("list")))
-
-    try:
-        data = pd.DataFrame({"column1": range(10)}, dtype=int)
-        print(Foo(**data.to_dict("list")))
-    except ValidationError:
-        print("Bad column type")
-
-    # %%
+    print(get_context())
+    print(get_data())

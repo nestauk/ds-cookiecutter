@@ -1,8 +1,9 @@
 preflow_kwargs:
   datastore: local
   metadata: local
-  environment: conda
+  # environment: conda
 flow_kwargs:
   deployment_info:
     hook:
       name: project_name.pipeline.example.example_flow.hook
+  tag: my_extra_tag

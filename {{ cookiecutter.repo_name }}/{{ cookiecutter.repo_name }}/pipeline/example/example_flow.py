@@ -13,7 +13,7 @@ def deployment_info(context):
 
 
 @son_of_a_batch
-@mf.conda_base(libraries={})
+# @mf.conda_base(libraries={})
 class EnvironmentFlow(mf.FlowSpec):
     info = mf.Parameter("deployment_info", type=mf.JSONType, default=deployment_info)
 
@@ -27,6 +27,10 @@ class EnvironmentFlow(mf.FlowSpec):
 
         print(project_name.PROJECT_DIR)
         print(project_name.config)
+
+        import pandas as pd
+
+        self.data = pd.DataFrame({"column1": range(10)}, dtype=str).to_dict("list")
 
         self.next(self.end)
 
