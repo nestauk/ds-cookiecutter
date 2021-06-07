@@ -12,14 +12,14 @@ def deployment_info(context):
     return json.dumps({"ds_type": context.ds_type})
 
 
-@son_of_a_batch
-# @mf.conda_base(libraries={})
+# @son_of_a_batch  # works as a class / step decorator - step is more efficient
 class EnvironmentFlow(mf.FlowSpec):
     info = mf.Parameter("deployment_info", type=mf.JSONType, default=deployment_info)
 
     from flowrider.decorators import pip
 
     # @mf.conda(libraries={"s3fs": ">0"})
+    @son_of_a_batch
     @pip(libraries={"tqdm": None})
     @mf.step
     def start(self):
@@ -41,8 +41,8 @@ class EnvironmentFlow(mf.FlowSpec):
         print(mf.metaflow_environment.platform.platform())
 
 
-def hook():
-    print("HOOK RAN")
+def hook(a, b):
+    print("HOOK RAN with:", a, b)
     return {"ds_type": "hook context"}
 
 
