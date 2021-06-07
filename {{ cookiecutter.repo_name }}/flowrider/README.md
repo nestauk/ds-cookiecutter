@@ -24,7 +24,14 @@ preflow_kwargs:
   with: "batch:cpu=1"
   environment: conda
   package-suffixes: ".py,.txt,.md,.yaml"
-flow_kwargs: {}
+flow_kwargs:
+  deployment_info:
+    hook:
+      # Imports and calls this function substituting the result as the value of `deployment_info`
+      name: project_name.pipeline.example.example_flow.hook 
+      args: 1
+      kwargs:
+        b: 2
 ```
 
 ### Bundling - use full package
@@ -36,6 +43,10 @@ flow_kwargs: {}
 ### Version control of Run ID's
 
 Writes successfull runs to `config/pipeline/{FLOW_SUBPATH}_{TAG}.run_id`
+
+### Organising results
+
+Adds tag based on `REPO_NAME` of project
 
 ## Decorators
 
@@ -66,11 +77,12 @@ Getters are cached (via. pickle) based on:
 - artifact
 
 By default in `outputs/.cache/` but can be overwritten setting `FLOWRIDER_TEMP_DIR` environment variable
+
+
 # TODO
 
-- usernames + tags
-  - tag with project name
-  - project namespace?
-  - clear data for a user on this project
 - CLI tool polish
-- Cache getters
+  - Docs
+  - Resume functionality?
+  - Pass through other commands to metaflow? `--` syntax?
+    - E.g. `flowrider example/example_flow -- show` runs `python .../pipeline/example/example_flow.py show`
