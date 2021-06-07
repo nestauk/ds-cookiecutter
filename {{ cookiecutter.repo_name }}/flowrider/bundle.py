@@ -1,11 +1,14 @@
 """Bundle."""
 import shutil
 from functools import partial
+from os import PathLike
 from pathlib import Path
 from tempfile import mktemp
-from typing import Collection
+from typing import Collection, Iterable, List
 
-from flowrider.utils import ignore
+from flowrider.utils import is_dir
+
+__all__ = ["bundle"]
 
 
 def bundle(pkg_path: Path, flow_path: Path, allowed_suffixes: Collection[str]) -> Path:
@@ -26,7 +29,7 @@ def bundle(pkg_path: Path, flow_path: Path, allowed_suffixes: Collection[str]) -
     shutil.copytree(
         f"{pkg_path}",
         f"{tmp_flow_path}",
-        ignore=partial(ignore, allowed_suffixes),
+        ignore=partial(_ignore, allowed_suffixes=allowed_suffixes),
     )
 
     # Copy flow to base of project such that package can be imported
@@ -41,3 +44,16 @@ def bundle(pkg_path: Path, flow_path: Path, allowed_suffixes: Collection[str]) -
     #  people should just use absolute imports / filepaths!
 
     return tmp_flow_path
+
+
+def _ignore(
+    src: PathLike,
+    names: Iterable[str],
+    allowed_suffixes: Collection[str],
+) -> List[str]:
+    """Return from `names` sub-directories of `src` or files with allowed_suffixes."""
+
+    def include(x):
+        return is_dir(src, x) or any(map(x.endswith, allowed_suffixes))
+
+    return [x for x in names if not include(x)]

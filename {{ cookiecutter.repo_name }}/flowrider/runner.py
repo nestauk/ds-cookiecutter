@@ -27,31 +27,30 @@ SUFFIXES = [
 __all__ = ["run_flow_from_config"]
 
 
-def run_flow_from_config(path: str, tag: str) -> int:
+def run_flow_from_config(flow_subpath: str, tag: str, src_dir: Path = SRC_DIR) -> int:
     """Run flow parameterised by YAML config file.
 
-    Runs flow at `{SRC_DIR}/pipeline/{path}.py` with config
-    from `{SRC_DIR}/config/pipeline/{path}_{tag}.yaml`.
+    Runs flow at `{SRC_DIR}/pipeline/{flow_subpath}.py` with config
+    from `{SRC_DIR}/config/pipeline/{flow_subpath}_{tag}.yaml`.
 
     Args:
-        path:
+        flow_subpath:
         tag:
+        src_dir: Package source path
 
     Returns:
         Metaflow run ID
     """
 
-    # Package source path
-    src_dir = SRC_DIR
     # Base project path
     project_dir = src_dir.parent
 
     # Path to flow
-    flow_path = (src_dir / "pipeline" / path).with_suffix(".py")
+    flow_path = (src_dir / "pipeline" / flow_subpath).with_suffix(".py")
     # Path to flow config
-    config_path = (src_dir / "config" / "pipeline" / f"{path}_{tag}").with_suffix(
-        ".yaml"
-    )
+    config_path = (
+        src_dir / "config" / "pipeline" / f"{flow_subpath}_{tag}"
+    ).with_suffix(".yaml")
 
     # Parse config and add run id param
     config = parse_config(config_path)
@@ -61,6 +60,7 @@ def run_flow_from_config(path: str, tag: str) -> int:
     logging.info(f"CONFIG: {config}")
 
     # Make a copy of the project (Files with `SUFFIXES` only) in a tempdir
+    # TODO: bundle + son_of_a_batch points local install to /tmp/... ?
     tmp_path = bundle(
         project_dir,
         flow_path,
@@ -74,7 +74,7 @@ def run_flow_from_config(path: str, tag: str) -> int:
     return run_id
 
 
-def execute_flow(flow_file: Path, preflow_kwargs: dict, flow_kwargs: dict) -> int:
+def execute_flow(flow_path: Path, preflow_kwargs: dict, flow_kwargs: dict) -> int:
     """Execute flow in `flow_file` with `params`.
 
     Args:
@@ -92,7 +92,7 @@ def execute_flow(flow_file: Path, preflow_kwargs: dict, flow_kwargs: dict) -> in
     cmd = " ".join(
         [
             "python",
-            str(flow_file),
+            str(flow_path),
             "--no-pylint",
             *_parse_options(preflow_kwargs),
             "run",

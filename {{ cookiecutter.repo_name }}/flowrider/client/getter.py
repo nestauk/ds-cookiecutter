@@ -3,8 +3,9 @@ import logging
 from typing import Any, Callable, Optional
 
 from metaflow import Run
-from toolz import compose_left, identity
+from toolz import identity
 
+from flowrider import REPO_NAME, SRC_DIR
 from flowrider.client.cache import cache_getter_fn
 from flowrider.utils import flow_name_from_path, load_run_id, run_id_path
 
@@ -14,7 +15,7 @@ __all__ = ["auto_getter"]
 
 
 def auto_getter(
-    path: str,
+    flow_subpath: str,
     tag: str,
     artifact: str,
     cache_strategy: Optional[Callable] = cache_getter_fn,
@@ -25,15 +26,16 @@ def auto_getter(
     - Introspects name of flow
 
     Args:
-        path:
+        flow_subpath:
         tag:
+        artifact:
         cache_strategy: Decorator to cache artifact with, if `None` no caching.
 
     Returns:
         Metaflow data artifact
     """
-    run_id = compose_left(run_id_path, load_run_id)(path, tag)
-    flow_name = flow_name_from_path(path)
+    run_id = load_run_id(run_id_path(flow_subpath, tag, SRC_DIR))
+    flow_name = flow_name_from_path(flow_subpath, repo_name=REPO_NAME)
 
     if cache_strategy is None:
         cache_strategy = identity
