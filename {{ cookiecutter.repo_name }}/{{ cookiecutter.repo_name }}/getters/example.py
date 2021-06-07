@@ -1,7 +1,6 @@
 from metaflow import metadata
 from pydantic import BaseModel, StrictStr, ValidationError
 
-from {{ cookiecutter.repo_name }} import PROJECT_DIR
 from flowrider.client import auto_getter
 
 
@@ -11,11 +10,8 @@ class Context(BaseModel):
 
 def get_example() -> Context:
     """Lots of nice documentation detailing the artifact here..."""
-    metadata(f"local@{PROJECT_DIR}")
     path, tag, artifact = "example/example_flow", "local", "info"
-    data = Context(**auto_getter(path, tag, artifact))
-    metadata("service")
-    # TODO: put metadata selection in `auto_getter`? Either as flag or try one then the other
+    data = Context(**auto_getter(path, tag, artifact, local=True))
     return data
 
 

@@ -1,8 +1,9 @@
 """Automaticaly generate artifact getters."""
 import logging
+from contextlib import contextmanager
 from typing import Any, Callable, Optional
 
-from metaflow import Run
+from metaflow import Run, metadata
 from toolz import identity
 
 from flowrider import REPO_NAME, SRC_DIR
@@ -19,6 +20,7 @@ def auto_getter(
     tag: str,
     artifact: str,
     cache_strategy: Optional[Callable] = cache_getter_fn,
+    local: bool = False,
 ) -> Any:
     """Return flow object based on `path` and `tag`.
 
@@ -34,6 +36,7 @@ def auto_getter(
     Returns:
         Metaflow data artifact
     """
+
     run_id = load_run_id(run_id_path(flow_subpath, tag, SRC_DIR))
     flow_name = flow_name_from_path(flow_subpath.replace("/", "."), repo_name=REPO_NAME)
 
@@ -44,4 +47,15 @@ def auto_getter(
     def get(flow_name, run_id, artifact):
         return getattr(Run(f"{flow_name}/{run_id}").data, artifact)
 
-    return get(flow_name, run_id, artifact)
+    if local:
+        with _local_metadata():
+            return get(flow_name, run_id, artifact)
+    else:
+        return get(flow_name, run_id, artifact)
+
+
+@contextmanager
+def _local_metadata():
+    metadata(f"local@{SRC_DIR.parent}")
+    yield
+    metadata("service")
