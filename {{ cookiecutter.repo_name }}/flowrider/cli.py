@@ -27,7 +27,10 @@ def run(
     flow_subpath: str = typer.Argument(..., help=flow_subpath_help),  # noqa: B008
     tag: str = typer.Option("dev", help=tag_help),  # noqa: B008
 ):
-    """Run and bundle a metaflow using YAML based configuration."""
+    """Run and bundle a metaflow using YAML based configuration.
+
+    Writes successfull runs to `config/pipeline/{FLOW_SUBPATH}_{TAG}.run_id`
+    """
 
     typer.secho(f"Running {flow_subpath} with tag {tag} ", fg="black", bg="yellow")
     logging.getLogger().setLevel(logging.INFO)

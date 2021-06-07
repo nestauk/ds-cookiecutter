@@ -17,7 +17,7 @@ __all__ = ["cache_getter_fn"]
 def cache_getter_fn(
     f: Callable[[str, int, str], Any]
 ) -> Callable[..., Callable[[str, int, str], Any]]:
-    """Cache `f` output as pickle if `temp_dir` env var is set."""
+    """Cache `f` output as pickle."""
 
     def inner(*args, **kwargs):
         temp_dir = _get_temp_dir()
@@ -53,6 +53,6 @@ def _get_temp_dir() -> str:
     """Find `temp_dir` env var or return None."""
     load_dotenv(find_dotenv())
     try:
-        return os.environ["temp_dir"]
+        return os.environ["FLOWRIDER_TEMP_DIR"]
     except KeyError:
         return Path(SRC_DIR).parent / "outputs" / ".cache"

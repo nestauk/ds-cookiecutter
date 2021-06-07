@@ -35,7 +35,7 @@ def auto_getter(
         Metaflow data artifact
     """
     run_id = load_run_id(run_id_path(flow_subpath, tag, SRC_DIR))
-    flow_name = flow_name_from_path(flow_subpath, repo_name=REPO_NAME)
+    flow_name = flow_name_from_path(flow_subpath.replace("/", "."), repo_name=REPO_NAME)
 
     if cache_strategy is None:
         cache_strategy = identity

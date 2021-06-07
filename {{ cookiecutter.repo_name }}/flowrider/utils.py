@@ -33,10 +33,17 @@ def flow_name_from_path(flow_subpath: str, repo_name: str) -> str:
     module = importlib.import_module(flow_module)
 
     # Find subclass of metaflow.FlowSpec
+    # TODO Make this less brittle!
     flows = inspect.getmembers(
-        module, lambda obj: inspect.isclass(obj) and issubclass(obj, FlowSpec)
+        module,
+        lambda obj: (inspect.isclass(obj) and issubclass(obj, FlowSpec))
+        or (
+            hasattr(obj, "__wrapped__")
+            and inspect.isclass(obj.__wrapped__)
+            and issubclass(obj.__wrapped__, FlowSpec)
+        ),
     )
-    assert len(flows) == 1, f"More than one flow found in {module}"
+    assert len(flows) == 1, f"Expected one flow in {module}, found {len(flows)}"
 
     flow_name, _ = flows[0]
     return flow_name
