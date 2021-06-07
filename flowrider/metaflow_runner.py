@@ -103,12 +103,6 @@ def execute_flow(flow_file: Path, preflow_kwargs: dict, flow_kwargs: dict) -> in
     Raises:
         CalledProcessError: When flow execution fails
     """
-    parse = t.compose_left(
-        t.itemmap(lambda item: (f"--{item[0]}", _serialise(item[1]))),
-        lambda x: x.items(),
-        chain.from_iterable,
-        t.map(quote),
-    )
 
     # run_id_file = flow_file.parents[0] / ".run_id"
     run_id_file = flow_kwargs["run-id-file"]
@@ -117,12 +111,9 @@ def execute_flow(flow_file: Path, preflow_kwargs: dict, flow_kwargs: dict) -> in
             "python",
             str(flow_file),
             "--no-pylint",
-            *parse(preflow_kwargs),
+            *_parse_options(preflow_kwargs),
             "run",
-            # "--run-id-file",
-            # str(run_id_file),
-            # PARAMS
-            *parse(flow_kwargs),
+            *_parse_options(flow_kwargs),
         ]
     )
     logger.info(cmd)
