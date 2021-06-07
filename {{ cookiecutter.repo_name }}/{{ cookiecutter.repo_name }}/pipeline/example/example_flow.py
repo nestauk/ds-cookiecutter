@@ -12,8 +12,8 @@ def deployment_info(context):
     return json.dumps({"ds_type": context.ds_type})
 
 
-# @mf.conda_base(libraries={})
 @son_of_a_batch
+@mf.conda_base(libraries={})
 class EnvironmentFlow(mf.FlowSpec):
     info = mf.Parameter("deployment_info", type=mf.JSONType, default=deployment_info)
 
@@ -23,15 +23,10 @@ class EnvironmentFlow(mf.FlowSpec):
     @pip(libraries={"tqdm": None})
     @mf.step
     def start(self):
-        print(sys.executable)
-
-        import flowrider
-
-        print(dir(flowrider))
-
         import project_name
 
-        print(dir(project_name))
+        print(project_name.PROJECT_DIR)
+        print(project_name.config)
 
         self.next(self.end)
 
@@ -41,17 +36,10 @@ class EnvironmentFlow(mf.FlowSpec):
         print(f"execution context is {self.info}")
         print(mf.metaflow_environment.platform.platform())
 
-        import project_name
 
-        print(dir(project_name))
-
-        import altair
-
-        print(altair.Chart)
-
-    def hook(self):
-        print("HOOK RAN")
-        return {"ds_type": "hook context"}
+def hook():
+    print("HOOK RAN")
+    return {"ds_type": "hook context"}
 
 
 if __name__ == "__main__":
