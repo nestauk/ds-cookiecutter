@@ -6,6 +6,6 @@ altair
 metaflow
 python-dotenv
 tqdm
-filelock
 typer
 sh
+pyyaml
