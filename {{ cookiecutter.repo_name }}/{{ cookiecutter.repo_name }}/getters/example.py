@@ -4,6 +4,7 @@ from metaflow import namespace
 from pydantic import BaseModel, StrictStr
 
 from flowrider.client import auto_getter
+from {{ cookiecutter.repo_name }}.pipeline.example.example_flow import EnvironmentFlow
 
 namespace("{{ cookiecutter.repo_name }}")
 
@@ -18,15 +19,15 @@ class Data(BaseModel):
 
 def get_context() -> Context:
     """Lots of nice documentation detailing the artifact here..."""
-    path, tag, artifact = "example/example_flow", "local", "info"
-    data = Context(**auto_getter(path, tag, artifact, local=True))
+    _, tag, artifact = "example/example_flow", "local", "info"
+    data = Context(**auto_getter(EnvironmentFlow, tag, artifact, local=True))
     return data
 
 
 def get_data() -> Context:
     """Lots of nice documentation detailing the artifact here..."""
-    path, tag, artifact = "example/example_flow", "local", "data"
-    data = Data.parse_obj(auto_getter(path, tag, artifact, local=True))
+    _, tag, artifact = "example/example_flow", "local", "data"
+    data = Data.parse_obj(auto_getter(EnvironmentFlow, tag, artifact, local=True))
     return data
 
 

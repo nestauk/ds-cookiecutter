@@ -1,16 +1,16 @@
 """Utils to execute a metaflow w/ subprocess & update config w/ successful run ID's."""
+import importlib
 import json
 import logging
 import os
-from itertools import chain
+from itertools import chain, repeat
 from pathlib import Path
 from shlex import quote
 from subprocess import CalledProcessError, run
-from typing import Any, Dict, Iterable
+from typing import Any, Dict, Iterable, List
 
 import toolz.curried as t
 
-from flowrider import REPO_NAME, SRC_DIR
 from flowrider.cli.bundle import bundle
 from flowrider.cli.config_parser import merge_package_suffixes, parse_config
 
@@ -27,7 +27,7 @@ SUFFIXES = [
 __all__ = ["run_flow_from_config"]
 
 
-def run_flow_from_config(flow_subpath: str, tag: str, src_dir: Path = SRC_DIR) -> int:
+def run_flow_from_config(flow_subpath: str, tag: str, pkg_name: str) -> int:
     """Run flow parameterised by YAML config file.
 
     Runs flow at `{SRC_DIR}/pipeline/{flow_subpath}.py` with config
@@ -42,21 +42,30 @@ def run_flow_from_config(flow_subpath: str, tag: str, src_dir: Path = SRC_DIR) -
         Metaflow run ID
     """
 
+    src_dir = Path(importlib.import_module(pkg_name).__file__).parent
+
     # Base project path
     project_dir = src_dir.parent
 
     # Path to flow
     flow_path = (src_dir / "pipeline" / flow_subpath).with_suffix(".py")
+    assert flow_path.exists()
     # Path to flow config
     config_path = (
         src_dir / "config" / "pipeline" / f"{flow_subpath}_{tag}"
     ).with_suffix(".yaml")
+    assert config_path.exists()
 
     # Parse config and add run id param
     config = parse_config(config_path)
     # TODO add these as some form of middleware?
     config["flow_kwargs"]["run-id-file"] = config_path.with_suffix(".run_id")
     config = merge_package_suffixes(config, SUFFIXES)
+    config["tags"] = t.pipe(
+        config.get("tags", []) + [config["flow_kwargs"].pop("tag", ""), src_dir.name],
+        t.filter(None),
+        list,
+    )
     logging.info(f"CONFIG: {config}")
 
     # Put local metadata in project
@@ -65,7 +74,7 @@ def run_flow_from_config(flow_subpath: str, tag: str, src_dir: Path = SRC_DIR) -
         os.environ["METAFLOW_DATASTORE_SYSROOT_LOCAL"] = str(project_dir)
 
     # Make a copy of the project (Files with `SUFFIXES` only) in a tempdir
-    # TODO: bundle + son_of_a_batch points local install to /tmp/... ?
+    # TODO: Could just copy flow temporarily to base of project? Would there be conflicts if files are changed?
     tmp_path = bundle(
         project_dir,
         flow_path,
@@ -79,7 +88,9 @@ def run_flow_from_config(flow_subpath: str, tag: str, src_dir: Path = SRC_DIR) -
     return run_id
 
 
-def execute_flow(flow_path: Path, preflow_kwargs: dict, flow_kwargs: dict) -> int:
+def execute_flow(
+    flow_path: Path, preflow_kwargs: dict, flow_kwargs: dict, tags: List[str]
+) -> int:
     """Execute flow in `flow_file` with `params`.
 
     Args:
@@ -102,8 +113,7 @@ def execute_flow(flow_path: Path, preflow_kwargs: dict, flow_kwargs: dict) -> in
             *_parse_options(preflow_kwargs),
             "run",
             *_parse_options(flow_kwargs),
-            "--tag",
-            quote(REPO_NAME),  # Always tag with the project name
+            *chain.from_iterable(zip(repeat("--tag"), map(quote, tags))),
         ]
     )
     logging.info(f"RUNNING: { cmd }")

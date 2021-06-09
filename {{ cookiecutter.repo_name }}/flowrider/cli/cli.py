@@ -1,4 +1,3 @@
-#!/bin/env python
 import logging
 
 import typer
@@ -34,4 +33,6 @@ def run(
 
     typer.secho(f"Running {flow_subpath} with tag {tag} ", fg="black", bg="yellow")
     logging.getLogger().setLevel(logging.INFO)
-    run_flow_from_config(flow_subpath, tag)
+
+    # TODO: just have it run a flow?
+    run_flow_from_config(flow_subpath, tag, pkg_name="project_name")
