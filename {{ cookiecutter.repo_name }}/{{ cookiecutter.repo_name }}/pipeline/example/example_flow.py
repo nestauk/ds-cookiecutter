@@ -4,7 +4,7 @@ import sys
 
 import metaflow as mf
 
-from flowrider.decorators import son_of_a_batch
+from flowrider.flow.decorators import son_of_a_batch
 
 
 def deployment_info(context):
@@ -16,7 +16,7 @@ def deployment_info(context):
 class EnvironmentFlow(mf.FlowSpec):
     info = mf.Parameter("deployment_info", type=mf.JSONType, default=deployment_info)
 
-    from flowrider.decorators import pip
+    from flowrider.flow.decorators import pip
 
     # @mf.conda(libraries={"s3fs": ">0"})
     @son_of_a_batch

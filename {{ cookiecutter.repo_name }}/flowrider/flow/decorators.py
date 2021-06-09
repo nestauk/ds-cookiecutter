@@ -52,6 +52,7 @@ def pip(libraries: Dict[str, str]) -> Callable[[Callable[..., Any]], Any]:
         @functools.wraps(function)
         def wrapper(*args, **kwargs):
 
+            logging.info(f"In {sys.executable}...")
             for library, version in libraries.items():
                 pkg = library + (version or "")
                 logging.info(f"Pip Install: {pkg}")

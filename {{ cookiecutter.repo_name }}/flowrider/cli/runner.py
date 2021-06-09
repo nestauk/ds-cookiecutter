@@ -11,8 +11,8 @@ from typing import Any, Dict, Iterable
 import toolz.curried as t
 
 from flowrider import REPO_NAME, SRC_DIR
-from flowrider.bundle import bundle
-from flowrider.config_parser import merge_package_suffixes, parse_config
+from flowrider.cli.bundle import bundle
+from flowrider.cli.config_parser import merge_package_suffixes, parse_config
 
 
 SUFFIXES = [
@@ -102,7 +102,8 @@ def execute_flow(flow_path: Path, preflow_kwargs: dict, flow_kwargs: dict) -> in
             *_parse_options(preflow_kwargs),
             "run",
             *_parse_options(flow_kwargs),
-            "--tag", quote(REPO_NAME)  # Always tag with the project name
+            "--tag",
+            quote(REPO_NAME),  # Always tag with the project name
         ]
     )
     logging.info(f"RUNNING: { cmd }")

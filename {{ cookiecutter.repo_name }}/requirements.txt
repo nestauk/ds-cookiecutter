@@ -9,3 +9,4 @@ tqdm
 typer
 sh
 pyyaml
+toolz

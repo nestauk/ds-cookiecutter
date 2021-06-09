@@ -3,7 +3,7 @@ import logging
 
 import typer
 
-from flowrider.runner import run_flow_from_config
+from flowrider.cli.runner import run_flow_from_config
 
 app = typer.Typer()
 
@@ -35,7 +35,3 @@ def run(
     typer.secho(f"Running {flow_subpath} with tag {tag} ", fg="black", bg="yellow")
     logging.getLogger().setLevel(logging.INFO)
     run_flow_from_config(flow_subpath, tag)
-
-
-if __name__ == "__main__":
-    app()
