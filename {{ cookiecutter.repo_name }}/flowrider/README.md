@@ -13,6 +13,7 @@ preflow_kwargs:
   package-suffixes: ".py,.txt,.md,.yaml"
 flow_kwargs:
   random_seed:
+tags: ["my extra tag", "another one"]
 ```
 
 #### Hooks
@@ -37,8 +38,8 @@ flow_kwargs:
 ### Bundling - use full package
 
 - Copies project to a temporary directory
-- Copies flow file to base of project temporary directory s.t. local package can all be imported and used in flow.
-  - Requires decorating Flow class with `flowrider.decorators.son_of_a_batch` to install package requirements from `requirements.txt`
+- Copies flow file to base of project directory s.t. can bootstrap extra ops with `flowrider.decorators.*`
+  - E.g. decorating Flow class with `flowrider.decorators.son_of_a_batch` to install package requirements from `requirements.txt`
 
 ### Version control of Run ID's
 
@@ -64,11 +65,11 @@ WARNING: If not running in a separate environment, e.g. using `environment: cond
 
 ```python
 from flowrider.metaflow_client import auto_getter
+from project_name.pipeline.example.example_flow import EnvironmentFlow
 
-
-path, tag, artifact = "foo", "dev", "info"
-auto_getter(path, tag, artifact, cache_strategy=None)  # No caching
-auto_getter(path, tag, artifact)  # Cached by default with `flowrider.cache.cache_getter_fn`
+tag, artifact = "dev", "info"
+auto_getter(EnvironmentFlow, tag, artifact, cache_strategy=None)  # No caching
+auto_getter(EnvironmentFlow, tag, artifact)  # Cached by default with `flowrider.cache.cache_getter_fn`
 ```
 
 Getters are cached (via. pickle) based on:
@@ -76,7 +77,7 @@ Getters are cached (via. pickle) based on:
 - run ID
 - artifact
 
-By default in `outputs/.cache/` but can be overwritten setting `FLOWRIDER_TEMP_DIR` environment variable
+By default in your systems temporary directory, e.g. `/tmp/`, but can be overwritten setting `FLOWRIDER_TEMP_DIR` environment variable (we recommend `outputs/.cache/`)
 
 
 # TODO
