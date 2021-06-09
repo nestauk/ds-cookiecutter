@@ -4,7 +4,7 @@ import json
 import logging
 import os
 import shutil
-import tempfile
+from functools import partial
 from itertools import chain, repeat
 from pathlib import Path
 from shlex import quote
@@ -13,17 +13,18 @@ from typing import Any, Dict, Iterable, List
 
 import toolz.curried as t
 
-from flowrider.cli.bundle import bundle
-from flowrider.config_parser import merge_package_suffixes, parse_config
+from flowrider.config_parser import Config, parse_config
 
 
-SUFFIXES = [
-    ".py",  # Source files
-    ".yaml",  # Config
-    ".md",  # setup.py reads README.md
-    ".txt",  # E.g. requirements.txt
-    ".env.shared",  # Gets cookiecutter metadata
-]
+SUFFIXES = ",".join(
+    [
+        ".py",  # Source files
+        ".yaml",  # Config
+        ".md",  # setup.py reads README.md
+        ".txt",  # E.g. requirements.txt
+        ".env.shared",  # Gets cookiecutter metadata
+    ]
+)
 
 
 __all__ = ["run_flow_from_config"]
@@ -33,66 +34,61 @@ def run_flow_from_config(flow_subpath: str, tag: str, pkg_name: str) -> int:
     """Run flow parameterised by YAML config file.
 
     Runs flow in `{pkg_name}.pipeline.{flow_subpath}` with config
-    from `config/pipeline/{flow_subpath}_{tag}.yaml` within the folder 
+    from `config/pipeline/{flow_subpath}_{tag}.yaml` within the folder
     that `pkg_name` is located.
 
     Args:
         flow_subpath:
         tag:
-        src_dir: Package source path
+        pkg_name:
 
     Returns:
         Metaflow run ID
     """
-
     src_dir = Path(importlib.import_module(pkg_name).__file__).parent
-
-    # Base project path
     project_dir = src_dir.parent
 
     # Path to flow
     flow_path = (src_dir / "pipeline" / flow_subpath).with_suffix(".py")
-    assert flow_path.exists()
+    if not flow_path.exists():
+        raise FileNotFoundError(flow_path)
+
     # Path to flow config
     config_path = (
         src_dir / "config" / "pipeline" / f"{flow_subpath}_{tag}"
     ).with_suffix(".yaml")
-    assert config_path.exists()
+    if not config_path.exists():
+        raise FileNotFoundError(config_path)
 
-    # Parse config and add run id param
-    config = parse_config(config_path)
-
-    # Enrich config
-    # TODO add these as some form of middleware?
-    config["flow_kwargs"]["run-id-file"] = config_path.with_suffix(".run_id")
-    config = merge_package_suffixes(config, SUFFIXES)
-    config["tags"] = t.pipe(
-        config.get("tags", []) + [config["flow_kwargs"].pop("tag", ""), src_dir.name],
-        t.filter(None),
-        list,
+    # Parse and enrich config
+    config = t.pipe(
+        config_path,
+        parse_config,
+        partial(_add_run_id, config_path=config_path),
+        partial(_merge_package_suffixes, suffixes=SUFFIXES),
+        partial(_merge_tags, extra_tags=[src_dir.name]),
     )
     logging.info(f"CONFIG: {config}")
 
-    # Put local metadata in project
-    metadata = config["preflow_kwargs"].get("metadata")
-    if metadata == "local":
+    # If local metadata requested use `.metaflow` in `project_dir`
+    if config["preflow_kwargs"].get("metadata") == "local":
         os.environ["METAFLOW_DATASTORE_SYSROOT_LOCAL"] = str(project_dir)
 
-    # Copy flow temporarily to base of project? Would there be conflicts if files are changed?
-    # TODO add temp suffix?
+    # Copy flow to base of project - allows bootstrapping with `flowrider.flow.decorators`
     tmp_flow_path = (project_dir / flow_path.name).with_suffix(".py")
     shutil.copy(flow_path, tmp_flow_path)
 
-    run_id = execute_flow(tmp_flow_path, **config)
-
-    tmp_flow_path.unlink()
-
-    return run_id
+    try:
+        execute_flow(tmp_flow_path, **config)
+    except CalledProcessError as exc:
+        raise exc
+    finally:
+        tmp_flow_path.unlink()
 
 
 def execute_flow(
     flow_path: Path, preflow_kwargs: dict, flow_kwargs: dict, tags: List[str]
-) -> int:
+):
     """Execute flow in `flow_file` with `params`.
 
     Args:
@@ -120,14 +116,7 @@ def execute_flow(
     )
     logging.info(f"RUNNING: { cmd }")
 
-    try:
-        run(cmd, shell=True, check=True)
-    except CalledProcessError as exc:
-        raise exc
-
-    with open(flow_kwargs["run-id-file"], "r") as f:
-        run_id = int(f.read())
-    return run_id
+    run(cmd, shell=True, check=True)
 
 
 def _serialise(x: Any) -> str:
@@ -152,3 +141,29 @@ def _parse_options(options: Dict[str, Any]) -> Iterable[str]:
         chain.from_iterable,
         t.map(quote),
     )
+
+
+def _merge_tags(config: Config, extra_tags: List[str]) -> Config:
+    """Mix tags from config["tags"] config["flow_kwargs"]["tag"] and extra_tags."""
+    tags = t.pipe(
+        config.get("tags", []) + [config["flow_kwargs"].pop("tag", ""), *extra_tags],
+        t.filter(None),
+        list,
+    )
+    return t.assoc(config, "tags", tags)
+
+
+def _add_run_id(config: Config, config_path: Path) -> Config:
+    """Ensure a run-id is output alongside `config_path`."""
+    return t.assoc_in(
+        config, ["flow_kwargs", "run-id-file"], config_path.with_suffix(".run_id")
+    )
+
+
+def _merge_package_suffixes(config: Config, suffixes: str) -> Config:
+    """Merge any existing package-suffixes with the minimum required for bundling."""
+    if not isinstance(suffixes, str):
+        TypeError("Expected config['preflow_kwargs']['package-suffixes'] to be `str`")
+
+    keys = ["preflow_kwargs", "package-suffixes"]
+    return t.assoc_in(config, keys, t.get(config, keys, "") + suffixes)

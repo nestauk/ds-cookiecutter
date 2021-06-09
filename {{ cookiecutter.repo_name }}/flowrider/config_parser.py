@@ -1,10 +1,18 @@
 import importlib
 import logging
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 import yaml
 from toolz import get_in, valmap
+
+
+@dataclass
+class Config:
+    preflow_kwargs: dict
+    flow_kwargs: dict
+    tags: Optional[List[str]]
 
 
 class HookError(Exception):
@@ -20,7 +28,7 @@ def load_hook(name):
         raise HookError(*e.args)
 
 
-def parse_config(path: Path) -> Dict[str, Any]:
+def parse_config(path: Path) -> Config:
 
     raw_config = yaml.safe_load(path.open())
 
@@ -40,23 +48,5 @@ def parse_config(path: Path) -> Dict[str, Any]:
     except HookError as e:
         e.args = (*e.args, f"in file: {str(path)}")
         raise
-
-    return config
-
-
-def merge_package_suffixes(config: dict, suffixes: List[str]) -> dict:
-    """Merge any existing package-suffixes with the minimum required for bundling."""
-    if "package-suffixes" not in config["preflow_kwargs"]:
-        config["preflow_kwargs"]["package-suffixes"] = ",".join(suffixes)
-    elif isinstance(config["preflow_kwargs"]["package-suffixes"], str):
-        config["preflow_kwargs"]["package-suffixes"] += ",".join(suffixes)
-    elif isinstance(config["preflow_kwargs"]["package-suffixes"], list):
-        config["preflow_kwargs"]["package-suffixes"] = ",".join(
-            set(config["preflow_kwargs"]["package-suffixes"] + suffixes)
-        )
-    else:
-        TypeError(
-            "Expected config['preflow_kwargs']['package-suffixes'] to be str of List[str]"
-        )
 
     return config
