@@ -3,7 +3,7 @@ import logging
 import os
 import pickle
 from pathlib import Path
-from tempfile import mkdtemp
+from tempfile import gettempdir
 from typing import Any, Callable
 
 from dotenv import find_dotenv, load_dotenv
@@ -56,4 +56,4 @@ def _get_temp_dir() -> str:
     try:
         return os.environ["FLOWRIDER_TEMP_DIR"]
     except KeyError:
-        return mkdtemp()  # Path(SRC_DIR).parent / "outputs" / ".cache"
+        return gettempdir()  # Path(SRC_DIR).parent / "outputs" / ".cache"

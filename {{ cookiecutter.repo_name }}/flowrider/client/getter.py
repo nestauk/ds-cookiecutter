@@ -15,6 +15,7 @@ from toolz import identity
 
 from flowrider.client.cache import cache_getter_fn
 from flowrider.utils import load_run_id
+from flowrider.config_parser import parse_config
 
 logger = logging.getLogger(__file__)
 
@@ -26,7 +27,6 @@ def auto_getter(
     tag: str,
     artifact: str,
     cache_strategy: Optional[Callable] = cache_getter_fn,
-    local: bool = False,
 ) -> Any:
     """Return flow object based on `path` and `tag`.
 
@@ -63,8 +63,11 @@ def auto_getter(
     def get(flow_name, run_id, artifact):
         return getattr(Run(f"{flow_name}/{run_id}").data, artifact)
 
-    # TODO local can be inferred by reading the config
-    if local:
+    config_path = (
+        src_dir / "config" / "pipeline" / f"{flow_subpath}_{tag}"
+    ).with_suffix(".yaml")
+    config = parse_config(config_path)
+    if config["preflow_kwargs"].get("metadata", None) == "local":
         with _metadata(f"local@{src_dir.parent}"):
             return get(flow_name, run_id, artifact)
     else:
@@ -78,6 +81,7 @@ def _metadata(ms):
     metadata(ms)
     yield
     metadata(original_ms)
+
 
 def _run_id_path(flow_subpath: str, tag: str, src_dir: Path) -> Path:
     """Construct path to run id for flow corresponding to `{path}_{tag}`.

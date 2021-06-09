@@ -20,14 +20,14 @@ class Data(BaseModel):
 def get_context() -> Context:
     """Lots of nice documentation detailing the artifact here..."""
     _, tag, artifact = "example/example_flow", "local", "info"
-    data = Context(**auto_getter(EnvironmentFlow, tag, artifact, local=True))
+    data = Context(**auto_getter(EnvironmentFlow, tag, artifact))
     return data
 
 
 def get_data() -> Context:
     """Lots of nice documentation detailing the artifact here..."""
     _, tag, artifact = "example/example_flow", "local", "data"
-    data = Data.parse_obj(auto_getter(EnvironmentFlow, tag, artifact, local=True))
+    data = Data.parse_obj(auto_getter(EnvironmentFlow, tag, artifact))
     return data
 
 

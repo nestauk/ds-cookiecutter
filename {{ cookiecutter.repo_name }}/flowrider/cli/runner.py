@@ -3,6 +3,8 @@ import importlib
 import json
 import logging
 import os
+import shutil
+import tempfile
 from itertools import chain, repeat
 from pathlib import Path
 from shlex import quote
@@ -12,7 +14,7 @@ from typing import Any, Dict, Iterable, List
 import toolz.curried as t
 
 from flowrider.cli.bundle import bundle
-from flowrider.cli.config_parser import merge_package_suffixes, parse_config
+from flowrider.config_parser import merge_package_suffixes, parse_config
 
 
 SUFFIXES = [
@@ -30,8 +32,9 @@ __all__ = ["run_flow_from_config"]
 def run_flow_from_config(flow_subpath: str, tag: str, pkg_name: str) -> int:
     """Run flow parameterised by YAML config file.
 
-    Runs flow at `{SRC_DIR}/pipeline/{flow_subpath}.py` with config
-    from `{SRC_DIR}/config/pipeline/{flow_subpath}_{tag}.yaml`.
+    Runs flow in `{pkg_name}.pipeline.{flow_subpath}` with config
+    from `config/pipeline/{flow_subpath}_{tag}.yaml` within the folder 
+    that `pkg_name` is located.
 
     Args:
         flow_subpath:
@@ -58,6 +61,8 @@ def run_flow_from_config(flow_subpath: str, tag: str, pkg_name: str) -> int:
 
     # Parse config and add run id param
     config = parse_config(config_path)
+
+    # Enrich config
     # TODO add these as some form of middleware?
     config["flow_kwargs"]["run-id-file"] = config_path.with_suffix(".run_id")
     config = merge_package_suffixes(config, SUFFIXES)
@@ -73,17 +78,14 @@ def run_flow_from_config(flow_subpath: str, tag: str, pkg_name: str) -> int:
     if metadata == "local":
         os.environ["METAFLOW_DATASTORE_SYSROOT_LOCAL"] = str(project_dir)
 
-    # Make a copy of the project (Files with `SUFFIXES` only) in a tempdir
-    # TODO: Could just copy flow temporarily to base of project? Would there be conflicts if files are changed?
-    tmp_path = bundle(
-        project_dir,
-        flow_path,
-        SUFFIXES,
-    )
-    logging.info(f"BUNDLED: [{project_dir},{flow_path}] -> {tmp_path}")
-    os.chdir(tmp_path)  # XXX: Working directory change!
+    # Copy flow temporarily to base of project? Would there be conflicts if files are changed?
+    # TODO add temp suffix?
+    tmp_flow_path = (project_dir / flow_path.name).with_suffix(".py")
+    shutil.copy(flow_path, tmp_flow_path)
 
-    run_id = execute_flow(Path(flow_path.with_suffix(".py").name), **config)
+    run_id = execute_flow(tmp_flow_path, **config)
+
+    tmp_flow_path.unlink()
 
     return run_id
 

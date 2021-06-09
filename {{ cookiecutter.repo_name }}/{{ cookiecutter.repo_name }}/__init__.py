@@ -6,6 +6,9 @@ from typing import Optional
 
 import yaml
 from dotenv import load_dotenv
+from metaflow import namespace
+
+namespace("{{ cookiecutter.repo_name }}")
 
 
 def get_yaml_config(file_path: Path) -> Optional[dict]:
