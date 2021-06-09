@@ -121,10 +121,18 @@ class TestCookieSetup(object):
             repo_name,
             f"{repo_name}/analysis",
             f"{repo_name}/config",
-            # f"{repo_name}/config/pipeline",
+            f"{repo_name}/config/pipeline",
             f"{repo_name}/getters",
             f"{repo_name}/pipeline",
             f"{repo_name}/utils",
+            # Flowrider
+            "flowrider/",
+            "flowrider/cli",
+            "flowrider/client",
+            "flowrider/flow",
+            # Example files
+            f"{repo_name}/pipeline/example",
+            f"{repo_name}/config/pipeline/example",
         ]
 
         abs_expected_dirs = [str(self.path / d) for d in expected_dirs]
@@ -192,10 +200,10 @@ def shell(cmd: List[str]) -> List[str]:
             for line in check_output(cmd).decode("ascii").strip().splitlines()
         ]
     except CalledProcessError as e:
-        [print(line) for line in (e.stdout or b"").decode("ascii").splitlines()]
+        [print(line) for line in (e.stdout or b"").decode().splitlines()]
         [
             print(line, file=sys.stderr)
-            for line in (e.stderr or b"").decode("ascii").splitlines()
+            for line in (e.stderr or b"").decode().splitlines()
         ]
         raise e
     return p

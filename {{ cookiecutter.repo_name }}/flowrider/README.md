@@ -29,7 +29,7 @@ flow_kwargs:
   deployment_info:
     hook:
       # Imports and calls this function substituting the result as the value of `deployment_info`
-      name: project_name.pipeline.example.example_flow.hook 
+      name: project_name.pipeline.example.example_flow.hook
       args: 1
       kwargs:
         b: 2
@@ -73,12 +73,12 @@ auto_getter(EnvironmentFlow, tag, artifact)  # Cached by default with `flowrider
 ```
 
 Getters are cached (via. pickle) based on:
+
 - flow name
 - run ID
 - artifact
 
 By default in your systems temporary directory, e.g. `/tmp/`, but can be overwritten setting `FLOWRIDER_TEMP_DIR` environment variable (we recommend `outputs/.cache/`)
-
 
 # TODO
 
