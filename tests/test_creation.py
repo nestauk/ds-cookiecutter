@@ -191,6 +191,11 @@ class TestCookieSetup(object):
             assert "In test-suite: Skipping Github checks" in p
             assert all(("ERROR:" not in line for line in p))
 
+    def test_precommit(self):
+        """Test no `pre-commit` issues at creation."""
+        with ch_dir(self.path):
+            shell(["pre-commit", "run", "-a"])
+
 
 def shell(cmd: List[str]) -> List[str]:
     """Run `cmd`, checking output and returning stripped output lines."""
