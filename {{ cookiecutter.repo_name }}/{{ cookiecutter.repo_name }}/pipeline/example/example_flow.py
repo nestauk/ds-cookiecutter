@@ -23,10 +23,10 @@ class EnvironmentFlow(mf.FlowSpec):
     @pip(libraries={"tqdm": None})
     @mf.step
     def start(self):
-        import project_name
+        import {{ cookiecutter.repo_name }}
 
-        print(project_name.PROJECT_DIR)
-        print(project_name.config)
+        print({{ cookiecutter.repo_name }}.PROJECT_DIR)
+        print({{ cookiecutter.repo_name }}.config)
 
         import pandas as pd
 

@@ -10,3 +10,4 @@ typer
 sh
 pyyaml
 toolz
+pydantic

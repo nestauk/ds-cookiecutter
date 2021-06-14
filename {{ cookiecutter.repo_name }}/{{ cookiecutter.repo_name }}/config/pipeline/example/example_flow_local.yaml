@@ -5,7 +5,7 @@ preflow_kwargs:
 flow_kwargs:
   deployment_info:
     hook:
-      name: project_name.pipeline.example.example_flow.hook
+      name: "{{ cookiecutter.repo_name }}.pipeline.example.example_flow.hook"
       args:
         - 1
       kwargs:

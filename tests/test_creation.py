@@ -194,6 +194,7 @@ class TestCookieSetup(object):
     def test_precommit(self):
         """Test no `pre-commit` issues at creation."""
         with ch_dir(self.path):
+            shell(["pip", "install", "pre-commit"])
             shell(["pre-commit", "run", "-a"])
 
 
