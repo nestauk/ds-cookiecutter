@@ -6,6 +6,7 @@
   - Install: `git-crypt` and `conda`
   - Have a Nesta AWS account configured with `awscli`
 - Run `make install` to configure the development environment:
+
   - Setup the conda environment
   - Configure pre-commit
   - Configure metaflow to use AWS
