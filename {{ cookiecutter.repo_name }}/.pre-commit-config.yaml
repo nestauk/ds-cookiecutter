@@ -42,14 +42,13 @@ repos:
         language: python
         args: ["-b", dev, "-b", master, "-b", main]
         pass_filenames: false
-  - repo: local
+  - repo: https://github.com/psf/black
+    rev: stable
     hooks:
       - id: black
-        name: black
-        entry: black
-        language: system
-        types: [python]
-        require_serial: true
+        language_version: python3
+  # - repo: local
+  #   hooks:
       # - id: reorder-python-imports
       #   name: Reorder python imports
       #   entry: reorder-python-imports
