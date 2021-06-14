@@ -10,6 +10,8 @@
   - Configure pre-commit
   - Configure metaflow to use AWS
 
+- `conda config --add channels conda-forge`
+
 ## Contributor guidelines
 
 [Technical and working style guidelines](https://github.com/nestauk/ds-cookiecutter/blob/master/GUIDELINES.md)
