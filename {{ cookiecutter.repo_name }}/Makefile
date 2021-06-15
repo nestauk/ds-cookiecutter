@@ -50,6 +50,9 @@ test-setup:
 	@# Flow getters
 	@$(call execute_in_env, python "${REPO_NAME}/getters/example.py")
 
+	@# Flowrider tests
+	@$(call execute_in_env, pytest)
+
 .PHONY: init
 ## Fully initialise a project: install; setup github repo; setup S3 bucket
 init: install setup-github setup-bucket
