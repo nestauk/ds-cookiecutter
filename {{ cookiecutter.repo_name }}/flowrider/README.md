@@ -69,7 +69,6 @@ Writes successfull runs alongside corresponding YAML with same filename but `.ru
 
 E.g. if YAML config is in `config/pipeline/example/example_flow_local.yaml` then `config/pipeline/example/example_flow_local.run_id` contains the last successful run ID corresponding to the running of that YAML config.
 
-
 ### Organising results
 
 Adds tag based on `REPO_NAME` of project
