@@ -10,8 +10,8 @@ from toolz import get_in, valmap
 
 @dataclass
 class Config:
-    preflow_kwargs: dict
-    flow_kwargs: dict
+    preflow_kwargs: Dict[str, Any]
+    flow_kwargs: Dict[str, Any]
     tags: Optional[List[str]]
 
 
