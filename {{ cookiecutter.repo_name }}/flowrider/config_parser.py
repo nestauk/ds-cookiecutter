@@ -1,25 +1,25 @@
 import importlib
 import logging
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Callable, Dict
 
 import yaml
 from toolz import get_in, valmap
 
 
-@dataclass
-class Config:
-    preflow_kwargs: Dict[str, Any]
-    flow_kwargs: Dict[str, Any]
-    tags: Optional[List[str]]
+# @dataclass
+# class Config:
+#     preflow_kwargs: Dict[str, Any]
+#     flow_kwargs: Dict[str, Any]
+#     tags: Optional[List[str]]
+Config = Dict[str, Any]
 
 
 class HookError(Exception):
     pass
 
 
-def load_hook(name):
+def load_hook(name: str) -> Callable:
     module_str, method_str = name.rsplit(".", 1)
     try:
         module = importlib.import_module(module_str)
@@ -29,9 +29,10 @@ def load_hook(name):
 
 
 def parse_config(path: Path) -> Config:
+    return yaml.safe_load(path.open())
 
-    raw_config = yaml.safe_load(path.open())
 
+def run_hooks(config: Config) -> Config:
     def _run_hooks(v):
         if isinstance(v, dict) and "hook" in v:
             hook = load_hook(get_in(["hook", "name"], v))
@@ -43,10 +44,10 @@ def parse_config(path: Path) -> Config:
             return v
 
     try:
-        config = {k: valmap(_run_hooks, v) for k, v in raw_config.items()}
+        config = {k: valmap(_run_hooks, v) for k, v in config.items()}
         logging.debug(f"Parsed config: {config}")
     except HookError as e:
-        e.args = (*e.args, f"in file: {str(path)}")
+        e.args = (*e.args, f"in config: {str(config)}")
         raise
 
     return config

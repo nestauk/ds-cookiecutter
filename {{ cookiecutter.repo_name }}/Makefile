@@ -45,7 +45,7 @@ test-setup:
 	@$(call execute_in_env, python bin/check_metaflow_aws.py || echo "ERROR: Metaflow+AWS configuration")
 
 	@# Run Flow
-	@$(call execute_in_env, python -m flowrider "example/example_flow" --tag local)
+	@$(call execute_in_env, python flowrider.py "example/example_flow" --tag local)
 
 	@# Flow getters
 	@$(call execute_in_env, python "${REPO_NAME}/getters/example.py")

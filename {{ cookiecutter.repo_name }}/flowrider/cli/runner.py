@@ -1,72 +1,45 @@
 """Utils to execute a metaflow w/ subprocess & update config w/ successful run ID's."""
-import importlib
 import json
 import logging
 import os
 import shutil
-from functools import partial
 from itertools import chain, repeat
 from pathlib import Path
 from shlex import quote
 from subprocess import CalledProcessError, run
-from typing import Any, Dict, Iterable, List
+from typing import Any, Dict, Iterable, List, Optional
 
-import toolz.curried as t
+import toolz as t
 
-from flowrider.config_parser import Config, parse_config
-
-
-SUFFIXES = ",".join(
-    [
-        ".py",  # Source files
-        ".yaml",  # Config
-        ".md",  # setup.py reads README.md
-        ".txt",  # E.g. requirements.txt
-        ".env.shared",  # Gets cookiecutter metadata
-    ]
-)
+from flowrider.config_parser import Config, parse_config, run_hooks
 
 
 __all__ = ["run_flow_from_config"]
 
 
-def run_flow_from_config(flow_subpath: str, tag: str, pkg_name: str) -> int:
+def run_flow_from_config(
+    flow_path: Path,
+    config_path: Path,
+    project_dir: Path,
+    config_extras: Dict[str, Any],
+) -> None:
     """Run flow parameterised by YAML config file.
 
-    Runs flow in `{pkg_name}.pipeline.{flow_subpath}` with config
-    from `config/pipeline/{flow_subpath}_{tag}.yaml` within the folder
-    that `pkg_name` is located.
+    Args: TODO
 
-    Args:
-        flow_subpath:
-        tag:
-        pkg_name:
-
-    Returns:
-        Metaflow run ID
+    Raises: CalledProcessError
     """
-    src_dir = Path(importlib.import_module(pkg_name).__file__).parent
-    project_dir = src_dir.parent
-
-    # Path to flow
-    flow_path = (src_dir / "pipeline" / flow_subpath).with_suffix(".py")
-    if not flow_path.exists():
-        raise FileNotFoundError(flow_path)
-
-    # Path to flow config
-    config_path = (
-        src_dir / "config" / "pipeline" / f"{flow_subpath}_{tag}"
-    ).with_suffix(".yaml")
-    if not config_path.exists():
-        raise FileNotFoundError(config_path)
 
     # Parse and enrich config
-    config = t.pipe(
+    extra_tags: List[str] = t.get("tags", config_extras, [])
+    extra_suffixes: List[str] = t.get("package-suffixes", config_extras, [])
+    config: Config = t.thread_first(
         config_path,
         parse_config,
-        partial(_add_run_id, config_path=config_path),
-        partial(_merge_package_suffixes, suffixes=SUFFIXES),
-        partial(_merge_tags, extra_tags=[src_dir.name]),
+        run_hooks,
+        (_add_run_id, config_path),
+        (_merge_package_suffixes, extra_suffixes),
+        (_merge_tags, extra_tags),
     )
     logging.info(f"CONFIG: {config}")
 
@@ -134,23 +107,29 @@ def _parse_options(options: Dict[str, Any]) -> Iterable[str]:
 
     `{"foo": {"data": [1.2, 3, "4"]}} => '--foo', '\'{"data": [1.2, 3, "4"]}\''`
     """
-    return t.pipe(
+    return t.thread_last(
         options,
-        t.itemmap(lambda item: (f"--{item[0]}", _serialise(item[1]))),
+        (t.itemmap, lambda item: (f"--{item[0]}", _serialise(item[1]))),
         lambda x: x.items(),
         chain.from_iterable,
-        t.map(quote),
+        (map, quote),
     )
 
 
 def _merge_tags(config: Config, extra_tags: List[str]) -> Config:
     """Mix tags from config["tags"] config["flow_kwargs"]["tag"] and extra_tags."""
-    tags = t.pipe(
-        config.get("tags", []) + [config["flow_kwargs"].pop("tag", ""), *extra_tags],
-        t.filter(None),
-        list,
+
+    extra_tags = list(
+        t.cons(t.get_in(["flow_kwargs", "tag"], config, None), extra_tags)
     )
-    return t.assoc(config, "tags", tags)
+    out = t.update_in(
+        config,
+        ["tags"],
+        lambda current: current + extra_tags,
+        [],
+    )
+    out["flow_kwargs"].pop("tag")  # Placed into top-level "tags" key
+    return out
 
 
 def _add_run_id(config: Config, config_path: Path) -> Config:
@@ -160,10 +139,18 @@ def _add_run_id(config: Config, config_path: Path) -> Config:
     )
 
 
-def _merge_package_suffixes(config: Config, suffixes: str) -> Config:
+def _merge_package_suffixes(
+    config: Config, suffixes: Optional[List[str]] = None
+) -> Config:
     """Merge any existing package-suffixes with the minimum required for bundling."""
-    if not isinstance(suffixes, str):
-        TypeError("Expected config['preflow_kwargs']['package-suffixes'] to be `str`")
+    if not isinstance(suffixes, list):
+        TypeError(
+            "Expected config['preflow_kwargs']['package-suffixes'] to be `List[str]`"
+        )
+
+    suffixes = suffixes or []
 
     keys = ["preflow_kwargs", "package-suffixes"]
-    return t.assoc_in(config, keys, t.get(config, keys, "") + suffixes)
+    return t.update_in(
+        config, keys, lambda current: ",".join([current, *suffixes]).strip(","), ""
+    )
