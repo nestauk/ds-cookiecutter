@@ -59,6 +59,7 @@ def run(
             ".md",  # setup.py reads README.md
             ".txt",  # E.g. requirements.txt
             ".env.shared",  # Gets cookiecutter metadata
+            "PKG-INFO",
         ],
     }
 
