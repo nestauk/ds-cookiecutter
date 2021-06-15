@@ -2,17 +2,10 @@
 
 Currently, `flowrider` is coupled to `ds-cookiecutter` in the following places:
 
-- `flowrider.cli.cli`: Typer CLI
+- `flowrider.py`: Typer CLI level with `flowrider/`
   1. Assumes the calling package is alongside `flowrider/` on the filesystem
   2. Assumes config in: `{PKG_NAME}/config/pipeline/{FLOW_SUBPATH}_{TAG}.yaml`
   3. Assumes flow in: `{PKG_NAME}/pipeline/{FLOW_SUBPATH}.py`
-- `flowrider.cli.runner`:
-  1. `run_flow_from_config`: Points 2 & 3 from `flowrider.cli.runner`
-  - **Can this be deferred to the caller?** Probably
-  2. `SUFFIXES` based on important cookiecutter files (and unique ones like `.env.shared`)
-- `flowrider.client.getter`:
-  - Points 2 & 3 from `flowrider.cli.runner`
-    - **Coupling necessary to provide convenience of an auto-getter**
 
 # Metaflow Gotchas and pain-points
 
@@ -72,7 +65,10 @@ flow_kwargs:
 
 ### Version control of Run ID's
 
-Writes successfull runs to `config/pipeline/{FLOW_SUBPATH}_{TAG}.run_id`
+Writes successfull runs alongside corresponding YAML with same filename but `.run_id` suffix.
+
+E.g. if YAML config is in `config/pipeline/example/example_flow_local.yaml` then `config/pipeline/example/example_flow_local.run_id` contains the last successful run ID corresponding to the running of that YAML config.
+
 
 ### Organising results
 
@@ -95,10 +91,14 @@ WARNING: If not running in a separate environment, e.g. using `environment: cond
 ```python
 from flowrider.metaflow_client import auto_getter
 from project_name.pipeline.example.example_flow import EnvironmentFlow
+import project_name
 
-tag, artifact = "dev", "info"
-auto_getter(EnvironmentFlow, tag, artifact, cache_strategy=None)  # No caching
-auto_getter(EnvironmentFlow, tag, artifact)  # Cached by default with `flowrider.cache.cache_getter_fn`
+artifact = "info"
+config_path = "config/pipeline/example/example_flow_local.yaml"
+MODULE = project_name
+
+auto_getter(EnvironmentFlow, config_path, artifact, MODULE, cache_strategy=None)  # No caching
+auto_getter(EnvironmentFlow, config_path, artifact, MODULE)  # Cached by default with `flowrider.cache.cache_getter_fn`
 ```
 
 Getters are cached (via. pickle) based on:
@@ -118,4 +118,4 @@ By default in your systems temporary directory, e.g. `/tmp/`, but can be overwri
   - Pass through other commands to metaflow? `--` syntax?
     - E.g. `flowrider example/example_flow -- show` runs `python .../pipeline/example/example_flow.py show`
 
-- `flowrider.client.getter.auto_getter` won't work for Flows outside the project! (e.g. `ds-utils`)
+- `flowrider.client.getter.auto_getter` untested for Flows outside the project! (e.g. `ds-utils`)
