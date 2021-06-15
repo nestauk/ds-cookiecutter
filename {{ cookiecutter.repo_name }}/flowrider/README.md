@@ -1,3 +1,32 @@
+# Coupling to ds-cookiecutter
+
+Currently, `flowrider` is coupled to `ds-cookiecutter` in the following places:
+
+- `flowrider.cli.cli`: Typer CLI
+  1. Assumes the calling package is alongside `flowrider/` on the filesystem
+  2. Assumes config in: `{PKG_NAME}/config/pipeline/{FLOW_SUBPATH}_{TAG}.yaml`
+  3. Assumes flow in: `{PKG_NAME}/pipeline/{FLOW_SUBPATH}.py`
+- `flowrider.cli.runner`:
+  1. `run_flow_from_config`: Points 2 & 3 from `flowrider.cli.runner`
+  - **Can this be deferred to the caller?** Probably
+  2. `SUFFIXES` based on important cookiecutter files (and unique ones like `.env.shared`)
+- `flowrider.client.getter`:
+  - Points 2 & 3 from `flowrider.cli.runner`
+    - **Coupling necessary to provide convenience of an auto-getter**
+
+# Metaflow Gotchas and pain-points
+
+- Painful CLI experience - Passing many options is cumbersome
+  - **Solution:** YAML-based config + CLI wrapper
+- No mechanism for "runtime injection"
+  - **Solution:** Config "hooks"
+- Metaflow only packages file/folders at or below the flow in the file hierarchy meaning project-level utilities cannot be shared in separate conda/batch environments
+  - **Solution:**
+    - CLI wrapper temporarily copies (and executes) flow to project base directory
+    - `flowrider.decorators.son_of_a_batch` install project requirements
+- Can't install pip-only dependencies for a flow/step
+  - **Solution:** `flowrider.decorators.pip`
+
 # Features
 
 ## CLI
@@ -83,7 +112,10 @@ By default in your systems temporary directory, e.g. `/tmp/`, but can be overwri
 # TODO
 
 - CLI tool polish
+
   - Docs
   - Resume functionality?
   - Pass through other commands to metaflow? `--` syntax?
     - E.g. `flowrider example/example_flow -- show` runs `python .../pipeline/example/example_flow.py show`
+
+- `flowrider.client.getter.auto_getter` won't work for Flows outside the project! (e.g. `ds-utils`)

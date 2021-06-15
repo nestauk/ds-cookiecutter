@@ -38,7 +38,7 @@ def parse_config(path: Path) -> Config:
             args = get_in(["hook", "args"], v, [])
             kwargs = get_in(["hook", "kwargs"], v, {})
             logging.debug(hook, args, kwargs)
-            return hook(*args, **kwargs)  # TODO: TypeError: missing args
+            return hook(*args, **kwargs)
         else:
             return v
 

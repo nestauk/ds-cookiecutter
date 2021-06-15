@@ -13,6 +13,8 @@ def son_of_a_batch(cls: Callable[..., Any]) -> Callable[[Callable[..., Any]], An
 
     @functools.wraps(cls)
     def inner(*args, **kwargs):
+        # TODO: what if no setup.py exists (e.g. if not run with `flowrider` CLI)
+
         # If pkg not already installed (i.e. running in batch or meta-conda) then do it
         pkg_name = subprocess.getoutput(f"{sys.executable} setup.py --name")
         if not is_pkg_installed(pkg_name):

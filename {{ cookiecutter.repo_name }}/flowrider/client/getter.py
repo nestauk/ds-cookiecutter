@@ -54,6 +54,9 @@ def auto_getter(
     # flow_name -> "EnvironmentFlow"
     # src_dir -> /tmp/project_name
 
+    # TODO: what if `flow` comes from a different module?
+    # XXX: !!!!
+
     run_id = load_run_id(_run_id_path(flow_subpath, tag, src_dir))
 
     @cache_strategy
