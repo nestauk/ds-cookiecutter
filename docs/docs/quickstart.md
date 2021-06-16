@@ -4,10 +4,13 @@
 
 - Python 3.6+
 - A \*NIX system (e.g. Linux/macOS) - Windows might work, but we don't support it
-    - Mac users: The commands below assume you have [homebrew](https://brew.sh/) installed
+    - Mac users should also install:
+      - [homebrew](https://brew.sh/)
+      - [GNU coreutils](https://www.gnu.org/software/coreutils) - `brew install coreutils`.
+- [Conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html)
 - [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
 ```bash
-pip install cookiecutter
+pip install cookiecutter  # might be pip3 on your machine
 ```
 - [git-crypt](https://github.com/AGWA/git-crypt) - required for metaflow on AWS
 ```bash
@@ -35,11 +38,13 @@ apt-get install -y git-crypt  # Ubuntu linux:
 
         In addition you should set the default region name to `eu-west-2` and the default output format to `None`.
 
+        Reference: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config
 
 
 
 
-We recommend taking the time to install and configure the optional dependencies as this one-time setup allows you to use the `auto_config` option which should save you a lot of time and avoids human error during configuration.
+
+We recommend taking the time to install and configure the optional dependencies as this one-time setup allows you to use the `make init` command which saves a lot of time and avoids human error during configuration.
 
 ## Starting from scratch
 
@@ -85,7 +90,7 @@ This opens a series of prompts to configure your new project (values in square b
     - Manually create a github repository (or run `bash bin/create_repo.sh`)
 
 When you change directory to your created project folder, you will see that you are in a git branch `0_setup_cookiecutter`.
-Make any tweaks to the cookiecutter required by your project ([see FAQ](../faq/#what-customisations-can-i-make-when-setting-up-the-cookiecutter-without-defeating-the-point-of-having-a-standard-project-template)), commit then and then make a Pull Request to `dev`.
+Make any tweaks to the cookiecutter required by your project ([see FAQ](../faq/#what-customisations-can-i-make-when-setting-up-the-cookiecutter-without-defeating-the-point-of-having-a-standard-project-template)), commit, and then make a Pull Request to `dev`.
 
 ## Collaborating on an existing project
 
