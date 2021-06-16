@@ -16,10 +16,8 @@ git push --all
 # Set:
 # - default branch to `dev`
 # - squash merge as only option
-gh api -X PATCH\
--F default_branch=dev\
--F allow_merge_commit=false\
--F allow_rebase_merge=false\
-"repos/$GITHUB_ACCOUNT/$PROJECT_NAME" --silent
-
-git remote add origin "git@github.com:$GITHUB_ACCOUNT/$PROJECT_NAME"
+gh api --silent -X PATCH \
+-F default_branch=dev \
+-F allow_merge_commit=false \
+-F allow_rebase_merge=false \
+"repos/$GITHUB_ACCOUNT/$PROJECT_NAME"
