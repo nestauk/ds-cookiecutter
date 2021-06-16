@@ -21,5 +21,3 @@ gh api --silent -X PATCH \
 -F allow_merge_commit=false \
 -F allow_rebase_merge=false \
 "repos/$GITHUB_ACCOUNT/$PROJECT_NAME"
-
-git remote add origin "git@github.com:$GITHUB_ACCOUNT/$PROJECT_NAME"
