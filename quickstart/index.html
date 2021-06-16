@@ -500,11 +500,14 @@
 <ul>
 <li>Python 3.6+</li>
 <li>A *NIX system (e.g. Linux/macOS) - Windows might work, but we don't support it<ul>
-<li>Mac users: The commands below assume you have <a href="https://brew.sh/">homebrew</a> installed</li>
+<li>Mac users should also install:</li>
+<li><a href="https://brew.sh/">homebrew</a></li>
+<li><a href="https://www.gnu.org/software/coreutils">GNU coreutils</a> - <code>brew install coreutils</code>.</li>
 </ul>
 </li>
+<li><a href="https://conda.io/projects/conda/en/latest/user-guide/install/index.html">Conda</a></li>
 <li><a href="http://cookiecutter.readthedocs.org/en/latest/installation.html">Cookiecutter Python package</a> &gt;= 1.4.0:
-<div class="highlight"><pre><span></span><code>pip install cookiecutter
+<div class="highlight"><pre><span></span><code>pip install cookiecutter  <span class="c1"># might be pip3 on your machine</span>
 </code></pre></div></li>
 <li><a href="https://github.com/AGWA/git-crypt">git-crypt</a> - required for metaflow on AWS
 <div class="highlight"><pre><span></span><code>brew install git-crypt  <span class="c1"># mac</span>
@@ -532,10 +535,11 @@ apt-get install -y git-crypt  <span class="c1"># Ubuntu linux:</span>
 <details class="info"><summary>How do I do this?</summary><p>Fetch (or generate) <a href="https://console.aws.amazon.com/iam/home?#security_credential">security credentials from the AWS dashboard</a> by clicking "Create access key".</p>
 <p>(In an environment with <code>awscli</code> installed via. pip/conda) Run <code>aws configure</code>, inputting the access key ID and secret access key ID you just generated when prompted.</p>
 <p>In addition you should set the default region name to <code>eu-west-2</code> and the default output format to <code>None</code>.</p>
+<p>Reference: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config</p>
 </details>
 </li>
 </ul>
-<p>We recommend taking the time to install and configure the optional dependencies as this one-time setup allows you to use the <code>auto_config</code> option which should save you a lot of time and avoids human error during configuration.</p>
+<p>We recommend taking the time to install and configure the optional dependencies as this one-time setup allows you to use the <code>make init</code> command which saves a lot of time and avoids human error during configuration.</p>
 <h2 id="starting-from-scratch">Starting from scratch<a class="headerlink" href="#starting-from-scratch" title="Permanent link">&para;</a></h2>
 <h3 id="create">Create<a class="headerlink" href="#create" title="Permanent link">&para;</a></h3>
 <p>Ensure you have installed the <a href="#Requirements">requirements</a> and then run <code>cookiecutter https://github.com/nestauk/ds-cookiecutter</code>.</p>
@@ -593,7 +597,7 @@ apt-get install -y git-crypt  <span class="c1"># Ubuntu linux:</span>
 </li>
 </ul>
 <p>When you change directory to your created project folder, you will see that you are in a git branch <code>0_setup_cookiecutter</code>.
-Make any tweaks to the cookiecutter required by your project (<a href="../faq/#what-customisations-can-i-make-when-setting-up-the-cookiecutter-without-defeating-the-point-of-having-a-standard-project-template">see FAQ</a>), commit then and then make a Pull Request to <code>dev</code>.</p>
+Make any tweaks to the cookiecutter required by your project (<a href="../faq/#what-customisations-can-i-make-when-setting-up-the-cookiecutter-without-defeating-the-point-of-having-a-standard-project-template">see FAQ</a>), commit, and then make a Pull Request to <code>dev</code>.</p>
 <h2 id="collaborating-on-an-existing-project">Collaborating on an existing project<a class="headerlink" href="#collaborating-on-an-existing-project" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Clone the repository and <code>cd</code> into the repository.</li>
