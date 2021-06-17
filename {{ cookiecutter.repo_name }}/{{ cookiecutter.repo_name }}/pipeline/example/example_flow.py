@@ -4,7 +4,7 @@ import sys
 
 import metaflow as mf
 
-from flowrider.flow.decorators import son_of_a_batch
+from flowrider.flow.decorators import install_reqs
 
 
 def deployment_info(context):
@@ -12,14 +12,14 @@ def deployment_info(context):
     return json.dumps({"ds_type": context.ds_type})
 
 
-# @son_of_a_batch  # works as a class / step decorator - step is more efficient
+# @install_reqs  # works as a class / step decorator - step is more efficient
 class EnvironmentFlow(mf.FlowSpec):
     info = mf.Parameter("deployment_info", type=mf.JSONType, default=deployment_info)
 
     from flowrider.flow.decorators import pip
 
     # @mf.conda(libraries={"s3fs": ">0"})
-    @son_of_a_batch
+    @install_reqs
     @pip(libraries={"tqdm": None})
     @mf.step
     def start(self):

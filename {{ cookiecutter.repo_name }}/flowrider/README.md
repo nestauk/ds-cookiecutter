@@ -16,7 +16,7 @@ Currently, `flowrider` is coupled to `ds-cookiecutter` in the following places:
 - Metaflow only packages file/folders at or below the flow in the file hierarchy meaning project-level utilities cannot be shared in separate conda/batch environments
   - **Solution:**
     - CLI wrapper temporarily copies (and executes) flow to project base directory
-    - `flowrider.decorators.son_of_a_batch` install project requirements
+    - `flowrider.decorators.install_reqs` install project requirements
 - Can't install pip-only dependencies for a flow/step
   - **Solution:** `flowrider.decorators.pip`
 
@@ -61,7 +61,7 @@ flow_kwargs:
 
 - Copies project to a temporary directory
 - Copies flow file to base of project directory s.t. can bootstrap extra ops with `flowrider.decorators.*`
-  - E.g. decorating Flow class with `flowrider.decorators.son_of_a_batch` to install package requirements from `requirements.txt`
+  - E.g. decorating Flow class with `flowrider.decorators.install_reqs` to install package requirements from `requirements.txt`
 
 ### Version control of Run ID's
 
@@ -75,7 +75,7 @@ Adds tag based on `REPO_NAME` of project
 
 ## Decorators
 
-### `flowrider.decorators.son_of_a_batch`
+### `flowrider.decorators.install_reqs`
 
 Installs your cookiecutter "package" (and its `requirements.txt`) in whatever environment the flow is running in.
 

@@ -8,7 +8,7 @@ from typing import Any, Callable, Dict
 from flowrider.utils import is_pkg_installed
 
 
-def son_of_a_batch(cls: Callable[..., Any]) -> Callable[[Callable[..., Any]], Any]:
+def install_reqs(cls: Callable[..., Any]) -> Callable[[Callable[..., Any]], Any]:
     """Install local package."""
 
     @functools.wraps(cls)
