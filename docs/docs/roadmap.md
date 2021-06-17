@@ -61,7 +61,11 @@ This has the benefit of ensuring documentation stays up to date, and provides th
 
 ## CI/CD
 
-Use Github actions to: - Automatically build a Docker container of the project - Automatically run tests - Perform `pre-commit` actions on the server to guard against user error
+Use Github actions to:
+
+-   Automatically build a Docker container of the project
+-   Automatically run tests
+-   Perform `pre-commit` actions on the server to guard against user error
 
 ## Configuration
 

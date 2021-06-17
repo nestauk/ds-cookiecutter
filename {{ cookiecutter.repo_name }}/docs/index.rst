@@ -4,7 +4,7 @@
 
    api/{{ cookiecutter.repo_name }}
    License <license>
-   Github <https://github.com/nestauk/{{ cookiecutter.project_name }}/>
+   Github <https://github.com/{{ cookiecutter.github_account }}/{{ cookiecutter.repo_name }}/>
 
 {{ cookiecutter.project_name }}
 ===============================

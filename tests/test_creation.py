@@ -2,6 +2,8 @@ import os
 import re
 import sys
 from contextlib import contextmanager
+from glob import glob
+from pathlib import Path
 from subprocess import CalledProcessError, check_output
 from typing import List
 
@@ -107,7 +109,8 @@ class TestCookieSetup(object):
             "",
             ".git",
             ".github",
-            "bin",
+            ".cookiecutter",
+            ".cookiecutter/scripts",
             "docs",
             "inputs",
             "inputs/data",
@@ -148,22 +151,26 @@ class TestCookieSetup(object):
     @pytest.mark.usefixtures("conda_env")
     def test_conda(self):
         """Test conda environment is created."""
-        repo_name = pytest.param.get("repo_name")
 
         with ch_dir(self.path):
-            p = shell(["make", "conda-create"])
-            assert (
-                p[-1] == f"Created environment {repo_name}"
-            ), "Could not make Conda env"
-            assert self.env_path.exists()
+            try:
+                p = shell(["make", "conda-create"])
+                assert " done" in p[-1]
+                assert self.env_path.exists()
 
-            # Add an extra pip dependency
-            check_output(["echo", "nuts_finder", ">>", "requirements.txt"])
-            p = shell(["make", "conda-update"])
+                # Add an extra pip dependency
+                check_output(["echo", "nuts_finder", ">>", "requirements.txt"])
+                p = shell(["make", "conda-update"])
 
-            # Add an extra conda dependency
-            check_output(["echo", "  - tqdm", ">>", "environment.yaml"])
-            p = shell(["make", "conda-update"])
+                # Add an extra conda dependency
+                check_output(["echo", "  - tqdm", ">>", "environment.yaml"])
+                p = shell(["make", "conda-update"])
+            except CalledProcessError:
+                log_path = Path(".cookiecutter-logs/conda-create.log")
+                if log_path.exists():
+                    with log_path.open() as f:
+                        print("conda-create.log:\n", f.read())
+                raise
 
     def test_git(self):
         """Test expected git branches exist."""
@@ -176,12 +183,18 @@ class TestCookieSetup(object):
     def test_all(self):
         """Test `make test-setup` command."""
         with ch_dir(self.path):
-            shell(["make", "install"])
-            p = shell(["make", "test-setup", "IN_PYTEST=true"])
-            print(p)
-            assert "In test-suite: Skipping S3 checks" in p
-            assert "In test-suite: Skipping Github checks" in p
-            assert all(("ERROR:" not in line for line in p))
+            try:
+                shell(["make", "install"])
+                p = shell(["make", "test-setup", "IN_PYTEST=true"])
+                print(p)
+                assert "In test-suite: Skipping S3 checks" in p
+                assert "In test-suite: Skipping Github checks" in p
+                assert all(("ERROR:" not in line for line in p))
+            except CalledProcessError:
+                for log_path in glob(".cookiecutter-logs/*.log"):
+                    with open(log_path) as f:
+                        print("log_path:\n", f.read())
+                raise
 
 
 def shell(cmd: List[str]) -> List[str]:

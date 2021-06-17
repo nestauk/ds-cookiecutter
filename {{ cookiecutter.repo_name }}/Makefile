@@ -8,8 +8,7 @@ else
 	OPEN=open
 endif
 
-# AWS Profile
-PROFILE = default
+AWS_PROFILE ?= default
 
 # Export all environment variables
 export
@@ -20,12 +19,31 @@ $(shell touch .env)
 include .env
 
 # Allow us to execute make commands from within our project's conda env
-# TODO: add over-ride based on some environment variable?
-#       e.g. `MAKE_NO_ENV` in `.env` set makes this do nothing
+# and with bash utilities available
 define execute_in_env
-	source bin/conda_activate.sh && conda_activate && $1
+	source .cookiecutter/scripts/import.sh && conda_activate ${REPO_NAME} && $1
 endef
 
+# Wrapper command for setup commands
+# Usage: $(call setup_command, pre_msg, cmd, err_msg)
+define setup_command
+	#@ Print `pre_msg`
+    @echo -n $1...
+
+	#@ Notify we are skipping if state file exists
+	test -f ".cookiecutter/state/$@" && echo " .cookiecutter/state/$@ exists, skipping $@" || true
+
+	#@ Run `cmd` (redirecting to log file) if state file doesn't exist:
+	#@   - on success, notify and create state file
+	#@   - on error, notify with `err_msg` and exit 1
+	test ! -f ".cookiecutter/state/$@" && \
+		($2 > .cookiecutter/logs/$@.log 2>&1 || \
+		(echo "$3, check .cookiecutter/logs/$@.log for more info" && exit 1)) && \
+		echo " done" && \
+		touch ".cookiecutter/state/$@" \
+		|| true
+endef
+$(shell mkdir -p .cookiecutter/state .cookiecutter/logs)
 
 
 .PHONY: test-setup
@@ -35,22 +53,24 @@ test-setup:
 
 	@# Checking S3
 	@$(call execute_in_env, (test '${IN_PYTEST}' && echo 'In test-suite: Skipping S3 checks') ||\
-	 aws s3 ls s3://${BUCKET} &> /dev/null || echo "ERROR: No bucket")
+	 aws s3 ls s3://${BUCKET} > /dev/null 2>&1 || echo "ERROR: No bucket")
 
 	@# Github
 	@(test '${IN_PYTEST}' && echo 'In test-suite: Skipping Github checks') ||\
-	 git ls-remote &> /dev/null || echo "ERROR: No Git remote"
+	 git ls-remote > /dev/null 2>&1 || echo "ERROR: No Git remote"
 
 	@# Pre-commit valid
 	@$(call execute_in_env, pre-commit run -a)
 
 	@# Metaflow
-	@$(call execute_in_env, python bin/check_metaflow_aws.py || echo "ERROR: Metaflow+AWS configuration")
+	@$(call execute_in_env, python .cookiecutter/scripts/check_metaflow_aws.py || echo "ERROR: Metaflow+AWS configuration")
 
 .PHONY: init
 ## Fully initialise a project: install; setup github repo; setup S3 bucket
-init: install setup-github setup-bucket
-	@echo INIT COMPLETE
+init: install
+	@$(MAKE) -s setup-bucket
+	@$(MAKE) -s setup-github
+	@echo PROJECT SETUP COMPLETE
 
 .PHONY: install
 ## Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS
@@ -59,12 +79,12 @@ install: conda-create setup-git setup-metaflow
 .PHONY: inputs-pull
 ## Pull `inputs/` from S3
 inputs-pull:
-	$(call execute_in_env, aws s3 sync s3://${BUCKET}/inputs inputs --profile ${PROFILE})
+	$(call execute_in_env, aws s3 sync s3://${BUCKET}/inputs inputs --profile ${AWS_PROFILE})
 
 .PHONY: inputs-push
 ## Push `inputs/` to S3 (WARNING: this may overwrite existing files!)
 inputs-push:
-	$(call execute_in_env, aws s3 sync inputs s3://${BUCKET}/inputs  --profile ${PROFILE})
+	$(call execute_in_env, aws s3 sync inputs s3://${BUCKET}/inputs  --profile ${AWS_PROFILE})
 
 .PHONY: docs
 ## Build the API documentation
@@ -84,20 +104,19 @@ docs-open:
 	$(OPEN) docs/_build/index.html
 
 .PHONY: conda-create
-## Create a conda environment
-conda-create: .conda_exists
+## Create a conda environment and install the local package
+conda-create:
+	@$(call setup_command, \
+		"Creating environment ${REPO_NAME} and installing all dependencies", \
+		$(MAKE) -s conda-create-helper, \
+		"Environment creation failed")
 
-.conda_exists:
-	conda env create -q -n ${REPO_NAME} -f environment.yaml
-	$(MAKE) -s pip-install
-	touch .conda_exists
-	@echo Created environment ${REPO_NAME}
 
 .PHONY: conda-update
 ## Update the conda-environment based on changes to `environment.yaml`
 conda-update:
 	conda env update -n ${REPO_NAME} -f environment.yaml
-	$(MAKE) pip-install
+	$(MAKE) -s pip-install
 
 .PHONY: clean
 ## Delete all compiled Python files
@@ -118,29 +137,44 @@ lint:
 .PHONY: pip-install
 ## Install our package and requirements in editable mode (including development dependencies)
 pip-install:
-	$(call execute_in_env, pip install -e ".[dev]" --quiet)
+	@$(call execute_in_env, pip install -e ".[dev]")
 
 #################################################################################
 # Helper Commands (no need to explicitly document)                              #
 #################################################################################
 
+.PHONY: conda-create-helper
+conda-create-helper:
+	@conda env create -q -n ${REPO_NAME} -f environment.yaml
+	@$(MAKE) -s pip-install
+
 .PHONY: setup-git
 setup-git:
-	$(call execute_in_env, pre-commit install --install-hooks)
+	@$(call setup_command, \
+		"Configuring git pre-commit hooks", \
+		$(call execute_in_env, pre-commit install --install-hooks), \
+		"Git pre-commit setup failed")
 
 .PHONY: setup-metaflow
 setup-metaflow:
-	$(call execute_in_env, ${SHELL} ./bin/install_metaflow_aws.sh)
+	@$(call setup_command, \
+		"Configuring Metaflow + AWS", \
+		$(call execute_in_env, get_metaflow_config), \
+		"AWS+Metaflow setup failed")
 
 .PHONY: setup-bucket
 setup-bucket:
-	@echo S3
-	$(call execute_in_env, ${SHELL} ./bin/create_bucket.sh)
+	@$(call setup_command, \
+		"Creating S3 bucket '${BUCKET}'", \
+		$(call execute_in_env, (create_bucket ${BUCKET} && make_bucket_private ${BUCKET})), \
+		"S3 bucket creation failed")
 
 .PHONY: setup-github
 setup-github:
-	@echo GH
-	$(call execute_in_env, ${SHELL} ./bin/create_repo.sh)
+	@$(call setup_command, \
+		"Creating and configuring Github repo '${GITHUB_ACCOUNT}/${REPO_NAME}'", \
+		$(call execute_in_env, create_gh_repo ${GITHUB_ACCOUNT} ${REPO_NAME} ${PROJECT_OPENNESS}), \
+		"Github repo creation failed")
 
 
 #################################################################################

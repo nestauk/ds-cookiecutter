@@ -1,3 +1,6 @@
+.cookiecutter/state/
+.cookiecutter/logs/
+
 *.lock
 
 # Proposed convention
