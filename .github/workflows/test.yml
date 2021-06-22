@@ -43,10 +43,6 @@ jobs:
         if: runner.os == 'macOS'
         run: sudo chown -R $UID $CONDA
 
-      - name: Build docs
-        run: |
-          cd docs
-          $CONDA/bin/python -m mkdocs build
 
       - name: Install Linux dependencies
         if: runner.os == 'Linux'
@@ -54,6 +50,11 @@ jobs:
           sudo apt-get update -y && sudo apt-get install -y git-crypt
           $CONDA/bin/python -m pip install --upgrade pip
           $CONDA/bin/python -m pip install -r requirements.txt
+
+      - name: Build docs
+        run: |
+          cd docs
+          $CONDA/bin/python -m mkdocs build
 
       - name: Git config
         run: |
