@@ -1,0 +1,15 @@
+categories:
+  - title: ":rocket: Features"
+    label: "enhancement"
+  - title: ":beetle: Fixes"
+    label: "bug"
+  - title: ":rotating_light: Testing"
+    label: "testing"
+  - title: ":books: Documentation"
+    label: "documentation"
+  - title: ":hammer: Refactoring"
+    label: "refactoring"
+template: |
+  ## What’s Changed
+
+  $CHANGES
