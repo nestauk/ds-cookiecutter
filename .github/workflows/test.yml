@@ -8,7 +8,12 @@ on:
 
 jobs:
   run_test:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+    runs-on: ${{ matrix.os }}
     name: Run pytest
     steps:
       - name: Checkout
@@ -26,7 +31,25 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install dependencies
+      - name: Install Mac dependencies
+        if: runner.os == 'macOS'
+        run: |
+          brew install git-crypt coreutils
+          $CONDA/bin/python -m pip install --upgrade pip
+          $CONDA/bin/python -m pip install -r requirements.txt
+          conda config --add channels conda-forge
+
+      - name: Fix Conda permissions on macOS
+        if: runner.os == 'macOS'
+        run: sudo chown -R $UID $CONDA
+
+      - name: Build docs
+        run: |
+          cd docs
+          $CONDA/bin/python -m mkdocs build
+
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
         run: |
           sudo apt-get update -y && sudo apt-get install -y git-crypt
           $CONDA/bin/python -m pip install --upgrade pip
@@ -51,9 +74,4 @@ jobs:
 
       - name: Run pytest
         run: |
-          $CONDA/bin/pytest
-
-      - name: Build docs
-        run: |
-          cd docs
-          $CONDA/bin/mkdocs build
+          $CONDA/bin/python -m pytest
