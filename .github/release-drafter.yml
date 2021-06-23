@@ -10,6 +10,8 @@ version-resolver:
       - "patch"
   default: patch
 categories:
+  - title: ":boom: Breaking changes"
+    label: "major"
   - title: ":rocket: Features"
     label: "enhancement"
   - title: ":beetle: Fixes"

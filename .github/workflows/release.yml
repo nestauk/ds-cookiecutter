@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
+      - 97_release_test_2
       - master
 
 jobs:
