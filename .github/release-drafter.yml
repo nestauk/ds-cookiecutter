@@ -1,3 +1,15 @@
+autolabeler:
+  - label: 'documentation'
+    files:
+      - 'docs/**'
+      - '*.md'
+    branch:
+      - '/docs{0,1}\/.+/'
+  - label: 'bug'
+    branch:
+      - '/fix\/.+/'
+    title:
+      - '/fix/i'
 version-resolver:
   major:
     labels:
