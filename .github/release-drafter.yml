@@ -1,3 +1,5 @@
+tag-template: "v$RESOLVED_VERSION"
+name-template: "v$RESOLVED_VERSION"
 autolabeler:
   - label: 'documentation'
     files:
