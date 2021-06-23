@@ -28,3 +28,12 @@
 - name: help wanted
   description: Extra attention is needed
   color: 008672
+- name: major
+  description: Major version increment
+  color: "000000"
+- name: minor
+  description: Minor version increment
+  color: "000000"
+- name: patch
+  description: Patch version increment
+  color: "000000"

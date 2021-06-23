@@ -1,33 +1,21 @@
-name: Release
+name: Release Drafter
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - 95_release
       - master
 
 jobs:
   release:
-    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
 
-      - name: Detect and tag new version
-        id: check-version
-        uses: salsify/action-detect-and-tag-new-version@v2.0.1
-        with:
-          version-command: |
-            bash -o pipefail -c "git rev-parse --short HEAD"
-
-      - name: Publish the release notes
+      - name: Draft the release notes
         uses: release-drafter/release-drafter@v5.15.0
-        with:
-          publish: ${{ steps.check-version.outputs.tag != '' }}
-          tag: ${{ steps.check-version.outputs.tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          publish: false

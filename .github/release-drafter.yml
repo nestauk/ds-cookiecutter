@@ -1,3 +1,14 @@
+version-resolver:
+  major:
+    labels:
+      - "major"
+  minor:
+    labels:
+      - "minor"
+  patch:
+    labels:
+      - "patch"
+  default: patch
 categories:
   - title: ":rocket: Features"
     label: "enhancement"
