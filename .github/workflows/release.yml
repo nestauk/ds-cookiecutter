@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - master
-      - 97_release_test
 
 jobs:
   release:
@@ -14,21 +13,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # - name: Calver Release
-      #   uses: StephaneBour/actions-calver@master
-      #   id: calver
-      #   with:
-      #     name: ${NEXT_RELEASE}
-      #     date_format: "%Y.%m.%V"
-      #     draft: true
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish the release notes
+      - name: Draft the release notes
         uses: release-drafter/release-drafter@v5.15.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # VERSION: ${{ steps.calver.outputs.release }}
         with:
-          # tag: ${{ steps.calver.outputs.release }}
           publish: false

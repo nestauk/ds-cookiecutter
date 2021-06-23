@@ -1,14 +1,15 @@
 version-resolver:
   major:
     labels:
-      - 'major'
+      - "major"
   minor:
     labels:
-      - 'minor'
+      - "minor"
   patch:
     labels:
-      - 'patch'
-  default: patchcategories:
+      - "patch"
+  default: patch
+categories:
   - title: ":rocket: Features"
     label: "enhancement"
   - title: ":beetle: Fixes"
