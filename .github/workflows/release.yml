@@ -20,7 +20,7 @@ jobs:
         with:
           name: ${NEXT_RELEASE}
           date_format: "%Y-%m-%d"
-          release: false
+          draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -31,5 +31,4 @@ jobs:
           VERSION: ${{ steps.calver.outputs.release }}
         with:
           tag: ${VERSION}
-          version: ${VERSION}
           publish: false
