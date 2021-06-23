@@ -26,9 +26,10 @@ jobs:
 
       - name: Publish the release notes
         uses: release-drafter/release-drafter@v5.15.0
-        env:
-          VERSION: ${{ steps.calver.outputs.release }}
         with:
           tag: ${VERSION}
+          version: ${VERSION}
+          publish: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.calver.outputs.release }}
