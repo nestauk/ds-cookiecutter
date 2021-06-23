@@ -1,3 +1,17 @@
+tag-template: "v$RESOLVED_VERSION"
+name-template: "v$RESOLVED_VERSION"
+autolabeler:
+  - label: 'documentation'
+    files:
+      - 'docs/**'
+      - '*.md'
+    branch:
+      - '/docs{0,1}\/.+/'
+  - label: 'bug'
+    branch:
+      - '/fix\/.+/'
+    title:
+      - '/fix/i'
 version-resolver:
   major:
     labels:
@@ -10,6 +24,8 @@ version-resolver:
       - "patch"
   default: patch
 categories:
+  - title: ":boom: Breaking changes"
+    label: "major"
   - title: ":rocket: Features"
     label: "enhancement"
   - title: ":beetle: Fixes"
