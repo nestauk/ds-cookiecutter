@@ -1,33 +1,34 @@
-name: Release
+name: Release Drafter
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - 95_release
       - master
+      - 97_release_test
 
 jobs:
   release:
-    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
 
-      - name: Detect and tag new version
-        id: check-version
-        uses: salsify/action-detect-and-tag-new-version@v2.0.1
+      - name: Calver Release
+        uses: StephaneBour/actions-calver@master
+        id: calver
         with:
-          version-command: |
-            bash -o pipefail -c "git rev-parse --short HEAD"
+          name: ${NEXT_RELEASE}
+          date_format: "%Y-%m-%d"
+          release: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish the release notes
         uses: release-drafter/release-drafter@v5.15.0
+        env:
+          VERSION: ${{ steps.calver.outputs.release }}
         with:
-          publish: ${{ steps.check-version.outputs.tag != '' }}
-          tag: ${{ steps.check-version.outputs.tag }}
+          tag: ${VERSION}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
