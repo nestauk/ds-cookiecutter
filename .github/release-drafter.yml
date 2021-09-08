@@ -1,17 +1,17 @@
 tag-template: "v$RESOLVED_VERSION"
 name-template: "v$RESOLVED_VERSION"
 autolabeler:
-  - label: 'documentation'
+  - label: "documentation"
     files:
-      - 'docs/**'
-      - '*.md'
+      - "docs/**"
+      - "*.md"
     branch:
       - '/docs{0,1}\/.+/'
-  - label: 'bug'
+  - label: "bug"
     branch:
       - '/fix\/.+/'
     title:
-      - '/fix/i'
+      - "/fix/i"
 version-resolver:
   major:
     labels:

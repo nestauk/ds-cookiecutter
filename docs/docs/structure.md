@@ -21,19 +21,19 @@ Running `make` from the project base directory will document the commands availa
 ```nohighlight
 Available rules:
 
-clean               Delete all compiled Python files 
-conda-create        Create a conda environment 
-conda-update        Update the conda-environment based on changes to `environment.yaml` 
-docs                Build the API documentation 
-docs-clean          Clean the built API documentation 
-docs-open           Open the docs in the browser 
-init                Fully initialise a project: install; setup github repo; setup S3 bucket 
-inputs-pull         Pull `inputs/` from S3 
-inputs-push         Push `inputs/` to S3 (WARNING: this may overwrite existing files!) 
-install             Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS 
-lint                Run flake8 linting on repository 
-pip-install         Install our package and requirements in editable mode (including development dependencies) 
-pre-commit          Perform pre-commit actions 
+clean               Delete all compiled Python files
+conda-create        Create a conda environment
+conda-update        Update the conda-environment based on changes to `environment.yaml`
+docs                Build the API documentation
+docs-clean          Clean the built API documentation
+docs-open           Open the docs in the browser
+init                Fully initialise a project: install; setup github repo; setup S3 bucket
+inputs-pull         Pull `inputs/` from S3
+inputs-push         Push `inputs/` to S3 (WARNING: this may overwrite existing files!)
+install             Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS
+lint                Run flake8 linting on repository
+pip-install         Install our package and requirements in editable mode (including development dependencies)
+pre-commit          Perform pre-commit actions
 ```
 
 Where appropriate these make commands will automatically be run in the conda environment for a project.
@@ -46,16 +46,16 @@ The steps are specified in `.pre-commit-config.yaml`.
 
 Currently the steps that are taken are:
 
-- Run the [black](https://github.com/psf/black) code autoformatter
-    - This provides a consistent code style across a project and minimises messy git diffs (sometimes the code formatted by black may look "uglier" in places but this is the price we pay for having an industry standard with minimal cognitive burden)
-- Check that no large files were accidentally committed
-- Check that there are no merge conflict strings (e.g. `>>>>>`) lingering in files
-- Fix the end of files to work across operating systems
-- Trim trailing whitespace in files
-- Check Toml files are well formed
-- Check Yaml files are well formed
-- Check we are no committing directly to `dev`, `master`, or `main`
-- Run the prettier formatter (covers files such as Markdown/JSON/YAML/HTML)
+-   Run the [black](https://github.com/psf/black) code autoformatter
+    -   This provides a consistent code style across a project and minimises messy git diffs (sometimes the code formatted by black may look "uglier" in places but this is the price we pay for having an industry standard with minimal cognitive burden)
+-   Check that no large files were accidentally committed
+-   Check that there are no merge conflict strings (e.g. `>>>>>`) lingering in files
+-   Fix the end of files to work across operating systems
+-   Trim trailing whitespace in files
+-   Check Toml files are well formed
+-   Check Yaml files are well formed
+-   Check we are no committing directly to `dev`, `master`, or `main`
+-   Run the prettier formatter (covers files such as Markdown/JSON/YAML/HTML)
 
 **Warning:** You need to run `git commit` with your conda environment activated. This is because by default the packages used by pre-commit are installed into your project's conda environment. (note: `pre-commit install --install-hooks` will install the pre-commit hooks in the currently active environment).
 
@@ -66,42 +66,39 @@ You can already lint your code using (a quite opinionated) flake8 configuration 
 
 The first step in reproducing an analysis is always reproducing the computational environment it was run in. You need the same tools, the same libraries, and the same versions to make everything play nicely together.
 
-By listing all of your requirements in the repository you can easily track the packages needed to recreate the analysis, but what tool should we use to do that? 
+By listing all of your requirements in the repository you can easily track the packages needed to recreate the analysis, but what tool should we use to do that?
 
 Whilst popular for scientific computing and data-science, [conda](https://docs.conda.io/en/latest/) poses problems for collaboration and packaging:
 
-- It is hard to reproduce a conda-environment across operating systems
-- It is hard to make your environment "pip-installable" if your environment is fully specified by conda
-
+-   It is hard to reproduce a conda-environment across operating systems
+-   It is hard to make your environment "pip-installable" if your environment is fully specified by conda
 
 ### Files
 
 Due to these difficulties, we recommend only using conda to create a virtual environment and list dependencies not available through `pip install` (one prominent example of this is `graph-tool`).
 
-- `environment.yaml` - Defines the base conda environment and any dependencies not "pip-installable".
+-   `environment.yaml` - Defines the base conda environment and any dependencies not "pip-installable".
 
-- `requirements.txt` - Defines the dependences required to run the code.
+-   `requirements.txt` - Defines the dependences required to run the code.
 
     If you need to add a dependency, chances are it goes here!
 
-- `requirements_dev.txt` - Defines development dependencies.
+-   `requirements_dev.txt` - Defines development dependencies.
 
     These are for dependencies that are needed during development but not needed to run the core code. For example, packages to build documentation, run tests, and `ipykernel` to run code in `jupyter` (It's likely that you never need to think about this file)
 
 ### Commands
 
-- `make conda-create` - Create a conda environment from `environment.yaml` and run `make pip-install`.
+-   `make conda-create` - Create a conda environment from `environment.yaml` and run `make pip-install`.
 
     Note: this is automatically called by `make install` and `make init` but exists as a stand-alone command in case you ever need it
 
-- `make conda-update` - Update an existing conda environment from `environment.yaml` and run `make pip-install`.
-- `make pip-install` - Install our package and requirements in editable mode (including development dependencies).
+-   `make conda-update` - Update an existing conda environment from `environment.yaml` and run `make pip-install`.
+-   `make pip-install` - Install our package and requirements in editable mode (including development dependencies).
 
 ### Roadmap
 
 See [roadmap](../roadmap) for plans on improving packaging and reproducibility with [Poetry](../roadmap#Poetry) and [Docker](../roadmap#Docker).
-
-
 
 ## Secrets and configuration - `.env.*` and `src/config/*`
 
@@ -111,7 +108,7 @@ You _really_ don't want to leak your AWS secret key or Postgres username and pas
 
 Create a `.env` file in the project root folder. Thanks to the `.gitignore`, this file should never get committed into the version control repository.
 
- Here's an example:
+Here's an example:
 
 ```nohighlight
 # example .env file
@@ -169,7 +166,6 @@ Instead use relative paths and make use of `src.PROJECT_DIR` which will return t
 
 See the [roadmap](../roadmap#Metaflow) for how `src/config` will be used to parameterise metaflow pipelines and version control their outputs.
 
-
 ## Data - `inputs/data`, `outputs/data`, `outputs/.cache`
 
 Firstly, don't version control data (inputs or outputs) in git, generally you should use s3 (directly or through metaflow) to manage your data.
@@ -182,10 +178,9 @@ Don't ever edit this raw data, especially not manually, and especially not in Ex
 
 Store it in [AWS S3](https://aws.amazon.com/s3/). When the project was configured, you will have been prompted for a `BUCKET` variable (now tracked in `.env.shared`). If you used the `auto_config` option, an S3 bucket will have been setup for you too.
 
-Two make commands - `make inputs-pull` and `make inputs-push` - can be used to push and pull data from the configured s3 bucket. 
+Two make commands - `make inputs-pull` and `make inputs-push` - can be used to push and pull data from the configured s3 bucket.
 
 ### `outputs/.cache/`
-
 
 This folder is for ephemeral data and any pipeline/analysis step should be runnable following the deletion of this folder's contents.
 
@@ -197,7 +192,6 @@ This folder should contain transformed/processed data that is to be used in the 
 
 Try to order this folder logically. For example, you may want subfolders organised by dataset, sections of analysis, or some other hierarchy that better captures your project.
 
-
 ## Fetching/loading data - `src/getters`
 
 This folder should contain modules and functions which load our data.
@@ -207,21 +201,21 @@ This means that peppering calls like `pd.read_csv("path/to/file", sep="\t", ...)
 
 Following this approach means:
 
-- If the format of `path/to/file` changes then we only have to make the change in one place
-- We avoid inconsistencies such as forgetting to read a column in as a `str` instead of an `int` and thus missing leading zeroes.
-- If we want to see what data is available, we have a folder in the project to go to and we let the code speak for itself as much as possible - e.g. the following is a lot more informative than an inline call to `pd.read_csv` like we had above
+-   If the format of `path/to/file` changes then we only have to make the change in one place
+-   We avoid inconsistencies such as forgetting to read a column in as a `str` instead of an `int` and thus missing leading zeroes.
+-   If we want to see what data is available, we have a folder in the project to go to and we let the code speak for itself as much as possible - e.g. the following is a lot more informative than an inline call to `pd.read_csv` like we had above
 
 ```python
     # File: getters/companies_house.py
     """Data getters for the companies house data.
-   
+
     Data source: https://download.companieshouse.gov.uk/en_output.html
     """
     import pandas as pd
 
     def get_sector() -> pd.DataFrame:
         """Load Companies House sector labels.
-        
+
         Returns:
             Sector information for ...
         """
@@ -236,15 +230,15 @@ On the [roadmap](../roadmap#Schema) is a speculative plan to explore the use of 
 
 This folder contains pipeline components. Put as much data-science as possible here.
 
-We recommend the use of [metaflow](https://docs.metaflow.org) to write these pipeline components. 
+We recommend the use of [metaflow](https://docs.metaflow.org) to write these pipeline components.
 
 In the coming months as we roll out [utilities and documentation to smooth out some of the rough edges of metaflow](../roadmap#Metaflow), this will become less of a recommendation and more of a stipulation.
 
 Using metaflow:
-- Gives us lightweight version control of data and models
-- Gives us easy access to AWS batch computing (including GPU machines)
-- Makes it easy to take data-science code into production
 
+-   Gives us lightweight version control of data and models
+-   Gives us easy access to AWS batch computing (including GPU machines)
+-   Makes it easy to take data-science code into production
 
 ## Shared utilities - `src/utils`
 
@@ -254,7 +248,7 @@ For example, this could be functions shared across different pieces of analysis 
 
 ### Roadmap
 
-Over time there should be a decreasing need to add things to `utils` as we begin to develop a  [data science utilities package (`ds-utils`)](../roadmap#`ds-utils`).
+Over time there should be a decreasing need to add things to `utils` as we begin to develop a [data science utilities package (`ds-utils`)](../roadmap#`ds-utils`).
 
 ## Analysis - `src/analysis`
 
@@ -267,7 +261,6 @@ It is important that plots are persisted to disk (in `outputs/figures`).
 ## Notebooks
 
 Notebook packages like [Jupyter notebook](http://jupyter.org/) are effective tools for exploratory data analysis, fast prototyping, and communicating results; however, between prototyping and communicating results code should be factored out into proper python modules.
-
 
 ### Where does the humble notebook live?
 
@@ -288,7 +281,7 @@ To ensure jupytext works correctly you should start `jupyter` (notebook/lab) fro
 ### Refactoring
 
 Everybody likes to work differently. Some like to eagerly refactor, keeping as little in notebooks as possible (or even eschewing notebooks entirely);
- where as others prefer to keep everything in notebooks until the last minute.
+where as others prefer to keep everything in notebooks until the last minute.
 
 We do not require you to work one way or the other as long as by the time you submit a pull request (PR) for your feature everything is refactored into python modules.
 
@@ -299,12 +292,13 @@ A warning sign you've left it too late to refactor is if you've got duplicates o
 #### Tips
 
 Add the following to your notebook (or IPython REPL):
+
 ```
 %load_ext autoreload
 %autoreload 2
 ```
-Now when you save code in a python module, the notebook will automatically load in the latest changes without you having to restart the kernel, re-import the module etc.
 
+Now when you save code in a python module, the notebook will automatically load in the latest changes without you having to restart the kernel, re-import the module etc.
 
 When it comes to refactoring, open the python file [Jupytext](https://jupytext.readthedocs.io) pairs to your notebook in your editor of choice - now your notebook code is easily-readable and in the same environment you use to write python modules.
 
@@ -324,13 +318,12 @@ Run `python -m ipykernel install --user --name=<project environment name>` from 
 
 The advantages of this are:
 
-- You only have to configure `jupyter`/`jupyterlab` once
-- You will save disk-space
-- Faster install
-- Colleagues using other editors don't have to install heavy dependencies they don't use (you wouldn't be happy if someone sent you code that depended on VScode/pycharm/spyder)
+-   You only have to configure `jupyter`/`jupyterlab` once
+-   You will save disk-space
+-   Faster install
+-   Colleagues using other editors don't have to install heavy dependencies they don't use (you wouldn't be happy if someone sent you code that depended on VScode/pycharm/spyder)
 
 Note: `ipykernel` is also listed in `requirements_dev.txt` so you do not need to add it.
-
 
 ## Report - `outputs/reports`
 
@@ -365,8 +358,8 @@ We are [experimenting](../roadmap#Reporting) with a toolchain using [pandoc](htt
 │       └── __init__.py              |
 ├── docs                             |  DOCUMENTATION
 │   ├── conf.py                      |    Configures docs
-│   ├── index.rst                    |    
-│   └── license.rst                  |    
+│   ├── index.rst                    |
+│   └── license.rst                  |
 ├── environment.yaml                 |  CONDA ENVIRONMENT SPECIFICATION (optional component)
 ├── requirements.txt                 |  PYTHON DEPENDENCIES NEEDED TO RUN THE CODE
 ├── requirements_dev.txt             |  PYTHON DEV DEPENDENCIES (e.g. building docs/running tests)
@@ -375,7 +368,7 @@ We are [experimenting](../roadmap#Reporting) with a toolchain using [pandoc](htt
 │   ├── models                       |    Inputs that are models
 │   └── README.md                    |
 ├── jupytext.toml                    |  JUPYTEXT CONFIGURATION
-├── LICENSE                          |  
+├── LICENSE                          |
 ├── outputs                          |  OUTPUTS PRODUCED FROM THE PROJECT
 │   ├── data                         |    Data outputs (from running our code)
 │   ├── figures                      |    Figure outputs (from running our code)
@@ -383,7 +376,7 @@ We are [experimenting](../roadmap#Reporting) with a toolchain using [pandoc](htt
 │   ├── models                       |    Model outputs (from running our code)
 │   └── reports                      |    Reports about our code and the results of running it
 ├── Makefile                         |  TASKS TO COORDINATE PROJECT (`make` shows available commands)
-├── README.md                        |  
+├── README.md                        |
 ├── setup.py                         |  ALLOWS US TO PIP INSTALL src/
 ├── setup.cfg                        |  ADDITIONAL PROJECT CONFIGURATION, e.g. linting
 ├── .pre-commit-config.yaml          |  DEFINES CHECKS THAT MUST PASS BEFORE git commit SUCCEEDS

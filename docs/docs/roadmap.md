@@ -9,15 +9,15 @@ For example, you will be able to specify the following YAML file and then run a 
 ```yaml
 #file: src/config/pipeline/sic_classifier.yaml
 preflow_kwargs:
-  with: batch,cpu=8,memory=64000
+    with: batch,cpu=8,memory=64000
 flow_kwargs:
-  documents_path: inputs/data/descriptions.json
-  freeze-model: false
-  config:
-    encode:
-       add_special_tokens: true
-       max_length: 64
-       pad_to_max_length: true
+    documents_path: inputs/data/descriptions.json
+    freeze-model: false
+    config:
+        encode:
+            add_special_tokens: true
+            max_length: 64
+            pad_to_max_length: true
 ```
 
 Furthermore, successful runs will be tracked in version control allow data getters you write for metaflows to automatically fetch the right flow results.
@@ -36,8 +36,8 @@ After further refinement of this workflow and development of a simple report gen
 
 ## flake8
 
-- Identification of a suitable starting `flake8` configuration and a plan to phase in the number of cases handled by `flake8` (to avoid an overwhelming start).
-- Incorporation of `flake8` into the pre-commit hooks.
+-   Identification of a suitable starting `flake8` configuration and a plan to phase in the number of cases handled by `flake8` (to avoid an overwhelming start).
+-   Incorporation of `flake8` into the pre-commit hooks.
 
 Note: you can already lint your code using (a quite opinionated) flake8 configuration defined in `setup.cfg` by running `make lint`.
 
@@ -61,10 +61,7 @@ This has the benefit of ensuring documentation stays up to date, and provides th
 
 ## CI/CD
 
-Use Github actions to:
-    - Automatically build a Docker container of the project
-    - Automatically run tests
-    - Perform `pre-commit` actions on the server to guard against user error
+Use Github actions to: - Automatically build a Docker container of the project - Automatically run tests - Perform `pre-commit` actions on the server to guard against user error
 
 ## Configuration
 
