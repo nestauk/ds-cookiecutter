@@ -8,8 +8,6 @@ else
 	OPEN=open
 endif
 
-AWS_PROFILE ?= default
-
 # Export all environment variables
 export
 
@@ -31,17 +29,20 @@ define setup_command
     @echo -n $1...
 
 	#@ Notify we are skipping if state file exists
-	test -f ".cookiecutter/state/$@" && echo " .cookiecutter/state/$@ exists, skipping $@" || true
+	[ -f ".cookiecutter/state/$@" ] && echo " .cookiecutter/state/$@ exists, skipping $@" || true
 
 	#@ Run `cmd` (redirecting to log file) if state file doesn't exist:
 	#@   - on success, notify and create state file
 	#@   - on error, notify with `err_msg` and exit 1
-	test ! -f ".cookiecutter/state/$@" && \
+	[ ! -f ".cookiecutter/state/$@" ] && \
 		($2 > .cookiecutter/logs/$@.log 2>&1 || \
 		(echo "$3, check .cookiecutter/logs/$@.log for more info" && exit 1)) && \
 		echo " done" && \
 		touch ".cookiecutter/state/$@" \
 		|| true
+
+	#@ Raise error to exit make if `cmd` failed
+	[ ! -f ".cookiecutter/state/$@" ] && exit 1 || true
 endef
 $(shell mkdir -p .cookiecutter/state .cookiecutter/logs)
 
@@ -79,12 +80,12 @@ install: conda-create setup-git setup-metaflow
 .PHONY: inputs-pull
 ## Pull `inputs/` from S3
 inputs-pull:
-	$(call execute_in_env, aws s3 sync s3://${BUCKET}/inputs inputs --profile ${AWS_PROFILE})
+	$(call execute_in_env, aws s3 sync s3://${BUCKET}/inputs inputs)
 
 .PHONY: inputs-push
 ## Push `inputs/` to S3 (WARNING: this may overwrite existing files!)
 inputs-push:
-	$(call execute_in_env, aws s3 sync inputs s3://${BUCKET}/inputs  --profile ${AWS_PROFILE})
+	$(call execute_in_env, aws s3 sync inputs s3://${BUCKET}/inputs)
 
 .PHONY: docs
 ## Build the API documentation

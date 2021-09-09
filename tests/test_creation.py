@@ -166,7 +166,7 @@ class TestCookieSetup(object):
                 check_output(["echo", "  - tqdm", ">>", "environment.yaml"])
                 p = shell(["make", "conda-update"])
             except CalledProcessError:
-                log_path = Path(".cookiecutter-logs/conda-create.log")
+                log_path = Path(".cookiecutter/logs/conda-create.log")
                 if log_path.exists():
                     with log_path.open() as f:
                         print("conda-create.log:\n", f.read())
@@ -186,12 +186,11 @@ class TestCookieSetup(object):
             try:
                 shell(["make", "install"])
                 p = shell(["make", "test-setup", "IN_PYTEST=true"])
-                print(p)
                 assert "In test-suite: Skipping S3 checks" in p
                 assert "In test-suite: Skipping Github checks" in p
                 assert all(("ERROR:" not in line for line in p))
             except CalledProcessError:
-                for log_path in glob(".cookiecutter-logs/*.log"):
+                for log_path in glob(".cookiecutter/logs/*.log"):
                     with open(log_path) as f:
                         print("log_path:\n", f.read())
                 raise

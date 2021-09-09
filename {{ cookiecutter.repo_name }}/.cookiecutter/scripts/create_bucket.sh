@@ -1,9 +1,8 @@
 #!/bin/bash
 
 function create_bucket() {
-    set -euo pipefail
+    echo "Attempting creation of bucket $1 ..."
 
-    echo "Attempting creation of bucket $1 ...";
     aws s3api create-bucket\
     --bucket "$1"\
     --region eu-west-2\
@@ -12,9 +11,8 @@ function create_bucket() {
 }
 
 function make_bucket_private() {
-    set -euo pipefail
-
     echo "Configuring $1 to block all public access...";
+
     aws s3api put-public-access-block\
     --bucket "$1"\
     --public-access-block-configuration\
