@@ -2,6 +2,11 @@ name: Run Cookiecutter Tests
 
 on:
   workflow_dispatch:
+    inputs:
+      debug_enabled:
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'     
+        required: false
+        default: false
   push:
     branches:
       - 91_creation_error_improvements
