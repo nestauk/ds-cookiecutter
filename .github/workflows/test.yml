@@ -2,6 +2,9 @@ name: Run Cookiecutter Tests
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - 91_creation_error_improvements
   pull_request:
     branches:
       - master
