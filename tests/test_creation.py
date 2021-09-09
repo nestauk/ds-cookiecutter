@@ -202,13 +202,13 @@ def shell(cmd: List[str]) -> List[str]:
     try:
         p = [
             line.strip()
-            for line in check_output(cmd).decode("ascii").strip().splitlines()
+            for line in check_output(cmd).decode().strip().splitlines()
         ]
     except CalledProcessError as e:
-        [print(line) for line in (e.stdout or b"").decode("ascii").splitlines()]
+        [print(line) for line in (e.stdout or b"").decode().splitlines()]
         [
             print(line, file=sys.stderr)
-            for line in (e.stderr or b"").decode("ascii").splitlines()
+            for line in (e.stderr or b"").decode().splitlines()
         ]
         raise e
     return p
