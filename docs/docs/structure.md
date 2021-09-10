@@ -176,7 +176,7 @@ Put any data dependencies of your project that your code doesn't fetch here (E.g
 
 Don't ever edit this raw data, especially not manually, and especially not in Excel. Don't overwrite your raw data. Don't save multiple versions of the raw data. Treat the data (and its format) as immutable.
 
-Store it in [AWS S3](https://aws.amazon.com/s3/). When the project was configured, you will have been prompted for a `BUCKET` variable (now tracked in `.env.shared`).
+Store it in [AWS S3](https://aws.amazon.com/s3/). When the project was configured, you will have been prompted for a `s3_bucket` variable (now tracked in `.env.shared` as `BUCKET`).
 
 Two make commands - `make inputs-pull` and `make inputs-push` - can be used to push and pull data from the configured s3 bucket.
 

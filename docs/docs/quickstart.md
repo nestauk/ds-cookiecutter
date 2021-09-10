@@ -90,16 +90,16 @@ Run `make init` to perform the following steps:
 
 -   `install` - Required by everyone (creator and collaborators) this is itself composed of several sub-steps:
 
-    -   `conda-create` - Create a conda environment, `project_name`, and install the project package in editable mode and its dependencies
-    -   `setup-git` - Git pre-commit hooks have been configured and installed
+    -   Create a conda environment, `repo_name`, and install the project package in editable mode and its dependencies
+    -   Configure and install Git pre-commit hooks
 
         !!! warning inline end "Requires access to Nesta's AWS account"
 
-    -   `setup-metaflow` - The Nesta metaflow config has been fetched and decrypted.
+    -   Fetch and decrypt the Nesta Metaflow config.
         It should exist in `~/.metaflowconfig/config_ds-cookiecutter.json`
 
--   `setup-github` - A github repo `github.com/nestauk/project_name` has been created and configured
--   `setup-bucket` - An s3 bucket `project_name` has been created
+-   Create and configure a github repo `github.com/<github_account>/<repo_name>`.
+-   Create an S3 bucket `s3_bucket` has been created
 
 If you don't need a github repo or S3 bucket just run `make install`, you can always run the individual `make` commands later.
 
@@ -118,8 +118,8 @@ Make any tweaks to the cookiecutter required by your project ([see FAQ](../faq/#
 
 If you don't have access to an AWS account you can still use the cookiecutter, you just need to remove a few bits relating to our AWS setup:
 
--   Remove the `setup-metaflow` dependency of the `install` recipe within `Makefile`
--   Remove the call to `setup-bucket` of the `init` recipe within `Makefile`
--   Remove the `inputs-push` and `inputs-pull` recipes within `Makefile`
+-   Remove the `.cookiecutter/state/setup-metaflow` dependency of the `install` recipe within `Makefile` - the Nesta Metaflow config will no longer be fetched and decrypted
+-   Remove the `.cookiecutter/state/setup-bucket` dependency of the `init` recipe within `Makefile` - an S3 bucket will no longer be created
+-   Remove the `inputs-push` and `inputs-pull` recipes within `Makefile` - an S3 bucket doesn't exist for these commands to push from/pull to.
 
 If you're not using AWS then you do not require `awscli` and `gitcrypt` from the [requirements](#requirements).
