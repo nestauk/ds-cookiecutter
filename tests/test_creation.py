@@ -154,8 +154,8 @@ class TestCookieSetup(object):
 
         with ch_dir(self.path):
             try:
-                p = shell(["make", "conda-create"])
-                assert " done" in p[-1]
+                p = shell(["make", ".cookiecutter/state/conda-create"])
+                assert " DONE" in p[-1]
                 assert self.env_path.exists()
 
                 # Add an extra pip dependency
