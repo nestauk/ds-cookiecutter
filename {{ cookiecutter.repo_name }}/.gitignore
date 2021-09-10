@@ -1,5 +1,4 @@
 .cookiecutter/state/
-.cookiecutter/logs/
 
 *.lock
 
