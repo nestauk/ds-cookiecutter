@@ -1,4 +1,5 @@
 #!/bin/bash
+set -u
 
 function create_gh_repo() {
     GITHUB_ACCOUNT=$1
