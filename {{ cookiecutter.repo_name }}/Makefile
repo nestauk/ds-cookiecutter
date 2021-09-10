@@ -16,36 +16,8 @@ include .env.shared
 $(shell touch .env)
 include .env
 
-# Allow us to execute make commands from within our project's conda env
-# and with bash utilities available
-define execute_in_env
-	source .cookiecutter/scripts/import.sh && conda_activate ${REPO_NAME} && $1
-endef
-
-# Wrapper command for setup commands
-# Usage: $(call setup_command, pre_msg, cmd, err_msg)
-define setup_command
-	#@ Print `pre_msg`
-    @echo -n $1...
-
-	#@ Notify we are skipping if state file exists
-	[ -f ".cookiecutter/state/$@" ] && echo " .cookiecutter/state/$@ exists, skipping $@" || true
-
-	#@ Run `cmd` (redirecting to log file) if state file doesn't exist:
-	#@   - on success, notify and create state file
-	#@   - on error, notify with `err_msg` and exit 1
-	[ ! -f ".cookiecutter/state/$@" ] && \
-		($2 > .cookiecutter/logs/$@.log 2>&1 || \
-		(echo "$3, check .cookiecutter/logs/$@.log for more info" && exit 1)) && \
-		echo " done" && \
-		touch ".cookiecutter/state/$@" \
-		|| true
-
-	#@ Raise error to exit make if `cmd` failed
-	[ ! -f ".cookiecutter/state/$@" ] && exit 1 || true
-endef
-$(shell mkdir -p .cookiecutter/state .cookiecutter/logs)
-
+# Ensure directory to track and log setup state exists
+$(shell mkdir -p .cookiecutter/state)
 
 .PHONY: test-setup
 ## Test that everything has been setup
@@ -68,14 +40,12 @@ test-setup:
 
 .PHONY: init
 ## Fully initialise a project: install; setup github repo; setup S3 bucket
-init: install
-	@$(MAKE) -s setup-bucket
-	@$(MAKE) -s setup-github
-	@echo PROJECT SETUP COMPLETE
+init:  install .cookiecutter/state/setup-bucket .cookiecutter/state/setup-github
+	@echo SETUP COMPLETE
 
 .PHONY: install
 ## Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS
-install: conda-create setup-git setup-metaflow
+install: .cookiecutter/state/conda-create .cookiecutter/state/setup-git .cookiecutter/state/setup-metaflow
 
 .PHONY: inputs-pull
 ## Pull `inputs/` from S3
@@ -103,15 +73,6 @@ docs-clean:
 ## Open the docs in the browser
 docs-open:
 	$(OPEN) docs/_build/index.html
-
-.PHONY: conda-create
-## Create a conda environment and install the local package
-conda-create:
-	@$(call setup_command, \
-		"Creating environment ${REPO_NAME} and installing all dependencies", \
-		$(MAKE) -s conda-create-helper, \
-		"Environment creation failed")
-
 
 .PHONY: conda-update
 ## Update the conda-environment based on changes to `environment.yaml`
@@ -144,38 +105,64 @@ pip-install:
 # Helper Commands (no need to explicitly document)                              #
 #################################################################################
 
-.PHONY: conda-create-helper
-conda-create-helper:
-	@conda env create -q -n ${REPO_NAME} -f environment.yaml
-	@$(MAKE) -s pip-install
+define err
+	(echo "$1, check $@ for more info" && exit 1)
+endef
 
-.PHONY: setup-git
-setup-git:
-	@$(call setup_command, \
-		"Configuring git pre-commit hooks", \
-		$(call execute_in_env, pre-commit install --install-hooks), \
-		"Git pre-commit setup failed")
+# Allow us to execute make commands from within our project's conda env
+# and with bash utilities available
+define execute_in_env
+	source .cookiecutter/scripts/import.sh && conda_activate ${REPO_NAME} && $1
+endef
 
-.PHONY: setup-metaflow
-setup-metaflow:
-	@$(call setup_command, \
-		"Configuring Metaflow + AWS", \
-		$(call execute_in_env, get_metaflow_config), \
-		"AWS+Metaflow setup failed")
+.cookiecutter/state/conda-create:
+	@echo -n "Creating environment ${REPO_NAME} and installing all dependencies"
+	@(conda env create -q -n ${REPO_NAME} -f environment.yaml\
+	  && $(call execute_in_env, pip install -e ".[dev]"))\
+	 > $@.log 2>&1\
+	 || $(call err,Python environment setup failed)
+	@touch $@
+	@echo " DONE"
 
-.PHONY: setup-bucket
-setup-bucket:
-	@$(call setup_command, \
-		"Creating S3 bucket '${BUCKET}'", \
-		$(call execute_in_env, (create_bucket ${BUCKET} && make_bucket_private ${BUCKET})), \
-		"S3 bucket creation failed")
+.cookiecutter/state/setup-git:
+	@echo -n "Installing and configuring git pre-commit hooks"
+	@$(call execute_in_env, \
+	 pre-commit install --install-hooks\
+	 > $@.log 2>&1\
+	 || $(call err,Git pre-commit setup failed)\
+	)
+	@touch $@
+	@echo " DONE"
 
-.PHONY: setup-github
-setup-github:
-	@$(call setup_command, \
-		"Creating and configuring Github repo '${GITHUB_ACCOUNT}/${REPO_NAME}'", \
-		$(call execute_in_env, create_gh_repo ${GITHUB_ACCOUNT} ${REPO_NAME} ${PROJECT_OPENNESS}), \
-		"Github repo creation failed")
+.cookiecutter/state/setup-metaflow:
+	@echo -n "Configuring Metaflow + AWS"
+	@$(call execute_in_env, \
+	 get_metaflow_config\
+	 > $@.log 2>&1\
+	 || $(call err,AWS + Metaflow setup failed)\
+	)
+	@touch $@
+	@echo " DONE"
+
+.cookiecutter/state/setup-github:
+	@echo -n "Creating and configuring Github repo '${GITHUB_ACCOUNT}/${REPO_NAME}'"
+	@$(call execute_in_env, \
+	 create_gh_repo ${GITHUB_ACCOUNT} ${REPO_NAME} ${PROJECT_OPENNESS}\
+	 > $@.log 2>&1\
+	 || $(call err,Github repo creation failed)\
+	)
+	@touch $@
+	@echo " DONE"
+
+.cookiecutter/state/setup-bucket:
+	@echo -n "Creating S3 bucket '${BUCKET}'"
+	@$(call execute_in_env, \
+	 (create_bucket ${BUCKET} && make_bucket_private ${BUCKET})\
+	 > $@.log 2>&1\
+	 || $(call err,S3 Bucket creation failed)\
+	)
+	@touch $@
+	@echo " DONE"
 
 
 #################################################################################
