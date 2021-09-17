@@ -4,7 +4,6 @@ pandas
 matplotlib
 altair
 metaflow
-python-dotenv
 tqdm
 filelock
 typer

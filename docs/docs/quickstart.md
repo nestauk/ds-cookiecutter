@@ -12,6 +12,7 @@
 
     -   [github CLI](https://github.com/cli/cli) - for automatic creation and configuration of a Github repo
     -   Have a Nesta AWS account configured with `awscli`
+    - [direnv](https://direnv.net/docs/installation.html) - Automatically loads environment variables and environments
 
 === "Installation and configuration help"
 
@@ -54,6 +55,12 @@
             In addition you should set the default region name to `eu-west-2` and the default output format to `None`.
 
             AWS provide a more detailed guide [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config).
+    - [direnv](https://direnv.net/docs/installation.html) - Automatically loads environment variables and environments
+        ```bash
+        brew install direnv  # Mac
+        apt-get install -y direnv  # Ubuntu Linux
+        ```
+        Add `eval "$(direnv hook $SHELL)"` at the end of your `~/.${SHELL}rc` file.
 
 ## Starting from scratch
 
@@ -81,7 +88,7 @@ This opens a series of prompts to configure your new project (values in square b
     -   `s3_bucket`: The name of an S3 bucket to store assets for this project
         -   This bucket will be created for you in the next section
         -   **Careful**: This needs to not conflict with any existing s3 bucket name and [S3 bucket names](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html) must only contain lowercase letters, numbers, dots, and hyphens.
-        -   This value can be reconfigured in `.env.shared`
+        -   This value can be reconfigured in `.envrc`.
     -   `github_account`: The github account that this project will be created in
 
 ### Configure

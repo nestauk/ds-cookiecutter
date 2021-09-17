@@ -11,10 +11,8 @@ endif
 # Export all environment variables
 export
 
-# Import env variables
-include .env.shared
-$(shell touch .env)
-include .env
+# Import config variables
+include .cookiecutter/config
 
 # Ensure directory to track and log setup state exists
 $(shell mkdir -p .cookiecutter/state)
@@ -46,6 +44,7 @@ init:  install .cookiecutter/state/setup-bucket .cookiecutter/state/setup-github
 .PHONY: install
 ## Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS
 install: .cookiecutter/state/conda-create .cookiecutter/state/setup-git .cookiecutter/state/setup-metaflow
+	direnv reload
 
 .PHONY: inputs-pull
 ## Pull `inputs/` from S3

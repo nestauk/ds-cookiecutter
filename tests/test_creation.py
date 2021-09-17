@@ -91,7 +91,7 @@ class TestCookieSetup(object):
         repo_name = pytest.param.get("repo_name")
         path_stubs = [
             ".env",
-            ".env.shared",
+            ".envrc",
             "README.md",
             "setup.cfg",
             "docs/conf.py",
@@ -194,6 +194,8 @@ class TestCookieSetup(object):
                     with open(log_path) as f:
                         print(f"{log_path}:\n", f.read())
                 raise
+            except AssertionError:
+                print(p)
 
 
 def shell(cmd: List[str]) -> List[str]:
