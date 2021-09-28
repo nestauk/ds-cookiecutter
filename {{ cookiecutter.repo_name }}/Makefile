@@ -44,7 +44,7 @@ init:  install .cookiecutter/state/setup-bucket .cookiecutter/state/setup-github
 .PHONY: install
 ## Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS
 install: .cookiecutter/state/conda-create .cookiecutter/state/setup-git .cookiecutter/state/setup-metaflow
-	direnv reload
+	@direnv reload  # Now the conda env exists, reload to activate it
 
 .PHONY: inputs-pull
 ## Pull `inputs/` from S3
