@@ -72,6 +72,8 @@
 
 Ensure you have installed the [requirements](#requirements) and then run `cookiecutter https://github.com/nestauk/ds-cookiecutter`.
 
+!!! attention "Check the [release notes](https://github.com/nestauk/ds-cookiecutter/releases) to see if anything changed since you last created a project!"
+
 This opens a series of prompts to configure your new project (values in square brackets denote defaults).
 
 ??? info "What do the prompts mean?"
