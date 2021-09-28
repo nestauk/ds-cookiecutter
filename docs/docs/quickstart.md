@@ -64,9 +64,7 @@
 
 ## Starting from scratch
 
-<!-- [![asciicast](https://asciinema.org/a/XYp6l2hknMVWWPbI76Qq8BTiq.svg){ height=30 }](https://asciinema.org/a/XYp6l2hknMVWWPbI76Qq8BTiq) -->
-
-![asciicast](https://asciinema.org/a/XYp6l2hknMVWWPbI76Qq8BTiq.svg){ class=ascii }
+[![asciicast](https://asciinema.org/a/XYp6l2hknMVWWPbI76Qq8BTiq.svg){ class=ascii }](https://asciinema.org/a/XYp6l2hknMVWWPbI76Qq8BTiq)
 
 ### Create
 
