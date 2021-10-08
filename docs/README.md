@@ -12,8 +12,4 @@ Use [mkdocs](http://www.mkdocs.org/) structure to update the documentation. Test
 
     mkdocs serve
 
-Once the docs look good, publish to `gh-pages` branch with:
-
-    mkdocs gh-deploy --clean
-
-** Note **: Never edit the generated site by hand because using `gh-deploy` blows away the `gh-pages` branch and you'll lose your edits.
+Docs are automatically published to `gh-pages` branch via. Github actions after a PR is merged into `master`.
