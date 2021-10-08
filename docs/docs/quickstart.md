@@ -105,10 +105,10 @@ Run `make init` to perform the following steps:
     -   Fetch and decrypt the Nesta Metaflow config.
         It should exist in `~/.metaflowconfig/config_ds-cookiecutter.json`
 
--   Create and configure a github repo `github.com/<github_account>/<repo_name>`.
--   Create an S3 bucket `s3_bucket` has been created
+-   Create and configure a github repo `github.com/<github_account>/<repo_name>`
+-   Create an S3 bucket `s3_bucket`
 
-If you don't need a github repo or S3 bucket just run `make install`, you can always run the individual `make` commands later.
+If you don't need a github repo or S3 bucket just run `make install`, you can always run `make init` later which will create these resources.
 
 When you change directory to your created project folder, you will see that you are in a git branch `0_setup_cookiecutter`.
 Make any tweaks to the cookiecutter required by your project ([see FAQ](../faq/#what-customisations-can-i-make-when-setting-up-the-cookiecutter-without-defeating-the-point-of-having-a-standard-project-template)), commit, and then make a Pull Request to `dev`.
