@@ -201,10 +201,7 @@ class TestCookieSetup(object):
 def shell(cmd: List[str]) -> List[str]:
     """Run `cmd`, checking output and returning stripped output lines."""
     try:
-        p = [
-            line.strip()
-            for line in check_output(cmd).decode().strip().splitlines()
-        ]
+        p = [line.strip() for line in check_output(cmd).decode().strip().splitlines()]
     except CalledProcessError as e:
         [print(line) for line in (e.stdout or b"").decode().splitlines()]
         [

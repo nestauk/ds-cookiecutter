@@ -9,11 +9,11 @@ code {
 
 /* Class for ascii cinema */
 img.ascii {
-    height: 40vh;
-    min-height: 20em;
-    width: auto;
-    /* Center... */
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+  height: 40vh;
+  min-height: 20em;
+  width: auto;
+  /* Center... */
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
