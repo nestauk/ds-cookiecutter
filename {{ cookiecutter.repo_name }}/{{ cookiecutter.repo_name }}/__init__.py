@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import Optional
 
 import yaml
-from dotenv import load_dotenv
 
 
 def get_yaml_config(file_path: Path) -> Optional[dict]:
