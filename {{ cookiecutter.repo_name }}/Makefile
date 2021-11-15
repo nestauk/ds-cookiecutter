@@ -78,6 +78,7 @@ docs-open:
 conda-update:
 	conda env update -n ${REPO_NAME} -f environment.yaml
 	$(MAKE) -s pip-install
+	@direnv reload
 
 .PHONY: clean
 ## Delete all compiled Python files
