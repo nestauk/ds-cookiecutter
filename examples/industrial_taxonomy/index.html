@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://nestauk.github.io/ds-cookiecutter/examples/industrial_taxonomy/">
       
       <link rel="icon" href="../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.8">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -22,10 +22,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ca7ac06f.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a57b2b03.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
         
       
     
@@ -80,7 +80,9 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="https://nestauk.github.io/ds-cookiecutter" title="Cookiecutter Data Science @ Nesta" class="md-header__button md-logo" aria-label="Cookiecutter Data Science @ Nesta" data-md-component="logo">
       
@@ -139,14 +141,18 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -176,11 +182,14 @@
       </div>
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
+        
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -336,6 +345,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -466,15 +477,15 @@
 <h2 id="matching-of-glass-to-companies-house"><img alt="0⃣" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/30-20e3.svg" title=":zero:" /> Matching of Glass to Companies House<a class="headerlink" href="#matching-of-glass-to-companies-house" title="Permanent link">&para;</a></h2>
 <div class="admonition abstract">
 <p class="admonition-title">Method</p>
-<p>By fuzzy-matching data about UK business websites to Companies House based on company names we obtain a link between the text on business websites (describing businesses' activities) and the SIC codes (official industry codes) of that company. </p>
+<p>By fuzzy-matching data about UK business websites to Companies House based on company names we obtain a link between the text on business websites (describing businesses' activities) and the SIC codes (official industry codes) of that company.</p>
 <p>This work was performed in a separate project with the results stored and versioned in S3 by Metaflow. This can easily be retrieved using the metaflow client API.</p>
 </div>
 <dl>
-<dt><img alt="📥" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4e5.svg" title=":inbox_tray:" /> <code>getters/inputs/{glass,companies_house.py,glass_house.py}</code> </dt>
+<dt><img alt="📥" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4e5.svg" title=":inbox_tray:" /> <code>getters/inputs/{glass,companies_house.py,glass_house.py}</code></dt>
 <dd>
 <p>Fetch all the data via. metaflow's client API.</p>
 </dd>
-<dt><img alt="🔎" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f50e.svg" title=":mag_right:" /> <code>analysis/eda</code> </dt>
+<dt><img alt="🔎" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f50e.svg" title=":mag_right:" /> <code>analysis/eda</code></dt>
 <dd>
 <p>Exploratory data analysis of these data-sources</p>
 </dd>
@@ -482,15 +493,15 @@
 <h2 id="sic-classifier"><img alt="1⃣" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/31-20e3.svg" title=":one:" /> SIC classifier<a class="headerlink" href="#sic-classifier" title="Permanent link">&para;</a></h2>
 <div class="admonition abstract">
 <p class="admonition-title">Method</p>
-<p>Using the matched "glass-house" dataset train a classifier to predict SIC codes (this is developed as a general industry classifier that is agnostic to the SIC taxonomy as it is used elsewhere in the project). </p>
+<p>Using the matched "glass-house" dataset train a classifier to predict SIC codes (this is developed as a general industry classifier that is agnostic to the SIC taxonomy as it is used elsewhere in the project).</p>
 <p>We can then conduct a meta-analysis looking at SIC codes that are under-represented by the classifiers predictions on validation data when compared to their "true" label obtained from the "glass-house" matching.</p>
 </div>
 <dl>
-<dt><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 14h-2v2h-6v-3h2v-2h-2V6a2 2 0 0 0-2-2H4V2H2v8h2V8h6v3H8v2h2v5a2 2 0 0 0 2 2h8v2h2"/></svg></span> <code>pipeline/industry_classifier/{log_reg_model.py,transformer_model.py}</code> </dt>
+<dt><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 14h-2v2h-6v-3h2v-2h-2V6a2 2 0 0 0-2-2H4V2H2v8h2V8h6v3H8v2h2v5a2 2 0 0 0 2 2h8v2h2"/></svg></span> <code>pipeline/industry_classifier/{log_reg_model.py,transformer_model.py}</code></dt>
 <dd>
 <p>Two competing models (not specific to SIC taxonomy)</p>
 </dd>
-<dt><img alt="⚙" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2699.svg" title=":gear:" /> <code>config/pipeline/industry_classifier/sic/*.yaml</code> </dt>
+<dt><img alt="⚙" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2699.svg" title=":gear:" /> <code>config/pipeline/industry_classifier/sic/*.yaml</code></dt>
 <dd>
 <p>Parameterisation of model flows.</p>
 <details class="question"><summary>What is the extra <code>sic</code> folder doing in the filepath?</summary><p>There's an extra folder, <code>sic</code>, in the <code>config/</code> path that isn't present in the <code>pipeline/</code> path because this project uses the industry classifier models across different taxonomies.</p>
@@ -504,10 +515,10 @@
 - Form the pipeline arguments into a command to run the metaflow on the command line
 - Run the metaflow from within <code>run.py</code> using Python's <code>subprocess</code> library.
 - Update a config file with the successful metaflow run ID (so that getters know which version of the data to fetch)</p>
-<p>This is a lot of leg-work and increases the surface-area for bugs. This is why the upcoming metaflow utilities will enable one to run a command like <code>nestaflow industry_classifier/sic/transformer_model</code> (based on the paths in <code>config/pipeline/**</code>) and all the above will be taken care of automatically without needing to write an accompanying <code>run.py</code> script. </p>
+<p>This is a lot of leg-work and increases the surface-area for bugs. This is why the upcoming metaflow utilities will enable one to run a command like <code>nestaflow industry_classifier/sic/transformer_model</code> (based on the paths in <code>config/pipeline/**</code>) and all the above will be taken care of automatically without needing to write an accompanying <code>run.py</code> script.</p>
 </details>
 </dd>
-<dt><img alt="📥" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4e5.svg" title=":inbox_tray:" /> <code>getters/outputs/sic_classifier.py</code> </dt>
+<dt><img alt="📥" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4e5.svg" title=":inbox_tray:" /> <code>getters/outputs/sic_classifier.py</code></dt>
 <dd>
 <p>Load trained model, giving access to predict functionality</p>
 <details class="question"><summary>Why separate inputs and outputs in <code>getters/</code>?</summary><p>Separating inputs and outputs in <code>getters</code> is useful when reading the code - it allows us to differentiate between what is produced in this project and what we depend on from elsewhere.</p>
@@ -537,7 +548,7 @@ Your getters can use the metaflow client API.
 -->
 
 <dl>
-<dt><img alt="🔎" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f50e.svg" title=":mag_right:" /> <code>analysis/sic_classifier/</code> </dt>
+<dt><img alt="🔎" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f50e.svg" title=":mag_right:" /> <code>analysis/sic_classifier/</code></dt>
 <dd>
 <p>Analysis of industry classifier models applied to SIC taxonomy</p>
 <ul>
@@ -554,7 +565,7 @@ Your getters can use the metaflow client API.
 <h3 id="pre-processing">Pre-processing<a class="headerlink" href="#pre-processing" title="Permanent link">&para;</a></h3>
 <p>The first step is to process raw business website descriptions into clean, tokenised, n-grammed representation that can be passed to the topic model (this is re-used in <img alt="3⃣" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/33-20e3.svg" title=":three:" />).</p>
 <dl>
-<dt><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 14h-2v2h-6v-3h2v-2h-2V6a2 2 0 0 0-2-2H4V2H2v8h2V8h6v3H8v2h2v5a2 2 0 0 0 2 2h8v2h2"/></svg></span> <code>pipeline/glass_description_ngrams/{flow,utils}.py</code> </dt>
+<dt><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 14h-2v2h-6v-3h2v-2h-2V6a2 2 0 0 0-2-2H4V2H2v8h2V8h6v3H8v2h2v5a2 2 0 0 0 2 2h8v2h2"/></svg></span> <code>pipeline/glass_description_ngrams/{flow,utils}.py</code></dt>
 <dd>
 <p>Metaflow to run spacy entity recognition; convert to tokens; and generate n-grams based on co-occurrence</p>
 <div class="admonition info">
@@ -562,11 +573,11 @@ Your getters can use the metaflow client API.
 <p>We have lots of <code>flow.py</code> and <code>utils.py</code>. Some might see this as bad because it's not super-informative; however as long as the parent folder has an informative name then it's good enough.</p>
 </div>
 </dd>
-<dt><img alt="⚙" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2699.svg" title=":gear:" /> <code>config/glass_description_ngrams.yaml</code> </dt>
+<dt><img alt="⚙" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2699.svg" title=":gear:" /> <code>config/glass_description_ngrams.yaml</code></dt>
 <dd>
 <p>Parameterisation of the above metaflow.</p>
 </dd>
-<dt><img alt="📥" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4e5.svg" title=":inbox_tray:" /> <code>getters/outputs/glass_house.py</code> </dt>
+<dt><img alt="📥" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4e5.svg" title=":inbox_tray:" /> <code>getters/outputs/glass_house.py</code></dt>
 <dd>
 <p>Getter to fetch tokenised n-grams of business website descriptions.</p>
 </dd>
@@ -578,21 +589,18 @@ Your getters can use the metaflow client API.
 <h3 id="modelling">Modelling<a class="headerlink" href="#modelling" title="Permanent link">&para;</a></h3>
 <p>Now the topic model itself can be run.</p>
 <dl>
-<dt><img alt="⚙" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2699.svg" title=":gear:" /> <code>config/pipeline/topsbm.yaml</code> </dt>
+<dt><img alt="⚙" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2699.svg" title=":gear:" /> <code>config/pipeline/topsbm.yaml</code></dt>
 <dd>
 <p>No corresponding flow in pipeline! Imported from a different library (e.g. <code>ds-utils</code>) and used here</p>
 </dd>
-<dt><img alt="📥" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4e5.svg" title=":inbox_tray:" /> <code>getters/outputs/topsbm.py</code> </dt>
+<dt><img alt="📥" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4e5.svg" title=":inbox_tray:" /> <code>getters/outputs/topsbm.py</code></dt>
 <dd>
 <p>Fetch fitted model instance containing our inferred topics and clusters</p>
 </dd>
 <dt><img alt="🔎" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f50e.svg" title=":mag_right:" /> <code>analysis/topsbm/</code></dt>
 <dd>
 <ul>
-<li><code>model_metadata.py</code> - Output summary table of model fit, other metadata such as topic hierarchy, top words etc.</li>
-<li><code>sector_similarity.py</code> - Pair-wise similarity of SIC codes calculated using topsbm model outputs</li>
-<li><code>sector_homogeneity.py</code> - Homogeneity of SIC codes calculated using topsbm model outputs</li>
-<li><code>utils.py</code> - </li>
+<li><code>model_metadata.py</code> - Output summary table of model fit, other metadata such as topic hierarchy, top words etc. - <code>sector_similarity.py</code> - Pair-wise similarity of SIC codes calculated using topsbm model outputs - <code>sector_homogeneity.py</code> - Homogeneity of SIC codes calculated using topsbm model outputs - <code>utils.py</code> -</li>
 </ul>
 <details class="question"><summary>Hang on... Why is <code>section_*.py</code> not a pipeline component?</summary><p>It would be equally valid to place these in <code>pipeline/</code> (because they are computing transformations of data) but <code>analysis/</code> is also fine (and possibly better) because:</p>
 <ul>
@@ -623,67 +631,67 @@ Your getters can use the metaflow client API.
 <p>Use keyword extraction methods to tag business descriptions with items from the UNSPSC (a products and services taxonomy).
 Given this is successful, co-occurrence networks of products and services can be used to build a taxonomy. If this is unsuccessful, fall back on the n-gramming pipeline produced in <img alt="2⃣" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/32-20e3.svg" title=":two:" />.</p>
 <dl>
-<dt><img alt="💾" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4be.svg" title=":floppy_disk:" /> <code>inputs/data/UNSPSC_English_v230701.xlsx</code> </dt>
+<dt><img alt="💾" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4be.svg" title=":floppy_disk:" /> <code>inputs/data/UNSPSC_English_v230701.xlsx</code></dt>
 <dd>
 <p>New dataset for this project provided by the supplier as an excel spreadsheet</p>
 </dd>
-<dt><img alt="🔎" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f50e.svg" title=":mag_right:" /> <code>analysis/eda/unspsc.py</code> </dt>
+<dt><img alt="🔎" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f50e.svg" title=":mag_right:" /> <code>analysis/eda/unspsc.py</code></dt>
 <dd>
 <p>Explore the UNSPSC dataset</p>
 </dd>
-<dt><img alt="📥" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4e5.svg" title=":inbox_tray:" /> <code>getters/inputs/unspsc.py</code> </dt>
+<dt><img alt="📥" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4e5.svg" title=":inbox_tray:" /> <code>getters/inputs/unspsc.py</code></dt>
 <dd>
 <p>Function to load UNSPSC data</p>
 <ul>
 <li>Note: It's structured and clean enough that we don't need to do any preprocessing on it</li>
 </ul>
 </dd>
-<dt><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 14h-2v2h-6v-3h2v-2h-2V6a2 2 0 0 0-2-2H4V2H2v8h2V8h6v3H8v2h2v5a2 2 0 0 0 2 2h8v2h2"/></svg></span> <code>pipeline/keyword_extraction/*.py</code> </dt>
+<dt><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 14h-2v2h-6v-3h2v-2h-2V6a2 2 0 0 0-2-2H4V2H2v8h2V8h6v3H8v2h2v5a2 2 0 0 0 2 2h8v2h2"/></svg></span> <code>pipeline/keyword_extraction/*.py</code></dt>
 <dd>
 <p>Metaflows to extract keywords from text using various methods and filter based on prescence in UNSPSC</p>
 </dd>
 <dt><img alt="⚙" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2699.svg" title=":gear:" /> <code>config/pipeline/keyword_extraction/*.yaml</code></dt>
 <dd>
-<p>Parameterise above pipelines </p>
+<p>Parameterise above pipelines</p>
 </dd>
-<dt><img alt="📔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4d4.svg" title=":notebook_with_decorative_cover:" /> <code>analysis/keyword_extraction/notebooks/</code> </dt>
+<dt><img alt="📔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4d4.svg" title=":notebook_with_decorative_cover:" /> <code>analysis/keyword_extraction/notebooks/</code></dt>
 <dd>
 <div class="admonition info">
 <p class="admonition-title">None of the keyword extraction approaches worked out</p>
-<p>No need to refactor notebooks into script if materials are not produced for final reporting.</p>
 </div>
+<p>No need to refactor notebooks into script if materials are not produced for final reporting.</p>
 <p>Notebooks exploring results of keyword extraction methods and comparing their effectiveness.</p>
 </dd>
 </dl>
 <h3 id="n-gramming-pipeline">N-gramming pipeline<a class="headerlink" href="#n-gramming-pipeline" title="Permanent link">&para;</a></h3>
 <dl>
-<dt><img alt="⚙" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2699.svg" title=":gear:" /> <code>getters/outputs/glass_house.py</code> </dt>
+<dt><img alt="⚙" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2699.svg" title=":gear:" /> <code>getters/outputs/glass_house.py</code></dt>
 <dd>
 <p>Use same getter as produced in <a href="./#pre-processing">preprocessing step of <img alt="2⃣" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/32-20e3.svg" title=":two:" /></a>.</p>
 </dd>
 </dl>
 <h3 id="constructing-a-term-co-occurrence-network-and-generating-communities">Constructing a term co-occurrence network and generating communities<a class="headerlink" href="#constructing-a-term-co-occurrence-network-and-generating-communities" title="Permanent link">&para;</a></h3>
 <dl>
-<dt><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 14h-2v2h-6v-3h2v-2h-2V6a2 2 0 0 0-2-2H4V2H2v8h2V8h6v3H8v2h2v5a2 2 0 0 0 2 2h8v2h2"/></svg></span> <code>pipeline/kw_cooccurrence_taxonomy/*.py</code> </dt>
+<dt><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 14h-2v2h-6v-3h2v-2h-2V6a2 2 0 0 0-2-2H4V2H2v8h2V8h6v3H8v2h2v5a2 2 0 0 0 2 2h8v2h2"/></svg></span> <code>pipeline/kw_cooccurrence_taxonomy/*.py</code></dt>
 <dd>
 <p>Metaflow and utils to construct a co-occurrence network of terms; decompose into communities; and label companies with their community labels</p>
 </dd>
-<dt><img alt="⚙" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2699.svg" title=":gear:" /> <code>config/pipeline/kw_cooccurrence_taxonomy.yaml</code> </dt>
+<dt><img alt="⚙" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2699.svg" title=":gear:" /> <code>config/pipeline/kw_cooccurrence_taxonomy.yaml</code></dt>
 <dd>
 <p>Parameterise above flow</p>
 </dd>
-<dt><img alt="🔎" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f50e.svg" title=":mag_right:" /> <code>analysis/kw_cooccurrence_taxonomy/visualise_structure.py</code> </dt>
+<dt><img alt="🔎" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f50e.svg" title=":mag_right:" /> <code>analysis/kw_cooccurrence_taxonomy/visualise_structure.py</code></dt>
 <dd>
 <p>Visualise the structure of the new taxonomy (and it's dependent communities)</p>
 </dd>
 </dl>
 <h3 id="applying-the-industry-classifier-to-the-new-taxonomy-level">Applying the industry classifier to the new taxonomy level<a class="headerlink" href="#applying-the-industry-classifier-to-the-new-taxonomy-level" title="Permanent link">&para;</a></h3>
 <dl>
-<dt><img alt="⚙" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2699.svg" title=":gear:" /> <code>config/pipeline/industry_classifier/kw_cooccurrence_taxonomy.yaml</code> </dt>
+<dt><img alt="⚙" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2699.svg" title=":gear:" /> <code>config/pipeline/industry_classifier/kw_cooccurrence_taxonomy.yaml</code></dt>
 <dd>
 <p>Apply the industry classifier to our new taxonomies labels</p>
 </dd>
-<dt><img alt="🔎" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f50e.svg" title=":mag_right:" /> <code>analysis/kw_cooccurrence_taxonomy/industry_classifier.py</code> </dt>
+<dt><img alt="🔎" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f50e.svg" title=":mag_right:" /> <code>analysis/kw_cooccurrence_taxonomy/industry_classifier.py</code></dt>
 <dd>
 <p>Perform a meta-analysis for our new taxonomy as was done in <img alt="1⃣" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/31-20e3.svg" title=":one:" /> for the SIC taxonomy</p>
 </dd>
@@ -728,7 +736,7 @@ Given this is successful, co-occurrence networks of products and services can be
 </div>
 <div class="highlight"><pre><span></span><code>TODO
 </code></pre></div>
-<!-- 
+<!--
     ```nohighlight
     ├── inputs
     │   └── data
@@ -831,8 +839,9 @@ Given this is successful, co-occurrence networks of products and services can be
           </div>
         </div>
         
-          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
           </a>
         
       </main>
@@ -844,10 +853,12 @@ Given this is successful, co-occurrence networks of products and services can be
     <div class="md-footer-meta__inner md-grid">
       <div class="md-footer-copyright">
         
-        Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs
-        </a>
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
         
       </div>
       
@@ -859,10 +870,10 @@ Given this is successful, co-occurrence networks of products and services can be
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.b0710199.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.76f349be.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b1047164.min.js"></script>
       
     
   </body>

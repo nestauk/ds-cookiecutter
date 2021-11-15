@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://nestauk.github.io/ds-cookiecutter/structure/">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.8">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -22,10 +22,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ca7ac06f.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.a57b2b03.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.f1a3b89f.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
         
       
     
@@ -80,7 +80,9 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="https://nestauk.github.io/ds-cookiecutter" title="Cookiecutter Data Science @ Nesta" class="md-header__button md-logo" aria-label="Cookiecutter Data Science @ Nesta" data-md-component="logo">
       
@@ -139,14 +141,18 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -176,11 +182,14 @@
       </div>
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
+        
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -276,6 +285,8 @@
       </a>
       
         
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -607,6 +618,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -888,19 +901,19 @@
 <p>Running <code>make</code> from the project base directory will document the commands available along with a short description.</p>
 <div class="highlight"><pre><span></span><code>Available rules:
 
-clean               Delete all compiled Python files 
-conda-create        Create a conda environment 
-conda-update        Update the conda-environment based on changes to `environment.yaml` 
-docs                Build the API documentation 
-docs-clean          Clean the built API documentation 
-docs-open           Open the docs in the browser 
-init                Fully initialise a project: install; setup github repo; setup S3 bucket 
-inputs-pull         Pull `inputs/` from S3 
-inputs-push         Push `inputs/` to S3 (WARNING: this may overwrite existing files!) 
-install             Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS 
-lint                Run flake8 linting on repository 
-pip-install         Install our package and requirements in editable mode (including development dependencies) 
-pre-commit          Perform pre-commit actions 
+clean               Delete all compiled Python files
+conda-create        Create a conda environment
+conda-update        Update the conda-environment based on changes to `environment.yaml`
+docs                Build the API documentation
+docs-clean          Clean the built API documentation
+docs-open           Open the docs in the browser
+init                Fully initialise a project: install; setup github repo; setup S3 bucket
+inputs-pull         Pull `inputs/` from S3
+inputs-push         Push `inputs/` to S3 (WARNING: this may overwrite existing files!)
+install             Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS
+lint                Run flake8 linting on repository
+pip-install         Install our package and requirements in editable mode (including development dependencies)
+pre-commit          Perform pre-commit actions
 </code></pre></div>
 <p>Where appropriate these make commands will automatically be run in the conda environment for a project.</p>
 <h2 id="git-hooks">Git hooks<a class="headerlink" href="#git-hooks" title="Permanent link">&para;</a></h2>
@@ -926,7 +939,7 @@ pre-commit          Perform pre-commit actions
 You can already lint your code using (a quite opinionated) flake8 configuration defined in <code>setup.cfg</code> by running <code>make lint</code>.</p>
 <h2 id="reproducable-environment">Reproducable environment<a class="headerlink" href="#reproducable-environment" title="Permanent link">&para;</a></h2>
 <p>The first step in reproducing an analysis is always reproducing the computational environment it was run in. You need the same tools, the same libraries, and the same versions to make everything play nicely together.</p>
-<p>By listing all of your requirements in the repository you can easily track the packages needed to recreate the analysis, but what tool should we use to do that? </p>
+<p>By listing all of your requirements in the repository you can easily track the packages needed to recreate the analysis, but what tool should we use to do that?</p>
 <p>Whilst popular for scientific computing and data-science, <a href="https://docs.conda.io/en/latest/">conda</a> poses problems for collaboration and packaging:</p>
 <ul>
 <li>It is hard to reproduce a conda-environment across operating systems</li>
@@ -1005,7 +1018,7 @@ OTHER_VARIABLE=something
 <p>Put any data dependencies of your project that your code doesn't fetch here (E.g. if someone emailed you a spreadsheet with the results of a randomised control trial).</p>
 <p>Don't ever edit this raw data, especially not manually, and especially not in Excel. Don't overwrite your raw data. Don't save multiple versions of the raw data. Treat the data (and its format) as immutable.</p>
 <p>Store it in <a href="https://aws.amazon.com/s3/">AWS S3</a>. When the project was configured, you will have been prompted for a <code>BUCKET</code> variable (now tracked in <code>.env.shared</code>). If you used the <code>auto_config</code> option, an S3 bucket will have been setup for you too.</p>
-<p>Two make commands - <code>make inputs-pull</code> and <code>make inputs-push</code> - can be used to push and pull data from the configured s3 bucket. </p>
+<p>Two make commands - <code>make inputs-pull</code> and <code>make inputs-push</code> - can be used to push and pull data from the configured s3 bucket.</p>
 <h3 id="outputscache"><code>outputs/.cache/</code><a class="headerlink" href="#outputscache" title="Permanent link">&para;</a></h3>
 <p>This folder is for ephemeral data and any pipeline/analysis step should be runnable following the deletion of this folder's contents.</p>
 <p>For example, this folder could be used as a file-level cache (careful about cache invalidation!); to download a file from the web before immediately reading, transforming, and saving as a clean file in <code>outputs/data</code>; or to temporary data when prototyping.</p>
@@ -1041,17 +1054,19 @@ Anywhere in the code base we need to load data we should do so by importing and 
 <p>On the <a href="../roadmap#Schema">roadmap</a> is a speculative plan to explore the use of <a href="https://pydantic-docs.helpmanual.io/">pydantic</a> to specify and validate data-schemas.</p>
 <h2 id="pipeline-components-srcpipeline">Pipeline components - <code>src/pipeline</code><a class="headerlink" href="#pipeline-components-srcpipeline" title="Permanent link">&para;</a></h2>
 <p>This folder contains pipeline components. Put as much data-science as possible here.</p>
-<p>We recommend the use of <a href="https://docs.metaflow.org">metaflow</a> to write these pipeline components. </p>
+<p>We recommend the use of <a href="https://docs.metaflow.org">metaflow</a> to write these pipeline components.</p>
 <p>In the coming months as we roll out <a href="../roadmap#Metaflow">utilities and documentation to smooth out some of the rough edges of metaflow</a>, this will become less of a recommendation and more of a stipulation.</p>
-<p>Using metaflow:
-- Gives us lightweight version control of data and models
-- Gives us easy access to AWS batch computing (including GPU machines)
-- Makes it easy to take data-science code into production</p>
+<p>Using metaflow:</p>
+<ul>
+<li>Gives us lightweight version control of data and models</li>
+<li>Gives us easy access to AWS batch computing (including GPU machines)</li>
+<li>Makes it easy to take data-science code into production</li>
+</ul>
 <h2 id="shared-utilities-srcutils">Shared utilities - <code>src/utils</code><a class="headerlink" href="#shared-utilities-srcutils" title="Permanent link">&para;</a></h2>
 <p>This is a place to put utility functions needed across different parts of the codebase.</p>
 <p>For example, this could be functions shared across different pieces of analysis or different pipelines.</p>
 <h3 id="roadmap_3">Roadmap<a class="headerlink" href="#roadmap_3" title="Permanent link">&para;</a></h3>
-<p>Over time there should be a decreasing need to add things to <code>utils</code> as we begin to develop a  <a href="../roadmap#ds-utils">data science utilities package (<code>ds-utils</code>)</a>.</p>
+<p>Over time there should be a decreasing need to add things to <code>utils</code> as we begin to develop a <a href="../roadmap#ds-utils">data science utilities package (<code>ds-utils</code>)</a>.</p>
 <h2 id="analysis-srcanalysis">Analysis - <code>src/analysis</code><a class="headerlink" href="#analysis-srcanalysis" title="Permanent link">&para;</a></h2>
 <p>Functionality in this folder takes the pipeline components (possibly combining them) and generates the plots/statistics to feed into reports.</p>
 <p>It is easier to say when shomething shouldn't be in <code>analysis</code> than when something should: If one part in <code>analysis</code> depends on another, then that suggests that the thing in common is likely either a pipeline component or a shared utility (i.e. sections of <code>analysis</code> should be completely independent).</p>
@@ -1068,16 +1083,16 @@ Anywhere in the code base we need to load data we should do so by importing and 
 <p>To ensure jupytext works correctly you should start <code>jupyter</code> (notebook/lab) from the base directory of the project so that <code>jupyter</code> detects the <code>jupytext</code> configuration that lives in <code>jupytext.toml</code>.</p>
 <h3 id="refactoring">Refactoring<a class="headerlink" href="#refactoring" title="Permanent link">&para;</a></h3>
 <p>Everybody likes to work differently. Some like to eagerly refactor, keeping as little in notebooks as possible (or even eschewing notebooks entirely);
- where as others prefer to keep everything in notebooks until the last minute.</p>
+where as others prefer to keep everything in notebooks until the last minute.</p>
 <p>We do not require you to work one way or the other as long as by the time you submit a pull request (PR) for your feature everything is refactored into python modules.</p>
 <p>Having said this, we recommended you frequently refactor the good parts - you'll thank yourself later!</p>
 <p>A warning sign you've left it too late to refactor is if you've got duplicates of functions across the codebase rather than importing from a logical place - if it's a data preprocessing task, put it in the pipeline at <code>src/pipelines/&lt;descriptive name for task&gt;</code>; if it's useful utility code, refactor it to <code>src/utils/</code>; if it's loading data, refactor it to <code>src/getters</code>.</p>
 <h4 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h4>
-<p>Add the following to your notebook (or IPython REPL):
+<p>Add the following to your notebook (or IPython REPL):</p>
 <div class="highlight"><pre><span></span><code>%load_ext autoreload
 %autoreload 2
 </code></pre></div>
-Now when you save code in a python module, the notebook will automatically load in the latest changes without you having to restart the kernel, re-import the module etc.</p>
+<p>Now when you save code in a python module, the notebook will automatically load in the latest changes without you having to restart the kernel, re-import the module etc.</p>
 <p>When it comes to refactoring, open the python file <a href="https://jupytext.readthedocs.io">Jupytext</a> pairs to your notebook in your editor of choice - now your notebook code is easily-readable and in the same environment you use to write python modules.</p>
 <h3 id="share-with-gists">Share with gists<a class="headerlink" href="#share-with-gists" title="Permanent link">&para;</a></h3>
 <p>As the git filter above stops the sharing of outputs directly via. the git repository, another way is needed to share the outputs of quick and dirty analysis.
@@ -1122,8 +1137,8 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
 │       └── __init__.py              |
 ├── docs                             |  DOCUMENTATION
 │   ├── conf.py                      |    Configures docs
-│   ├── index.rst                    |    
-│   └── license.rst                  |    
+│   ├── index.rst                    |
+│   └── license.rst                  |
 ├── environment.yaml                 |  CONDA ENVIRONMENT SPECIFICATION (optional component)
 ├── requirements.txt                 |  PYTHON DEPENDENCIES NEEDED TO RUN THE CODE
 ├── requirements_dev.txt             |  PYTHON DEV DEPENDENCIES (e.g. building docs/running tests)
@@ -1132,7 +1147,7 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
 │   ├── models                       |    Inputs that are models
 │   └── README.md                    |
 ├── jupytext.toml                    |  JUPYTEXT CONFIGURATION
-├── LICENSE                          |  
+├── LICENSE                          |
 ├── outputs                          |  OUTPUTS PRODUCED FROM THE PROJECT
 │   ├── data                         |    Data outputs (from running our code)
 │   ├── figures                      |    Figure outputs (from running our code)
@@ -1140,7 +1155,7 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
 │   ├── models                       |    Model outputs (from running our code)
 │   └── reports                      |    Reports about our code and the results of running it
 ├── Makefile                         |  TASKS TO COORDINATE PROJECT (`make` shows available commands)
-├── README.md                        |  
+├── README.md                        |
 ├── setup.py                         |  ALLOWS US TO PIP INSTALL src/
 ├── setup.cfg                        |  ADDITIONAL PROJECT CONFIGURATION, e.g. linting
 ├── .pre-commit-config.yaml          |  DEFINES CHECKS THAT MUST PASS BEFORE git commit SUCCEEDS
@@ -1161,8 +1176,9 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
           </div>
         </div>
         
-          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
           </a>
         
       </main>
@@ -1209,10 +1225,12 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
     <div class="md-footer-meta__inner md-grid">
       <div class="md-footer-copyright">
         
-        Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs
-        </a>
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
         
       </div>
       
@@ -1224,10 +1242,10 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.b0710199.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.76f349be.min.js"></script>
+      <script src="../assets/javascripts/bundle.b1047164.min.js"></script>
       
     
   </body>
