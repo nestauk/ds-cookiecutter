@@ -36,7 +36,7 @@ theme:
         name: Switch to light mode
 markdown_extensions:
   - toc:
-        permalink: true
+      permalink: true
   - pymdownx.tabbed
   - def_list
   - admonition
@@ -52,10 +52,10 @@ markdown_extensions:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.superfences:
-        custom_fences:
-          - name: mermaid
-            class: mermaid-experimental
-            format: !!python/name:pymdownx.superfences.fence_code_format
+      custom_fences:
+        - name: mermaid
+          class: mermaid-experimental
+          format: !!python/name:pymdownx.superfences.fence_code_format
 extra_css:
   - css/extra.css
 nav:
