@@ -22,7 +22,6 @@ Running `make` from the project base directory will document the commands availa
 Available rules:
 
 clean               Delete all compiled Python files
-conda-create        Create a conda environment
 conda-update        Update the conda-environment based on changes to `environment.yaml`
 docs                Build the API documentation
 docs-clean          Clean the built API documentation
@@ -89,11 +88,7 @@ Due to these difficulties, we recommend only using conda to create a virtual env
 
 ### Commands
 
--   `make conda-create` - Create a conda environment from `environment.yaml` and run `make pip-install`.
-
-    Note: this is automatically called by `make install` and `make init` but exists as a stand-alone command in case you ever need it
-
--   `make conda-update` - Update an existing conda environment from `environment.yaml` and run `make pip-install`.
+-   `make conda-update` - Update an existing conda environment (created by `make install`) from `environment.yaml` and run `make pip-install`.
 -   `make pip-install` - Install our package and requirements in editable mode (including development dependencies).
 
 ### Roadmap
@@ -116,20 +111,9 @@ DATABASE_URL=postgres://username:password@localhost:5432/dbname
 OTHER_VARIABLE=something
 ```
 
-You can use [python-dotenv](https://github.com/theskumar/python-dotenv) to load the entries as follows:
+We also have `.envrc` which contains non-secret project configuration shared across users such as the bucket that our input data is stored in, or the metaflow profile to use.
 
-```python
-import os
-from dotenv import load_dotenv, find_dotenv
-
-load_dotenv(find_dotenv())  # Find .env and load entries
-print(os.getenv("DATABASE_URL"))
-print(os.getenv("SOME_VARIABLE_NOT_IN_ENV_FILE"))
-# >> postgres://username:password@localhost:5432/dbname
-# >> None
-```
-
-We also have `.env.shared` which contains non-secret project configuration variables that are used for example by commands in our `Makefile`
+[`direnv`](https://direnv.net) automatically loads `.envrc` (which itself loads `.env`) making our configuration available.
 
 #### Store Data-science configuration in `src/config/`
 
@@ -176,7 +160,7 @@ Put any data dependencies of your project that your code doesn't fetch here (E.g
 
 Don't ever edit this raw data, especially not manually, and especially not in Excel. Don't overwrite your raw data. Don't save multiple versions of the raw data. Treat the data (and its format) as immutable.
 
-Store it in [AWS S3](https://aws.amazon.com/s3/). When the project was configured, you will have been prompted for a `BUCKET` variable (now tracked in `.env.shared`). If you used the `auto_config` option, an S3 bucket will have been setup for you too.
+Store it in [AWS S3](https://aws.amazon.com/s3/). When the project was configured, you will have been prompted for a `s3_bucket` variable (now tracked in `.envrc` as `BUCKET`).
 
 Two make commands - `make inputs-pull` and `make inputs-push` - can be used to push and pull data from the configured s3 bucket.
 
@@ -336,11 +320,6 @@ We are [experimenting](../roadmap#Reporting) with a toolchain using [pandoc](htt
 # Tree
 
 ```nohighlight
-├── bin                              |  PROJECT CONFIGURATION SCRIPTS
-│   ├── conda_activate.sh            |    Helper to activate conda in shell environment
-│   ├── create_bucket.sh             |    Create S3 bucket
-│   ├── create_repo.sh               |    Create Github repo
-│   └── install_metaflow_aws.sh      |    Configure Metaflow with AWS
 ├── src                              |  PYTHON PACKAGE
 │   ├── __init__.py                  |
 │   ├── analysis                     |  Analysis
@@ -384,5 +363,9 @@ We are [experimenting](../roadmap#Reporting) with a toolchain using [pandoc](htt
 ├── .github                          |  GITHUB CONFIGURATION
 │   └── pull_request_template.md     |    Template for pull-requests (check-list of things to do)
 ├── .env                             |  SECRETS (never commit to git!)
-├── .env.shared                      |  SHARED PROJECT CONFIGURATION VARIABLES
+├── .envrc                           |  SHARED PROJECT CONFIGURATION VARIABLES
+├── .cookiecutter                    |  COOKIECUTTER SETUP & CONFIGURATION (user can safely ignore)
+│   ├── config                       |    Settings cookiecutter was configured with
+│   ├── scripts/                     |    Scripts to setup cookiecutter
+│   └── state/                       |    Log of cookiecutter configuration state
 ```

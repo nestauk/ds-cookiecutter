@@ -56,6 +56,7 @@ markdown_extensions:
         - name: mermaid
           class: mermaid-experimental
           format: !!python/name:pymdownx.superfences.fence_code_format
+  - attr_list
 extra_css:
   - css/extra.css
 nav:

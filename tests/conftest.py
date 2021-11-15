@@ -49,4 +49,4 @@ def conda_env(request):
     request.cls.env_path = env_dir
     yield
 
-    shutil.rmtree(env_dir)
+    env_dir.exists() and shutil.rmtree(env_dir)

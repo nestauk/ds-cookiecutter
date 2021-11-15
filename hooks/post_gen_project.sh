@@ -14,12 +14,7 @@ git checkout -b 0_setup_cookiecutter  -q
 git add .
 git commit -am "Setup Nesta Data Science cookiecutter" -q
 
-echo Configured git repo at $(pwd)
+echo "Configured git repo at $(pwd), please enter the project directory & run 'make init'"
 
-# Do everything if configured
-if [ {{ cookiecutter.auto_config }} == "true" ]
-then
- make init
-else
- echo "You did not select auto_config, please enter the project directory & run 'make init' manually"
-fi
+# Permit auto-loading of .envrc
+direnv allow
