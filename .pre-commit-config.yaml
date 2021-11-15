@@ -59,8 +59,9 @@ repos:
         args: ["--tab-width", "4"]
         files: "^docs/.*md$"
       - id: prettier
-        name: Prettier (project markdown)
-        files: "{{ cookiecutter.repo_name }}/.*md"
+        name: Prettier (other markdown)
+        exclude: "docs"
+        files: ".md"
       - id: prettier
         name: Prettier (except markdown)
         exclude: ".md"
