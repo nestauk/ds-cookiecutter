@@ -14,47 +14,20 @@ export
 # Import config variables
 include .cookiecutter/config
 
-# Ensure directory to track and log setup state exists
-$(shell mkdir -p .cookiecutter/state)
-
-.PHONY: test-setup
-## Test that everything has been setup
-test-setup:
-	@echo Testing configuration
-
-	@# Checking S3
-	@$(call execute_in_env, (test '${IN_PYTEST}' && echo 'In test-suite: Skipping S3 checks') ||\
-	 aws s3 ls s3://${BUCKET} > /dev/null 2>&1 || echo "ERROR: No bucket")
-
-	@# Github
-	@(test '${IN_PYTEST}' && echo 'In test-suite: Skipping Github checks') ||\
-	 git ls-remote > /dev/null 2>&1 || echo "ERROR: No Git remote"
-
-	@# Pre-commit valid
-	@$(call execute_in_env, pre-commit run -a)
-
-	@# Metaflow
-	@$(call execute_in_env, python .cookiecutter/scripts/check_metaflow_aws.py || echo "ERROR: Metaflow+AWS configuration")
-
-.PHONY: init
-## Fully initialise a project: install; setup github repo; setup S3 bucket
-init:  install .cookiecutter/state/setup-bucket .cookiecutter/state/setup-github
-	@echo SETUP COMPLETE
-
 .PHONY: install
 ## Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS
-install: .cookiecutter/state/conda-create .cookiecutter/state/setup-git .cookiecutter/state/setup-metaflow
+install: .cookiecutter/state/conda-create .cookiecutter/state/setup-git
 	@direnv reload  # Now the conda env exists, reload to activate it
+
+
+.PHONY: check-bucket-path
+check-bucket-path:
+	@test ${S3_INPUT_PATH} || (echo 'Please set a S3_INPUT_PATH environment variable (e.g. in .envrc) documenting the S3 path to your inputs/ - e.g. s3://nesta-ds-data/your-mission/project-name' && exit 1)
 
 .PHONY: inputs-pull
 ## Pull `inputs/` from S3
-inputs-pull:
-	$(call execute_in_env, aws s3 sync s3://${BUCKET}/inputs inputs)
-
-.PHONY: inputs-push
-## Push `inputs/` to S3 (WARNING: this may overwrite existing files!)
-inputs-push:
-	$(call execute_in_env, aws s3 sync inputs s3://${BUCKET}/inputs)
+inputs-pull: check-bucket-path
+	aws s3 sync ${S3_INPUT_PATH} inputs
 
 .PHONY: docs
 ## Build the API documentation
@@ -80,45 +53,38 @@ conda-update:
 	$(MAKE) -s pip-install
 	@direnv reload
 
+.PHONY: conda-update
+## Update the conda-environment based on changes to `environment.yaml`
+conda-remove:
+	conda env remove -n ${REPO_NAME}
+	rm .cookiecutter/state/conda-create*
+	@direnv reload
+
+.PHONY: pip-install
+## Install our package and requirements in editable mode (including development dependencies)
+pip-install:
+	@pip install -e ".[dev]"
+
 .PHONY: clean
 ## Delete all compiled Python files
 clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
 
-.PHONY: pre-commit
-## Perform pre-commit actions
-pre-commit:
-	$(call execute_in_env, pre-commit)
-
-.PHONY: lint
-## Run flake8 linting on repository
-lint:
-	$(call execute_in_env, flake8)
-
-.PHONY: pip-install
-## Install our package and requirements in editable mode (including development dependencies)
-pip-install:
-	@$(call execute_in_env, pip install -e ".[dev]")
 
 #################################################################################
 # Helper Commands (no need to explicitly document)                              #
 #################################################################################
 
 define err
-	(echo "$1, check $@ for more info" && exit 1)
+	(echo "$1, check $@.log for more info" && exit 1)
 endef
 
-# Allow us to execute make commands from within our project's conda env
-# and with bash utilities available
-define execute_in_env
-	source .cookiecutter/scripts/import.sh && conda_activate ${REPO_NAME} && $1
-endef
 
 .cookiecutter/state/conda-create:
 	@echo -n "Creating environment ${REPO_NAME} and installing all dependencies"
 	@(conda env create -q -n ${REPO_NAME} -f environment.yaml\
-	  && $(call execute_in_env, pip install -e ".[dev]"))\
+	  && pip install -e ".[dev]")\
 	 > $@.log 2>&1\
 	 || $(call err,Python environment setup failed)
 	@touch $@
@@ -126,41 +92,9 @@ endef
 
 .cookiecutter/state/setup-git:
 	@echo -n "Installing and configuring git pre-commit hooks"
-	@$(call execute_in_env, \
-	 pre-commit install --install-hooks\
+	@pre-commit install --install-hooks\
 	 > $@.log 2>&1\
-	 || $(call err,Git pre-commit setup failed)\
-	)
-	@touch $@
-	@echo " DONE"
-
-.cookiecutter/state/setup-metaflow:
-	@echo -n "Configuring Metaflow + AWS"
-	@$(call execute_in_env, \
-	 get_metaflow_config\
-	 > $@.log 2>&1\
-	 || $(call err,AWS + Metaflow setup failed)\
-	)
-	@touch $@
-	@echo " DONE"
-
-.cookiecutter/state/setup-github:
-	@echo -n "Creating and configuring Github repo '${GITHUB_ACCOUNT}/${REPO_NAME}'"
-	@$(call execute_in_env, \
-	 create_gh_repo ${GITHUB_ACCOUNT} ${REPO_NAME} ${PROJECT_OPENNESS}\
-	 > $@.log 2>&1\
-	 || $(call err,Github repo creation failed)\
-	)
-	@touch $@
-	@echo " DONE"
-
-.cookiecutter/state/setup-bucket:
-	@echo -n "Creating S3 bucket '${BUCKET}'"
-	@$(call execute_in_env, \
-	 (create_bucket ${BUCKET} && make_bucket_private ${BUCKET})\
-	 > $@.log 2>&1\
-	 || $(call err,S3 Bucket creation failed)\
-	)
+	 || $(call err,Git pre-commit setup failed)
 	@touch $@
 	@echo " DONE"
 
