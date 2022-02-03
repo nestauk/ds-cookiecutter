@@ -3,7 +3,5 @@
   "repo_name": "{{ cookiecutter.project_name.lstrip('0123456789.- ').replace(' ', '_').replace('-', '_').lower() }}",
   "author_name": "Nesta",
   "description": "A short description of the project.",
-  "openness": ["public", "private"],
-  "s3_bucket": "{{ cookiecutter.repo_name.rstrip('-').replace('_', '-')}}",
-  "github_account": "nestauk"
+  "openness": ["public", "private"]
 }

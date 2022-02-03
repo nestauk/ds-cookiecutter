@@ -1,5 +1,5 @@
 # Change these at your peril:
-export PROJECT_OPENNESS={{ cookiecutter.openness }}
 export PROJECT_NAME={{ cookiecutter.project_name }}
 export REPO_NAME={{ cookiecutter.repo_name }}
-export GITHUB_ACCOUNT={{ cookiecutter.github_account }}
+export DESCRIPTION={{ cookiecutter.description }}
+export PROJECT_OPENNESS={{ cookiecutter.openness }}
