@@ -110,7 +110,8 @@ class TestCookieSetup(object):
             ".git",
             ".github",
             ".cookiecutter",
-            ".cookiecutter/scripts",
+            ".cookiecutter/state",
+            ".recipes",
             "docs",
             "inputs",
             "inputs/data",
@@ -180,23 +181,23 @@ class TestCookieSetup(object):
             assert len(p ^ {"* 0_setup_cookiecutter", "dev", "main", "master"}) == 1
 
     @pytest.mark.usefixtures("conda_env")
-    def test_all(self):
-        """Test `make test-setup` command."""
+    def test_install(self):
+        """Test `make install` command."""
         with ch_dir(self.path):
-            try:
-                shell(["make", "install"])
-                p = shell(["make", "test-setup", "IN_PYTEST=true"])
-                assert "In test-suite: Skipping S3 checks" in p
-                assert "In test-suite: Skipping Github checks" in p
-                assert all(("ERROR:" not in line for line in p))
-            except CalledProcessError:
-                for log_path in glob(".cookiecutter/state/*.log"):
-                    with open(log_path) as f:
-                        print(f"{log_path}:\n", f.read())
-                raise
-            except AssertionError:
-                print(p)
+            shell(["make", "install"])
 
+            p_debug = shell(["conda", "env", "list"])
+            print(p_debug)
+            p_debug2 = shell(["which", "conda"])
+            print(p_debug2)
+            p_debug3 = shell(["conda", "info"])
+            print(p_debug3)
+
+            p = shell(["make", "test-setup"])
+            output = "".join(p)
+            
+            # Conda env activated by .envrc
+            assert f"{pytest.param.get('repo_name')}/bin/python" in output, output
 
 def shell(cmd: List[str]) -> List[str]:
     """Run `cmd`, checking output and returning stripped output lines."""
