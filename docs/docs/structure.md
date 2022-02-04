@@ -23,9 +23,6 @@ Available rules:
 
 clean               Delete all compiled Python files
 conda-update        Update the conda-environment based on changes to `environment.yaml`
-docs                Build the API documentation
-docs-clean          Clean the built API documentation
-docs-open           Open the docs in the browser
 init                Fully initialise a project: install; setup github repo; setup S3 bucket
 inputs-pull         Pull `inputs/` from S3
 inputs-push         Push `inputs/` to S3 (WARNING: this may overwrite existing files!)
@@ -335,13 +332,9 @@ We are [experimenting](../roadmap#Reporting) with a toolchain using [pandoc](htt
 │   │   └── __init__.py              |
 │   └── utils                        |  Utilities
 │       └── __init__.py              |
-├── docs                             |  DOCUMENTATION
-│   ├── conf.py                      |    Configures docs
-│   ├── index.rst                    |
-│   └── license.rst                  |
 ├── environment.yaml                 |  CONDA ENVIRONMENT SPECIFICATION (optional component)
 ├── requirements.txt                 |  PYTHON DEPENDENCIES NEEDED TO RUN THE CODE
-├── requirements_dev.txt             |  PYTHON DEV DEPENDENCIES (e.g. building docs/running tests)
+├── requirements_dev.txt             |  PYTHON DEV DEPENDENCIES (e.g. running tests)
 ├── inputs                           |  INPUTS (should be immutable)
 │   ├── data                         |    Inputs that are data
 │   ├── models                       |    Inputs that are models

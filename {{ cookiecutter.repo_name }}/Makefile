@@ -1,13 +1,5 @@
 SHELL := /bin/bash
 
-# Detect how to open things depending on our OS
-OS = $(shell uname -s)
-ifeq ($(OS),Linux)
-	OPEN=xdg-open
-else
-	OPEN=open
-endif
-
 # Export all environment variables
 export
 
@@ -55,23 +47,6 @@ inputs-pull:
 ## Push `inputs/` to S3 (WARNING: this may overwrite existing files!)
 inputs-push:
 	$(call execute_in_env, aws s3 sync inputs s3://${BUCKET}/inputs)
-
-.PHONY: docs
-## Build the API documentation
-docs:
-	$(call execute_in_env, sphinx-apidoc -o docs/api ${REPO_NAME})
-	$(call execute_in_env, sphinx-build -b docs/ docs/_build)
-
-.PHONY: docs-clean
-## Clean the built API documentation
-docs-clean:
-	rm -r docs/source/api
-	rm -r docs/_build
-
-.PHONY: docs-open
-## Open the docs in the browser
-docs-open:
-	$(OPEN) docs/_build/index.html
 
 .PHONY: conda-update
 ## Update the conda-environment based on changes to `environment.yaml`
