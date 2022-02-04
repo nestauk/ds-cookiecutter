@@ -94,7 +94,6 @@ class TestCookieSetup(object):
             ".envrc",
             "README.md",
             "setup.cfg",
-            f"{repo_name}/config/logging.yaml",
             f"{repo_name}/__init__.py",
         ]
 
