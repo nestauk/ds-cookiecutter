@@ -2,7 +2,6 @@ import os
 import re
 import sys
 from contextlib import contextmanager
-from glob import glob
 from pathlib import Path
 from subprocess import CalledProcessError, check_output
 from typing import List
@@ -23,6 +22,7 @@ def ch_dir(path):
 
 def no_curlies(filepath):
     """Utility to make sure no curly braces appear in a file.
+
     That is, was jinja able to render everthing?
     """
     with open(filepath, "r") as f:
@@ -152,7 +152,6 @@ class TestCookieSetup(object):
     @pytest.mark.usefixtures("conda_env")
     def test_conda(self):
         """Test conda environment is created."""
-
         with ch_dir(self.path):
             try:
                 p = shell(["make", ".cookiecutter/state/conda-create"])
@@ -181,33 +180,34 @@ class TestCookieSetup(object):
             assert len(p ^ {"* 0_setup_cookiecutter", "dev", "main", "master"}) == 1
 
     @pytest.mark.usefixtures("conda_env")
+    def test_precommit(self):
+        """Test ..."""
+        with ch_dir(self.path):
+            shell(["make", ".cookiecutter/state/setup-git"])
+            shell(["pre-commit", "run", "-a"])
+
+    @pytest.mark.usefixtures("conda_env")
     def test_install(self):
         """Test `make install` command."""
         with ch_dir(self.path):
             shell(["make", "install"])
 
-            p_debug = shell(["conda", "env", "list"])
-            print(p_debug)
-            p_debug2 = shell(["which", "conda"])
-            print(p_debug2)
-            p_debug3 = shell(["conda", "info"])
-            print(p_debug3)
+            # output = "".join(shell(["make", "test-setup"]))
+            output = "".join(shell(["bash", "-c", "source .envrc && which python"]))
+            print(output)
 
-            p = shell(["make", "test-setup"])
-            output = "".join(p)
-            
             # Conda env activated by .envrc
             assert f"{pytest.param.get('repo_name')}/bin/python" in output, output
+
 
 def shell(cmd: List[str]) -> List[str]:
     """Run `cmd`, checking output and returning stripped output lines."""
     try:
         p = [line.strip() for line in check_output(cmd).decode().strip().splitlines()]
     except CalledProcessError as e:
-        [print(line) for line in (e.stdout or b"").decode().splitlines()]
-        [
+        for line in (e.stdout or b"").decode().splitlines():
+            print(line)
+        for line in (e.stderr or b"").decode().splitlines():
             print(line, file=sys.stderr)
-            for line in (e.stderr or b"").decode().splitlines()
-        ]
         raise e
     return p
