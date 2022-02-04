@@ -51,14 +51,14 @@ docs-open:
 conda-update:
 	conda env update -n ${REPO_NAME} -f environment.yaml
 	$(MAKE) -s pip-install
-	@direnv reload
+	direnv reload
 
 .PHONY: conda-update
 ## Update the conda-environment based on changes to `environment.yaml`
 conda-remove:
 	conda env remove -n ${REPO_NAME}
 	rm .cookiecutter/state/conda-create*
-	@direnv reload
+	direnv reload
 
 .PHONY: pip-install
 ## Install our package and requirements in editable mode (including development dependencies)
@@ -76,19 +76,9 @@ clean:
 # Helper Commands (no need to explicitly document)                              #
 #################################################################################
 
-.PHONY: test-setup
-test-setup:
-	@echo Testing configuration
-
-	@#pre-commit run -a
-
-	@# Check that .envrc works as expected
-	source .envrc && which python
-
 define err
 	(echo "$1, check $@.log for more info" && exit 1)
 endef
-
 
 .cookiecutter/state/conda-create:
 	@echo -n "Creating environment ${REPO_NAME} and installing all dependencies"
