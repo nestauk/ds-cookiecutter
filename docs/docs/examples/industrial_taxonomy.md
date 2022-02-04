@@ -53,8 +53,6 @@ You can skip ahead to the [project tree :evergreen_tree:](./#project-tree) if yo
 
         In this example structure, we have individual YAML files for each pipeline component.
 
-        This will be the structure we recommend [once we add metaflow utilities](../roadmap#Metaflow) to the cookiecutter.
-
         Whilst you are free to mimic this structure now, it is currently more convenient to nest the `config/pipeline/**` structure within `base.yaml` as it is easily importable as a python `dict` - `from src import config`.
 
         Furthermore, because metaflows are run from the command line and we want to parameterise them with YAML from `config/pipeline**`, each `flow.py` file currently needs an accompanying `run.py` file to:
@@ -63,7 +61,7 @@ You can skip ahead to the [project tree :evergreen_tree:](./#project-tree) if yo
         - Run the metaflow from within `run.py` using Python's `subprocess` library.
         - Update a config file with the successful metaflow run ID (so that getters know which version of the data to fetch)
 
-        This is a lot of leg-work and increases the surface-area for bugs. This is why the upcoming metaflow utilities will enable one to run a command like `nestaflow industry_classifier/sic/transformer_model` (based on the paths in `config/pipeline/**`) and all the above will be taken care of automatically without needing to write an accompanying `run.py` script.
+        This is a lot of leg-work and increases the surface-area for bugs, you may be better off hard-coding values into shell-scripts or a Makefile.
 
 :inbox_tray: `getters/outputs/sic_classifier.py`
 
