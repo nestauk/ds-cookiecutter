@@ -298,7 +298,7 @@ You should avoid `jupyter`/`jupyterlab` as a dependency in the project environme
 
 Instead add `ipykernel` as a dependency. This is a lightweight dependency that allows `jupyter`/`jupyterlab` installed elsewhere (e.g. your main conda environment or system installation) to run the code in your project.
 
-Run `python -m ipykernel install --user --name=<project environment name>` from the environment where you run jupyter to allow jupyter to use your project's virtual environment.
+Run `python -m ipykernel install --user --name=<project environment name>` from within your project environment to allow jupyter to use your project's virtual environment.
 
 The advantages of this are:
 
