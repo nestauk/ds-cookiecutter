@@ -94,8 +94,6 @@ class TestCookieSetup(object):
             ".envrc",
             "README.md",
             "setup.cfg",
-            "docs/conf.py",
-            "docs/index.rst",
             f"{repo_name}/config/logging.yaml",
             f"{repo_name}/__init__.py",
         ]
@@ -111,7 +109,6 @@ class TestCookieSetup(object):
             ".github",
             ".cookiecutter",
             ".cookiecutter/scripts",
-            "docs",
             "inputs",
             "inputs/data",
             "outputs",
