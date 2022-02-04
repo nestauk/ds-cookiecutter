@@ -32,8 +32,8 @@ inputs-pull: check-bucket-path
 .PHONY: docs
 ## Build the API documentation
 docs:
-	$(call execute_in_env, sphinx-apidoc -o docs/api ${REPO_NAME})
-	$(call execute_in_env, sphinx-build -b docs/ docs/_build)
+	sphinx-apidoc -o docs/api ${REPO_NAME})
+	sphinx-build -b docs/ docs/_build)
 
 .PHONY: docs-clean
 ## Clean the built API documentation
@@ -75,6 +75,15 @@ clean:
 #################################################################################
 # Helper Commands (no need to explicitly document)                              #
 #################################################################################
+
+.PHONY: test-setup
+test-setup:
+	@echo Testing configuration
+
+	@#pre-commit run -a
+
+	@# Check that .envrc works as expected
+	source .envrc && which python
 
 define err
 	(echo "$1, check $@.log for more info" && exit 1)
