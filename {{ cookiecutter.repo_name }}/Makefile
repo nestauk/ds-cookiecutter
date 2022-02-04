@@ -77,15 +77,15 @@ clean:
 #################################################################################
 
 define err
-	(echo "$1, check $@.log for more info" && exit 1)
+	(echo -e "$1\n\n$@.log:" && cat "$@.log" && exit 1)
 endef
 
 .cookiecutter/state/conda-create:
-	@echo -n "Creating environment ${REPO_NAME} and installing all dependencies"
+	@echo -n "Creating environment ${REPO_NAME} and installing all dependencies..."
 	@(conda env create -q -n ${REPO_NAME} -f environment.yaml\
 	  && pip install -e ".[dev]")\
 	 > $@.log 2>&1\
-	 || $(call err,Python environment setup failed)
+	 || $(call err, Python environment setup failed)
 	@touch $@
 	@echo " DONE"
 
@@ -93,7 +93,7 @@ endef
 	@echo -n "Installing and configuring git pre-commit hooks"
 	@pre-commit install --install-hooks\
 	 > $@.log 2>&1\
-	 || $(call err,Git pre-commit setup failed)
+	 || $(call err, Git pre-commit setup failed)
 	@touch $@
 	@echo " DONE"
 
