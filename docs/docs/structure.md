@@ -114,26 +114,9 @@ We also have `.envrc` which contains non-secret project configuration shared acr
 
 #### Store Data-science configuration in `src/config/`
 
-Few things scupper colloborative analysis like hard-coding hyper-parameters parameters deep in the code-base.
+Few things scupper colloborative analysis like hard-coding parameters deep in the code-base.
 
-`src/config/base.yaml` provides a place to document choices made.
-
-For example, if you were working on a fuzzy-matching the PATSTAT patent database to the Companies House database and wanted to only merge above a certain match score you may add a section to the configuration like the following,
-
-```yaml
-patstat_companies_house:
-    match_threshold: 90
-```
-
-and load that value into your code with,
-
-```python
-from src import config
-
-config["patstat_companies_house"]["match_threshold"]
-```
-
-This centralisation provides a clearer log of decisions and decreases the chance that a different match threshold gets incorrectly used somewhere else in the codebase.
+You should instead favour using configuration files (in `src/config`), or `GLOBAL_VARIABLES` near the top of a module.
 
 ---
 
@@ -142,10 +125,6 @@ This centralisation provides a clearer log of decisions and decreases the chance
 Instead use relative paths and make use of `src.PROJECT_DIR` which will return the path to your project's base directory. This means you could specify the above path as `f"{src.PROJECT_DIR}/outputs/data/foo.json"` and have it work on everyone's machine!
 
 ---
-
-#### Roadmap
-
-See the [roadmap](../roadmap#Metaflow) for how `src/config` will be used to parameterise metaflow pipelines and version control their outputs.
 
 ## Data - `inputs/data`, `outputs/data`, `outputs/.cache`
 
@@ -322,10 +301,7 @@ We are [experimenting](../roadmap#Reporting) with a toolchain using [pandoc](htt
 │   ├── analysis                     |  Analysis
 │   │   └── __init__.py              |
 │   ├── config                       |  Configuration
-│   │   ├── logging.yaml             |    logging configuration
-│   │   ├── base.yaml                |    global configuration (e.g. for tracking hyper-parameters)
-│   │   └── pipeline                 |    pipeline configuration files
-│   │       └── .gitkeep             |
+│   │   └── logging.yaml             |    logging configuration
 │   ├── getters                      |  Data getters
 │   │   └── __init__.py              |
 │   ├── pipeline                     |  Pipeline components
