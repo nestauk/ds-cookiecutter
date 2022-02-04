@@ -56,6 +56,7 @@ _NB: eventually these checks will be automatic_
 ### Encouraged
 
 -   Favour [`logging`](https://docs.python.org/3/howto/logging.html) over `print`
+    -   [`loguru`](https://loguru.readthedocs.io/en/stable/) makes using logging a lot easier, you may want to try it out.
 -   Favour using configuration files, or (faster/lazier/less good/ok) `GLOBAL_VARIABLES` near the top of your code, rather than repeated use of hard-coded variables in your code, particularly when with URL and file path variables like `s3://path/to/some/fixed/place`, but also for repeated numeric hyperparameters.
 
 ## Critical thinking

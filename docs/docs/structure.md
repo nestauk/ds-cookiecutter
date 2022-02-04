@@ -304,8 +304,7 @@ We are [experimenting](../roadmap#Reporting) with a toolchain using [pandoc](htt
 │   ├── __init__.py                  |
 │   ├── analysis                     |  Analysis
 │   │   └── __init__.py              |
-│   ├── config                       |  Configuration
-│   │   └── logging.yaml             |    logging configuration
+│   ├── config/                      |  Configuration
 │   ├── getters                      |  Data getters
 │   │   └── __init__.py              |
 │   ├── pipeline                     |  Pipeline components
