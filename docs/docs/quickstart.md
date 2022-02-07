@@ -70,7 +70,10 @@
 
 Ensure you have installed the [requirements](#requirements) and then run `cookiecutter https://github.com/nestauk/ds-cookiecutter -c <VERSION TAG>`.
 
-!!! attention "If you do not specify a version tag then `cookiecutter` will use the latest commit on the `master` branch. Unless specifying a version you have used before, check the [release notes](https://github.com/nestauk/ds-cookiecutter/releases) to see what changed since you last created a project!"
+??? attention "If you do not specify a version tag then `cookiecutter` will use the latest commit on the `master` branch. Unless specifying a version you have used before, check the [release notes](https://github.com/nestauk/ds-cookiecutter/releases) to see what changed since you last created a project!"
+
+    Currently, only the latest release's docs are available online.
+    You can serve docs for a specific release on your machine by checking out that release and running `pip install -r requirements.txt && cd docs && mkdocs serve` and then navigating to `localhost:8000` in your browser.
 
 This opens a series of prompts to configure your new project (values in square brackets denote defaults).
 
