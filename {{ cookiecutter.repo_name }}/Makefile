@@ -22,7 +22,7 @@ install: .cookiecutter/state/conda-create .cookiecutter/state/setup-git
 
 .PHONY: check-bucket-path
 check-bucket-path:
-	@test ${S3_INPUT_PATH} || (echo 'Please set a S3_INPUT_PATH environment variable (e.g. in .envrc) documenting the S3 path to your inputs/ - e.g. s3://nesta-ds-data/your-mission/project-name' && exit 1)
+	@test ${S3_INPUT_PATH} || (echo 'Please set a S3_INPUT_PATH environment variable (e.g. in .envrc) documenting the S3 path to your inputs/ - e.g. s3://nesta-ds-projects/your-mission/project-name' && exit 1)
 
 .PHONY: inputs-pull
 ## Pull `inputs/` from S3
