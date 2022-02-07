@@ -9,6 +9,8 @@
     -   [Conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html)
     -   [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
     - [direnv](https://direnv.net/docs/installation.html) - Automatically loads environment variables and environments
+    - Optional: [AWS CLI](https://aws.amazon.com/cli/) installed and configured
+        -   Needed to use S3 for data storage
 
 === "Installation and configuration help"
 
@@ -28,6 +30,17 @@
         apt-get install -y direnv  # Ubuntu Linux
         ```
         Add `eval "$(direnv hook $SHELL)"` at the end of your `~/.${SHELL}rc` file.
+    - Optional: [AWS CLI](https://aws.amazon.com/cli/) installed and configured
+        - **Install** - `pip install awscli`
+        - **Configure**
+
+            Fetch (or generate) [security credentials from the AWS dashboard](https://console.aws.amazon.com/iam/home?#security_credential) by clicking "Create access key".
+
+            Run `aws configure`, inputting the access key ID and secret access key ID you just generated when prompted.
+
+            In addition you should set the default region name to `eu-west-2` and the default output format to `None`.
+
+            AWS provide a more detailed guide [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config).
 
 ### Create
 
