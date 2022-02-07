@@ -37,7 +37,8 @@ theme:
 markdown_extensions:
   - toc:
       permalink: true
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - def_list
   - admonition
   - pymdownx.details
@@ -51,11 +52,6 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid-experimental
-          format: !!python/name:pymdownx.superfences.fence_code_format
   - attr_list
 extra_css:
   - css/extra.css
