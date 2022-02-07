@@ -37,7 +37,8 @@ theme:
 markdown_extensions:
   - toc:
       permalink: true
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - def_list
   - admonition
   - pymdownx.details
