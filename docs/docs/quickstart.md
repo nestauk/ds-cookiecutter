@@ -38,7 +38,7 @@
 
             Run `aws configure`, inputting the access key ID and secret access key ID you just generated when prompted.
 
-            In addition you should set the default region name to `eu-west-2` and the default output format to `None`.
+            In addition you should set the default region name to `eu-west-2` and the default output format to `json`.
 
             AWS provide a more detailed guide [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config).
 
@@ -69,12 +69,10 @@ When you change directory to your created project folder, you will see that you 
 
 Run `make install` to:
 
-    -   Create a conda environment, `repo_name`, and install the project package in editable mode and its dependencies
-    -   Configure and install Git pre-commit hooks
+-   Create a conda environment, `repo_name`, and install the project package in editable mode and its dependencies
+-   Configure and install Git pre-commit hooks
 
-!!! info
-
-    Look in `.recipes/GithubCreation.md` for a quick method of creating and configuring a Github repo for this project.
+!!! info "Look in `.recipes/GithubCreation.md` for a quick method of creating and configuring a Github repo for this project."
 
 Now you're setup, you may wish to adapt the cookiecutter to fill your specific needs, e.g. by looking at other components in `.recipes/` ([see FAQ](../faq/#what-customisations-can-i-make-when-setting-up-the-cookiecutter-without-defeating-the-point-of-having-a-standard-project-template)).
 
