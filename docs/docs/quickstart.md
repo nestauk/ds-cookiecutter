@@ -65,7 +65,7 @@ This opens a series of prompts to configure your new project (values in square b
 
 ### Configure
 
-When you change directory to your created project folder, you will see that you are in a git repository and the cookiecutter has committed itself to the `master` branch.
+When you change directory to your created project folder, you will see that you are in a git repository and the generated cookiecutter has committed itself to the `0_setup_cookiecutter` branch.
 
 Run `make install` to:
 
