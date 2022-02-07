@@ -53,13 +53,6 @@ conda-update:
 	$(MAKE) -s pip-install
 	direnv reload
 
-.PHONY: conda-update
-## Update the conda-environment based on changes to `environment.yaml`
-conda-remove:
-	conda env remove -n ${REPO_NAME}
-	rm .cookiecutter/state/conda-create*
-	direnv reload
-
 .PHONY: pip-install
 ## Install our package and requirements in editable mode (including development dependencies)
 pip-install:

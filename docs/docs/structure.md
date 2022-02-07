@@ -26,13 +26,9 @@ conda-update        Update the conda-environment based on changes to `environmen
 docs                Build the API documentation
 docs-clean          Clean the built API documentation
 docs-open           Open the docs in the browser
-init                Fully initialise a project: install; setup github repo; setup S3 bucket
 inputs-pull         Pull `inputs/` from S3
-inputs-push         Push `inputs/` to S3 (WARNING: this may overwrite existing files!)
 install             Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS
-lint                Run flake8 linting on repository
 pip-install         Install our package and requirements in editable mode (including development dependencies)
-pre-commit          Perform pre-commit actions
 ```
 
 Where appropriate these make commands will automatically be run in the conda environment for a project.
