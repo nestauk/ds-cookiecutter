@@ -68,9 +68,9 @@
 
 ### Create
 
-Ensure you have installed the [requirements](#requirements) and then run `cookiecutter https://github.com/nestauk/ds-cookiecutter`.
+Ensure you have installed the [requirements](#requirements) and then run `cookiecutter https://github.com/nestauk/ds-cookiecutter -c <VERSION TAG>`.
 
-!!! attention "Check the [release notes](https://github.com/nestauk/ds-cookiecutter/releases) to see if anything changed since you last created a project!"
+!!! attention "If you do not specify a version tag then `cookiecutter` will use the latest commit on the `master` branch. Unless specifying a version you have used before, check the [release notes](https://github.com/nestauk/ds-cookiecutter/releases) to see what changed since you last created a project!"
 
 This opens a series of prompts to configure your new project (values in square brackets denote defaults).
 
