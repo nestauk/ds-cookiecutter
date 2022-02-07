@@ -76,7 +76,7 @@ endef
 .cookiecutter/state/conda-create:
 	@echo -n "Creating environment ${REPO_NAME} and installing all dependencies"
 	@(conda env create -q -n ${REPO_NAME} -f environment.yaml\
-	  && conda shell.bash activate "${REPO_NAME}"\
+	  && eval "$$(conda shell.bash activate "${REPO_NAME}")"\
 	  && pip install -e ".[dev]")\
 	 > $@.log 2>&1\
 	 || $(call err,Python environment setup failed)
