@@ -503,7 +503,9 @@
 
 <h1 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">&para;</a></h1>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Summary</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Summary</label><label for="__tabbed_1_2">Installation and configuration help</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <ul>
 <li>A *NIX system (e.g. Linux/macOS) - Windows might work, but we don't support it<ul>
 <li>Mac users should also install <a href="https://brew.sh/">homebrew</a> and <a href="https://www.gnu.org/software/coreutils">GNU coreutils</a></li>
@@ -521,7 +523,7 @@
 <li><a href="https://direnv.net/docs/installation.html">direnv</a> - Automatically loads environment variables and environments</li>
 </ul>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Installation and configuration help</label><div class="tabbed-content">
+<div class="tabbed-block">
 <ul>
 <li>A *NIX system (e.g. Linux/macOS) - Windows might work, but we don't support it<ul>
 <li>Mac users should also install:<ul>
@@ -581,6 +583,7 @@ apt-get install -y direnv  <span class="c1"># Ubuntu Linux</span>
     Add <code>eval "$(direnv hook $SHELL)"</code> at the end of your <code>~/.${SHELL}rc</code> file.</p>
 </li>
 </ul>
+</div>
 </div>
 </div>
 <h2 id="starting-from-scratch">Starting from scratch<a class="headerlink" href="#starting-from-scratch" title="Permanent link">&para;</a></h2>
