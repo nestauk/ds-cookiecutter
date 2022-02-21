@@ -85,7 +85,8 @@ endef
 
 .cookiecutter/state/setup-git:
 	@echo -n "Installing and configuring git pre-commit hooks"
-	@pre-commit install --install-hooks\
+	@eval "$$(conda shell.bash activate "${REPO_NAME}")"\
+	 &&pre-commit install --install-hooks\
 	 > $@.log 2>&1\
 	 || $(call err,Git pre-commit setup failed)
 	@touch $@
