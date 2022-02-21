@@ -32,8 +32,8 @@ inputs-pull: check-bucket-path
 .PHONY: docs
 ## Build the API documentation
 docs:
-	sphinx-apidoc -o docs/api ${REPO_NAME})
-	sphinx-build -b docs/ docs/_build)
+	sphinx-apidoc -o docs/api ${REPO_NAME}
+	sphinx-build -b docs/ docs/_build
 
 .PHONY: docs-clean
 ## Clean the built API documentation
