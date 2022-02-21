@@ -3,7 +3,6 @@ scipy
 pandas
 matplotlib
 altair
-metaflow
 tqdm
 filelock
 typer

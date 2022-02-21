@@ -15,7 +15,7 @@ export
 include .cookiecutter/config
 
 .PHONY: install
-## Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS
+## Install a project: create conda env; install local package; setup git hooks
 install: .cookiecutter/state/conda-create .cookiecutter/state/setup-git
 	@direnv reload  # Now the conda env exists, reload to activate it
 
