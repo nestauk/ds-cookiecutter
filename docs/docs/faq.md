@@ -4,17 +4,21 @@ Please submit questions as a [Github issue](https://github.com/nestauk/ds-cookie
 
 ## What customisations can I make when setting up the cookiecutter?
 
-You should be careful about modifying the cookiecutter - big changes defeat the point of having a standard project template.
+You should give thought when modifying the cookiecutter - big breaking changes defeat the point of having a standard starting point.
 
-The other side of the equation is having a hackable standard starting point - the cookiecutter aims to be small and simple enough to understand which allows customisation based on needs that can't be centrally anticipated (but we encourage those customisations to be fed back to us as an issue).
+The other side of the equation is having a hackable standard starting point - the cookiecutter aims to be small and simple enough to understand which allows customisation based on needs that can't be centrally anticipated.
 
-Some things that might be reasonable:
+The `.recipes/` folder provides scripts/docs for extending the cookiecutter with specific bits of functionality we think are important but are either:
 
--   Remove initial dependencies you know you won't need
--   Add dependencies you know you'll need
--   Extra documentation
--   Add subfolder structure right away to help co-ordinate work
--   Replace conda with a different virtual environment / dependency management tool
+-   Not suitable in every situation
+-   Not generically configurable for every situation
+-   Too much complex to be a cookiecutter default
+
+This keeps the core of the cookiecutter lean, maintainable, and hackable.
+
+!!! info "Older versions of the cookiecutter were more opinionated"
+
+    However trying to meet all needs means the cookiecutter ends up too complex and too brittle leaving little room/incentive for sub-teams/projects to understand and extend the cookiecutter to better solve their problems which results in a sub-optimal solution for everyone.
 
 ## Where should I save models?
 

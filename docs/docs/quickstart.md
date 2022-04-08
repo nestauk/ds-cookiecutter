@@ -8,11 +8,9 @@
         -   Mac users should also install [homebrew](https://brew.sh/) and [GNU coreutils](https://www.gnu.org/software/coreutils)
     -   [Conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html)
     -   [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
-    -   [git-crypt](https://github.com/AGWA/git-crypt) - required for metaflow on AWS
-
-    -   [github CLI](https://github.com/cli/cli) - for automatic creation and configuration of a Github repo
-    -   Have a Nesta AWS account configured with `awscli`
     - [direnv](https://direnv.net/docs/installation.html) - Automatically loads environment variables and environments
+    - Optional: [AWS CLI](https://aws.amazon.com/cli/) installed and configured
+        -   Needed to use S3 for data storage
 
 === "Installation and configuration help"
 
@@ -26,25 +24,13 @@
         ```bash
         pip install cookiecutter  # might be pip3 on your machine
         ```
-
-    -   [git-crypt](https://github.com/AGWA/git-crypt) - required for metaflow on AWS
-
+    - [direnv](https://direnv.net/docs/installation.html) - Automatically loads environment variables and environments
         ```bash
-        brew install git-crypt  # Mac
-        apt-get install -y git-crypt  # Ubuntu linux
+        brew install direnv  # Mac
+        apt-get install -y direnv  # Ubuntu Linux
         ```
-
-    -   [github CLI](https://github.com/cli/cli) - for automatic creation and configuration of a Github repo
-        -   **Install**
-            -   Mac: `brew install gh`
-            -   Linux: [see instructions](https://github.com/cli/cli/blob/trunk/docs/install_linux.md)
-        -   **Configure** - `gh auth login` and answer prompts as below:
-            -   _What account do you want to log into?_ **Github.com**
-            -   _What is your preferred protocol for Git operations?_ **SSH**
-            -   _Upload your SSH public key to your Github account?_ Select the key you used to sign-up for 2-factor authentication with github
-            -   _How would you like to authenticate GitHub CLI?_ **Login with a web browser**
-
-    -   [AWS CLI](https://aws.amazon.com/cli/) installed and configured to use a Nesta AWS account
+        Add `eval "$(direnv hook $SHELL)"` at the end of your `~/.${SHELL}rc` file.
+    - Optional: [AWS CLI](https://aws.amazon.com/cli/) installed and configured
         - **Install** - `pip install awscli`
         - **Configure**
 
@@ -52,19 +38,9 @@
 
             Run `aws configure`, inputting the access key ID and secret access key ID you just generated when prompted.
 
-            In addition you should set the default region name to `eu-west-2` and the default output format to `None`.
+            In addition you should set the default region name to `eu-west-2` and the default output format to `json`.
 
             AWS provide a more detailed guide [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config).
-    - [direnv](https://direnv.net/docs/installation.html) - Automatically loads environment variables and environments
-        ```bash
-        brew install direnv  # Mac
-        apt-get install -y direnv  # Ubuntu Linux
-        ```
-        Add `eval "$(direnv hook $SHELL)"` at the end of your `~/.${SHELL}rc` file.
-
-## Starting from scratch
-
-[![asciicast](https://asciinema.org/a/XYp6l2hknMVWWPbI76Qq8BTiq.svg){ class=ascii }](https://asciinema.org/a/XYp6l2hknMVWWPbI76Qq8BTiq)
 
 ### Create
 
@@ -85,51 +61,25 @@ This opens a series of prompts to configure your new project (values in square b
     -   `author_name`: The author of the project
     -   `description`: A short description of your project
     -   `openness`: Whether the project is "public" (default) or "private"
-        -   You should only make a project private if you have a good reason
         -   If "public" then an MIT license will be generated; otherwise the license will be a copyright placeholder
-        -   A Github repo obeying this setting will be created for you in the next section
-    -   `s3_bucket`: The name of an S3 bucket to store assets for this project
-        -   This bucket will be created for you in the next section
-        -   **Careful**: This needs to not conflict with any existing s3 bucket name and [S3 bucket names](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html) must only contain lowercase letters, numbers, dots, and hyphens.
-        -   This value can be reconfigured in `.envrc`.
-    -   `github_account`: The github account that this project will be created in
 
 ### Configure
 
-Run `make init` to perform the following steps:
+When you change directory to your created project folder, you will see that you are in a git repository and the generated cookiecutter has committed itself to the `0_setup_cookiecutter` branch.
 
--   `install` - Required by everyone (creator and collaborators) this is itself composed of several sub-steps:
+Run `make install` to:
 
-    -   Create a conda environment, `repo_name`, and install the project package in editable mode and its dependencies
-    -   Configure and install Git pre-commit hooks
+-   Create a conda environment (with a name corresponding to the `repo_name` prompt) and install the project package in editable mode and its dependencies
+-   Configure and install Git pre-commit hooks
 
-        !!! warning inline end "Requires access to Nesta's AWS account"
+!!! info "Look in [`.recipes/GithubCreation.md`](https://github.com/nestauk/ds-cookiecutter/blob/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/.recipes/GithubCreation.md) for a quick method of creating and configuring a Github repo for this project."
 
-    -   Fetch and decrypt the Nesta Metaflow config.
-        It should exist in `~/.metaflowconfig/config_ds-cookiecutter.json`
-
--   Create and configure a github repo `github.com/<github_account>/<repo_name>`
--   Create an S3 bucket `s3_bucket`
-
-If you don't need a github repo or S3 bucket just run `make install`, you can always run `make init` later which will create these resources.
-
-When you change directory to your created project folder, you will see that you are in a git branch `0_setup_cookiecutter`.
-Make any tweaks to the cookiecutter required by your project ([see FAQ](../faq/#what-customisations-can-i-make-when-setting-up-the-cookiecutter-without-defeating-the-point-of-having-a-standard-project-template)), commit, and then make a Pull Request to `dev`.
+Now you're setup, you may wish to adapt the cookiecutter to fill your specific needs, e.g. by looking at other components in [`.recipes/`](https://github.com/nestauk/ds-cookiecutter/blob/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/.recipes) ([see FAQ](../faq/#what-customisations-can-i-make-when-setting-up-the-cookiecutter-without-defeating-the-point-of-having-a-standard-project-template)).
 
 ## Collaborating on an existing project
 
 -   Clone the repository and `cd` into the repository.
 -   Run `make install` to configure the development environment (see above section)
 -   Check the project's `README` for any additional configuration needed (e.g. putting API keys in `.env`)
--   Pull any required inputs into `inputs/` by running `make inputs-pull`
+    -   Ideally that projects maintainer will have extended the `Makefile` to do additional configuration automatically
 -   Follow the author's documentation, or make them write some if they haven't already!
-
-## How can I use this if I don't have AWS?
-
-If you don't have access to an AWS account you can still use the cookiecutter, you just need to remove a few bits relating to our AWS setup:
-
--   Remove the `.cookiecutter/state/setup-metaflow` dependency of the `install` recipe within `Makefile` - the Nesta Metaflow config will no longer be fetched and decrypted
--   Remove the `.cookiecutter/state/setup-bucket` dependency of the `init` recipe within `Makefile` - an S3 bucket will no longer be created
--   Remove the `inputs-push` and `inputs-pull` recipes within `Makefile` - an S3 bucket doesn't exist for these commands to push from/pull to.
-
-If you're not using AWS then you do not require `awscli` and `gitcrypt` from the [requirements](#requirements).

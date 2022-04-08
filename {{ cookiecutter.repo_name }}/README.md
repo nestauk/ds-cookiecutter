@@ -3,12 +3,10 @@
 ## Setup
 
 - Meet the data science cookiecutter [requirements](http://nestauk.github.io/ds-cookiecutter/quickstart), in brief:
-  - Install: `git-crypt`, `direnv`, and `conda`
-  - Have a Nesta AWS account configured with `awscli`
+  - Install: `direnv` and `conda`
 - Run `make install` to configure the development environment:
   - Setup the conda environment
-  - Configure pre-commit
-  - Configure metaflow to use AWS
+  - Configure `pre-commit`
 
 ## Contributor guidelines
 

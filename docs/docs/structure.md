@@ -26,13 +26,9 @@ conda-update        Update the conda-environment based on changes to `environmen
 docs                Build the API documentation
 docs-clean          Clean the built API documentation
 docs-open           Open the docs in the browser
-init                Fully initialise a project: install; setup github repo; setup S3 bucket
 inputs-pull         Pull `inputs/` from S3
-inputs-push         Push `inputs/` to S3 (WARNING: this may overwrite existing files!)
 install             Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS
-lint                Run flake8 linting on repository
 pip-install         Install our package and requirements in editable mode (including development dependencies)
-pre-commit          Perform pre-commit actions
 ```
 
 Where appropriate these make commands will automatically be run in the conda environment for a project.
@@ -160,9 +156,8 @@ Put any data dependencies of your project that your code doesn't fetch here (E.g
 
 Don't ever edit this raw data, especially not manually, and especially not in Excel. Don't overwrite your raw data. Don't save multiple versions of the raw data. Treat the data (and its format) as immutable.
 
-Store it in [AWS S3](https://aws.amazon.com/s3/). When the project was configured, you will have been prompted for a `s3_bucket` variable (now tracked in `.envrc` as `BUCKET`).
-
-Two make commands - `make inputs-pull` and `make inputs-push` - can be used to push and pull data from the configured s3 bucket.
+Ideally, you should store it in [AWS S3](https://aws.amazon.com/s3/). 
+If you set the `S3_INPUT_PATH` environment variable (e.g. in `.envrc`) then you can use `make inputs-pull` to pull data from the configured S3 bucket.
 
 ### `outputs/.cache/`
 
@@ -320,52 +315,32 @@ We are [experimenting](../roadmap#Reporting) with a toolchain using [pandoc](htt
 # Tree
 
 ```nohighlight
-├── src                              |  PYTHON PACKAGE
+├── <REPO NAME>                      |  PYTHON PACKAGE
 │   ├── __init__.py                  |
-│   ├── analysis                     |  Analysis
-│   │   └── __init__.py              |
+│   ├── analysis/                    |  Analysis
 │   ├── config                       |  Configuration
 │   │   ├── logging.yaml             |    logging configuration
 │   │   ├── base.yaml                |    global configuration (e.g. for tracking hyper-parameters)
-│   │   └── pipeline                 |    pipeline configuration files
-│   │       └── .gitkeep             |
-│   ├── getters                      |  Data getters
-│   │   └── __init__.py              |
-│   ├── pipeline                     |  Pipeline components
-│   │   └── __init__.py              |
-│   └── utils                        |  Utilities
-│       └── __init__.py              |
-├── docs                             |  DOCUMENTATION
-│   ├── conf.py                      |    Configures docs
-│   ├── index.rst                    |
-│   └── license.rst                  |
+│   │   └── pipeline/                |    pipeline configuration files
+│   ├── getters/                     |  Data getters
+│   ├── pipeline/                    |  Pipeline components
+│   └── utils/                       |  Utilities
+├── docs/                            |  DOCUMENTATION
 ├── environment.yaml                 |  CONDA ENVIRONMENT SPECIFICATION (optional component)
 ├── requirements.txt                 |  PYTHON DEPENDENCIES NEEDED TO RUN THE CODE
 ├── requirements_dev.txt             |  PYTHON DEV DEPENDENCIES (e.g. building docs/running tests)
-├── inputs                           |  INPUTS (should be immutable)
-│   ├── data                         |    Inputs that are data
-│   ├── models                       |    Inputs that are models
-│   └── README.md                    |
+├── inputs/                          |  INPUTS (should be immutable)
 ├── jupytext.toml                    |  JUPYTEXT CONFIGURATION
 ├── LICENSE                          |
-├── outputs                          |  OUTPUTS PRODUCED FROM THE PROJECT
-│   ├── data                         |    Data outputs (from running our code)
-│   ├── figures                      |    Figure outputs (from running our code)
-│   │   └── vegalite                 |      JSON specification of altair/vegalite figures
-│   ├── models                       |    Model outputs (from running our code)
-│   └── reports                      |    Reports about our code and the results of running it
+├── outputs/                          |  OUTPUTS PRODUCED FROM THE PROJECT
 ├── Makefile                         |  TASKS TO COORDINATE PROJECT (`make` shows available commands)
 ├── README.md                        |
 ├── setup.py                         |  ALLOWS US TO PIP INSTALL src/
-├── setup.cfg                        |  ADDITIONAL PROJECT CONFIGURATION, e.g. linting
+├── setup.cfg                        |  ADDITIONAL PROJECT CONFIGURATION, e.g. flake8
 ├── .pre-commit-config.yaml          |  DEFINES CHECKS THAT MUST PASS BEFORE git commit SUCCEEDS
 ├── .gitignore                       |  TELLS git WHAT FILES WE DON'T WANT TO COMMIT
-├── .github                          |  GITHUB CONFIGURATION
-│   └── pull_request_template.md     |    Template for pull-requests (check-list of things to do)
+├── .github/                         |  GITHUB CONFIGURATION
 ├── .env                             |  SECRETS (never commit to git!)
 ├── .envrc                           |  SHARED PROJECT CONFIGURATION VARIABLES
 ├── .cookiecutter                    |  COOKIECUTTER SETUP & CONFIGURATION (user can safely ignore)
-│   ├── config                       |    Settings cookiecutter was configured with
-│   ├── scripts/                     |    Scripts to setup cookiecutter
-│   └── state/                       |    Log of cookiecutter configuration state
 ```
