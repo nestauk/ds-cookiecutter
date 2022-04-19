@@ -25,6 +25,6 @@ To use Metaflow on AWS, you need.
     -   You are part of the `DataScience` IAM group on AWS, requesting approval if not.
 
 -   Add `metaflow` to `requirements.txt`
--   Fetch the Metaflow configuration `aws secretsmanager get-secret-value --secret-id dap-infra/metaflow/config --query SecretString --output text > "$HOME/config_ds-cookiecutter.json"`
+-   Fetch the Metaflow configuration `aws secretsmanager get-secret-value --secret-id dap-infra/metaflow/config --query SecretString --output text > "$HOME/.metaflowconfig/config_ds-cookiecutter.json"`
 -   [Optional] Add `export METAFLOW_PROFILE=ds-cookiecutter` to your `.envrc` file to automatically activate this Metaflow profile within your project.
     -   If you do not add this to your `.envrc` file then you need to make sure the environment variable is set from where you run your Metaflows.
