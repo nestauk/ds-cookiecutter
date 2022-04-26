@@ -125,7 +125,6 @@ class TestCookieSetup(object):
             repo_name,
             f"{repo_name}/analysis",
             f"{repo_name}/config",
-            # f"{repo_name}/config/pipeline",
             f"{repo_name}/getters",
             f"{repo_name}/pipeline",
             f"{repo_name}/utils",
@@ -194,7 +193,6 @@ class TestCookieSetup(object):
         with ch_dir(self.path):
             shell(["make", "install"])
 
-            # output = "".join(shell(["make", "test-setup"]))
             output = "".join(shell(["bash", "-c", "source .envrc && which python"]))
             print(output)
 

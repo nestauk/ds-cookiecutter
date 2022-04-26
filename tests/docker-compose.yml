@@ -1,7 +1,0 @@
-services:
-  pytest:
-    build:
-      context: ..
-      dockerfile: ./tests/Dockerfile
-    volumes:
-      - ~/.aws/:/root/.aws
