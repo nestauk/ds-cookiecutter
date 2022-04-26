@@ -21,6 +21,7 @@ Available rules:
 
 clean               Delete all compiled Python files
 conda-update        Update the conda-environment based on changes to `environment.yaml`
+conda-remove        Remove the conda-environment cleanly
 docs                Build the API documentation
 docs-clean          Clean the built API documentation
 docs-open           Open the docs in the browser
@@ -83,6 +84,7 @@ Due to these difficulties, we recommend only using conda to create a virtual env
 ### Commands
 
 -   `make conda-update` - Update an existing conda environment (created by `make install`) from `environment.yaml` and run `make pip-install`.
+-   `make conda-remove` - Remove an existing conda environment, tidying up the cookiecutters internal state.
 -   `make pip-install` - Install our package and requirements in editable mode (including development dependencies).
 
 ### Roadmap

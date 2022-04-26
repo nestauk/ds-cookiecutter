@@ -151,7 +151,7 @@ class TestCookieSetup(object):
 
     @pytest.mark.usefixtures("conda_env")
     def test_conda(self):
-        """Test conda environment is created."""
+        """Test conda environment is created, modified, and destroyed."""
         with ch_dir(self.path):
             try:
                 p = shell(["make", ".cookiecutter/state/conda-create"])
@@ -165,6 +165,8 @@ class TestCookieSetup(object):
                 # Add an extra conda dependency
                 check_output(["echo", "  - tqdm", ">>", "environment.yaml"])
                 p = shell(["make", "conda-update"])
+
+                p = shell(["make", "conda-remove"])
             except CalledProcessError:
                 log_path = Path(".cookiecutter/state/conda-create.log")
                 if log_path.exists():

@@ -58,6 +58,13 @@ conda-update:
 pip-install:
 	@pip install -e ".[dev]"
 
+.PHONY: conda-remove
+## Remove the conda-environment cleanly
+conda-remove:
+	conda env remove -n ${REPO_NAME}
+	rm .cookiecutter/state/conda-create*
+	@direnv reload
+
 .PHONY: clean
 ## Delete all compiled Python files
 clean:
