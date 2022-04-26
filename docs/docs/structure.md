@@ -2,8 +2,6 @@
 
 This page lays out where things belong according to high-level concepts.
 
-<!-- There is an accompanying section for each on this page in [rationale](../rationale) explaining the reasoning behind this structure, and further guides on use. -->
-
 A direct [tree](#tree) representation of the folder hierarchy is also available.
 
 [Example structures](../examples) will soon be available to help you structure the lower-level folders which the cookiecutter leaves to you.
@@ -89,7 +87,7 @@ Due to these difficulties, we recommend only using conda to create a virtual env
 
 ### Roadmap
 
-See [roadmap](../roadmap) for plans on improving packaging and reproducibility with [Poetry](../roadmap#Poetry) and [Docker](../roadmap#Docker).
+See [roadmap](../roadmap) for plans on improving packaging and reproducibility with [Poetry](../roadmap#poetry) and [Docker](../roadmap#docker).
 
 ## Secrets and configuration - `.env.*` and `src/config/*`
 
@@ -144,7 +142,7 @@ Instead use relative paths and make use of `src.PROJECT_DIR` which will return t
 
 #### Roadmap
 
-See the [roadmap](../roadmap#Metaflow) for how `src/config` will be used to parameterise metaflow pipelines and version control their outputs.
+See the [roadmap](../roadmap#Configuration) for some ideas about approaches to configuration.
 
 ## Data - `inputs/data`, `outputs/data`, `outputs/.cache`
 
@@ -201,17 +199,12 @@ Following this approach means:
         return pd.read_csv("path/to/file", sep="\t", dtype={"sic_code": str})
 ```
 
-### Roadmap
-
-On the [roadmap](../roadmap#Schema) is a speculative plan to explore the use of [pydantic](https://pydantic-docs.helpmanual.io/) to specify and validate data-schemas.
 
 ## Pipeline components - `src/pipeline`
 
 This folder contains pipeline components. Put as much data-science as possible here.
 
 We recommend the use of [metaflow](https://docs.metaflow.org) to write these pipeline components.
-
-In the coming months as we roll out [utilities and documentation to smooth out some of the rough edges of metaflow](../roadmap#Metaflow), this will become less of a recommendation and more of a stipulation.
 
 Using metaflow:
 
@@ -225,9 +218,6 @@ This is a place to put utility functions needed across different parts of the co
 
 For example, this could be functions shared across different pieces of analysis or different pipelines.
 
-### Roadmap
-
-Over time there should be a decreasing need to add things to `utils` as we begin to develop a [data science utilities package (`ds-utils`)](../roadmap#`ds-utils`).
 
 ## Analysis - `src/analysis`
 
@@ -310,7 +300,7 @@ We are currently evaluating how we report data-science work - both at the projec
 
 Minimally, you should write reports in markdown putting them in `outputs/reports` and referencing plots in `outputs/figures`.
 
-We are [experimenting](../roadmap#Reporting) with a toolchain using [pandoc](https://pandoc.org/) to generate HTML and PDF (LaTeX) outputs from a single ([pandoc flavoured](https://pandoc.org/MANUAL.html#pandocs-markdown)) markdown file, including facilitating the trivial inclusion of interactive [altair](https://altair-viz.github.io/index.html) plots within HTML outputs.
+We are [experimenting](../roadmap#reporting) with a toolchain using [pandoc](https://pandoc.org/) to generate HTML and PDF (LaTeX) outputs from a single ([pandoc flavoured](https://pandoc.org/MANUAL.html#pandocs-markdown)) markdown file, including facilitating the trivial inclusion of interactive [altair](https://altair-viz.github.io/index.html) plots within HTML outputs.
 
 # Tree
 
