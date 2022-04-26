@@ -5,3 +5,5 @@ _A standard project structure for reproducible and collaborative data science pr
 [Online documentation](http://nestauk.github.io/ds-cookiecutter)
 
 [**Get started**](docs/docs/quickstart.md)
+
+[Developer docs](DEVELOPERS.md)
