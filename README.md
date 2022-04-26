@@ -7,3 +7,5 @@ _A standard project structure for reproducible and collaborative data science pr
 [![asciicast](https://asciinema.org/a/XYp6l2hknMVWWPbI76Qq8BTiq.svg)](https://asciinema.org/a/XYp6l2hknMVWWPbI76Qq8BTiq)
 
 [**Get started**](docs/docs/quickstart.md)
+
+[Developer docs](DEVELOPERS.md)
