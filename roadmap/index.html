@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://nestauk.github.io/ds-cookiecutter/roadmap/">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.9">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.120efc48.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.8c5ef100.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.9647289d.min.css">
@@ -301,96 +301,9 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Roadmap
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         Roadmap
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#metaflow" class="md-nav__link">
-    Metaflow
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ds-utils" class="md-nav__link">
-    ds-utils
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reporting" class="md-nav__link">
-    Reporting
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#flake8" class="md-nav__link">
-    flake8
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#poetry" class="md-nav__link">
-    Poetry
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker" class="md-nav__link">
-    Docker
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#schema" class="md-nav__link">
-    Schema
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cicd" class="md-nav__link">
-    CI/CD
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration" class="md-nav__link">
-    Configuration
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -446,77 +359,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#metaflow" class="md-nav__link">
-    Metaflow
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ds-utils" class="md-nav__link">
-    ds-utils
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reporting" class="md-nav__link">
-    Reporting
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#flake8" class="md-nav__link">
-    flake8
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#poetry" class="md-nav__link">
-    Poetry
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker" class="md-nav__link">
-    Docker
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#schema" class="md-nav__link">
-    Schema
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cicd" class="md-nav__link">
-    CI/CD
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration" class="md-nav__link">
-    Configuration
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -534,52 +376,6 @@
 
 
 <h1 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">&para;</a></h1>
-<h2 id="metaflow">Metaflow<a class="headerlink" href="#metaflow" title="Permanent link">&para;</a></h2>
-<p>In the coming weeks we will be rolling out utilities to make working with metaflow easier.</p>
-<p>For example, you will be able to specify the following YAML file and then run a command like <code>nestaflow sic_classifier</code> and the corresponding metaflow pipeline will run on AWS batch with 8 CPU's, 64GB RAM with the configuration parameters specified in <code>flow_kwargs</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="c1">#file: src/config/pipeline/sic_classifier.yaml</span><span class="w"></span>
-<span class="nt">preflow_kwargs</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">batch,cpu=8,memory=64000</span><span class="w"></span>
-<span class="nt">flow_kwargs</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">documents_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inputs/data/descriptions.json</span><span class="w"></span>
-<span class="w">    </span><span class="nt">freeze-model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">encode</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">add_special_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">            </span><span class="nt">max_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span><span class="w"></span>
-<span class="w">            </span><span class="nt">pad_to_max_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-</code></pre></div>
-<p>Furthermore, successful runs will be tracked in version control allow data getters you write for metaflows to automatically fetch the right flow results.</p>
-<h2 id="ds-utils"><code>ds-utils</code><a class="headerlink" href="#ds-utils" title="Permanent link">&para;</a></h2>
-<p>Development of <a href="https://github.com/nestauk/ds-utils/"><code>ds-utils</code></a> will begin soon.</p>
-<p>This will be a package providing well tested and documented data science utilities based on our previous data-science projects.</p>
-<h2 id="reporting">Reporting<a class="headerlink" href="#reporting" title="Permanent link">&para;</a></h2>
-<p>In a few recent projects we have been experimenting with a report workflow using <a href="https://pandoc.org/">pandoc</a> to generate HTML and PDF (LaTeX) outputs from a single (<a href="https://pandoc.org/MANUAL.html#pandocs-markdown">pandoc flavoured</a>) markdown file, including facilitating the trivial inclusion of interactive <a href="https://altair-viz.github.io/index.html">altair</a> plots within HTML outputs.</p>
-<p>After further refinement of this workflow and development of a simple report generation tool, this can be incorporated into the cookiecutter.</p>
-<h2 id="flake8">flake8<a class="headerlink" href="#flake8" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Identification of a suitable starting <code>flake8</code> configuration and a plan to phase in the number of cases handled by <code>flake8</code> (to avoid an overwhelming start).</li>
-<li>Incorporation of <code>flake8</code> into the pre-commit hooks.</li>
-</ul>
-<p>Note: you can already lint your code using (a quite opinionated) flake8 configuration defined in <code>setup.cfg</code> by running <code>make lint</code>.</p>
-<h2 id="poetry">Poetry<a class="headerlink" href="#poetry" title="Permanent link">&para;</a></h2>
-<p>Investigate a switch to managing dependencies and packaging with <a href="https://python-poetry.org/">poetry</a> (falling back on Conda only when necessary).</p>
-<p>This will provide much more robust dependency management and a simplification of the packaging utilities.</p>
-<p>This tool is not being integrated into the overhauled cookiecutter from day one to avoid user overwhelm.</p>
-<h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
-<p>Investigate the utility of automatically containerisation data-science project.</p>
-<h2 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h2>
-<p>Investigate the use of <a href="https://pydantic-docs.helpmanual.io/">pydantic</a> to document data-schemas and provide data-validation where required.</p>
-<p>This has the benefit of ensuring documentation stays up to date, and provides the ability to generate schemas in alternative forms such as <a href="https://github.com/tiangolo/pydantic-sqlalchemy">converting to SQLalchemy</a> and outputting in language-agnostic formats such as <a href="https://pydantic-docs.helpmanual.io/usage/schema/">JSON schema</a>.</p>
-<h2 id="cicd">CI/CD<a class="headerlink" href="#cicd" title="Permanent link">&para;</a></h2>
-<p>Use Github actions to:</p>
-<ul>
-<li>Automatically build a Docker container of the project</li>
-<li>Automatically run tests</li>
-<li>Perform <code>pre-commit</code> actions on the server to guard against user error</li>
-</ul>
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<p>Investigate options for Machine-learning oriented configuration management - e.g. with <a href="https://github.com/google/gin-config">gin</a> or the approach used by <a href="https://thinc.ai/docs/api-config">thinc</a>.</p>
 
               
             </article>
@@ -653,7 +449,7 @@
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.6e54b5cd.min.js"></script>
+      <script src="../assets/javascripts/bundle.748e2769.min.js"></script>
       
     
   </body>

@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://nestauk.github.io/ds-cookiecutter/examples/industrial_taxonomy/">
       
       <link rel="icon" href="../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.9">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.120efc48.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c5ef100.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.9647289d.min.css">
@@ -508,14 +508,13 @@
 <details class="question">
 <summary>Whats with all the <code>config/pipeline/**/*.yaml</code>?</summary>
 <p>In this example structure, we have individual YAML files for each pipeline component.</p>
-<p>This will be the structure we recommend <a href="../roadmap#Metaflow">once we add metaflow utilities</a> to the cookiecutter.</p>
 <p>Whilst you are free to mimic this structure now, it is currently more convenient to nest the <code>config/pipeline/**</code> structure within <code>base.yaml</code> as it is easily importable as a python <code>dict</code> - <code>from src import config</code>.</p>
 <p>Furthermore, because metaflows are run from the command line and we want to parameterise them with YAML from <code>config/pipeline**</code>, each <code>flow.py</code> file currently needs an accompanying <code>run.py</code> file to:
 - Load and parse the YAML config needed for the pipeline
 - Form the pipeline arguments into a command to run the metaflow on the command line
 - Run the metaflow from within <code>run.py</code> using Python's <code>subprocess</code> library.
 - Update a config file with the successful metaflow run ID (so that getters know which version of the data to fetch)</p>
-<p>This is a lot of leg-work and increases the surface-area for bugs. This is why the upcoming metaflow utilities will enable one to run a command like <code>nestaflow industry_classifier/sic/transformer_model</code> (based on the paths in <code>config/pipeline/**</code>) and all the above will be taken care of automatically without needing to write an accompanying <code>run.py</code> script.</p>
+<p>This is a lot of leg-work and increases the surface-area for bugs, you may be better off hard-coding values into shell-scripts or a Makefile.</p>
 </details>
 </dd>
 <dt><img alt="📥" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4e5.svg" title=":inbox_tray:" /> <code>getters/outputs/sic_classifier.py</code></dt>
@@ -877,7 +876,7 @@ Given this is successful, co-occurrence networks of products and services can be
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.6e54b5cd.min.js"></script>
+      <script src="../../assets/javascripts/bundle.748e2769.min.js"></script>
       
     
   </body>

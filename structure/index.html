@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://nestauk.github.io/ds-cookiecutter/structure/">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.9">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.120efc48.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.8c5ef100.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.9647289d.min.css">
@@ -416,19 +416,6 @@
     Fetching/loading data - src/getters
   </a>
   
-    <nav class="md-nav" aria-label="Fetching/loading data - src/getters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#roadmap_2" class="md-nav__link">
-    Roadmap
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -442,19 +429,6 @@
   <a href="#shared-utilities-srcutils" class="md-nav__link">
     Shared utilities - src/utils
   </a>
-  
-    <nav class="md-nav" aria-label="Shared utilities - src/utils">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#roadmap_3" class="md-nav__link">
-    Roadmap
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -748,19 +722,6 @@
     Fetching/loading data - src/getters
   </a>
   
-    <nav class="md-nav" aria-label="Fetching/loading data - src/getters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#roadmap_2" class="md-nav__link">
-    Roadmap
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -774,19 +735,6 @@
   <a href="#shared-utilities-srcutils" class="md-nav__link">
     Shared utilities - src/utils
   </a>
-  
-    <nav class="md-nav" aria-label="Shared utilities - src/utils">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#roadmap_3" class="md-nav__link">
-    Roadmap
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -885,8 +833,6 @@
 
 <h1 id="structure">Structure<a class="headerlink" href="#structure" title="Permanent link">&para;</a></h1>
 <p>This page lays out where things belong according to high-level concepts.</p>
-<!-- There is an accompanying section for each on this page in [rationale](../rationale) explaining the reasoning behind this structure, and further guides on use. -->
-
 <p>A direct <a href="#tree">tree</a> representation of the folder hierarchy is also available.</p>
 <p><a href="../examples">Example structures</a> will soon be available to help you structure the lower-level folders which the cookiecutter leaves to you.</p>
 <p><em>In the following sections I use <code>src/</code> to denote the project name to avoid awkward <code>&lt;project_name&gt;</code> placeholders.</em></p>
@@ -956,7 +902,7 @@ You can already lint your code using (a quite opinionated) flake8 configuration 
 <li><code>make pip-install</code> - Install our package and requirements in editable mode (including development dependencies).</li>
 </ul>
 <h3 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">&para;</a></h3>
-<p>See <a href="../roadmap">roadmap</a> for plans on improving packaging and reproducibility with <a href="../roadmap#Poetry">Poetry</a> and <a href="../roadmap#Docker">Docker</a>.</p>
+<p>See <a href="../roadmap">roadmap</a> for plans on improving packaging and reproducibility with <a href="../roadmap#poetry">Poetry</a> and <a href="../roadmap#docker">Docker</a>.</p>
 <h2 id="secrets-and-configuration-env-and-srcconfig">Secrets and configuration - <code>.env.*</code> and <code>src/config/*</code><a class="headerlink" href="#secrets-and-configuration-env-and-srcconfig" title="Permanent link">&para;</a></h2>
 <p>You <em>really</em> don't want to leak your AWS secret key or Postgres username and password on Github. Enough said — see the <a href="http://12factor.net/config">Twelve Factor App</a> principles on this point.</p>
 <h4 id="store-your-secrets-in-a-special-file">Store your secrets in a special file<a class="headerlink" href="#store-your-secrets-in-a-special-file" title="Permanent link">&para;</a></h4>
@@ -986,7 +932,7 @@ OTHER_VARIABLE=something
 <p>Instead use relative paths and make use of <code>src.PROJECT_DIR</code> which will return the path to your project's base directory. This means you could specify the above path as <code>f"{src.PROJECT_DIR}/outputs/data/foo.json"</code> and have it work on everyone's machine!</p>
 <hr />
 <h4 id="roadmap_1">Roadmap<a class="headerlink" href="#roadmap_1" title="Permanent link">&para;</a></h4>
-<p>See the <a href="../roadmap#Metaflow">roadmap</a> for how <code>src/config</code> will be used to parameterise metaflow pipelines and version control their outputs.</p>
+<p>See the <a href="../roadmap#Configuration">roadmap</a> for some ideas about approaches to configuration.</p>
 <h2 id="data-inputsdata-outputsdata-outputscache">Data - <code>inputs/data</code>, <code>outputs/data</code>, <code>outputs/.cache</code><a class="headerlink" href="#data-inputsdata-outputsdata-outputscache" title="Permanent link">&para;</a></h2>
 <p>Firstly, don't version control data (inputs or outputs) in git, generally you should use s3 (directly or through metaflow) to manage your data.</p>
 <h3 id="inputsdata"><code>inputs/data</code><a class="headerlink" href="#inputsdata" title="Permanent link">&para;</a></h3>
@@ -1025,12 +971,9 @@ Anywhere in the code base we need to load data we should do so by importing and 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;path/to/file&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;sic_code&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
 </code></pre></div>
-<h3 id="roadmap_2">Roadmap<a class="headerlink" href="#roadmap_2" title="Permanent link">&para;</a></h3>
-<p>On the <a href="../roadmap#Schema">roadmap</a> is a speculative plan to explore the use of <a href="https://pydantic-docs.helpmanual.io/">pydantic</a> to specify and validate data-schemas.</p>
 <h2 id="pipeline-components-srcpipeline">Pipeline components - <code>src/pipeline</code><a class="headerlink" href="#pipeline-components-srcpipeline" title="Permanent link">&para;</a></h2>
 <p>This folder contains pipeline components. Put as much data-science as possible here.</p>
 <p>We recommend the use of <a href="https://docs.metaflow.org">metaflow</a> to write these pipeline components.</p>
-<p>In the coming months as we roll out <a href="../roadmap#Metaflow">utilities and documentation to smooth out some of the rough edges of metaflow</a>, this will become less of a recommendation and more of a stipulation.</p>
 <p>Using metaflow:</p>
 <ul>
 <li>Gives us lightweight version control of data and models</li>
@@ -1040,8 +983,6 @@ Anywhere in the code base we need to load data we should do so by importing and 
 <h2 id="shared-utilities-srcutils">Shared utilities - <code>src/utils</code><a class="headerlink" href="#shared-utilities-srcutils" title="Permanent link">&para;</a></h2>
 <p>This is a place to put utility functions needed across different parts of the codebase.</p>
 <p>For example, this could be functions shared across different pieces of analysis or different pipelines.</p>
-<h3 id="roadmap_3">Roadmap<a class="headerlink" href="#roadmap_3" title="Permanent link">&para;</a></h3>
-<p>Over time there should be a decreasing need to add things to <code>utils</code> as we begin to develop a <a href="../roadmap#ds-utils">data science utilities package (<code>ds-utils</code>)</a>.</p>
 <h2 id="analysis-srcanalysis">Analysis - <code>src/analysis</code><a class="headerlink" href="#analysis-srcanalysis" title="Permanent link">&para;</a></h2>
 <p>Functionality in this folder takes the pipeline components (possibly combining them) and generates the plots/statistics to feed into reports.</p>
 <p>It is easier to say when shomething shouldn't be in <code>analysis</code> than when something should: If one part in <code>analysis</code> depends on another, then that suggests that the thing in common is likely either a pipeline component or a shared utility (i.e. sections of <code>analysis</code> should be completely independent).</p>
@@ -1088,7 +1029,7 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
 <h2 id="report-outputsreports">Report - <code>outputs/reports</code><a class="headerlink" href="#report-outputsreports" title="Permanent link">&para;</a></h2>
 <p>We are currently evaluating how we report data-science work - both at the project-level and the feature-level.</p>
 <p>Minimally, you should write reports in markdown putting them in <code>outputs/reports</code> and referencing plots in <code>outputs/figures</code>.</p>
-<p>We are <a href="../roadmap#Reporting">experimenting</a> with a toolchain using <a href="https://pandoc.org/">pandoc</a> to generate HTML and PDF (LaTeX) outputs from a single (<a href="https://pandoc.org/MANUAL.html#pandocs-markdown">pandoc flavoured</a>) markdown file, including facilitating the trivial inclusion of interactive <a href="https://altair-viz.github.io/index.html">altair</a> plots within HTML outputs.</p>
+<p>We are <a href="../roadmap#reporting">experimenting</a> with a toolchain using <a href="https://pandoc.org/">pandoc</a> to generate HTML and PDF (LaTeX) outputs from a single (<a href="https://pandoc.org/MANUAL.html#pandocs-markdown">pandoc flavoured</a>) markdown file, including facilitating the trivial inclusion of interactive <a href="https://altair-viz.github.io/index.html">altair</a> plots within HTML outputs.</p>
 <h1 id="tree">Tree<a class="headerlink" href="#tree" title="Permanent link">&para;</a></h1>
 <div class="highlight"><pre><span></span><code>├── &lt;REPO NAME&gt;                      |  PYTHON PACKAGE
 │   ├── __init__.py                  |
@@ -1192,7 +1133,7 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.6e54b5cd.min.js"></script>
+      <script src="../assets/javascripts/bundle.748e2769.min.js"></script>
       
     
   </body>
