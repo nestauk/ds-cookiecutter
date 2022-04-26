@@ -844,6 +844,7 @@
 
 clean               Delete all compiled Python files
 conda-update        Update the conda-environment based on changes to `environment.yaml`
+conda-remove        Remove the conda-environment cleanly
 docs                Build the API documentation
 docs-clean          Clean the built API documentation
 docs-open           Open the docs in the browser
@@ -899,6 +900,7 @@ You can already lint your code using (a quite opinionated) flake8 configuration 
 <h3 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>make conda-update</code> - Update an existing conda environment (created by <code>make install</code>) from <code>environment.yaml</code> and run <code>make pip-install</code>.</li>
+<li><code>make conda-remove</code> - Remove an existing conda environment, tidying up the cookiecutters internal state.</li>
 <li><code>make pip-install</code> - Install our package and requirements in editable mode (including development dependencies).</li>
 </ul>
 <h3 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">&para;</a></h3>
