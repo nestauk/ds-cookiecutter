@@ -18,6 +18,7 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
+          - macos-latest
     runs-on: ${{ matrix.os }}
     name: Run pytest
     steps:
@@ -32,7 +33,6 @@ jobs:
       - name: Install Mac dependencies
         if: runner.os == 'macOS'
         run: |
-          brew install coreutils direnv
           $CONDA/bin/python -m pip install --upgrade pip
           $CONDA/bin/python -m pip install -r requirements.txt
           conda config --add channels conda-forge
