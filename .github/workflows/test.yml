@@ -36,6 +36,7 @@ jobs:
           $CONDA/bin/python -m pip install --upgrade pip
           $CONDA/bin/python -m pip install -r requirements.txt
           conda config --add channels conda-forge
+          conda install -c conda-forge direnv
           $CONDA/bin/conda init bash
 
       - name: Fix Conda permissions on macOS
