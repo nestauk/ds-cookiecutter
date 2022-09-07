@@ -17,7 +17,7 @@
   - **_slide decks_**
   - **_media_**
 
-![Maybe add an image or nice graphic relating to the project here.](https://betterimagesofai.org/ImagesAI/WarburtonNature_01_1280x720.jpg "Adding an image title is optional. This one is by Alan Warburton / © BBC / Better Images of AI / Plant / CC-BY 4.0")
+![Maybe add an image or nice graphic relating to the project here. This one is by Alan Warburton / © BBC / Better Images of AI / Plant / CC-BY 4.0](https://betterimagesofai.org/ImagesAI/WarburtonNature_01_1280x720.jpg)
 
 ## 📂 Contents
 
@@ -56,6 +56,9 @@ Activate the newly created conda environment with `conda activate {{ cookiecutte
 
 **_List and describe any datasets used in the project. If possible link to them or a page that describes them. If special requirements are needed to access them, this might be a good place to explain._**
 
+## 🏁 Testing
+
+**_If this project has tests, explain how to run them here._**
 
 ## 🤝 Contributor guidelines
 
@@ -64,7 +67,7 @@ Activate the newly created conda environment with `conda activate {{ cookiecutte
 
 ## 📧 Get in touch
 
-If you want people to reach out about the work, put relevant email addresses here or instructions on how to leave an issue (only do this if you expect that you or someone will respond).
+**_If you want people to reach out about the work, put relevant email addresses here or instructions on how to leave an issue (only do this if you expect that you or someone will respond)._**
 
 ---
 
