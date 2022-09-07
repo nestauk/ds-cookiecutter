@@ -28,9 +28,10 @@
 **Step 1.** Check that you meet the [data science cookiecutter requirements](http://nestauk.github.io/ds-cookiecutter/quickstart). In brief:
 
 Install the following components:
-  - [gh](https://formulae.brew.sh/formula/gh) - GitHub command line tool.
-  - [direnv](https://formulae.brew.sh/formula/direnv#default) - For using environment variables.
-  - [git-crypt](https://github.com/AGWA/git-crypt/blob/master/INSTALL.md#installing-on-mac-os-x) - Tool for encryption of sensitive files.
+
+- [gh](https://formulae.brew.sh/formula/gh) - GitHub command line tool.
+- [direnv](https://formulae.brew.sh/formula/direnv#default) - For using environment variables.
+- [git-crypt](https://github.com/AGWA/git-crypt/blob/master/INSTALL.md#installing-on-mac-os-x) - Tool for encryption of sensitive files.
 
 Have a Nesta AWS account, and install and configure your [AWS Command Line Interface](https://docs.aws.amazon.com/polly/latest/dg/setup-aws-cli.html)
 
@@ -38,15 +39,17 @@ Have a Nesta AWS account, and install and configure your [AWS Command Line Inter
 
 **_Are there any other dependencies that this project requires?_**
 
-
 **Step 3.** Install, configure and activate the environment for this project on your machine.
 
 Create a blank cookiecutter conda log file:
+
 ```
 $ mkdir .cookiecutter/state
 $ touch .cookiecutter/state/conda-create.log
 ```
+
 Run `make install` to configure the development environment:
+
 - Setup the conda environment
 - Configure `pre-commit`
 
@@ -63,7 +66,6 @@ Activate the newly created conda environment with `conda activate {{ cookiecutte
 ## 🤝 Contributor guidelines
 
 [Nesta's technical and working style guidelines for data scientists](https://github.com/nestauk/ds-cookiecutter/blob/master/GUIDELINES.md)
-
 
 ## 📧 Get in touch
 
