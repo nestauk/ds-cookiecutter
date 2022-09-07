@@ -41,11 +41,16 @@ Have a Nesta AWS account, and install and configure your [AWS Command Line Inter
 
 **Step 3.** Install, configure and activate the environment for this project on your machine.
 
-- Run `make install` to configure the development environment:
-  - Setup the conda environment
-  - Configure `pre-commit`
+Create a blank cookiecutter conda log file:
+```
+$ mkdir .cookiecutter/state
+$ touch .cookiecutter/state/conda-create.log
+```
+Run `make install` to configure the development environment:
+- Setup the conda environment
+- Configure `pre-commit`
 
-Activate the newly created conda environment.
+Activate the newly created conda environment with `conda activate {{ cookiecutter.project_name }}`
 
 ## 💾 Datasets
 
