@@ -15,8 +15,8 @@ export
 include .cookiecutter/config
 
 .PHONY: install
-## Install a project: create conda env; install local package; setup git hooks
-install: .cookiecutter/state/conda-create .cookiecutter/state/setup-git
+## Install a project: remove existing conda env (if exists); create conda env; install local package; setup git hooks
+install: conda-remove .cookiecutter/state/conda-create .cookiecutter/state/setup-git
 	@direnv reload  # Now the conda env exists, reload to activate it
 
 
@@ -59,10 +59,10 @@ pip-install:
 	@pip install -e ".[dev]"
 
 .PHONY: conda-remove
-## Remove the conda-environment cleanly
+## Remove the conda-environment cleanly, using -f so works even if no environment to be removed
 conda-remove:
 	conda env remove -n ${REPO_NAME}
-	rm .cookiecutter/state/conda-create*
+	rm -f .cookiecutter/state/conda-create*
 	@direnv reload
 
 .PHONY: clean
