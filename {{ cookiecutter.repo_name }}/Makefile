@@ -61,8 +61,8 @@ pip-install:
 .PHONY: conda-remove
 ## Remove the conda-environment cleanly, using -f so works even if no environment to be removed
 conda-remove:
-	conda env remove -n ${REPO_NAME}
-	rm -f .cookiecutter/state/conda-create*
+	@conda env remove -n ${REPO_NAME}
+	@rm -f .cookiecutter/state/conda-create*
 	@direnv reload
 
 .PHONY: clean
