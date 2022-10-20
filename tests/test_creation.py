@@ -126,6 +126,7 @@ class TestCookieSetup(object):
             f"{repo_name}/analysis",
             f"{repo_name}/config",
             f"{repo_name}/getters",
+            f"{repo_name}/notebooks",
             f"{repo_name}/pipeline",
             f"{repo_name}/utils",
         ]
