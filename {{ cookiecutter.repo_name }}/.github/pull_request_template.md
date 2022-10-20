@@ -1,6 +1,18 @@
 ---
 
-Checklist:
+# Description
+
+Please include a summary of the changes. 
+
+Fixes # (issue)
+
+# Instructions for Reviewer
+
+In order to test the code in this PR you need to ...
+
+Please pay special attention to ...
+
+# Checklist:
 
 - [ ] I have refactored my code out from `notebooks/`
 - [ ] I have checked the code runs
