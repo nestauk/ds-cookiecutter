@@ -2,7 +2,7 @@
 
 # Description
 
-Please include a summary of the changes. 
+Please include a summary of the changes.
 
 Fixes # (issue)
 
