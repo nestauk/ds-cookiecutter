@@ -22,5 +22,5 @@ Please pay special attention to ...
 - [ ] I have documented the code
   - [ ] Major functions have docstrings
   - [ ] Appropriate information has been added to `README`s
-- [ ] I have explained the feature in this PR or (better) in `output/reports/`
+- [ ] I have explained this PR above
 - [ ] I have requested a code review
