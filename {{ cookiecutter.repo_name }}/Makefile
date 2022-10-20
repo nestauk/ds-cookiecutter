@@ -14,6 +14,10 @@ export
 # Import config variables
 include .cookiecutter/config
 
+# Ensure directory to track and log setup state exists
+$(shell mkdir -p .cookiecutter/state)
+$(shell touch .cookiecutter/state/conda-create.log)
+
 .PHONY: install
 ## Install a project: remove existing conda env (if exists); create conda env; install local package; setup git hooks
 install: conda-remove .cookiecutter/state/conda-create .cookiecutter/state/setup-git
