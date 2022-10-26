@@ -113,6 +113,7 @@ class TestCookieSetup(object):
             ".cookiecutter/state",
             ".recipes",
             "docs",
+            "tests",
             "inputs",
             "inputs/data",
             "outputs",
