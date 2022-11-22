@@ -113,6 +113,7 @@ class TestCookieSetup(object):
             ".cookiecutter/state",
             ".recipes",
             "docs",
+            "tests",
             "inputs",
             "inputs/data",
             "outputs",
@@ -139,7 +140,7 @@ class TestCookieSetup(object):
                 lambda dir: not any(
                     (
                         re.match(f".*{stub}", dir)
-                        for stub in [".git/", ".vscode", ".pytest_cache"]
+                        for stub in [".git/", ".vscode", ".pytest_cache", "__pycache__"]
                     )
                 ),
                 abs_dirs,
