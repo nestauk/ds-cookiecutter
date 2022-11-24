@@ -72,14 +72,13 @@ Run `make install` to:
 -   Create a conda environment (with a name corresponding to the `repo_name` prompt) and install the project package in editable mode and its dependencies
 -   Configure and install Git pre-commit hooks
 
-!!! info "Look in [`.recipes/GithubCreation.md`](https://github.com/nestauk/ds-cookiecutter/blob/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/.recipes/GithubCreation.md) for a quick method of creating and configuring a Github repo for this project."
-
 Now you're setup, you may wish to adapt the cookiecutter to fill your specific needs, e.g. by looking at other components in [`.recipes/`](https://github.com/nestauk/ds-cookiecutter/blob/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/.recipes) ([see FAQ](../faq/#what-customisations-can-i-make-when-setting-up-the-cookiecutter-without-defeating-the-point-of-having-a-standard-project-template)).
 
 ## Collaborating on an existing project
 
 -   Clone the repository and `cd` into the repository.
 -   Run `make install` to configure the development environment (see above section)
+    - Troubleshooting this step: This step frequently causes a `.cookiecutter/state/` error, which can usually be solved by running `mkdir -p .cookiecutter/state/ && touch .cookiecutter/state/conda-create.log` from the root of the directory prior running `make install`
 -   Check the project's `README` for any additional configuration needed (e.g. putting API keys in `.env`)
     -   Ideally that projects maintainer will have extended the `Makefile` to do additional configuration automatically
 -   Follow the author's documentation, or make them write some if they haven't already!
