@@ -2,7 +2,7 @@
 
 ## Your Guide to Setting Up a Nesta Cookiecutter Project
 
-In this page you will learn how to set up a project using the cookiecutter. The steps are different depending on whether you are the first one setting up a project (Project Configurer) or whether a project already exists and you are just setting it up locally (Team Member).
+In this page you will learn how to set up a project using the cookiecutter. The steps are different depending on whether you are the first one setting up a project ([Project Configurer](#project-configurer)) or whether a project already exists and you are just setting it up locally ([Team Member](#team-members)).
 
 ### Project Configurer
 
@@ -39,7 +39,7 @@ In this page you will learn how to set up a project using the cookiecutter. The 
 5. **You are all set!** You can delete the `0_setup_cookicutter` branch and enjoy coding!
 
 
-### "Team Members"
+### Team Members
 
 * Open the terminal and `cd` into a folder where you want the project set up.
 * Clone the repository by running `git clone <REPONAME>` and `cd` into the repository.
