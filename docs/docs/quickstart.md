@@ -1,85 +1,47 @@
-# Quickstart
+# Project Set Up
 
-## Requirements
+## Your Guide to Setting Up a Nesta Cookiecutter Project
 
-=== "Summary"
+In this page you will learn how to set up a project using the cookiecutter. The steps are different depending on whether you are the first one setting up a project (Project Configurer) or whether a project already exists and you are just setting it up locally (Team Member).
 
-    -   A \*NIX system (e.g. Linux/macOS) - Windows might work, but we don't support it
-        -   Mac users should also install [homebrew](https://brew.sh/) and [GNU coreutils](https://www.gnu.org/software/coreutils)
-    -   [Conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html)
-    -   [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
-    - [direnv](https://direnv.net/docs/installation.html) - Automatically loads environment variables and environments
-    - Optional: [AWS CLI](https://aws.amazon.com/cli/) installed and configured
-        -   Needed to use S3 for data storage
+=== "Project Configurer"
 
-=== "Installation and configuration help"
+    -   *Request repository setup*: First things first, you need a repo created for you. Submit a [Create a repo in the Nesta GitHub org](https://github.com/nestauk/github_support/issues/new/choose) issue from the [github_support](https://github.com/nestauk/github_support) issue page. You will need to provide a project name, suggested repo name, whether public/private, github teams involved, team leading the project, short and long description of the project. An empty repo will be set up for you and you will receive a notification when this is done.
+    -   *Set up project locally*: It is important that you do not clone the repo yet! Instead, follow these steps:
+        -   Open the terminal
+        -   `cd` to a folder where you eventually want your repo to be
+        -   run `cookiecutter https://github.com/nestauk/ds-cookiecutter`. This will automatically install the latest version. If you want to install a different version run `cookiecutter https://github.com/nestauk/ds-cookiecutter -c <VERSION TAG>`
+        - You will be presented with the following:
+        - `You've downloaded ~.cookiecutters/ds-cookiecutter before. Is it okay to delete and re-download it?[yes]` press Enter to confirm yes
+        - project_name [Project_name]: add_a_name_here
+        - repo_name [add_a_name_here]: add_a_name_here
+        - author_name [Nesta]: add_author
+        - description [A short description of the project.]: add short description
+        - Select openness:
+            1 - public
+            2 - private
+            Choose from 1, 2 [1]: regardless of the choice you can always change it in the future by speaking with a DE colleague
 
-    -   A \*NIX system (e.g. Linux/macOS) - Windows might work, but we don't support it
-        -   Mac users should also install:
-            -   [homebrew](https://brew.sh/)
-            -   [GNU coreutils](https://www.gnu.org/software/coreutils) - `brew install coreutils`.
-    -   [Conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html)
-    -   [Cookiecutter Python package](http://cookiecutter.readthedocs.org/en/latest/installation.html) >= 1.4.0:
+        - `cd` to project directory and run `make install` to:
+            - Create a conda environment (with a name corresponding to the repo_name prompt) and install the project package in editable mode and its dependencies
+            - Configure and install Git pre-commit hooks
+        - When you change directory to your created project folder, you will see that you are in a git repository and the generated cookiecutter has committed itself to the `0_setup_cookiecutter` branch.
+        - Connect to git repo: Run `git remote add origin git@github.com:nestauk/<REPONAME`  to point your local project to the configured repository
+        - Merge the new branch to `dev` by running
 
-        ```bash
-        pip install cookiecutter  # might be pip3 on your machine
-        ```
-    - [direnv](https://direnv.net/docs/installation.html) - Automatically loads environment variables and environments
-        ```bash
-        brew install direnv  # Mac
-        apt-get install -y direnv  # Ubuntu Linux
-        ```
-        Add `eval "$(direnv hook $SHELL)"` at the end of your `~/.${SHELL}rc` file.
-    - Optional: [AWS CLI](https://aws.amazon.com/cli/) installed and configured
-        - **Install** - `pip install awscli`
-        - **Configure**
+        ``` bash
 
-            Fetch (or generate) [security credentials from the AWS dashboard](https://console.aws.amazon.com/iam/home?#security_credential) by clicking "Create access key".
+            git checkout 0_setup_cookiecutter
+            git branch dev 0_setup_cookiecutter -f
+            git checkout dev
+            git push origin dev -f
+            ```
+        - You are all set! You can delete the `0_setup_cookicutter` branch
 
-            Run `aws configure`, inputting the access key ID and secret access key ID you just generated when prompted.
 
-            In addition you should set the default region name to `eu-west-2` and the default output format to `json`.
+=== "Team Members"
 
-            AWS provide a more detailed guide [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config).
+    - Clone the repository by running `git clone <REPONAME>` and `cd` into the repository.
+    - Run `make install` to configure the development environment 
 
-### Create
-
-Ensure you have installed the [requirements](#requirements) and then run `cookiecutter https://github.com/nestauk/ds-cookiecutter -c <VERSION TAG>`.
-
-??? attention "If you do not specify a version tag then `cookiecutter` will use the latest commit on the `master` branch. Unless specifying a version you have used before, check the [release notes](https://github.com/nestauk/ds-cookiecutter/releases) to see what changed since you last created a project!"
-
-    Currently, only the latest release's docs are available online.
-    You can serve docs for a specific release on your machine by checking out that release and running `pip install -r requirements.txt && cd docs && mkdocs serve` and then navigating to `localhost:8000` in your browser.
-
-This opens a series of prompts to configure your new project (values in square brackets denote defaults).
-
-??? info "What do the prompts mean?"
-
-    -   `project_name`: Type the name of your project here
-    -   `repo_name`: Type the name of your repository here
-        -   The default is a processed version of `project_name` that is compatible with python package names
-    -   `author_name`: The author of the project
-    -   `description`: A short description of your project
-    -   `openness`: Whether the project is "public" (default) or "private"
-        -   If "public" then an MIT license will be generated; otherwise the license will be a copyright placeholder
-
-### Configure
-
-When you change directory to your created project folder, you will see that you are in a git repository and the generated cookiecutter has committed itself to the `0_setup_cookiecutter` branch.
-
-Run `make install` to:
-
--   Create a conda environment (with a name corresponding to the `repo_name` prompt) and install the project package in editable mode and its dependencies
--   Configure and install Git pre-commit hooks
-
-!!! info "Look in [`.recipes/GithubCreation.md`](https://github.com/nestauk/ds-cookiecutter/blob/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/.recipes/GithubCreation.md) for a quick method of creating and configuring a Github repo for this project."
-
-Now you're setup, you may wish to adapt the cookiecutter to fill your specific needs, e.g. by looking at other components in [`.recipes/`](https://github.com/nestauk/ds-cookiecutter/blob/master/%7B%7B%20cookiecutter.repo_name%20%7D%7D/.recipes) ([see FAQ](../faq/#what-customisations-can-i-make-when-setting-up-the-cookiecutter-without-defeating-the-point-of-having-a-standard-project-template)).
-
-## Collaborating on an existing project
-
--   Clone the repository and `cd` into the repository.
--   Run `make install` to configure the development environment (see above section)
--   Check the project's `README` for any additional configuration needed (e.g. putting API keys in `.env`)
-    -   Ideally that projects maintainer will have extended the `Makefile` to do additional configuration automatically
--   Follow the author's documentation, or make them write some if they haven't already!
+  
