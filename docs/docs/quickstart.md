@@ -4,7 +4,7 @@
 
 In this page you will learn how to set up a project using the cookiecutter. The steps are different depending on whether you are the first one setting up a project (Project Configurer) or whether a project already exists and you are just setting it up locally (Team Member).
 
-=== "Project Configurer"
+### "Project Configurer"
 
     -   *Request repository setup*: First things first, you need a repo created for you. Submit a [Create a repo in the Nesta GitHub org](https://github.com/nestauk/github_support/issues/new/choose) issue from the [github_support](https://github.com/nestauk/github_support) issue page. You will need to provide a project name, suggested repo name, whether public/private, github teams involved, team leading the project, short and long description of the project. An empty repo will be set up for you and you will receive a notification when this is done.
     -   *Set up project locally*: It is important that you do not clone the repo yet! Instead, follow these steps:
@@ -39,7 +39,7 @@ In this page you will learn how to set up a project using the cookiecutter. The 
         - You are all set! You can delete the `0_setup_cookicutter` branch
 
 
-=== "Team Members"
+### "Team Members"
 
     - Clone the repository by running `git clone <REPONAME>` and `cd` into the repository.
     - Run `make install` to configure the development environment 
