@@ -254,7 +254,7 @@ It is easier to say when shomething shouldn't be in `analysis` than when somethi
 
 It is important that plots are saved in `outputs/` rather than in different areas of the repository.
 
-## Notebooks
+## Notebooks - `src/notebooks`
 
 Notebook packages like [Jupyter notebook](http://jupyter.org/) are effective tools for exploratory data analysis, fast prototyping, and communicating results; however, between prototyping and communicating results code should be factored out into proper python modules.
 
