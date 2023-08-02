@@ -345,13 +345,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#roadmap" class="md-nav__link">
-    Roadmap
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -374,14 +367,7 @@
         
           <li class="md-nav__item">
   <a href="#store-data-science-configuration-in-srcconfig" class="md-nav__link">
-    Store Data-science configuration in src/config/
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#roadmap_1" class="md-nav__link">
-    Roadmap
+    Store Data science configuration in src/config/
   </a>
   
 </li>
@@ -454,26 +440,12 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#notebooks" class="md-nav__link">
-    Notebooks
+  <a href="#notebooks-srcnotebooks" class="md-nav__link">
+    Notebooks - src/notebooks
   </a>
   
-    <nav class="md-nav" aria-label="Notebooks">
+    <nav class="md-nav" aria-label="Notebooks - src/notebooks">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#where-does-the-humble-notebook-live" class="md-nav__link">
-    Where does the humble notebook live?
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#version-control" class="md-nav__link">
-    Version control
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#refactoring" class="md-nav__link">
@@ -651,13 +623,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#roadmap" class="md-nav__link">
-    Roadmap
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -680,14 +645,7 @@
         
           <li class="md-nav__item">
   <a href="#store-data-science-configuration-in-srcconfig" class="md-nav__link">
-    Store Data-science configuration in src/config/
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#roadmap_1" class="md-nav__link">
-    Roadmap
+    Store Data science configuration in src/config/
   </a>
   
 </li>
@@ -760,26 +718,12 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#notebooks" class="md-nav__link">
-    Notebooks
+  <a href="#notebooks-srcnotebooks" class="md-nav__link">
+    Notebooks - src/notebooks
   </a>
   
-    <nav class="md-nav" aria-label="Notebooks">
+    <nav class="md-nav" aria-label="Notebooks - src/notebooks">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#where-does-the-humble-notebook-live" class="md-nav__link">
-    Where does the humble notebook live?
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#version-control" class="md-nav__link">
-    Version control
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#refactoring" class="md-nav__link">
@@ -846,10 +790,24 @@
 
 
 <h1 id="structure">Structure<a class="headerlink" href="#structure" title="Permanent link">&para;</a></h1>
-<p>This page lays out where things belong according to high-level concepts.</p>
-<p>A direct <a href="#tree">tree</a> representation of the folder hierarchy is also available.</p>
-<p><a href="../examples">Example structures</a> will soon be available to help you structure the lower-level folders which the cookiecutter leaves to you.</p>
-<p><em>In the following sections I use <code>src/</code> to denote the project name to avoid awkward <code>&lt;project_name&gt;</code> placeholders.</em></p>
+<p>This page gives a guide to where things belong within the cookiecutter structure.</p>
+<p>A direct <a href="#tree">tree</a> representation of the folder hierarchy is also given at the bottom.</p>
+<p>Here are a couple of examples from projects:</p>
+<ul>
+<li>
+<p><a href="https://github.com/nestauk/ahl_out_of_home_analysis">AHL - Out of Home Analysis</a></p>
+</li>
+<li>
+<p><a href="https://github.com/nestauk/afs_birmingham_ey_data">AFS - Birmingham Early Years Data</a></p>
+</li>
+<li>
+<p><a href="https://github.com/nestauk/asf_heat_pump_readiness">ASF - Heat Pump Readiness</a></p>
+</li>
+<li>
+<p><a href="https://github.com/nestauk/dap_prinz_green_jobs">DS - Green Jobs</a></p>
+</li>
+</ul>
+<p><em><strong>Note:</strong> In the following sections we use <code>src/</code> to denote the project name to avoid awkward <code>&lt;project_name&gt;</code> placeholders.</em></p>
 <h2 id="project-configuration-makefile">Project configuration - <code>Makefile</code><a class="headerlink" href="#project-configuration-makefile" title="Permanent link">&para;</a></h2>
 <p>We use <a href="https://www.gnu.org/software/make/"><code>make</code></a> to manage tasks relating to project setup/configuration/recurring tasks.</p>
 <p><code>make</code> is one of the simplest ways for managing steps that depend on each other, such as project configuration and is a common tool on Unix-based platforms.</p>
@@ -872,8 +830,8 @@ pip-install         Install our package and requirements in editable mode (inclu
 <p>The steps are specified in <code>.pre-commit-config.yaml</code>.</p>
 <p>Currently the steps that are taken are:</p>
 <ul>
-<li>Run the <a href="https://github.com/psf/black">black</a> code autoformatter<ul>
-<li>This provides a consistent code style across a project and minimises messy git diffs (sometimes the code formatted by black may look "uglier" in places but this is the price we pay for having an industry standard with minimal cognitive burden)</li>
+<li>Run the <a href="https://github.com/psf/black">black</a> code auto formatter<ul>
+<li>This means we can have a consistent code style across projects when we are collaborating with other members of the team.</li>
 </ul>
 </li>
 <li>Check that no large files were accidentally committed</li>
@@ -886,24 +844,22 @@ pip-install         Install our package and requirements in editable mode (inclu
 <li>Run the prettier formatter (covers files such as Markdown/JSON/YAML/HTML)</li>
 </ul>
 <p><strong>Warning:</strong> You need to run <code>git commit</code> with your conda environment activated. This is because by default the packages used by pre-commit are installed into your project's conda environment. (note: <code>pre-commit install --install-hooks</code> will install the pre-commit hooks in the currently active environment).</p>
-<p>In time we will be <a href="../roadmap#flake8">integrating <code>flake8</code></a> into these pre-commit hooks.
-You can already lint your code using (a quite opinionated) flake8 configuration defined in <code>setup.cfg</code> by running <code>make lint</code>.</p>
 <h2 id="reproducable-environment">Reproducable environment<a class="headerlink" href="#reproducable-environment" title="Permanent link">&para;</a></h2>
-<p>The first step in reproducing an analysis is always reproducing the computational environment it was run in. You need the same tools, the same libraries, and the same versions to make everything play nicely together.</p>
-<p>By listing all of your requirements in the repository you can easily track the packages needed to recreate the analysis, but what tool should we use to do that?</p>
-<p>Whilst popular for scientific computing and data-science, <a href="https://docs.conda.io/en/latest/">conda</a> poses problems for collaboration and packaging:</p>
+<p>The first step in reproducing someone else’s analysis is to reproduce the computational environment it was run in. You need the same tools, the same libraries, and the same versions to make everything play nicely together.</p>
+<p>By listing all of your requirements in the repository you can easily track the packages needed to recreate the analysis.</p>
+<p>Whilst popular for scientific computing and data science, <a href="https://docs.conda.io/en/latest/">conda</a> poses problems for collaboration and packaging:</p>
 <ul>
 <li>It is hard to reproduce a conda-environment across operating systems</li>
 <li>It is hard to make your environment "pip-installable" if your environment is fully specified by conda</li>
 </ul>
 <h3 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h3>
-<p>Due to these difficulties, we recommend only using conda to create a virtual environment and list dependencies not available through <code>pip install</code> (one prominent example of this is <code>graph-tool</code>).</p>
+<p>Due to these difficulties, we recommend only using conda to create a virtual environment and list dependencies not available through <code>pip install</code> (one example of this is <code>graph-tool</code>).</p>
 <ul>
 <li>
 <p><code>environment.yaml</code> - Defines the base conda environment and any dependencies not "pip-installable".</p>
 </li>
 <li>
-<p><code>requirements.txt</code> - Defines the dependences required to run the code.</p>
+<p><code>requirements.txt</code> - Defines the dependencies required to run the code.</p>
 <p>If you need to add a dependency, chances are it goes here!</p>
 </li>
 <li>
@@ -917,10 +873,8 @@ You can already lint your code using (a quite opinionated) flake8 configuration 
 <li><code>make conda-remove</code> - Remove an existing conda environment, tidying up the cookiecutters internal state.</li>
 <li><code>make pip-install</code> - Install our package and requirements in editable mode (including development dependencies).</li>
 </ul>
-<h3 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">&para;</a></h3>
-<p>See <a href="../roadmap">roadmap</a> for plans on improving packaging and reproducibility with <a href="../roadmap#poetry">Poetry</a> and <a href="../roadmap#docker">Docker</a>.</p>
 <h2 id="secrets-and-configuration-env-and-srcconfig">Secrets and configuration - <code>.env.*</code> and <code>src/config/*</code><a class="headerlink" href="#secrets-and-configuration-env-and-srcconfig" title="Permanent link">&para;</a></h2>
-<p>You <em>really</em> don't want to leak your AWS secret key or Postgres username and password on Github. Enough said — see the <a href="http://12factor.net/config">Twelve Factor App</a> principles on this point.</p>
+<p>You <em>really</em> don't want to leak your AWS secret key or database username and password on Github. To avoid this you can:</p>
 <h4 id="store-your-secrets-in-a-special-file">Store your secrets in a special file<a class="headerlink" href="#store-your-secrets-in-a-special-file" title="Permanent link">&para;</a></h4>
 <p>Create a <code>.env</code> file in the project root folder. Thanks to the <code>.gitignore</code>, this file should never get committed into the version control repository.</p>
 <p>Here's an example:</p>
@@ -928,11 +882,11 @@ You can already lint your code using (a quite opinionated) flake8 configuration 
 DATABASE_URL=postgres://username:password@localhost:5432/dbname
 OTHER_VARIABLE=something
 </code></pre></div>
-<p>We also have <code>.envrc</code> which contains non-secret project configuration shared across users such as the bucket that our input data is stored in, or the metaflow profile to use.</p>
+<p>We also have <code>.envrc</code> which contains non-secret project configuration shared across users such as the bucket that our input data is stored in.</p>
 <p><a href="https://direnv.net"><code>direnv</code></a> automatically loads <code>.envrc</code> (which itself loads <code>.env</code>) making our configuration available.</p>
-<h4 id="store-data-science-configuration-in-srcconfig">Store Data-science configuration in <code>src/config/</code><a class="headerlink" href="#store-data-science-configuration-in-srcconfig" title="Permanent link">&para;</a></h4>
-<p>Few things scupper colloborative analysis like hard-coding hyper-parameters parameters deep in the code-base.</p>
-<p><code>src/config/base.yaml</code> provides a place to document choices made.</p>
+<h4 id="store-data-science-configuration-in-srcconfig">Store Data science configuration in <code>src/config/</code><a class="headerlink" href="#store-data-science-configuration-in-srcconfig" title="Permanent link">&para;</a></h4>
+<p>If there are certain variables that are useful throughout a codebase, it is useful to store these in a single place rather than having to define them throughout the project.</p>
+<p><code>src/config/base.yaml</code> provides a place to document these global variables.</p>
 <p>For example, if you were working on a fuzzy-matching the PATSTAT patent database to the Companies House database and wanted to only merge above a certain match score you may add a section to the configuration like the following,</p>
 <div class="highlight"><pre><span></span><code><span class="nt">patstat_companies_house</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">match_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">90</span>
@@ -943,35 +897,36 @@ OTHER_VARIABLE=something
 <span class="n">config</span><span class="p">[</span><span class="s2">&quot;patstat_companies_house&quot;</span><span class="p">][</span><span class="s2">&quot;match_threshold&quot;</span><span class="p">]</span>
 </code></pre></div>
 <p>This centralisation provides a clearer log of decisions and decreases the chance that a different match threshold gets incorrectly used somewhere else in the codebase.</p>
+<p>Config files are also useful for storing model parameters.  Storing model parameters in a config makes it much easier to test different model configurations and document and reproduce your model once it’s been trained. You can easily reference your config file to make changes and write your final documentation rather than having to dig through code. Depending on the complexity of your repository, it may make sense to create separate config files for each of your models. </p>
+<p>For example, if training an SVM classifier you may want to test different values of the regularisation parameter ‘C’. You could create a file called 
+<code>src/config/svm_classifier.yaml</code> to store the parameter values in the same way as before.</p>
 <hr />
-<p><strong>Aside</strong> - as well as avoiding hard-coding parameters into our code, we should <strong><em>never</em></strong> hard-code full file paths, e.g. <code>/home/alex/GIT/my_fantastic_data_project/outputs/data/foo.json</code>, this will never work on anything other than your machine.</p>
+<p><strong>Note</strong> - as well as avoiding hard-coding parameters into our code, we should <strong><em>never</em></strong> hard-code full file paths, e.g. <code>/home/Projects/my_fantastic_data_project/outputs/data/foo.json</code>, as this will never work on anything other than your machine.</p>
 <p>Instead use relative paths and make use of <code>src.PROJECT_DIR</code> which will return the path to your project's base directory. This means you could specify the above path as <code>f"{src.PROJECT_DIR}/outputs/data/foo.json"</code> and have it work on everyone's machine!</p>
 <hr />
-<h4 id="roadmap_1">Roadmap<a class="headerlink" href="#roadmap_1" title="Permanent link">&para;</a></h4>
-<p>See the <a href="../roadmap#Configuration">roadmap</a> for some ideas about approaches to configuration.</p>
 <h2 id="data-inputsdata-outputsdata-outputscache">Data - <code>inputs/data</code>, <code>outputs/data</code>, <code>outputs/.cache</code><a class="headerlink" href="#data-inputsdata-outputsdata-outputscache" title="Permanent link">&para;</a></h2>
-<p>Firstly, don't version control data (inputs or outputs) in git, generally you should use s3 (directly or through metaflow) to manage your data.</p>
+<p>Generally, don't version control data (inputs or outputs) in git, it is best to use s3 (directly or through metaflow) to manage your data.</p>
 <h3 id="inputsdata"><code>inputs/data</code><a class="headerlink" href="#inputsdata" title="Permanent link">&para;</a></h3>
 <p>Put any data dependencies of your project that your code doesn't fetch here (E.g. if someone emailed you a spreadsheet with the results of a randomised control trial).</p>
-<p>Don't ever edit this raw data, especially not manually, and especially not in Excel. Don't overwrite your raw data. Don't save multiple versions of the raw data. Treat the data (and its format) as immutable.</p>
-<p>Ideally, you should store it in <a href="https://aws.amazon.com/s3/">AWS S3</a>. 
-If you set the <code>S3_INPUT_PATH</code> environment variable (e.g. in <code>.envrc</code>) then you can use <code>make inputs-pull</code> to pull data from the configured S3 bucket.</p>
+<p>Don't ever edit this raw data, especially not manually or in Excel. Don't overwrite your raw data. Don't save multiple versions of the raw data. Treat the data (and its format) as immutable.</p>
+<p>Ideally, you should store it in <a href="https://aws.amazon.com/s3/">AWS S3</a>. You can then use the <a href="https://github.com/nestauk/ds-utils">ds-utils</a> package, which has a neat way of pulling in data into dataframe. Alternatively, if you set the <code>S3_INPUT_PATH</code> environment variable (e.g. in <code>.envrc</code>) then you can use <code>make inputs-pull</code> to pull data from the configured S3 bucket.</p>
 <h3 id="outputscache"><code>outputs/.cache/</code><a class="headerlink" href="#outputscache" title="Permanent link">&para;</a></h3>
 <p>This folder is for ephemeral data and any pipeline/analysis step should be runnable following the deletion of this folder's contents.</p>
 <p>For example, this folder could be used as a file-level cache (careful about cache invalidation!); to download a file from the web before immediately reading, transforming, and saving as a clean file in <code>outputs/data</code>; or to temporary data when prototyping.</p>
 <h3 id="outputsdata"><code>outputs/data</code><a class="headerlink" href="#outputsdata" title="Permanent link">&para;</a></h3>
-<p>This folder should contain transformed/processed data that is to be used in the final analysis or is a data output of the final analysis.</p>
+<p>This folder should contain transformed/processed data that is to be used in the final analysis or is a data output of the final analysis. Again, if this data is sensitive, it is always best to save on S3 instead!</p>
 <p>Try to order this folder logically. For example, you may want subfolders organised by dataset, sections of analysis, or some other hierarchy that better captures your project.</p>
 <h2 id="fetchingloading-data-srcgetters">Fetching/loading data - <code>src/getters</code><a class="headerlink" href="#fetchingloading-data-srcgetters" title="Permanent link">&para;</a></h2>
 <p>This folder should contain modules and functions which load our data.
 Anywhere in the code base we need to load data we should do so by importing and calling a getter (except prototyping in notebooks).</p>
-<p>This means that peppering calls like <code>pd.read_csv("path/to/file", sep="\t", ...)</code> throughout the codebase should be strictly avoided.</p>
+<p>This means that lots of calls like <code>pd.read_csv("path/to/file", sep="\t", ...)</code> throughout the codebase can be avoided.</p>
 <p>Following this approach means:</p>
 <ul>
 <li>If the format of <code>path/to/file</code> changes then we only have to make the change in one place</li>
-<li>We avoid inconsistencies such as forgetting to read a column in as a <code>str</code> instead of an <code>int</code> and thus missing leading zeroes.</li>
+<li>We avoid inconsistencies such as forgetting to read a column in as a <code>str</code> instead of an <code>int</code> and thus missing leading zeros</li>
 <li>If we want to see what data is available, we have a folder in the project to go to and we let the code speak for itself as much as possible - e.g. the following is a lot more informative than an inline call to <code>pd.read_csv</code> like we had above</li>
 </ul>
+<p>Here are two examples:
 <div class="highlight"><pre><span></span><code>    <span class="c1"># File: getters/companies_house.py</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Data getters for the companies house data.</span>
 
@@ -987,8 +942,28 @@ Anywhere in the code base we need to load data we should do so by importing and 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;path/to/file&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;sic_code&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
 </code></pre></div>
+or using ds-utils:
+<div class="highlight"><pre><span></span><code>    <span class="c1">#File: getters/asq_data.py</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data getters for the ASQ data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    <span class="kn">from</span> <span class="nn">nesta_ds_utils.loading_saving</span> <span class="kn">import</span> <span class="n">S3</span>
+
+    <span class="k">def</span> <span class="nf">get_asq_data</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load ASQ data for assessments taken in 2022.</span>
+
+
+<span class="sd">    Returns: Dataframe of the ASQ data at individual level including information on …</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">S3</span><span class="o">.</span><span class="n">download_obj</span><span class="p">(</span>
+        <span class="n">bucket</span><span class="o">=</span><span class="s2">&quot;bucket_name&quot;</span><span class="p">,</span>
+        <span class="n">path_from</span><span class="o">=</span><span class="s2">&quot;data/raw/data_asq.csv&quot;</span><span class="p">,</span>
+        <span class="n">download_as</span><span class="o">=</span><span class="s2">&quot;dataframe&quot;</span><span class="p">,</span>
+        <span class="n">kwargs_reading</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;engine&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">},</span>
+    <span class="p">)</span>
+</code></pre></div></p>
 <h2 id="pipeline-components-srcpipeline">Pipeline components - <code>src/pipeline</code><a class="headerlink" href="#pipeline-components-srcpipeline" title="Permanent link">&para;</a></h2>
-<p>This folder contains pipeline components. Put as much data-science as possible here.</p>
+<p>This folder contains pipeline components. Put as much data science as possible here.</p>
 <p>We recommend the use of <a href="https://docs.metaflow.org">metaflow</a> to write these pipeline components.</p>
 <p>Using metaflow:</p>
 <ul>
@@ -1002,30 +977,21 @@ Anywhere in the code base we need to load data we should do so by importing and 
 <h2 id="analysis-srcanalysis">Analysis - <code>src/analysis</code><a class="headerlink" href="#analysis-srcanalysis" title="Permanent link">&para;</a></h2>
 <p>Functionality in this folder takes the pipeline components (possibly combining them) and generates the plots/statistics to feed into reports.</p>
 <p>It is easier to say when shomething shouldn't be in <code>analysis</code> than when something should: If one part in <code>analysis</code> depends on another, then that suggests that the thing in common is likely either a pipeline component or a shared utility (i.e. sections of <code>analysis</code> should be completely independent).</p>
-<p>It is important that plots are persisted to disk (in <code>outputs/figures</code>).</p>
-<h2 id="notebooks">Notebooks<a class="headerlink" href="#notebooks" title="Permanent link">&para;</a></h2>
+<p>It is important that plots are saved in <code>outputs/</code> rather than in different areas of the repository.</p>
+<h2 id="notebooks-srcnotebooks">Notebooks - <code>src/notebooks</code><a class="headerlink" href="#notebooks-srcnotebooks" title="Permanent link">&para;</a></h2>
 <p>Notebook packages like <a href="http://jupyter.org/">Jupyter notebook</a> are effective tools for exploratory data analysis, fast prototyping, and communicating results; however, between prototyping and communicating results code should be factored out into proper python modules.</p>
-<h3 id="where-does-the-humble-notebook-live">Where does the humble notebook live?<a class="headerlink" href="#where-does-the-humble-notebook-live" title="Permanent link">&para;</a></h3>
-<p>Notebooks should be placed as close to the place where their functionality will eventually reside as possible.</p>
-<p>For example, if you are prototyping a "sentence transformer" pipeline then that pipeline component will likely end up somewhere like <code>pipeline/sentence_transformer/</code>, therefore you should place the notebooks for prototyping this features in <code>pipeline/sentence_transformer/notebooks/</code>.</p>
-<p>If you're just getting started with a project and don't have a clear sense of the separation between <code>analysis</code>, <code>pipeline</code>, and <code>getters</code> yet (or it's too premature to split functionality across multiple places) then a sensible place to start is <code>analysis/&lt;high-level-description&gt;/notebooks/</code>.</p>
-<h3 id="version-control">Version control<a class="headerlink" href="#version-control" title="Permanent link">&para;</a></h3>
-<p>Since notebooks are challenging objects for source control (e.g., diffs of the <code>json</code> are often not human-readable and merging is a nightmare), we use <a href="https://jupytext.readthedocs.io">jupytext</a> to pair <code>.ipynb</code> files with a human-readable and git-diffable <code>.py</code> file.</p>
-<p>These paired <code>.py</code> files should be committed to git, <code>.ipynb</code> files are git-ignored.</p>
-<p>To ensure jupytext works correctly you should start <code>jupyter</code> (notebook/lab) from the base directory of the project so that <code>jupyter</code> detects the <code>jupytext</code> configuration that lives in <code>jupytext.toml</code>.</p>
+<p>We have a notebooks folder for all your notebook needs! For example, if you are prototyping a "sentence transformer" you can place the notebooks for prototyping this feature in notebooks, e.g. <code>notebooks/sentence_transformer/</code> or <code>notebooks/pipeline/sentence_transformer/</code>. </p>
+<p>Please try to keep all notebooks within this folder and primarily not on github, especially for code refactoring as the code will be elsewhere, e.g. in the pipeline. However, for collaborating, sharing and QA of analysis, you are welcome to push those to github. </p>
 <h3 id="refactoring">Refactoring<a class="headerlink" href="#refactoring" title="Permanent link">&para;</a></h3>
-<p>Everybody likes to work differently. Some like to eagerly refactor, keeping as little in notebooks as possible (or even eschewing notebooks entirely);
-where as others prefer to keep everything in notebooks until the last minute.</p>
-<p>We do not require you to work one way or the other as long as by the time you submit a pull request (PR) for your feature everything is refactored into python modules.</p>
-<p>Having said this, we recommended you frequently refactor the good parts - you'll thank yourself later!</p>
-<p>A warning sign you've left it too late to refactor is if you've got duplicates of functions across the codebase rather than importing from a logical place - if it's a data preprocessing task, put it in the pipeline at <code>src/pipelines/&lt;descriptive name for task&gt;</code>; if it's useful utility code, refactor it to <code>src/utils/</code>; if it's loading data, refactor it to <code>src/getters</code>.</p>
+<p>Everybody likes to work differently. Some like to eagerly refactor, keeping as little in notebooks as possible (or even eschewing notebooks entirely); whereas others prefer to keep everything in notebooks until the last minute.</p>
+<p>You are welcome to work in whatever way you’d like, but try to always submit a pull request (PR) for your feature with everything refactored into python modules.</p>
+<p>We often find it easiest to refactor frequently,  otherwise you might get duplicates of functions across the codebase , e.g.  if it's a data preprocessing task, put it in the pipeline at <code>src/pipelines/&lt;descriptive name for task&gt;</code>; if it's useful utility code, refactor it to <code>src/utils/</code>; if it's loading data, refactor it to <code>src/getters</code>.</p>
 <h4 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h4>
 <p>Add the following to your notebook (or IPython REPL):</p>
 <div class="highlight"><pre><span></span><code>%load_ext autoreload
 %autoreload 2
 </code></pre></div>
 <p>Now when you save code in a python module, the notebook will automatically load in the latest changes without you having to restart the kernel, re-import the module etc.</p>
-<p>When it comes to refactoring, open the python file <a href="https://jupytext.readthedocs.io">Jupytext</a> pairs to your notebook in your editor of choice - now your notebook code is easily-readable and in the same environment you use to write python modules.</p>
 <h3 id="share-with-gists">Share with gists<a class="headerlink" href="#share-with-gists" title="Permanent link">&para;</a></h3>
 <p>As the git filter above stops the sharing of outputs directly via. the git repository, another way is needed to share the outputs of quick and dirty analysis.
 We suggest using Gists, particularly the <a href="https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/gist_it/readme.html">Gist it</a> notebook extension which adds a button to your notebook that will instantly turn the notebook into a gist and upload it to your github (as public/private) as long.
@@ -1039,13 +1005,11 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
 <li>You only have to configure <code>jupyter</code>/<code>jupyterlab</code> once</li>
 <li>You will save disk-space</li>
 <li>Faster install</li>
-<li>Colleagues using other editors don't have to install heavy dependencies they don't use (you wouldn't be happy if someone sent you code that depended on VScode/pycharm/spyder)</li>
+<li>Colleagues using other editors don't have to install heavy dependencies they don't use</li>
 </ul>
-<p>Note: <code>ipykernel</code> is also listed in <code>requirements_dev.txt</code> so you do not need to add it.</p>
+<p><strong>Note:</strong> <code>ipykernel</code> is also listed in <code>requirements_dev.txt</code> so you do not need to add it.</p>
 <h2 id="report-outputsreports">Report - <code>outputs/reports</code><a class="headerlink" href="#report-outputsreports" title="Permanent link">&para;</a></h2>
-<p>We are currently evaluating how we report data-science work - both at the project-level and the feature-level.</p>
-<p>Minimally, you should write reports in markdown putting them in <code>outputs/reports</code> and referencing plots in <code>outputs/figures</code>.</p>
-<p>We are <a href="../roadmap#reporting">experimenting</a> with a toolchain using <a href="https://pandoc.org/">pandoc</a> to generate HTML and PDF (LaTeX) outputs from a single (<a href="https://pandoc.org/MANUAL.html#pandocs-markdown">pandoc flavoured</a>) markdown file, including facilitating the trivial inclusion of interactive <a href="https://altair-viz.github.io/index.html">altair</a> plots within HTML outputs.</p>
+<p>You can write reports in markdown and put them in <code>outputs/reports</code> and reference plots in <code>outputs/figures</code>.</p>
 <h1 id="tree">Tree<a class="headerlink" href="#tree" title="Permanent link">&para;</a></h1>
 <div class="highlight"><pre><span></span><code>├── &lt;REPO NAME&gt;                      |  PYTHON PACKAGE
 │   ├── __init__.py                  |
@@ -1055,6 +1019,7 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
 │   │   ├── base.yaml                |    global configuration (e.g. for tracking hyper-parameters)
 │   │   └── pipeline/                |    pipeline configuration files
 │   ├── getters/                     |  Data getters
+│   ├── notebooks/                   |  Notebooks
 │   ├── pipeline/                    |  Pipeline components
 │   └── utils/                       |  Utilities
 ├── docs/                            |  DOCUMENTATION
