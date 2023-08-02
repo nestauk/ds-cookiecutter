@@ -13,7 +13,7 @@ In this page you will learn how to set up a project using the cookiecutter. The 
 * Open the terminal and `cd` to a folder where you eventually want your repo to be
 * Run `cookiecutter https://github.com/nestauk/ds-cookiecutter`. This will automatically install the latest version. If you want to install a different version run `cookiecutter https://github.com/nestauk/ds-cookiecutter -c <VERSION TAG>`
 * You will be presented with the following:
-    - `You've downloaded ~.cookiecutters/ds-cookiecutter before. Is it okay to delete and re-download it?[yes]` press Enter to confirm yes
+    - `You've downloaded ~.cookiecutters/ds-cookiecutter before. Is it okay to delete and re-download it?[yes]` press Enter to confirm yes, it's always best to use the latest version.
     - `project_name [Project_name]`: add_a_name_here
     - `repo_name [add_a_name_here]`: add_a_name_here
     - `author_name [Nesta]`: add_author or press Enter to confirm Nesta
