@@ -25,21 +25,9 @@ We use [`make`](https://www.gnu.org/software/make/) to manage tasks relating to 
 
 Running `make` from the project base directory will document the commands available along with a short description.
 
-```nohighlight
-Available rules:
+You should run `make install` when you start working on a cookiecutter project. This will create a conda environment with the name of your project and configure git as well.
 
-clean               Delete all compiled Python files
-conda-update        Update the conda-environment based on changes to `environment.yaml`
-conda-remove        Remove the conda-environment cleanly
-docs                Build the API documentation
-docs-clean          Clean the built API documentation
-docs-open           Open the docs in the browser
-inputs-pull         Pull `inputs/` from S3
-install             Install a project: create conda env; install local package; setup git hooks; setup metaflow+AWS
-pip-install         Install our package and requirements in editable mode (including development dependencies)
-```
-
-Where appropriate these make commands will automatically be run in the conda environment for a project.
+For more info on the Makefile, see [here](#the-makefile).
 
 ## Git hooks
 
@@ -342,3 +330,32 @@ You can write reports in markdown and put them in `outputs/reports` and referenc
 ├── .envrc                           |  SHARED PROJECT CONFIGURATION VARIABLES
 ├── .cookiecutter                    |  COOKIECUTTER SETUP & CONFIGURATION (user can safely ignore)
 ```
+## The Makefile
+
+A Makefile is a build automation tool that is commonly used in software development projects. It is a text file that contains a set of rules and instructions for building, compiling, and managing the project. The primary role of a Makefile is to automate the build process and make it easier for developers to compile and run their code.
+
+Here are some key points to understand about the role of a Makefile in a codebase:
+
+- Build Automation: A Makefile defines a set of rules that specify how to build the project. It includes instructions for compiling source code, linking libraries, and generating executable files or other artifacts. By using a Makefile, developers can automate the build process and ensure that all necessary steps are executed in the correct order.
+- Dependency Management: Makefiles allow developers to define dependencies between different files or components of the project. This ensures that only the necessary parts of the code are rebuilt when changes are made, saving time and resources. Makefiles can track dependencies based on file timestamps or by explicitly specifying the relationships between files.
+- Consistency and Reproducibility: With a Makefile, the build process becomes standardised and reproducible across different environments. Developers can share the Makefile with others, ensuring that everyone follows the same build steps and settings. This helps maintain consistency and reduces the chances of errors or inconsistencies in the build process.
+- Customization and Extensibility: Makefiles are highly customizable and allow developers to define their own build targets and actions. This flexibility enables the integration of additional tools, such as code formatters, linters, or test runners, into the build process. Developers can easily extend the functionality of the Makefile to suit the specific needs of their project.
+- Integration with Version Control: Makefiles are often included in the codebase and tracked by version control systems. This ensures that the build process is documented and can be easily reproduced by other team members. Makefiles can also be integrated into continuous integration (CI) pipelines, allowing for automated builds and tests whenever changes are pushed to the repository.
+
+As part of the cookiecutter, we have a Makefile that can perform some useful administrative tasks for us:
+
+```nohighlight
+Available rules:
+
+clean               Delete all compiled Python files
+conda-update        Update the conda-environment based on changes to `environment.yaml`
+conda-remove        Remove the conda-environment cleanly
+docs                Build the API documentation
+docs-clean          Clean the built API documentation
+docs-open           Open the docs in the browser
+inputs-pull         Pull `inputs/` from S3
+install             Install a project: create conda env; install local package; setup git hooks
+pip-install         Install our package and requirements in editable mode (including development dependencies)
+```
+
+By far the most commonly used command is `make install`, so don't worry too much about the rest!
