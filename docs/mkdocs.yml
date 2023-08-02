@@ -59,6 +59,5 @@ nav:
   - Home: index.md
   - Quickstart: quickstart.md
   - Structure: structure.md
-  - Python guidelines: guidelines.md
+  - Python Environments: guidelines.md
   - Roadmap: roadmap.md
-  - Examples: examples/index.md
