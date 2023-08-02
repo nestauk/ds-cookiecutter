@@ -44,5 +44,3 @@ In this page you will learn how to set up a project using the cookiecutter. The 
 * Open the terminal and `cd` into a folder where you want the project set up.
 * Clone the repository by running `git clone <REPONAME>` and `cd` into the repository.
 * Run `make install` to configure the development environment.
-
-  
