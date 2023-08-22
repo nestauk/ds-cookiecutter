@@ -19,11 +19,13 @@ theme:
     # - navigation.tabs
     - navigation.sections
     - navigation.top
+  font:
+    text: Century Gothic
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: pink
-      accent: amber
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
