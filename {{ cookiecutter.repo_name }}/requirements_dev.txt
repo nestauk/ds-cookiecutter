@@ -9,7 +9,6 @@ black
 Sphinx
 sphinxcontrib-napoleon
 sphinx-rtd-theme
-awscli
 pytest
 pre-commit
 pre-commit-hooks
