@@ -5,14 +5,15 @@ You can automate the creation and configuration of Github repositories using the
 ## Pre-requisites
 
 One-time setup:
--   **Install**
-    -   Mac: `brew install gh`
-    -   Linux: [see instructions](https://github.com/cli/cli/blob/trunk/docs/install_linux.md)
--   **Configure** - `gh auth login` and answer prompts as below:
-    -   _What account do you want to log into?_ **Github.com**
-    -   _What is your preferred protocol for Git operations?_ **SSH**
-    -   _Upload your SSH public key to your Github account?_ Select the key you used to sign-up for 2-factor authentication with github
-    -   _How would you like to authenticate GitHub CLI?_ **Login with a web browser**
+
+- **Install**
+  - Mac: `brew install gh`
+  - Linux: [see instructions](https://github.com/cli/cli/blob/trunk/docs/install_linux.md)
+- **Configure** - `gh auth login` and answer prompts as below:
+  - _What account do you want to log into?_ **Github.com**
+  - _What is your preferred protocol for Git operations?_ **SSH**
+  - _Upload your SSH public key to your Github account?_ Select the key you used to sign-up for 2-factor authentication with github
+  - _How would you like to authenticate GitHub CLI?_ **Login with a web browser**
 
 ## Recipe
 
@@ -22,7 +23,7 @@ source .cookiecutter/config # Get $REPO_NAME, $PROJECT_OPENNESS, and $DESCRIPTIO
 export GITHUB_ACCOUNT=<GITHUB ACCOUNT TO CREATE REPO IN>
 
 # Create the Github repo
-gh repo create "$GITHUB_ACCOUNT/$REPO_NAME" --"$PROJECT_OPENNESS" -d "$DESCRIPTION" -y 
+gh repo create "$GITHUB_ACCOUNT/$REPO_NAME" --"$PROJECT_OPENNESS" -d "$DESCRIPTION" -y
 
 # Configure the repo
 gh api -X PATCH \

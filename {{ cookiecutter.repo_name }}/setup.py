@@ -1,4 +1,5 @@
 """{{cookiecutter.repo_name }}."""
+
 from pathlib import Path
 from setuptools import find_packages
 from setuptools import setup
