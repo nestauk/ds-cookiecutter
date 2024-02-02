@@ -6,14 +6,13 @@ A direct [tree](#tree) representation of the folder hierarchy is also given at t
 
 Here are a couple of examples from projects:
 
-- [AHL - Out of Home Analysis](https://github.com/nestauk/ahl_out_of_home_analysis)
+-   [AHL - Out of Home Analysis](https://github.com/nestauk/ahl_out_of_home_analysis)
 
-- [AFS - Birmingham Early Years Data](https://github.com/nestauk/afs_birmingham_ey_data)
+-   [AFS - Birmingham Early Years Data](https://github.com/nestauk/afs_birmingham_ey_data)
 
-- [ASF - Heat Pump Readiness](https://github.com/nestauk/asf_heat_pump_readiness)
+-   [ASF - Heat Pump Readiness](https://github.com/nestauk/asf_heat_pump_readiness)
 
-- [DS - Green Jobs](https://github.com/nestauk/dap_prinz_green_jobs)
-
+-   [DS - Green Jobs](https://github.com/nestauk/dap_prinz_green_jobs)
 
 _**Note:** In the following sections we use `src/` to denote the project name to avoid awkward `<project_name>` placeholders._
 
@@ -124,9 +123,9 @@ config["patstat_companies_house"]["match_threshold"]
 
 This centralisation provides a clearer log of decisions and decreases the chance that a different match threshold gets incorrectly used somewhere else in the codebase.
 
-Config files are also useful for storing model parameters.  Storing model parameters in a config makes it much easier to test different model configurations and document and reproduce your model once it’s been trained. You can easily reference your config file to make changes and write your final documentation rather than having to dig through code. Depending on the complexity of your repository, it may make sense to create separate config files for each of your models. 
+Config files are also useful for storing model parameters. Storing model parameters in a config makes it much easier to test different model configurations and document and reproduce your model once it’s been trained. You can easily reference your config file to make changes and write your final documentation rather than having to dig through code. Depending on the complexity of your repository, it may make sense to create separate config files for each of your models.
 
-For example, if training an SVM classifier you may want to test different values of the regularisation parameter ‘C’. You could create a file called 
+For example, if training an SVM classifier you may want to test different values of the regularisation parameter ‘C’. You could create a file called
 `src/config/svm_classifier.yaml` to store the parameter values in the same way as before.
 
 ---
@@ -175,6 +174,7 @@ Following this approach means:
 -   If we want to see what data is available, we have a folder in the project to go to and we let the code speak for itself as much as possible - e.g. the following is a lot more informative than an inline call to `pd.read_csv` like we had above
 
 Here are two examples:
+
 ```python
     # File: getters/companies_house.py
     """Data getters for the companies house data.
@@ -191,7 +191,9 @@ Here are two examples:
         """
         return pd.read_csv("path/to/file", sep="\t", dtype={"sic_code": str})
 ```
+
 or using ds-utils:
+
 ```python
     #File: getters/asq_data.py
     """Data getters for the ASQ data.
@@ -214,7 +216,6 @@ or using ds-utils:
 
 ```
 
-
 ## Pipeline components - `src/pipeline`
 
 This folder contains pipeline components. Put as much data science as possible here.
@@ -233,7 +234,6 @@ This is a place to put utility functions needed across different parts of the co
 
 For example, this could be functions shared across different pieces of analysis or different pipelines.
 
-
 ## Analysis - `src/analysis`
 
 Functionality in this folder takes the pipeline components (possibly combining them) and generates the plots/statistics to feed into reports.
@@ -246,18 +246,17 @@ It is important that plots are saved in `outputs/` rather than in different area
 
 Notebook packages like [Jupyter notebook](http://jupyter.org/) are effective tools for exploratory data analysis, fast prototyping, and communicating results; however, between prototyping and communicating results code should be factored out into proper python modules.
 
-We have a notebooks folder for all your notebook needs! For example, if you are prototyping a "sentence transformer" you can place the notebooks for prototyping this feature in notebooks, e.g. `notebooks/sentence_transformer/` or `notebooks/pipeline/sentence_transformer/`. 
+We have a notebooks folder for all your notebook needs! For example, if you are prototyping a "sentence transformer" you can place the notebooks for prototyping this feature in notebooks, e.g. `notebooks/sentence_transformer/` or `notebooks/pipeline/sentence_transformer/`.
 
-Please try to keep all notebooks within this folder and primarily not on github, especially for code refactoring as the code will be elsewhere, e.g. in the pipeline. However, for collaborating, sharing and QA of analysis, you are welcome to push those to github. 
-
+Please try to keep all notebooks within this folder and primarily not on github, especially for code refactoring as the code will be elsewhere, e.g. in the pipeline. However, for collaborating, sharing and QA of analysis, you are welcome to push those to github.
 
 ### Refactoring
 
 Everybody likes to work differently. Some like to eagerly refactor, keeping as little in notebooks as possible (or even eschewing notebooks entirely); whereas others prefer to keep everything in notebooks until the last minute.
- 
+
 You are welcome to work in whatever way you’d like, but try to always submit a pull request (PR) for your feature with everything refactored into python modules.
 
-We often find it easiest to refactor frequently,  otherwise you might get duplicates of functions across the codebase , e.g.  if it's a data preprocessing task, put it in the pipeline at `src/pipelines/<descriptive name for task>`; if it's useful utility code, refactor it to `src/utils/`; if it's loading data, refactor it to `src/getters`.
+We often find it easiest to refactor frequently, otherwise you might get duplicates of functions across the codebase , e.g. if it's a data preprocessing task, put it in the pipeline at `src/pipelines/<descriptive name for task>`; if it's useful utility code, refactor it to `src/utils/`; if it's loading data, refactor it to `src/getters`.
 
 #### Tips
 
@@ -330,17 +329,18 @@ You can write reports in markdown and put them in `outputs/reports` and referenc
 ├── .envrc                           |  SHARED PROJECT CONFIGURATION VARIABLES
 ├── .cookiecutter                    |  COOKIECUTTER SETUP & CONFIGURATION (user can safely ignore)
 ```
+
 ## The Makefile
 
 A Makefile is a build automation tool that is commonly used in software development projects. It is a text file that contains a set of rules and instructions for building, compiling, and managing the project. The primary role of a Makefile is to automate the build process and make it easier for developers to compile and run their code.
 
 Here are some key points to understand about the role of a Makefile in a codebase:
 
-- Build Automation: A Makefile defines a set of rules that specify how to build the project. It includes instructions for compiling source code, linking libraries, and generating executable files or other artifacts. By using a Makefile, developers can automate the build process and ensure that all necessary steps are executed in the correct order.
-- Dependency Management: Makefiles allow developers to define dependencies between different files or components of the project. This ensures that only the necessary parts of the code are rebuilt when changes are made, saving time and resources. Makefiles can track dependencies based on file timestamps or by explicitly specifying the relationships between files.
-- Consistency and Reproducibility: With a Makefile, the build process becomes standardised and reproducible across different environments. Developers can share the Makefile with others, ensuring that everyone follows the same build steps and settings. This helps maintain consistency and reduces the chances of errors or inconsistencies in the build process.
-- Customization and Extensibility: Makefiles are highly customizable and allow developers to define their own build targets and actions. This flexibility enables the integration of additional tools, such as code formatters, linters, or test runners, into the build process. Developers can easily extend the functionality of the Makefile to suit the specific needs of their project.
-- Integration with Version Control: Makefiles are often included in the codebase and tracked by version control systems. This ensures that the build process is documented and can be easily reproduced by other team members. Makefiles can also be integrated into continuous integration (CI) pipelines, allowing for automated builds and tests whenever changes are pushed to the repository.
+-   Build Automation: A Makefile defines a set of rules that specify how to build the project. It includes instructions for compiling source code, linking libraries, and generating executable files or other artifacts. By using a Makefile, developers can automate the build process and ensure that all necessary steps are executed in the correct order.
+-   Dependency Management: Makefiles allow developers to define dependencies between different files or components of the project. This ensures that only the necessary parts of the code are rebuilt when changes are made, saving time and resources. Makefiles can track dependencies based on file timestamps or by explicitly specifying the relationships between files.
+-   Consistency and Reproducibility: With a Makefile, the build process becomes standardised and reproducible across different environments. Developers can share the Makefile with others, ensuring that everyone follows the same build steps and settings. This helps maintain consistency and reduces the chances of errors or inconsistencies in the build process.
+-   Customization and Extensibility: Makefiles are highly customizable and allow developers to define their own build targets and actions. This flexibility enables the integration of additional tools, such as code formatters, linters, or test runners, into the build process. Developers can easily extend the functionality of the Makefile to suit the specific needs of their project.
+-   Integration with Version Control: Makefiles are often included in the codebase and tracked by version control systems. This ensures that the build process is documented and can be easily reproduced by other team members. Makefiles can also be integrated into continuous integration (CI) pipelines, allowing for automated builds and tests whenever changes are pushed to the repository.
 
 As part of the cookiecutter, we have a Makefile that can perform some useful administrative tasks for us:
 

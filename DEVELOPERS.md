@@ -14,7 +14,7 @@ There are several workflows in `.github/workflows`:
 - Each PR should have a `major`/`minor`/`patch` label assigned based on the desired version increment, e.g. `minor` will go from `x.y.z -> x.(y+1).z`
 - After a PR is merged then draft release notes will be generated/updated [here](https://github.com/nestauk/ds-cookiecutter/releases) (see `release.yml` above)
 - In the Github UI: rewrite the drafts into something informative to a user and then click release
-    - :warning: Releases should be made little and often - commits on `master` are immediately visible to cookiecutter users
+  - :warning: Releases should be made little and often - commits on `master` are immediately visible to cookiecutter users
 
 ## Documentation
 

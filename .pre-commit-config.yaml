@@ -65,3 +65,7 @@ repos:
       - id: prettier
         name: Prettier (except markdown)
         exclude: ".md"
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.6.1
+    hooks:
+      - id: nbstripout

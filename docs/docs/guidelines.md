@@ -6,7 +6,7 @@ What is `conda`? Conda is an open-source, cross-platform package management syst
 
 When you run `make install`, a `conda` environment will be created for you with a name that matches the repo name. To activate it, you can run:
 
-```conda activate <repo_name>```
+`conda activate <repo_name>`
 
 For more context on how the cookiecutter creates a conda environment, click [here](https://nestauk.github.io/ds-cookiecutter/structure/). For more information on Python environments (from our Python guidelines), click [here](https://nestauk.github.io/dap_python_guidelines/python_environments.html).
 
@@ -14,7 +14,7 @@ Your conda environment is an encompassing python environment for your project, y
 
 To check which packages are installed in your active Conda environment, use the following command:
 
-```conda list <repo_name>```
+`conda list <repo_name>`
 
 ## Installing packages with pip
 
@@ -22,7 +22,7 @@ To check which packages are installed in your active Conda environment, use the 
 
 To install a package using pip, you can use the following command:
 
-```pip install package_name```
+`pip install package_name`
 
 ## The Role of a requirements.txt
 
@@ -38,7 +38,7 @@ scikit-learn
 
 If you have a `requirements.txt` file, you can install all required packages with the following command:
 
-```pip install -r requirements.txt```
+`pip install -r requirements.txt`
 
 This will install the specific versions of all the packages listed in the `requirements.txt` file. This is useful for ensuring consistent environments across different systems, or when deploying a Python application.
 

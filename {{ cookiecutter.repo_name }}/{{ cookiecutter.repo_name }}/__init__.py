@@ -1,4 +1,5 @@
 """{{ cookiecutter.repo_name }}."""
+
 import logging
 import logging.config
 from pathlib import Path
