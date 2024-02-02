@@ -1,10 +1,10 @@
-@import url('https://fonts.cdnfonts.com/css/century-gothic');
+@import url("https://fonts.cdnfonts.com/css/century-gothic");
 html,
 body,
 [class*="css"] {
   font-family: "Century Gothic";
 }
 :root {
-  --md-primary-fg-color: #18A48C;
-  --md-accent-fg-color: #EB003B;
+  --md-primary-fg-color: #18a48c;
+  --md-accent-fg-color: #eb003b;
 }

@@ -965,8 +965,8 @@ OTHER_VARIABLE=something
 <span class="n">config</span><span class="p">[</span><span class="s2">&quot;patstat_companies_house&quot;</span><span class="p">][</span><span class="s2">&quot;match_threshold&quot;</span><span class="p">]</span>
 </code></pre></div>
 <p>This centralisation provides a clearer log of decisions and decreases the chance that a different match threshold gets incorrectly used somewhere else in the codebase.</p>
-<p>Config files are also useful for storing model parameters.  Storing model parameters in a config makes it much easier to test different model configurations and document and reproduce your model once it’s been trained. You can easily reference your config file to make changes and write your final documentation rather than having to dig through code. Depending on the complexity of your repository, it may make sense to create separate config files for each of your models. </p>
-<p>For example, if training an SVM classifier you may want to test different values of the regularisation parameter ‘C’. You could create a file called 
+<p>Config files are also useful for storing model parameters. Storing model parameters in a config makes it much easier to test different model configurations and document and reproduce your model once it’s been trained. You can easily reference your config file to make changes and write your final documentation rather than having to dig through code. Depending on the complexity of your repository, it may make sense to create separate config files for each of your models.</p>
+<p>For example, if training an SVM classifier you may want to test different values of the regularisation parameter ‘C’. You could create a file called
 <code>src/config/svm_classifier.yaml</code> to store the parameter values in the same way as before.</p>
 <hr />
 <p><strong>Note</strong> - as well as avoiding hard-coding parameters into our code, we should <strong><em>never</em></strong> hard-code full file paths, e.g. <code>/home/Projects/my_fantastic_data_project/outputs/data/foo.json</code>, as this will never work on anything other than your machine.</p>
@@ -994,7 +994,7 @@ Anywhere in the code base we need to load data we should do so by importing and 
 <li>We avoid inconsistencies such as forgetting to read a column in as a <code>str</code> instead of an <code>int</code> and thus missing leading zeros</li>
 <li>If we want to see what data is available, we have a folder in the project to go to and we let the code speak for itself as much as possible - e.g. the following is a lot more informative than an inline call to <code>pd.read_csv</code> like we had above</li>
 </ul>
-<p>Here are two examples:
+<p>Here are two examples:</p>
 <div class="highlight"><pre><span></span><code>    <span class="c1"># File: getters/companies_house.py</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Data getters for the companies house data.</span>
 
@@ -1010,7 +1010,7 @@ Anywhere in the code base we need to load data we should do so by importing and 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;path/to/file&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;sic_code&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
 </code></pre></div>
-or using ds-utils:
+<p>or using ds-utils:</p>
 <div class="highlight"><pre><span></span><code>    <span class="c1">#File: getters/asq_data.py</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Data getters for the ASQ data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1029,7 +1029,7 @@ or using ds-utils:
         <span class="n">download_as</span><span class="o">=</span><span class="s2">&quot;dataframe&quot;</span><span class="p">,</span>
         <span class="n">kwargs_reading</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;engine&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">},</span>
     <span class="p">)</span>
-</code></pre></div></p>
+</code></pre></div>
 <h2 id="pipeline-components-srcpipeline">Pipeline components - <code>src/pipeline</code><a class="headerlink" href="#pipeline-components-srcpipeline" title="Permanent link">&para;</a></h2>
 <p>This folder contains pipeline components. Put as much data science as possible here.</p>
 <p>We recommend the use of <a href="https://docs.metaflow.org">metaflow</a> to write these pipeline components.</p>
@@ -1048,12 +1048,12 @@ or using ds-utils:
 <p>It is important that plots are saved in <code>outputs/</code> rather than in different areas of the repository.</p>
 <h2 id="notebooks-srcnotebooks">Notebooks - <code>src/notebooks</code><a class="headerlink" href="#notebooks-srcnotebooks" title="Permanent link">&para;</a></h2>
 <p>Notebook packages like <a href="http://jupyter.org/">Jupyter notebook</a> are effective tools for exploratory data analysis, fast prototyping, and communicating results; however, between prototyping and communicating results code should be factored out into proper python modules.</p>
-<p>We have a notebooks folder for all your notebook needs! For example, if you are prototyping a "sentence transformer" you can place the notebooks for prototyping this feature in notebooks, e.g. <code>notebooks/sentence_transformer/</code> or <code>notebooks/pipeline/sentence_transformer/</code>. </p>
-<p>Please try to keep all notebooks within this folder and primarily not on github, especially for code refactoring as the code will be elsewhere, e.g. in the pipeline. However, for collaborating, sharing and QA of analysis, you are welcome to push those to github. </p>
+<p>We have a notebooks folder for all your notebook needs! For example, if you are prototyping a "sentence transformer" you can place the notebooks for prototyping this feature in notebooks, e.g. <code>notebooks/sentence_transformer/</code> or <code>notebooks/pipeline/sentence_transformer/</code>.</p>
+<p>Please try to keep all notebooks within this folder and primarily not on github, especially for code refactoring as the code will be elsewhere, e.g. in the pipeline. However, for collaborating, sharing and QA of analysis, you are welcome to push those to github.</p>
 <h3 id="refactoring">Refactoring<a class="headerlink" href="#refactoring" title="Permanent link">&para;</a></h3>
 <p>Everybody likes to work differently. Some like to eagerly refactor, keeping as little in notebooks as possible (or even eschewing notebooks entirely); whereas others prefer to keep everything in notebooks until the last minute.</p>
 <p>You are welcome to work in whatever way you’d like, but try to always submit a pull request (PR) for your feature with everything refactored into python modules.</p>
-<p>We often find it easiest to refactor frequently,  otherwise you might get duplicates of functions across the codebase , e.g.  if it's a data preprocessing task, put it in the pipeline at <code>src/pipelines/&lt;descriptive name for task&gt;</code>; if it's useful utility code, refactor it to <code>src/utils/</code>; if it's loading data, refactor it to <code>src/getters</code>.</p>
+<p>We often find it easiest to refactor frequently, otherwise you might get duplicates of functions across the codebase , e.g. if it's a data preprocessing task, put it in the pipeline at <code>src/pipelines/&lt;descriptive name for task&gt;</code>; if it's useful utility code, refactor it to <code>src/utils/</code>; if it's loading data, refactor it to <code>src/getters</code>.</p>
 <h4 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h4>
 <p>Add the following to your notebook (or IPython REPL):</p>
 <div class="highlight"><pre><span></span><code>%load_ext autoreload
