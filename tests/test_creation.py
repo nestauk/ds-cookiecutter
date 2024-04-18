@@ -192,6 +192,7 @@ class TestCookieSetup(object):
     def test_install(self):
         """Test `make install` command."""
         with ch_dir(self.path):
+            shell(["conda", "deactivate"])
             shell(["make", "install"])
 
             output = "".join(shell(["bash", "-c", "source .envrc && which python"]))
