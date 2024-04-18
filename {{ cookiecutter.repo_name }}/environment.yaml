@@ -1,4 +1,5 @@
 channels:
+  - nodefaults
   - conda-forge
 dependencies:
   - pip
