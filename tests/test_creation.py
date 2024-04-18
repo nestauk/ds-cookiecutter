@@ -165,14 +165,14 @@ class TestCookieSetup(object):
                 # Add an extra conda dependency
                 check_output(["echo", "  - tqdm", ">>", "environment.yaml"])
                 p = shell(["make", "conda-update"])
-
-                p = shell(["make", "conda-remove"])
             except CalledProcessError:
                 log_path = Path(".cookiecutter/state/conda-create.log")
                 if log_path.exists():
                     with log_path.open() as f:
                         print("conda-create.log:\n", f.read())
                 raise
+            finally:
+                p = shell(["make", "conda-remove"])
 
     def test_git(self):
         """Test expected git branches exist."""
@@ -188,17 +188,29 @@ class TestCookieSetup(object):
             shell(["make", ".cookiecutter/state/setup-git"])
             shell(["pre-commit", "run", "-a"])
 
+
+@pytest.mark.usefixtures("default_baked_project")
+class TestCookieMakeInstall(object):
     @pytest.mark.usefixtures("conda_env")
     def test_install(self):
         """Test `make install` command."""
         with ch_dir(self.path):
-            shell(["make", "install"])
+            try:
+                shell(["make", "install"])
 
-            output = "".join(shell(["bash", "-c", "source .envrc && which python"]))
-            print(output)
+                output = "".join(shell(["bash", "-c", "source .envrc && which python"]))
+                print(output)
 
-            # Conda env activated by .envrc
-            assert f"{pytest.param.get('repo_name')}/bin/python" in output, output
+                # Conda env activated by .envrc
+                assert f"{pytest.param.get('repo_name')}/bin/python" in output, output
+            except CalledProcessError:
+                log_path = Path(".cookiecutter/state/conda-create.log")
+                if log_path.exists():
+                    with log_path.open() as f:
+                        print("conda-create.log:\n", f.read())
+                raise
+            finally:
+                p = shell(["make", "conda-remove"])
 
 
 def shell(cmd: List[str]) -> List[str]:
