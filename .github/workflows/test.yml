@@ -26,45 +26,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - uses: conda-incubator/setup-miniconda@v3
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-          channels: conda-forge,nodefaults
-          allow-softlinks: true
-          channel-priority: flexible
-          show-channel-urls: true
-          use-only-tar-bz2: true
   
       - name: Install Mac dependencies
         if: runner.os == 'macOS'
         run: |
           brew install coreutils direnv
-          $CONDA/bin/python -m pip install --upgrade pip
-          $CONDA/bin/python -m pip install -r requirements.txt
-          conda config --remove channels defaults
-          conda config --add channels conda-forge 
-          conda config --add channels nodefaults
-          $CONDA/bin/conda init bash
-
-      - name: Fix Conda permissions on macOS
-        if: runner.os == 'macOS'
-        run: sudo chown -R $UID $CONDA
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
 
       - name: Install Linux dependencies
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -y && sudo apt-get install -y direnv
-          $CONDA/bin/python -m pip install --upgrade pip
-          $CONDA/bin/python -m pip install -r requirements.txt
-          conda config --remove channels defaults
-          conda config --add channels conda-forge 
-          conda config --add channels nodefaults
-          $CONDA/bin/conda init bash
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
 
       - name: Build docs
         run: |
           cd docs
-          $CONDA/bin/python -m mkdocs build
+          python -m mkdocs build
 
       - name: Git config
         run: |
@@ -91,4 +75,4 @@ jobs:
 
       - name: Run pytest
         run: |
-          $CONDA/bin/python -m pytest -vvv
+          python -m pytest -vvv
