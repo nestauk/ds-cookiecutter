@@ -19,24 +19,27 @@ jobs:
         os:
           - ubuntu-latest
           - macos-latest
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
     runs-on: ${{ matrix.os }}
     name: Run pytest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - uses: conda-incubator/setup-miniconda@v3
         with:
-          python-version: 3.9
-
+          auto-update-conda: true
+          python-version: ${{ matrix.python-version }}
+  
       - name: Install Mac dependencies
         if: runner.os == 'macOS'
         run: |
           brew install coreutils direnv
           $CONDA/bin/python -m pip install --upgrade pip
           $CONDA/bin/python -m pip install -r requirements.txt
-          conda config --add channels conda-forge
+          conda config --remove channels defaults
+          conda config --add channels conda-forge 
+          conda config --add channels nodefaults
           $CONDA/bin/conda init bash
 
       - name: Fix Conda permissions on macOS
@@ -49,6 +52,9 @@ jobs:
           sudo apt-get update -y && sudo apt-get install -y direnv
           $CONDA/bin/python -m pip install --upgrade pip
           $CONDA/bin/python -m pip install -r requirements.txt
+          conda config --remove channels defaults
+          conda config --add channels conda-forge 
+          conda config --add channels nodefaults
           $CONDA/bin/conda init bash
 
       - name: Build docs
