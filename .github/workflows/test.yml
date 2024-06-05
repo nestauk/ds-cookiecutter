@@ -19,6 +19,7 @@ jobs:
         os:
           - ubuntu-latest
           - macos-latest
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
     runs-on: ${{ matrix.os }}
     name: Run pytest
     steps:
@@ -28,15 +29,24 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: ${{ matrix.python-version }}
 
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: test
+          channels: conda-forge,nodefaults
+          python-version: ${{ matrix.python-version }}
+  
       - name: Install Mac dependencies
         if: runner.os == 'macOS'
         run: |
           brew install coreutils direnv
-          $CONDA/bin/python -m pip install --upgrade pip
-          $CONDA/bin/python -m pip install -r requirements.txt
-          conda config --add channels conda-forge
+          which python
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          conda config --remove channels defaults
+          conda config --add channels conda-forge 
+          conda config --add channels nodefaults
           $CONDA/bin/conda init bash
 
       - name: Fix Conda permissions on macOS
@@ -47,14 +57,19 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -y && sudo apt-get install -y direnv
-          $CONDA/bin/python -m pip install --upgrade pip
-          $CONDA/bin/python -m pip install -r requirements.txt
+          which python
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          conda config --remove channels defaults
+          conda config --add channels conda-forge 
+          conda config --add channels nodefaults
           $CONDA/bin/conda init bash
 
       - name: Build docs
         run: |
           cd docs
-          $CONDA/bin/python -m mkdocs build
+          which python
+          python -m mkdocs build
 
       - name: Git config
         run: |
@@ -81,4 +96,5 @@ jobs:
 
       - name: Run pytest
         run: |
-          $CONDA/bin/python -m pytest -vvv
+          which python
+          python -m pytest -vvv
