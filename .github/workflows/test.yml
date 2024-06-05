@@ -33,6 +33,7 @@ jobs:
 
       - uses: conda-incubator/setup-miniconda@v3
         with:
+          activate-environment: test
           channels: conda-forge,nodefaults
           python-version: ${{ matrix.python-version }}
   
@@ -40,8 +41,9 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           brew install coreutils direnv
-          $CONDA/envs/test/bin/python -m pip install --upgrade pip
-          $CONDA/envs/test/bin/python -m pip install -r requirements.txt
+          which python
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
           conda config --remove channels defaults
           conda config --add channels conda-forge 
           conda config --add channels nodefaults
@@ -55,8 +57,9 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -y && sudo apt-get install -y direnv
-          $CONDA/envs/test/bin/python -m pip install --upgrade pip
-          $CONDA/envs/test/bin/python -m pip install -r requirements.txt
+          which python
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
           conda config --remove channels defaults
           conda config --add channels conda-forge 
           conda config --add channels nodefaults
@@ -92,4 +95,5 @@ jobs:
 
       - name: Run pytest
         run: |
-          $CONDA/envs/test/bin/python -m pytest -vvv
+          which python
+          python -m pytest -vvv
