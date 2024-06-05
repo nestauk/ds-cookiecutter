@@ -40,8 +40,8 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           brew install coreutils direnv
-          $CONDA/bin/python -m pip install --upgrade pip
-          $CONDA/bin/python -m pip install -r requirements.txt
+          $CONDA/envs/test/bin/python -m pip install --upgrade pip
+          $CONDA/envs/test/bin/python -m pip install -r requirements.txt
           conda config --remove channels defaults
           conda config --add channels conda-forge 
           conda config --add channels nodefaults
@@ -55,8 +55,8 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -y && sudo apt-get install -y direnv
-          $CONDA/bin/python -m pip install --upgrade pip
-          $CONDA/bin/python -m pip install -r requirements.txt
+          $CONDA/envs/test/bin/python -m pip install --upgrade pip
+          $CONDA/envs/test/bin/python -m pip install -r requirements.txt
           conda config --remove channels defaults
           conda config --add channels conda-forge 
           conda config --add channels nodefaults
@@ -92,4 +92,4 @@ jobs:
 
       - name: Run pytest
         run: |
-          $CONDA/bin/python -m pytest -vvv
+          $CONDA/envs/test/bin/python -m pytest -vvv
