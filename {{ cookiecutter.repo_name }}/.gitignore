@@ -124,3 +124,8 @@ target/
 
 # NPM
 node_modules/
+
+# test cache
+.cache/*
+tests/__pycache__/*
+*.pytest_cache/
