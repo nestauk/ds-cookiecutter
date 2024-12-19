@@ -1,5 +1,5 @@
+"""Sphinx configuration."""
 from datetime import datetime
-
 
 project = "{{ cookiecutter.project_name }}"
 author = "{{ cookiecutter.author_name }}"
