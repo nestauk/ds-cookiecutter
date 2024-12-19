@@ -1,5 +1,3 @@
-"""Sphinx configuration."""
-
 from datetime import datetime
 
 
