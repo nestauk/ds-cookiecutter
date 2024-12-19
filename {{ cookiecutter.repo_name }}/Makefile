@@ -63,10 +63,18 @@ pip-install:
 	@pip install -e ".[dev]"
 
 .PHONY: conda-remove
-## Remove the conda-environment cleanly, using -f so works even if no environment to be removed
+## Remove the conda-environment cleanly
 conda-remove:
-	conda env remove -n ${REPO_NAME}
-	rm -f .cookiecutter/state/conda-create*
+	@echo "Checking if conda environment ${REPO_NAME} exists"
+	@if conda info --envs | grep -q ${REPO_NAME}; then \
+		if conda info --envs | grep '*' | grep -q ${REPO_NAME}; then \
+			echo "Error: Conda environment ${REPO_NAME} is currently active. Please run `conda deactivate` before proceeding."; \
+			exit 1; \
+		fi; \
+		conda env remove -n ${REPO_NAME}; \
+		echo "Removing conda-create state files"; \
+		rm -f .cookiecutter/state/conda-create*; \
+	fi
 	@direnv reload
 
 .PHONY: clean
@@ -97,9 +105,9 @@ endef
 .cookiecutter/state/setup-git:
 	@echo -n "Installing and configuring git pre-commit hooks"
 	@(eval "$$(conda shell.bash activate "${REPO_NAME}")"\
-	 &&pre-commit install --install-hooks)\
+	 && pre-commit install --install-hooks)\
 	 > $@.log 2>&1\
-	 || $(call err,Git pre-commit setup failed)
+	 || (cat $@.log && $(call err,Git pre-commit setup failed))
 	@touch $@
 	@echo " DONE"
 

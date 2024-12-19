@@ -1,13 +1,13 @@
 import os
 import re
 import sys
+import tomli
 from contextlib import contextmanager
 from pathlib import Path
 from subprocess import CalledProcessError, check_output
 from typing import List
 
 import pytest
-
 
 @contextmanager
 def ch_dir(path):
@@ -42,13 +42,6 @@ class TestCookieSetup(object):
         name = "NestaTestCookie".lower()
         assert project.name == name
 
-    def test_author(self):
-        """Test author set in `setup.py`."""
-        setup_ = self.path / "setup.py"
-        args = ["python", setup_, "--author"]
-        p = "".join(shell(args))
-        assert p == "Nesta"
-
     def test_readme(self):
         """Test README.md exists with no curlies."""
         readme_path = self.path / "README.md"
@@ -57,28 +50,29 @@ class TestCookieSetup(object):
         with open(readme_path) as fin:
             assert "# NestaTestCookie".lower() == next(fin).strip()
 
-    def test_version(self):
-        """Test version set in `setup.py`."""
-        setup_ = self.path / "setup.py"
-        args = ["python", setup_, "--version"]
-        p = "".join(shell(args))
-        assert p == "0.1.0"
-
     def test_license(self):
         """Test LICENSE exists with no curlies."""
         license_path = self.path / "LICENSE"
         assert license_path.exists()
         assert no_curlies(license_path)
 
-    def test_license_type(self):
-        """Test License set appropriately in `setup.py`."""
-        setup_ = self.path / "setup.py"
-        args = ["python", setup_, "--license"]
-        p = "".join(shell(args))
+    def test_metadata(self):
+        """Test project metadata in pyproject.toml."""
+        pyproject_path = self.path / "pyproject.toml"
+        assert pyproject_path.exists()
+        assert no_curlies(pyproject_path)
+
+        with open(pyproject_path, "rb") as f:
+            pyproject = tomli.load(f)
+
+        project = pyproject.get("project", {})
+        assert project.get("name") == "nestatestcookie"
+        assert project.get("version") == "0.1.0"
+        assert any(author.get("name") == "Nesta" for author in project.get("authors", []))
         if pytest.param.get("openess") == "private":
-            assert p == "proprietary"
+            assert project.get("license", {}).get("text") == "proprietary"
         else:
-            assert p == "MIT"
+            assert project.get("license", {}).get("text") == "MIT"
 
     def test_makefile(self):
         """Test Makefile exists with no curlies."""
@@ -93,7 +87,7 @@ class TestCookieSetup(object):
             ".env",
             ".envrc",
             "README.md",
-            "setup.cfg",
+            "pyproject.toml",
             "docs/conf.py",
             "docs/index.rst",
             f"{repo_name}/config/logging.yaml",

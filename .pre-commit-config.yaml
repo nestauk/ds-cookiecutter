@@ -44,13 +44,6 @@ repos:
         language: system
         types: [python]
         require_serial: true
-      # - id: flake8
-      #   name: flake8
-      #   entry: flake8
-      #   language: system
-      #   types: [python]
-      #   args: ["--config='{{ cookiecutter.repo_name }}/setup.cfg'"]
-      #   require_serial: true
   - repo: https://github.com/prettier/pre-commit
     rev: v2.1.2
     hooks:

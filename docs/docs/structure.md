@@ -311,23 +311,19 @@ You can write reports in markdown and put them in `outputs/reports` and referenc
 │   ├── pipeline/                    |  Pipeline components
 │   └── utils/                       |  Utilities
 ├── docs/                            |  DOCUMENTATION
+├── pyproject.toml                   |  PROJECT METADATA AND CONFIGURATION
 ├── environment.yaml                 |  CONDA ENVIRONMENT SPECIFICATION (optional component)
-├── requirements.txt                 |  PYTHON DEPENDENCIES NEEDED TO RUN THE CODE
-├── requirements_dev.txt             |  PYTHON DEV DEPENDENCIES (e.g. building docs/running tests)
 ├── inputs/                          |  INPUTS (should be immutable)
-├── jupytext.toml                    |  JUPYTEXT CONFIGURATION
 ├── LICENSE                          |
-├── outputs/                          |  OUTPUTS PRODUCED FROM THE PROJECT
+├── outputs/                         |  OUTPUTS PRODUCED FROM THE PROJECT
 ├── Makefile                         |  TASKS TO COORDINATE PROJECT (`make` shows available commands)
 ├── README.md                        |
-├── setup.py                         |  ALLOWS US TO PIP INSTALL src/
-├── setup.cfg                        |  ADDITIONAL PROJECT CONFIGURATION, e.g. flake8
 ├── .pre-commit-config.yaml          |  DEFINES CHECKS THAT MUST PASS BEFORE git commit SUCCEEDS
 ├── .gitignore                       |  TELLS git WHAT FILES WE DON'T WANT TO COMMIT
 ├── .github/                         |  GITHUB CONFIGURATION
 ├── .env                             |  SECRETS (never commit to git!)
 ├── .envrc                           |  SHARED PROJECT CONFIGURATION VARIABLES
-├── .cookiecutter                    |  COOKIECUTTER SETUP & CONFIGURATION (user can safely ignore)
+└── .cookiecutter                    |  COOKIECUTTER SETUP & CONFIGURATION (user can safely ignore)
 ```
 
 ## The Makefile
