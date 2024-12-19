@@ -19,7 +19,7 @@ jobs:
         os:
           - ubuntu-latest
           - macos-latest
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
     runs-on: ${{ matrix.os }}
     name: Run pytest
     steps:
@@ -44,7 +44,6 @@ jobs:
           which python
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
-          conda config --remove channels defaults
           conda config --add channels conda-forge 
           conda config --add channels nodefaults
           $CONDA/bin/conda init bash
