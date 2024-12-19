@@ -60,7 +60,6 @@ jobs:
           which python
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
-          conda config --remove channels defaults
           conda config --add channels conda-forge 
           conda config --add channels nodefaults
           $CONDA/bin/conda init bash
