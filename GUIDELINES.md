@@ -14,7 +14,7 @@ In this document we set out some basic "tips" (either mandatory or encouraged) w
 
 ## Foreword
 
-In advance, we recommend installing the autoformatter [black](https://pypi.org/project/black/) in your IDE. In future we will use `flake8` (or similar) for automatically checking our python codebases.
+In advance, we recommend installing the linter and autoformatter [ruff](https://pypi.org/project/ruff/) in your IDE.
 
 Hopefully the conventions laid out here are the easy and intuitive set of [pep8](https://www.python.org/dev/peps/pep-0008/).
 
