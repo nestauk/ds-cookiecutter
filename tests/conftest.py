@@ -11,6 +11,7 @@ args = {
     "project_name": "NestaTestCookie".lower(),
     "author_name": "Nesta",
     "repo_name": "nestatestcookie",
+    "openness": "public"
 }
 
 

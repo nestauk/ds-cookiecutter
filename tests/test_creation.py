@@ -69,7 +69,7 @@ class TestCookieSetup(object):
         assert project.get("name") == "nestatestcookie"
         assert project.get("version") == "0.1.0"
         assert any(author.get("name") == "Nesta" for author in project.get("authors", []))
-        if pytest.param.get("openess") == "private":
+        if pytest.param.get("openness") == "private":
             assert project.get("license", {}).get("text") == "proprietary"
         else:
             assert project.get("license", {}).get("text") == "MIT"
