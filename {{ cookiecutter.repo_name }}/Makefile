@@ -21,8 +21,8 @@ $(shell touch .cookiecutter/state/python-env-create.log)
 .PHONY: install
 ## Install the project: setup environment, install dependencies, and configure git hooks
 install:
-    $(MAKE) python-env-remove .cookiecutter/state/python-env-create .cookiecutter/state/setup-git
-    @direnv reload
+	$(MAKE) python-env-remove .cookiecutter/state/python-env-create .cookiecutter/state/setup-git
+	@direnv reload
 
 .PHONY: check-bucket-path
 check-bucket-path:
@@ -53,30 +53,30 @@ docs-open:
 .PHONY: python-env-create
 ## Create the virtual environment
 python-env-create:
-    @echo "Creating ${ENVIRONMENT_TYPE} environment..."
-    @${ENV_CREATE}
+	@echo "Creating ${ENVIRONMENT_TYPE} environment..."
+	@${ENV_CREATE}
 
 .PHONY: python-env-remove
 ## Remove the virtual environment
 python-env-remove:
-    @echo "Removing ${ENVIRONMENT_TYPE} environment..."
-    -@${ENV_DEACTIVATE} 2>/dev/null || true
-    -@${ENV_REMOVE} 2>/dev/null || true
-    @rm -f .cookiecutter/state/python-env-create*
-    @direnv reload
+	@echo "Removing ${ENVIRONMENT_TYPE} environment..."
+	-@${ENV_DEACTIVATE} 2>/dev/null || true
+	-@${ENV_REMOVE} 2>/dev/null || true
+	@rm -f .cookiecutter/state/python-env-create*
+	@direnv reload
 
 .PHONY: python-env-update
 ## Update the environment based on dependency files
 python-env-update:
-    @echo "Updating ${ENVIRONMENT_TYPE} environment..."
-    @${ENV_UPDATE}
-    $(MAKE) -s pip-install
-    @direnv reload
+	@echo "Updating ${ENVIRONMENT_TYPE} environment..."
+	@${ENV_UPDATE}
+	$(MAKE) -s pip-install
+	@direnv reload
 
 .PHONY: pip-install
 ## Install package in editable mode with dev dependencies
 pip-install:
-    @pip install -e ".[dev]"
+	@pip install -e ".[dev]"
 
 .PHONY: clean
 ## Delete all compiled Python files
@@ -94,26 +94,26 @@ define err
 endef
 
 .cookiecutter/state/python-env-create:
-    @echo -n "Creating ${ENVIRONMENT_TYPE} environment and installing dependencies"
-    @( \
-        ${ENV_CREATE} && \
-        ${ENV_ACTIVATE} && \
-        ${ENV_INSTALL_EXTRAS} && \
-        pip install -e ".[dev]" \
-    ) > $@.log 2>&1 \
-    || (echo "Environment setup failed, check $@.log for details" && exit 1)
-    @touch $@
-    @echo " DONE"
+	@echo -n "Creating ${ENVIRONMENT_TYPE} environment and installing dependencies"
+	@( \
+		${ENV_CREATE} && \
+		${ENV_ACTIVATE} && \
+		${ENV_INSTALL_EXTRAS} && \
+		pip install -e ".[dev]" \
+	) > $@.log 2>&1 \
+	|| (echo "Environment setup failed, check $@.log for details" && exit 1)
+	@touch $@
+	@echo " DONE"
 
 .cookiecutter/state/setup-git:
-    @echo -n "Installing and configuring git pre-commit hooks"
-    @( \
-        ${ENV_ACTIVATE} && \
-        pre-commit install --install-hooks \
-    ) > $@.log 2>&1 \
-    || (echo "Git pre-commit setup failed, check $@.log for details" && exit 1)
-    @touch $@
-    @echo " DONE"
+	@echo -n "Installing and configuring git pre-commit hooks"
+	@( \
+		${ENV_ACTIVATE} && \
+		pre-commit install --install-hooks \
+	) > $@.log 2>&1 \
+	|| (echo "Git pre-commit setup failed, check $@.log for details" && exit 1)
+	@touch $@
+	@echo " DONE"
 
 
 #################################################################################
