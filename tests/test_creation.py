@@ -150,29 +150,25 @@ class TestCookieSetup(object):
         assert len(set(abs_expected_dirs) ^ set(abs_dirs)) == 0
 
     @pytest.mark.usefixtures("conda_env")
-    def test_conda(self):
-        """Test conda environment is created, modified, and destroyed."""
+    def test_python_env(self):
+        """Test python environment is created, modified, and destroyed."""
         with ch_dir(self.path):
             try:
-                p = shell(["make", ".cookiecutter/state/conda-create"])
+                p = shell(["make", ".cookiecutter/state/python-env-create"])
                 assert " DONE" in p[-1]
                 assert self.env_path.exists()
 
                 # Add an extra pip dependency
                 check_output(["echo", "nuts_finder", ">>", "requirements.txt"])
-                p = shell(["make", "conda-update"])
-
-                # Add an extra conda dependency
-                check_output(["echo", "  - tqdm", ">>", "environment.yaml"])
-                p = shell(["make", "conda-update"])
+                p = shell(["make", "python-env-update"])
             except CalledProcessError:
-                log_path = Path(".cookiecutter/state/conda-create.log")
+                log_path = Path(".cookiecutter/state/python-env-create.log")
                 if log_path.exists():
                     with log_path.open() as f:
-                        print("conda-create.log:\n", f.read())
+                        print("python-env-create.log:\n", f.read())
                 raise
             finally:
-                p = shell(["make", "conda-remove"])
+                p = shell(["make", "python-env-remove"])
 
     def test_git(self):
         """Test expected git branches exist."""
@@ -201,16 +197,16 @@ class TestCookieMakeInstall(object):
                 output = "".join(shell(["bash", "-c", "source .envrc && which python"]))
                 print(output)
 
-                # Conda env activated by .envrc
+                # python env activated by .envrc
                 assert f"{pytest.param.get('repo_name')}/bin/python" in output, output
             except CalledProcessError:
-                log_path = Path(".cookiecutter/state/conda-create.log")
+                log_path = Path(".cookiecutter/state/python-env-create.log")
                 if log_path.exists():
                     with log_path.open() as f:
-                        print("conda-create.log:\n", f.read())
+                        print("python-env-create.log:\n", f.read())
                 raise
             finally:
-                p = shell(["make", "conda-remove"])
+                p = shell(["make", "python-env-remove"])
 
 
 def shell(cmd: List[str]) -> List[str]:
