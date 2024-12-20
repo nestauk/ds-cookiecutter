@@ -107,7 +107,7 @@ endef
 	@(eval "$$(conda shell.bash activate "${REPO_NAME}")"\
 	 && pre-commit install --install-hooks)\
 	 > $@.log 2>&1\
-	 || (cat $@.log && $(call err,Git pre-commit setup failed))
+	 || $(call err,Git pre-commit setup failed)
 	@touch $@
 	@echo " DONE"
 
