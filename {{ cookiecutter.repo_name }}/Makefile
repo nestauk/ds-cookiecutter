@@ -65,6 +65,12 @@ python-env-remove:
 	@rm -f .cookiecutter/state/python-env-create*
 	@direnv reload
 
+.PHONY: python-env-activate
+## Activate the virtual environment
+python-env-activate:
+	@echo "Activating ${ENVIRONMENT_TYPE} environment..."
+	@${ENV_ACTIVATE}
+
 .PHONY: python-env-update
 ## Update the environment based on dependency files
 python-env-update:
