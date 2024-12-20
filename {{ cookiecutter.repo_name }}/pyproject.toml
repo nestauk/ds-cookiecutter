@@ -54,7 +54,7 @@ known-first-party = ["{{ cookiecutter.repo_name }}"]
 convention = "google"
 
 [tool.ruff.lint.per-file-ignores]
-"**/__init__.py" = ["F401", "E402", "D104"]
+"__init__.py" = ["F401", "E402", "D104"]
 
 [tool.ruff.format]
 docstring-code-format = true
