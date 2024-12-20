@@ -7,12 +7,11 @@ export ENVIRONMENT_TYPE={{ cookiecutter.venv_type }}
 
 {% if cookiecutter.venv_type == 'conda' %}
 # Conda configuration
-ENVIRONMENT_NAME=${REPO_NAME}
-ENV_CREATE=conda env create -n ${ENVIRONMENT_NAME} -f environment.yaml
-ENV_ACTIVATE=conda activate ${ENVIRONMENT_NAME}
+ENV_CREATE=conda env create -n ${REPO_NAME} -f environment.yaml
+ENV_ACTIVATE=conda activate ${REPO_NAME}
 ENV_DEACTIVATE=conda deactivate
-ENV_REMOVE=conda env remove -n ${ENVIRONMENT_NAME}
-ENV_UPDATE=conda env update -n ${ENVIRONMENT_NAME} -f environment.yaml
+ENV_REMOVE=conda env remove -n ${REPO_NAME}
+ENV_UPDATE=conda env update -n ${REPO_NAME} -f environment.yaml
 ENV_INSTALL_EXTRAS=conda install pip
 {% elif cookiecutter.venv_type == 'venv' %}
 # venv configuration
@@ -25,11 +24,10 @@ ENV_UPDATE=pip install -r requirements.txt
 ENV_INSTALL_EXTRAS=true
 {% else %}
 # pyenv-virtualenv configuration
-ENVIRONMENT_NAME=${REPO_NAME}
-ENV_CREATE=pyenv virtualenv ${PYTHON_VERSION} ${ENVIRONMENT_NAME}
-ENV_ACTIVATE=pyenv activate ${ENVIRONMENT_NAME}
+ENV_CREATE=pyenv virtualenv ${PYTHON_VERSION} ${REPO_NAME}
+ENV_ACTIVATE=pyenv activate ${REPO_NAME}
 ENV_DEACTIVATE=pyenv deactivate
-ENV_REMOVE=pyenv virtualenv-delete ${ENVIRONMENT_NAME}
+ENV_REMOVE=pyenv virtualenv-delete ${REPO_NAME}
 ENV_UPDATE=pip install -r requirements.txt
 ENV_INSTALL_EXTRAS=true
 {% endif %}
