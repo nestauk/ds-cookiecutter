@@ -14,7 +14,6 @@ Please pay special attention to ...
 
 # Checklist:
 
-- [ ] I have refactored my code out from `notebooks/`
 - [ ] I have checked the code runs
 - [ ] I have tested the code
 - [ ] I have run `pre-commit` and addressed any issues not automatically fixed

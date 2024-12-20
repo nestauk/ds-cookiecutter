@@ -315,7 +315,6 @@ You can write reports in markdown and put them in `outputs/reports` and referenc
 ├── requirements.txt                 |  PYTHON DEPENDENCIES NEEDED TO RUN THE CODE
 ├── requirements_dev.txt             |  PYTHON DEV DEPENDENCIES (e.g. building docs/running tests)
 ├── inputs/                          |  INPUTS (should be immutable)
-├── jupytext.toml                    |  JUPYTEXT CONFIGURATION
 ├── LICENSE                          |
 ├── outputs/                          |  OUTPUTS PRODUCED FROM THE PROJECT
 ├── Makefile                         |  TASKS TO COORDINATE PROJECT (`make` shows available commands)
