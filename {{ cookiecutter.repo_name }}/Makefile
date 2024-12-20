@@ -14,37 +14,15 @@ export
 # Import config variables
 include .cookiecutter/config
 
-# Environment type detection
-ENVIRONMENT_TYPE ?= venv
-
-# Virtual environment configuration
-# These can be overridden through environment variables or .envrc
-# Example for pyenv-virtualenv users:
-#   export VENV_PATH=${PYENV_ROOT}/versions/${REPO_NAME}
-#   export VENV_CREATE_CMD="pyenv virtualenv ${PYTHON_VERSION} ${REPO_NAME}"
-#   export VENV_ACTIVATE_CMD="pyenv activate ${REPO_NAME}"
-#   export VENV_DEACTIVATE_CMD="pyenv deactivate"
-VENV_PATH ?= .venv
-VENV_CREATE_CMD ?= python -m venv ${VENV_PATH}
-VENV_ACTIVATE_CMD ?= source ${VENV_PATH}/bin/activate
-VENV_DEACTIVATE_CMD ?= deactivate
-VENV_REMOVE_CMD ?= rm -rf ${VENV_PATH}
-
 # Ensure directory to track and log setup state exists
 $(shell mkdir -p .cookiecutter/state)
-$(shell touch .cookiecutter/state/conda-create.log)
-$(shell touch .cookiecutter/state/venv-create.log)
+$(shell touch .cookiecutter/state/python-env-create.log)
 
 .PHONY: install
-## Install a project: setup environment, install dependencies, and configure git hooks
+## Install the project: setup environment, install dependencies, and configure git hooks
 install:
-ifeq ($(ENVIRONMENT_TYPE),conda)
-	$(MAKE) conda-remove .cookiecutter/state/conda-create .cookiecutter/state/setup-git
-else
-	$(MAKE) venv-remove .cookiecutter/state/venv-create .cookiecutter/state/setup-git
-endif
-	@direnv reload  # Reload to activate the environment
-
+    $(MAKE) python-env-remove .cookiecutter/state/python-env-create .cookiecutter/state/setup-git
+    @direnv reload
 
 .PHONY: check-bucket-path
 check-bucket-path:
@@ -72,24 +50,33 @@ docs-clean:
 docs-open:
 	$(OPEN) docs/_build/index.html
 
-.PHONY: conda-update
-## Update the conda-environment based on changes to `environment.yaml`
-conda-update:
-	conda env update -n ${REPO_NAME} -f environment.yaml
-	$(MAKE) -s pip-install
-	direnv reload
+.PHONY: python-env-create
+## Create the virtual environment
+python-env-create:
+    @echo "Creating ${ENVIRONMENT_TYPE} environment..."
+    @${ENV_CREATE}
+
+.PHONY: python-env-remove
+## Remove the virtual environment
+python-env-remove:
+    @echo "Removing ${ENVIRONMENT_TYPE} environment..."
+    -@${ENV_DEACTIVATE} 2>/dev/null || true
+    -@${ENV_REMOVE} 2>/dev/null || true
+    @rm -f .cookiecutter/state/python-env-create*
+    @direnv reload
+
+.PHONY: python-env-update
+## Update the environment based on dependency files
+python-env-update:
+    @echo "Updating ${ENVIRONMENT_TYPE} environment..."
+    @${ENV_UPDATE}
+    $(MAKE) -s pip-install
+    @direnv reload
 
 .PHONY: pip-install
-## Install our package and requirements in editable mode (including development dependencies)
+## Install package in editable mode with dev dependencies
 pip-install:
-	@pip install -e ".[dev]"
-
-.PHONY: conda-remove
-## Remove the conda-environment cleanly, using -f so works even if no environment to be removed
-conda-remove:
-	conda env remove -n ${REPO_NAME}
-	rm -f .cookiecutter/state/conda-create*
-	@direnv reload
+    @pip install -e ".[dev]"
 
 .PHONY: clean
 ## Delete all compiled Python files
@@ -106,50 +93,27 @@ define err
 	(echo "$1, check $@.log for more info" && exit 1)
 endef
 
-.PHONY: venv-remove
-## Remove the virtual environment cleanly
-venv-remove:
-	rm -rf ${VENV_PATH}
-	rm -f .cookiecutter/state/venv-create*
-	@direnv reload
-
-.cookiecutter/state/venv-create:
-	@echo -n "Creating virtual environment and installing dependencies"
-	@( \
-		$(VENV_CREATE_CMD) && \
-		$(VENV_ACTIVATE_CMD) && \
-		pip install -r requirements.txt && \
-		pip install -e ".[dev]" \
-	) > $@.log 2>&1 \
-	|| $(call err,Python environment setup failed)
-	@touch $@
-	@echo " DONE"
-
-.cookiecutter/state/conda-create:
-	@echo -n "Creating environment ${REPO_NAME} and installing all dependencies"
-	@(conda env create -q -n ${REPO_NAME} -f environment.yaml\
-	  && eval "$$(conda shell.bash activate "${REPO_NAME}")"\
-	  && pip install -e ".[dev]")\
-	 > $@.log 2>&1\
-	 || $(call err,Python environment setup failed)
-	@touch $@
-	@echo " DONE"
+.cookiecutter/state/python-env-create:
+    @echo -n "Creating ${ENVIRONMENT_TYPE} environment and installing dependencies"
+    @( \
+        ${ENV_CREATE} && \
+        ${ENV_ACTIVATE} && \
+        ${ENV_INSTALL_EXTRAS} && \
+        pip install -e ".[dev]" \
+    ) > $@.log 2>&1 \
+    || (echo "Environment setup failed, check $@.log for details" && exit 1)
+    @touch $@
+    @echo " DONE"
 
 .cookiecutter/state/setup-git:
-	@echo -n "Installing and configuring git pre-commit hooks"
-ifeq ($(ENVIRONMENT_TYPE),conda)
-	@(eval "$$(conda shell.bash activate "${REPO_NAME}")"\
-	 && pre-commit install --install-hooks)\
-	 > $@.log 2>&1\
-	 || $(call err,Git pre-commit setup failed)
-else
-	@($(VENV_ACTIVATE_CMD)\
-	 && pre-commit install --install-hooks)\
-	 > $@.log 2>&1\
-	 || $(call err,Git pre-commit setup failed)
-endif
-	@touch $@
-	@echo " DONE"
+    @echo -n "Installing and configuring git pre-commit hooks"
+    @( \
+        ${ENV_ACTIVATE} && \
+        pre-commit install --install-hooks \
+    ) > $@.log 2>&1 \
+    || (echo "Git pre-commit setup failed, check $@.log for details" && exit 1)
+    @touch $@
+    @echo " DONE"
 
 
 #################################################################################
