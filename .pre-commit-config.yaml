@@ -38,12 +38,11 @@ repos:
         language: python
         args: ["-b", dev, "-b", master, "-b", main]
         pass_filenames: false
-      - id: black
-        name: black
-        entry: black
-        language: system
-        types: [python]
-        require_serial: true
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4
+    hooks:
+      - id: ruff
+      - id: ruff-format
   - repo: https://github.com/prettier/pre-commit
     rev: v2.1.2
     hooks:
