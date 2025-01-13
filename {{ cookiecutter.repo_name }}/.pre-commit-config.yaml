@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: check-added-large-files
       - id: check-merge-conflict
@@ -13,7 +13,7 @@ repos:
         args: ["-b", dev, "-b", master, "-b", main]
         pass_filenames: false
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.8.4
+    rev: v0.9.1
     hooks:
       - id: ruff
       - id: ruff-format
@@ -25,3 +25,7 @@ repos:
     rev: 0.6.1
     hooks:
       - id: nbstripout
+  - repo: https://gitlab.com/vojko.pribudic.foss/pre-commit-update
+    rev: v0.6.1
+    hooks:
+      - id: pre-commit-update
