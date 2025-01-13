@@ -8,8 +8,9 @@
     "private"
   ],
   "venv_type": [
-    "conda",
+    "uv",
     "venv",
-    "pyenv-virtualenv"
+    "pyenv-virtualenv",
+    "conda"
   ]
 }

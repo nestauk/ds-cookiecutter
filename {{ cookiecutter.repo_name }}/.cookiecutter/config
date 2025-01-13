@@ -4,26 +4,31 @@ export REPO_NAME={{ cookiecutter.repo_name }}
 export DESCRIPTION={{ cookiecutter.description }}
 export PROJECT_OPENNESS={{ cookiecutter.openness }}
 export ENVIRONMENT_TYPE={{ cookiecutter.venv_type }}
+export VENV_PATH={{ cookiecutter.venv_path }}
 
-{% if cookiecutter.venv_type == 'conda' %}
-# Conda configuration
-ENV_CREATE=conda env create -n ${REPO_NAME} -f environment.yaml
-ENV_ACTIVATE=conda activate ${REPO_NAME}
-ENV_DEACTIVATE=conda deactivate
-ENV_REMOVE=conda env remove -n ${REPO_NAME}
-ENV_UPDATE=conda env update -n ${REPO_NAME} -f environment.yaml
-ENV_INSTALL_EXTRAS=conda install pip
-{% elif cookiecutter.venv_type == 'venv' %}
-# venv configuration
 VENV_PATH=.venv
+{% if cookiecutter.venv_type == 'uv' %}
+ENV_CREATE=uv venv ${VENV_PATH}
+ENV_ACTIVATE=source ${VENV_PATH}/bin/activate
+ENV_DEACTIVATE=deactivate
+ENV_REMOVE=rm -rf ${VENV_PATH}
+ENV_UPDATE=uv pip install -r requirements.txt
+ENV_INSTALL_EXTRAS=true
+{% elif cookiecutter.venv_type == 'venv' %}
 ENV_CREATE=python -m venv ${VENV_PATH}
 ENV_ACTIVATE=source ${VENV_PATH}/bin/activate
 ENV_DEACTIVATE=deactivate
 ENV_REMOVE=rm -rf ${VENV_PATH}
 ENV_UPDATE=pip install -r requirements.txt
 ENV_INSTALL_EXTRAS=true
+{% elif cookiecutter.venv_type == 'conda' %}
+ENV_CREATE=conda env create -n ${REPO_NAME} -f environment.yaml
+ENV_ACTIVATE=conda activate ${REPO_NAME}
+ENV_DEACTIVATE=conda deactivate
+ENV_REMOVE=conda env remove -n ${REPO_NAME}
+ENV_UPDATE=conda env update -n ${REPO_NAME} -f environment.yaml
+ENV_INSTALL_EXTRAS=conda install pip
 {% else %}
-# pyenv-virtualenv configuration
 ENV_CREATE=pyenv virtualenv ${PYTHON_VERSION} ${REPO_NAME}
 ENV_ACTIVATE=pyenv activate ${REPO_NAME}
 ENV_DEACTIVATE=pyenv deactivate
