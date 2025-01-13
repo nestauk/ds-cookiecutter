@@ -4,3 +4,4 @@ mkdocs-material-extensions
 cookiecutter
 tomli
 pytest
+ruff

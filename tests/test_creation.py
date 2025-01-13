@@ -1,13 +1,14 @@
 import os
 import re
 import sys
-import tomli
 from contextlib import contextmanager
 from pathlib import Path
 from subprocess import CalledProcessError, check_output
 from typing import List
 
 import pytest
+import tomli
+
 
 @contextmanager
 def ch_dir(path):
@@ -68,7 +69,9 @@ class TestCookieSetup(object):
         project = pyproject.get("project", {})
         assert project.get("name") == "nestatestcookie"
         assert project.get("version") == "0.1.0"
-        assert any(author.get("name") == "Nesta" for author in project.get("authors", []))
+        assert any(
+            author.get("name") == "Nesta" for author in project.get("authors", [])
+        )
         if pytest.param.get("openness") == "private":
             assert project.get("license", {}).get("text") == "proprietary"
         else:
