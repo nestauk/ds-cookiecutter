@@ -34,7 +34,7 @@ ENV_INSTALL_EXTRAS=true
 {% else %}
 # Conda configuration as default
 ENV_CREATE=conda env create -n ${REPO_NAME} -f environment.yaml
-ENV_ACTIVATE=conda activate ${REPO_NAME}
+ENV_ACTIVATE=conda shell.bash activate ${REPO_NAME}
 ENV_DEACTIVATE=conda deactivate
 ENV_REMOVE=conda env remove -n ${REPO_NAME}
 ENV_UPDATE=conda env update -n ${REPO_NAME} -f environment.yaml
