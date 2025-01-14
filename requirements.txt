@@ -3,5 +3,7 @@ mkdocs-material
 mkdocs-material-extensions
 cookiecutter
 tomli
+pre-commit
+pre-commit-hooks
 pytest
 ruff

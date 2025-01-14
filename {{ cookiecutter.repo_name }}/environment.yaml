@@ -4,5 +4,7 @@ channels:
 dependencies:
   - pip
   - python=3.10
+  - pre-commit
+  - pre-commit-hooks
   # Only put dependencies that are NOT available with pip here (e.g. graph-tool)
   # or that enable extra functionality such as GPU/MKL support
