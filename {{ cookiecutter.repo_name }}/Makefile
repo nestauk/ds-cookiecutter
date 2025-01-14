@@ -134,7 +134,6 @@ endef
 	) > $@.log 2>&1 \
 	|| (echo "Git pre-commit setup failed, check $@.log for details" && exit 1)
 	@touch $@
-	@echo $@
 	@echo " DONE"
 
 
