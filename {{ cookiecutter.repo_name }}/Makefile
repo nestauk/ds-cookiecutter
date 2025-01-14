@@ -17,6 +17,7 @@ include .cookiecutter/config
 # Ensure directory to track and log setup state exists
 $(shell mkdir -p .cookiecutter/state)
 $(shell touch .cookiecutter/state/python-env-create.log)
+$(shell touch .cookiecutter/state/setup-git.log)
 
 .PHONY: install
 ## Install the project: setup environment, install dependencies, and configure git hooks
@@ -129,7 +130,7 @@ endef
 .cookiecutter/state/setup-git:
 	@echo -n "Installing and configuring git pre-commit hooks"
 	@( \
-		${ENV_ACTIVATE} && \
+		eval "$$("${ENV_ACTIVATE}")" && \
 		pre-commit install --install-hooks \
 	) > $@.log 2>&1 \
 	|| (echo "Git pre-commit setup failed, check $@.log for details" && exit 1)
