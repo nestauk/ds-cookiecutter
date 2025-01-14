@@ -3,14 +3,6 @@
   "repo_name": "{{ cookiecutter.project_name.lstrip('0123456789.- ').replace(' ', '_').replace('-', '_').lower() }}",
   "author_name": "Nesta",
   "description": "A short description of the project.",
-  "openness": [
-    "public",
-    "private"
-  ],
-  "venv_type": [
-    "uv",
-    "venv",
-    "pyenv-virtualenv",
-    "conda"
-  ]
+  "openness": ["public", "private"],
+  "venv_type": ["conda", "uv", "venv", "pyenv-virtualenv"]
 }
