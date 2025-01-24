@@ -51,3 +51,15 @@ def conda_env(request):
     yield
 
     env_dir.exists() and shutil.rmtree(env_dir)
+
+
+@pytest.fixture(scope="class", params=[args])
+def venv_env(request):
+    pytest.param = request.param
+
+    env_dir = Path(request.cls.path) / ".venv"
+
+    request.cls.env_path = env_dir
+    yield
+
+    env_dir.exists() and shutil.rmtree(env_dir)

@@ -1,6 +1,8 @@
 import os
 import re
+import shutil
 import sys
+import tempfile
 from contextlib import contextmanager
 from pathlib import Path
 from subprocess import CalledProcessError, check_output
@@ -37,6 +39,15 @@ def no_curlies(filepath):
 
 @pytest.mark.usefixtures("default_baked_project")
 class TestCookieSetup(object):
+    @classmethod
+    def setup_class(cls):
+        cls.temp_dir = tempfile.mkdtemp()
+        cls.path = Path(cls.temp_dir)
+
+    @classmethod
+    def teardown_class(cls):
+        shutil.rmtree(cls.temp_dir)
+
     def test_project_name(self):
         """Test project name matches base path."""
         project = self.path
@@ -146,7 +157,7 @@ class TestCookieSetup(object):
         print(set(abs_expected_dirs) ^ set(abs_dirs))
         assert len(set(abs_expected_dirs) ^ set(abs_dirs)) == 0
 
-    @pytest.mark.usefixtures("conda_env")
+    @pytest.mark.usefixtures("conda_env", "venv_env")
     def test_python_env(self):
         """Test python environment is created, modified, and destroyed."""
         with ch_dir(self.path):
@@ -174,7 +185,7 @@ class TestCookieSetup(object):
             # Expect to differ by one as either main/master will exist
             assert len(p ^ {"* 0_setup_cookiecutter", "dev", "main", "master"}) == 1
 
-    @pytest.mark.usefixtures("conda_env")
+    @pytest.mark.usefixtures("conda_env", "venv_env")
     def test_precommit(self):
         """Test ..."""
         with ch_dir(self.path):
@@ -184,7 +195,16 @@ class TestCookieSetup(object):
 
 @pytest.mark.usefixtures("default_baked_project")
 class TestCookieMakeInstall(object):
-    @pytest.mark.usefixtures("conda_env")
+    @classmethod
+    def setup_class(cls):
+        cls.temp_dir = tempfile.mkdtemp()
+        cls.path = Path(cls.temp_dir)
+
+    @classmethod
+    def teardown_class(cls):
+        shutil.rmtree(cls.temp_dir)
+
+    @pytest.mark.usefixtures("conda_env", "venv_env")
     def test_install(self):
         """Test `make install` command."""
         with ch_dir(self.path):
