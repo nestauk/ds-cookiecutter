@@ -13,7 +13,7 @@ ENV_CREATE=uv venv ${VENV_PATH}
 ENV_ACTIVATE=source ${VENV_PATH}/bin/activate
 ENV_DEACTIVATE=deactivate
 ENV_REMOVE=rm -rf ${VENV_PATH}
-ENV_UPDATE=uv pip install -r requirements.txt
+ENV_UPDATE=uv pip install .[dev]
 ENV_INSTALL_EXTRAS=true
 {% elif cookiecutter.venv_type == 'venv' %}
 # venv configuration
@@ -21,15 +21,7 @@ ENV_CREATE=python -m venv ${VENV_PATH}
 ENV_ACTIVATE=source ${VENV_PATH}/bin/activate
 ENV_DEACTIVATE=deactivate
 ENV_REMOVE=rm -rf ${VENV_PATH}
-ENV_UPDATE=pip install -r requirements.txt
-ENV_INSTALL_EXTRAS=true
-{% elif cookiecutter.venv_type == 'pyenv-virtualenv' %}
-# pyenv-virtualenv configuration
-ENV_CREATE=pyenv virtualenv ${PYTHON_VERSION} ${REPO_NAME}
-ENV_ACTIVATE=pyenv activate ${REPO_NAME}
-ENV_DEACTIVATE=pyenv deactivate
-ENV_REMOVE=pyenv virtualenv-delete ${REPO_NAME}
-ENV_UPDATE=pip install -r requirements.txt
+ENV_UPDATE=pip install .[dev]
 ENV_INSTALL_EXTRAS=true
 {% else %}
 # Conda configuration as default

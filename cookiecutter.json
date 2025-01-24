@@ -4,5 +4,5 @@
   "author_name": "Nesta",
   "description": "A short description of the project.",
   "openness": ["public", "private"],
-  "venv_type": ["conda", "uv", "venv", "pyenv-virtualenv"]
+  "venv_type": ["uv", "venv", "conda"]
 }

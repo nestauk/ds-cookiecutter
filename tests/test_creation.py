@@ -39,15 +39,6 @@ def no_curlies(filepath):
 
 @pytest.mark.usefixtures("default_baked_project")
 class TestCookieSetup(object):
-    @classmethod
-    def setup_class(cls):
-        cls.temp_dir = tempfile.mkdtemp()
-        cls.path = Path(cls.temp_dir)
-
-    @classmethod
-    def teardown_class(cls):
-        shutil.rmtree(cls.temp_dir)
-
     def test_project_name(self):
         """Test project name matches base path."""
         project = self.path
@@ -147,7 +138,14 @@ class TestCookieSetup(object):
                 lambda dir: not any(
                     (
                         re.match(f".*{stub}", dir)
-                        for stub in [".git/", ".vscode", ".pytest_cache"]
+                        for stub in [
+                            ".git/",
+                            ".vscode",
+                            ".pytest_cache",
+                            ".ruff_cache",
+                            "build",
+                            ".egg-info",
+                        ]
                     )
                 ),
                 abs_dirs,
@@ -157,7 +155,6 @@ class TestCookieSetup(object):
         print(set(abs_expected_dirs) ^ set(abs_dirs))
         assert len(set(abs_expected_dirs) ^ set(abs_dirs)) == 0
 
-    @pytest.mark.usefixtures("conda_env", "venv_env")
     def test_python_env(self):
         """Test python environment is created, modified, and destroyed."""
         with ch_dir(self.path):
@@ -185,7 +182,6 @@ class TestCookieSetup(object):
             # Expect to differ by one as either main/master will exist
             assert len(p ^ {"* 0_setup_cookiecutter", "dev", "main", "master"}) == 1
 
-    @pytest.mark.usefixtures("conda_env", "venv_env")
     def test_precommit(self):
         """Test ..."""
         with ch_dir(self.path):
@@ -204,18 +200,38 @@ class TestCookieMakeInstall(object):
     def teardown_class(cls):
         shutil.rmtree(cls.temp_dir)
 
-    @pytest.mark.usefixtures("conda_env", "venv_env")
-    def test_install(self):
+    def test_install(self, request):
         """Test `make install` command."""
         with ch_dir(self.path):
             try:
                 shell(["make", "install"])
 
-                output = "".join(shell(["bash", "-c", "source .envrc && which python"]))
-                print(output)
+                # Get the environment python path
+                if pytest.param["venv_type"] == "conda":
+                    output = "".join(
+                        shell(
+                            [
+                                "conda",
+                                "run",
+                                "-n",
+                                pytest.param["repo_name"],
+                                "which",
+                                "python",
+                            ]
+                        )
+                    )
+                else:
+                    output = "".join(
+                        shell(
+                            ["bash", "-c", "source .venv/bin/activate && which python"]
+                        )
+                    )
 
-                # python env activated by .envrc
-                assert f"{pytest.param.get('repo_name')}/bin/python" in output, output
+                # Verify python is in the correct environment
+                if pytest.param["venv_type"] == "conda":
+                    assert pytest.param["repo_name"] in output, output
+                else:
+                    assert ".venv/bin/python" in output, output
             except CalledProcessError:
                 log_path = Path(".cookiecutter/state/python-env-create.log")
                 if log_path.exists():
@@ -223,7 +239,7 @@ class TestCookieMakeInstall(object):
                         print("python-env-create.log:\n", f.read())
                 raise
             finally:
-                p = shell(["make", "python-env-remove"])
+                shell(["make", "python-env-remove"])
 
 
 def shell(cmd: List[str]) -> List[str]:
