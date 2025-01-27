@@ -1,65 +1,32 @@
 repos:
-  - repo: local
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
     hooks:
-      - id: black
-        name: black
-        entry: black
-        language: system
-        types: [python]
-        require_serial: true
       - id: check-added-large-files
-        name: Check for added large files
-        entry: check-added-large-files
-        language: system
       - id: check-merge-conflict
-        name: Check for files with merge conflict strings
-        entry: check-merge-conflict
-        language: system
       - id: end-of-file-fixer
-        name: Fix End of Files
-        entry: end-of-file-fixer
-        language: system
-        types: [text]
-        stages: [commit, push, manual]
+        exclude: .cookiecutter/config
       - id: trailing-whitespace
-        name: Trim Trailing Whitespace
-        entry: trailing-whitespace-fixer
-        language: system
-        types: [text]
-        stages: [commit, push, manual]
       - id: check-toml
-        name: Check Toml
-        entry: check-toml
-        language: system
-        types: [toml]
       - id: check-yaml
-        name: Check Yaml
-        entry: check-yaml
-        language: system
-        types: [yaml]
-      # - id: reorder-python-imports
-      #   name: Reorder python imports
-      #   entry: reorder-python-imports
-      #   language: system
-      #   types: [python]
-      # - id: flake8
-      #   name: flake8
-      #   entry: flake8
-      #   language: system
-      #   types: [python]
-      #   args: ["--config=.flake8"]
-      #   require_serial: true
+        exclude: "docs/mkdocs.yml"
       - id: no-commit-to-branch
-        name: Prevent commits to dev / master
-        entry: no-commit-to-branch
-        language: python
         args: ["-b", dev, "-b", master, "-b", main]
         pass_filenames: false
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.3
+    hooks:
+      - id: ruff
+      - id: ruff-format
   - repo: https://github.com/prettier/pre-commit
     rev: v2.1.2
     hooks:
       - id: prettier
   - repo: https://github.com/kynan/nbstripout
-    rev: 0.6.1
+    rev: 0.8.1
     hooks:
       - id: nbstripout
+  - repo: https://gitlab.com/vojko.pribudic.foss/pre-commit-update
+    rev: v0.6.1
+    hooks:
+      - id: pre-commit-update

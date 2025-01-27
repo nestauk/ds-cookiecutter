@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["{{ cookiecutter.repo_name }}"]
+
+[project]
+name = "{{ cookiecutter.project_name }}"
+version = "0.1.0"
+description = "{{ cookiecutter.description }}"
+authors = [{name = "{{ cookiecutter.author_name }}"}]
+license = {text = "{% if cookiecutter.openness == 'public' %}MIT{% else %}proprietary{% endif %}"}
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.urls]
+repository = "https://github.com/nestauk/{{ cookiecutter.repo_name }}"
+issues = "https://github.com/nestauk/{{ cookiecutter.repo_name }}/issues"
+
+[project.optional-dependencies]
+dev = [
+    "ipykernel",
+    "jupytext",
+    "ruff",
+    "Sphinx",
+    "sphinxcontrib-napoleon",
+    "sphinx-rtd-theme",
+    "pytest",
+    "pre-commit",
+    "pre-commit-hooks"
+]
+
+[tool.jupytext]
+# Always pair ipynb notebooks to py:percent files
+default_jupytext_formats = "ipynb,py:percent"
+# Comment out magics (allows code formatting)
+comment_magics = true
+# Strip cell-level metadata (avoid polluting git diffs)
+default_cell_metadata_filter = "-all"
+
+[tool.ruff.lint]
+select = ["ANN", "B", "C", "D", "E", "F", "I", "N", "W"]
+# S101 - warns about assert being removed when compiled
+# D100 - warns about missing module-level docstrings
+ignore = ["S101", "D100"]
+mccabe = { max-complexity = 10 }
+
+[tool.ruff.lint.isort]
+known-first-party = ["{{ cookiecutter.repo_name }}"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401", "E402", "D104"]
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = "dynamic"

@@ -1,12 +1,15 @@
 import os
 import re
+import shutil
 import sys
+import tempfile
 from contextlib import contextmanager
 from pathlib import Path
 from subprocess import CalledProcessError, check_output
 from typing import List
 
 import pytest
+import tomli
 
 
 @contextmanager
@@ -42,13 +45,6 @@ class TestCookieSetup(object):
         name = "NestaTestCookie".lower()
         assert project.name == name
 
-    def test_author(self):
-        """Test author set in `setup.py`."""
-        setup_ = self.path / "setup.py"
-        args = ["python", setup_, "--author"]
-        p = "".join(shell(args))
-        assert p == "Nesta"
-
     def test_readme(self):
         """Test README.md exists with no curlies."""
         readme_path = self.path / "README.md"
@@ -57,28 +53,31 @@ class TestCookieSetup(object):
         with open(readme_path) as fin:
             assert "# NestaTestCookie".lower() == next(fin).strip()
 
-    def test_version(self):
-        """Test version set in `setup.py`."""
-        setup_ = self.path / "setup.py"
-        args = ["python", setup_, "--version"]
-        p = "".join(shell(args))
-        assert p == "0.1.0"
-
     def test_license(self):
         """Test LICENSE exists with no curlies."""
         license_path = self.path / "LICENSE"
         assert license_path.exists()
         assert no_curlies(license_path)
 
-    def test_license_type(self):
-        """Test License set appropriately in `setup.py`."""
-        setup_ = self.path / "setup.py"
-        args = ["python", setup_, "--license"]
-        p = "".join(shell(args))
-        if pytest.param.get("openess") == "private":
-            assert p == "proprietary"
+    def test_metadata(self):
+        """Test project metadata in pyproject.toml."""
+        pyproject_path = self.path / "pyproject.toml"
+        assert pyproject_path.exists()
+        assert no_curlies(pyproject_path)
+
+        with open(pyproject_path, "rb") as f:
+            pyproject = tomli.load(f)
+
+        project = pyproject.get("project", {})
+        assert project.get("name") == "nestatestcookie"
+        assert project.get("version") == "0.1.0"
+        assert any(
+            author.get("name") == "Nesta" for author in project.get("authors", [])
+        )
+        if pytest.param.get("openness") == "private":
+            assert project.get("license", {}).get("text") == "proprietary"
         else:
-            assert p == "MIT"
+            assert project.get("license", {}).get("text") == "MIT"
 
     def test_makefile(self):
         """Test Makefile exists with no curlies."""
@@ -93,7 +92,7 @@ class TestCookieSetup(object):
             ".env",
             ".envrc",
             "README.md",
-            "setup.cfg",
+            "pyproject.toml",
             "docs/conf.py",
             "docs/index.rst",
             f"{repo_name}/config/logging.yaml",
@@ -139,7 +138,14 @@ class TestCookieSetup(object):
                 lambda dir: not any(
                     (
                         re.match(f".*{stub}", dir)
-                        for stub in [".git/", ".vscode", ".pytest_cache"]
+                        for stub in [
+                            ".git/",
+                            ".vscode",
+                            ".pytest_cache",
+                            ".ruff_cache",
+                            "build",
+                            ".egg-info",
+                        ]
                     )
                 ),
                 abs_dirs,
@@ -149,30 +155,25 @@ class TestCookieSetup(object):
         print(set(abs_expected_dirs) ^ set(abs_dirs))
         assert len(set(abs_expected_dirs) ^ set(abs_dirs)) == 0
 
-    @pytest.mark.usefixtures("conda_env")
-    def test_conda(self):
-        """Test conda environment is created, modified, and destroyed."""
+    def test_python_env(self):
+        """Test python environment is created, modified, and destroyed."""
         with ch_dir(self.path):
             try:
-                p = shell(["make", ".cookiecutter/state/conda-create"])
+                p = shell(["make", ".cookiecutter/state/python-env-create"])
                 assert " DONE" in p[-1]
                 assert self.env_path.exists()
 
                 # Add an extra pip dependency
                 check_output(["echo", "nuts_finder", ">>", "requirements.txt"])
-                p = shell(["make", "conda-update"])
-
-                # Add an extra conda dependency
-                check_output(["echo", "  - tqdm", ">>", "environment.yaml"])
-                p = shell(["make", "conda-update"])
+                p = shell(["make", "python-env-update"])
             except CalledProcessError:
-                log_path = Path(".cookiecutter/state/conda-create.log")
+                log_path = Path(".cookiecutter/state/python-env-create.log")
                 if log_path.exists():
                     with log_path.open() as f:
-                        print("conda-create.log:\n", f.read())
+                        print("python-env-create.log:\n", f.read())
                 raise
             finally:
-                p = shell(["make", "conda-remove"])
+                p = shell(["make", "python-env-remove"])
 
     def test_git(self):
         """Test expected git branches exist."""
@@ -181,7 +182,6 @@ class TestCookieSetup(object):
             # Expect to differ by one as either main/master will exist
             assert len(p ^ {"* 0_setup_cookiecutter", "dev", "main", "master"}) == 1
 
-    @pytest.mark.usefixtures("conda_env")
     def test_precommit(self):
         """Test ..."""
         with ch_dir(self.path):
@@ -191,26 +191,55 @@ class TestCookieSetup(object):
 
 @pytest.mark.usefixtures("default_baked_project")
 class TestCookieMakeInstall(object):
-    @pytest.mark.usefixtures("conda_env")
-    def test_install(self):
+    @classmethod
+    def setup_class(cls):
+        cls.temp_dir = tempfile.mkdtemp()
+        cls.path = Path(cls.temp_dir)
+
+    @classmethod
+    def teardown_class(cls):
+        shutil.rmtree(cls.temp_dir)
+
+    def test_install(self, request):
         """Test `make install` command."""
         with ch_dir(self.path):
             try:
                 shell(["make", "install"])
 
-                output = "".join(shell(["bash", "-c", "source .envrc && which python"]))
-                print(output)
+                # Get the environment python path
+                if pytest.param["venv_type"] == "conda":
+                    output = "".join(
+                        shell(
+                            [
+                                "conda",
+                                "run",
+                                "-n",
+                                pytest.param["repo_name"],
+                                "which",
+                                "python",
+                            ]
+                        )
+                    )
+                else:
+                    output = "".join(
+                        shell(
+                            ["bash", "-c", "source .venv/bin/activate && which python"]
+                        )
+                    )
 
-                # Conda env activated by .envrc
-                assert f"{pytest.param.get('repo_name')}/bin/python" in output, output
+                # Verify python is in the correct environment
+                if pytest.param["venv_type"] == "conda":
+                    assert pytest.param["repo_name"] in output, output
+                else:
+                    assert ".venv/bin/python" in output, output
             except CalledProcessError:
-                log_path = Path(".cookiecutter/state/conda-create.log")
+                log_path = Path(".cookiecutter/state/python-env-create.log")
                 if log_path.exists():
                     with log_path.open() as f:
-                        print("conda-create.log:\n", f.read())
+                        print("python-env-create.log:\n", f.read())
                 raise
             finally:
-                p = shell(["make", "conda-remove"])
+                shell(["make", "python-env-remove"])
 
 
 def shell(cmd: List[str]) -> List[str]:

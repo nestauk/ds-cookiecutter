@@ -19,7 +19,7 @@ jobs:
         os:
           - ubuntu-latest
           - macos-latest
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
     runs-on: ${{ matrix.os }}
     name: Run pytest
     steps:
@@ -31,12 +31,16 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Install uv
+        run: |
+          python -m pip install uv
+
       - uses: conda-incubator/setup-miniconda@v3
         with:
           activate-environment: test
           channels: conda-forge,nodefaults
           python-version: ${{ matrix.python-version }}
-  
+
       - name: Install Mac dependencies
         if: runner.os == 'macOS'
         run: |
@@ -44,8 +48,7 @@ jobs:
           which python
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
-          conda config --remove channels defaults
-          conda config --add channels conda-forge 
+          conda config --add channels conda-forge
           conda config --add channels nodefaults
           $CONDA/bin/conda init bash
 
@@ -60,8 +63,7 @@ jobs:
           which python
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
-          conda config --remove channels defaults
-          conda config --add channels conda-forge 
+          conda config --add channels conda-forge
           conda config --add channels nodefaults
           $CONDA/bin/conda init bash
 
