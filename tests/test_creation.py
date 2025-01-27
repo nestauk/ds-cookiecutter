@@ -179,14 +179,18 @@ class TestCookieSetup(object):
         """Test expected git branches exist."""
         with ch_dir(self.path):
             p = set(shell(["git", "branch"]))
-            # Expect to differ by one as either main/master will exist
-            assert len(p ^ {"* 0_setup_cookiecutter", "dev", "main", "master"}) == 1
+            # Expect only main and dev branches to exist
+            assert p == {"* dev", "main"}
 
     def test_precommit(self):
         """Test ..."""
         with ch_dir(self.path):
             shell(["make", ".cookiecutter/state/setup-git"])
+            os.environ["SKIP"] = (
+                "no-commit-to-branch"  # Disable no-commit-to-branch temporarily
+            )
             shell(["pre-commit", "run", "-a"])
+            del os.environ["SKIP"]
 
     def test_env_yaml(self):
         """Test environment.yaml exists if using conda and vice-versa."""
