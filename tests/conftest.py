@@ -18,7 +18,12 @@ test_params = [
 ]
 
 
-@pytest.fixture(scope="class", params=test_params)
+def get_test_id(test_param: dict) -> str:
+    assert "venv_type" in test_param
+    return test_param["venv_type"]
+
+
+@pytest.fixture(scope="class", params=test_params, ids=get_test_id)
 def default_baked_project(tmpdir_factory, request):
     temp = tmpdir_factory.mktemp("data-project")
     out_dir = Path(temp).resolve()
