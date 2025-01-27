@@ -14,9 +14,7 @@ base_args = {
     "openness": "public",
 }
 args_list = [
-    {**base_args, "venv_type": "uv"},
-    {**base_args, "venv_type": "venv"},
-    {**base_args, "venv_type": "conda"},
+    {**base_args, "venv_type": venv_type} for venv_type in ["uv", "venv", "conda"]
 ]
 
 
