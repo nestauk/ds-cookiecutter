@@ -13,12 +13,12 @@ base_args = {
     "repo_name": "nestatestcookie",
     "openness": "public",
 }
-args_list = [
+test_params = [
     {**base_args, "venv_type": venv_type} for venv_type in ["uv", "venv", "conda"]
 ]
 
 
-@pytest.fixture(scope="class", params=args_list)
+@pytest.fixture(scope="class", params=test_params)
 def default_baked_project(tmpdir_factory, request):
     temp = tmpdir_factory.mktemp("data-project")
     out_dir = Path(temp).resolve()
