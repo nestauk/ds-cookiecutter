@@ -18,3 +18,11 @@ echo "Configured git repo at $(pwd), please enter the project directory & run 'm
 
 # Permit auto-loading of .envrc
 direnv allow
+
+# Remove environment.yaml if not using conda
+# Set path, trim whitespace, and then remove if it exists
+path='{% if cookiecutter.venv_type != "conda" %} environment.yaml {% endif %}'
+path=$(echo "$path" | xargs)
+if [ -n "$path" ] && [ -e "$path" ]; then
+    rm "$path"
+fi
