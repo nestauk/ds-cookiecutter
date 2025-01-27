@@ -513,19 +513,11 @@
 </ul>
 </li>
 <li>
-<p><strong>Connect your local project to github</strong>: You have set up your project locally and now you have to connect it to the remote repo. When you change directory to your created project folder, you will see that you are in a git repository and the generated cookiecutter has committed itself to the <code>0_setup_cookiecutter</code> branch. Connect to the git repo by running <code>git remote add origin git@github.com:nestauk/&lt;REPONAME&gt;</code> to point your local project to the configured repository.</p>
+<p><strong>Connect your local project to github</strong>: You have set up your project locally and now you have to connect it to the remote repo. When you change directory to your created project folder, you will see that you are in a git repository and the generated cookiecutter has committed itself to the <code>main</code> and <code>dev</code> branches. Connect to the git repo by running <code>git remote add origin git@github.com:nestauk/&lt;REPONAME&gt;</code> to point your local project to the configured repository.</p>
 </li>
 <li>
-<p><strong>Merging your new branch</strong>: You are on <code>0_setup_cookiecutter</code>, whist <code>dev</code> is empty. They have diverging histories so you won't be able to push any work to <code>dev</code>. For this reason you need to merge <code>0_setup_cookiecutter</code> to <code>dev</code> by running:</p>
+<p><strong>You are all set!</strong></p>
 </li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="w">            </span>git<span class="w"> </span>checkout<span class="w"> </span>0_setup_cookiecutter
-<span class="w">            </span>git<span class="w"> </span>branch<span class="w"> </span>dev<span class="w"> </span>0_setup_cookiecutter<span class="w"> </span>-f
-<span class="w">            </span>git<span class="w"> </span>checkout<span class="w"> </span>dev
-<span class="w">            </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>dev<span class="w"> </span>-f
-</code></pre></div>
-<ol>
-<li><strong>You are all set!</strong> You can delete the <code>0_setup_cookicutter</code> branch and enjoy coding!</li>
 </ol>
 <h3 id="team-members">Team Members<a class="headerlink" href="#team-members" title="Permanent link">&para;</a></h3>
 <ul>
