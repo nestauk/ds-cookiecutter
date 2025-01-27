@@ -32,7 +32,7 @@ def default_baked_project(tmpdir_factory, request):
     project_path = out_dir / project_name
     request.cls.path = project_path
 
-    # Set up env_path for tests
+    # Set up env_dir for tests
     venv_type = pytest.param["venv_type"]
     if venv_type == "conda":
         repo_name = pytest.param["repo_name"]
