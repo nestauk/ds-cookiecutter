@@ -27,19 +27,9 @@ _**Prerequisite**: If this is your first time setting up a cookiecutter project 
     -   Create a conda environment with a name corresponding to the repo_name prompt and install the project package and its dependencies
     -   Configure and install Git pre-commit hooks
 
-3. **Connect your local project to github**: You have set up your project locally and now you have to connect it to the remote repo. When you change directory to your created project folder, you will see that you are in a git repository and the generated cookiecutter has committed itself to the `0_setup_cookiecutter` branch. Connect to the git repo by running `git remote add origin git@github.com:nestauk/<REPONAME>` to point your local project to the configured repository.
+3. **Connect your local project to github**: You have set up your project locally and now you have to connect it to the remote repo. When you change directory to your created project folder, you will see that you are in a git repository and the generated cookiecutter has committed itself to the `main` and `dev` branches. Connect to the git repo by running `git remote add origin git@github.com:nestauk/<REPONAME>` to point your local project to the configured repository.
 
-4. **Merging your new branch**: You are on `0_setup_cookiecutter`, whist `dev` is empty. They have diverging histories so you won't be able to push any work to `dev`. For this reason you need to merge `0_setup_cookiecutter` to `dev` by running:
-
-```bash
-
-            git checkout 0_setup_cookiecutter
-            git branch dev 0_setup_cookiecutter -f
-            git checkout dev
-            git push origin dev -f
-```
-
-5. **You are all set!** You can delete the `0_setup_cookicutter` branch and enjoy coding!
+4. **You are all set!**
 
 ### Team Members
 
