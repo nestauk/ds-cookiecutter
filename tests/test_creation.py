@@ -188,6 +188,14 @@ class TestCookieSetup(object):
             shell(["make", ".cookiecutter/state/setup-git"])
             shell(["pre-commit", "run", "-a"])
 
+    def test_env_yaml(self):
+        """Test environment.yaml exists if using conda and vice-versa."""
+        env_yaml_path = self.path / "environment.yaml"
+        uses_conda = pytest.param["venv_type"] == "conda"
+        has_env_yaml = env_yaml_path.exists()
+        assert uses_conda == has_env_yaml
+
+
 
 @pytest.mark.usefixtures("default_baked_project")
 class TestCookieMakeInstall(object):
