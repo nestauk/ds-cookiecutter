@@ -196,7 +196,6 @@ class TestCookieSetup(object):
         assert uses_conda == has_env_yaml
 
 
-
 @pytest.mark.usefixtures("default_baked_project")
 class TestCookieMakeInstall(object):
     @classmethod
