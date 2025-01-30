@@ -20,12 +20,14 @@ git add .
 git commit -am "Setup Nesta Data Science cookiecutter" -q
 git checkout -b dev -q
 
-# Create remote repository 
+# Create remote repository
+GITHUB_USER=$(gh api user -q .login)
+REPO_NAME="% cookiecutter.repo_name %"
 OPENNESS="{% if cookiecutter.openness == 'private' %}--private{% else %}--public{% endif %}"
-gh repo create "$(pwd)" $OPENNESS --source=. --remote=origin --push
+gh repo create $REPO_NAME $OPENNESS --source=. --remote=origin --push
 
 # Transfer the repository to the organisation
-gh repo transfer "nesta-cookiecutter-test/$pwd" --confirm
+gh api "repos/$GITHUB_USER/$REPO_NAME/transfer" -f "new_owner=nesta-cookiecutter-test"
 
 # Create issue on github_support
 
@@ -39,10 +41,8 @@ Please configure:
 
 Thank you!"
 
-gh issue create --repo nestauk/github_support --title "$ISSUE_TITLE" --body "$ISSUE_BODY"
-
-ISSUE_NUMBER=$(gh issue create --repo nestauk/github_support --title "$ISSUE_TITLE" --body "$ISSUE_BODY" --json number -q .number)
+gh issue create --repo nesta-cookiecutter-test/github_support --title "$ISSUE_TITLE" --body "$ISSUE_BODY"
 
 echo "Repository created and transferred: https://github.com/nesta-cookiecutter-test/$REPO_NAME"
-echo "Support issue created: https://github.com/nesta-cookiecutter-test/github_support/issues/$ISSUE_NUMBER"
+echo "Support issue created: https://github.com/nesta-cookiecutter-test/github_support/issues/"
 echo "Configured git repo at $(pwd), please enter the project directory & run 'make install'"
