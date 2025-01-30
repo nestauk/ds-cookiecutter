@@ -21,12 +21,11 @@ git commit -am "Setup Nesta Data Science cookiecutter" -q
 git checkout -b dev -q
 
 # Create remote repository 
-REPO_NAME="{{ cookiecutter.project_slug }}"
 OPENNESS="{% if cookiecutter.openness == 'private' %}--private{% else %}--public{% endif %}"
-gh repo create "$REPO_NAME" $OPENNESS --source=. --remote=origin --push
+gh repo create "$(pwd)" $OPENNESS --source=. --remote=origin --push
 
 # Transfer the repository to the organisation
-gh repo transfer "nesta-cookiecutter-test/$REPO_NAME" --confirm
+gh repo transfer "nesta-cookiecutter-test/$pwd" --confirm
 
 # Create issue on github_support
 
