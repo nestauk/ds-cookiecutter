@@ -22,7 +22,7 @@ git checkout -b dev -q
 
 # Create remote repository
 GITHUB_USER=$(gh api user | jq -r '.login')
-REPO_NAME="{ cookiecutter.repo_name }"
+REPO_NAME="{{ cookiecutter.repo_name }}"
 OPENNESS="{% if cookiecutter.openness == 'private' %}--private{% else %}--public{% endif %}"
 gh repo create $REPO_NAME $OPENNESS --source=. --remote=origin --push
 
