@@ -1,4 +1,4 @@
-SHELL := /bin/bash
+SHELL := $(shell echo $$SHELL)
 
 # Detect how to open things depending on our OS
 OS = $(shell uname -s)
