@@ -1,4 +1,4 @@
-SHELL := $(shell echo $$SHELL)
+SHELL := $(shell which zsh || which bash)
 
 # Detect how to open things depending on our OS
 OS = $(shell uname -s)
@@ -83,7 +83,7 @@ python-env-update:
 .PHONY: pip-install
 ## Install package in editable mode with dev dependencies
 pip-install:
-	@pip install -e ".[dev]"
+	$(call pip install -e ".[dev]")
 
 .PHONY: conda-remove
 ## Remove the conda-environment cleanly
@@ -121,7 +121,7 @@ endef
 		${ENV_CREATE} && \
 		${ENV_ACTIVATE} && \
 		${ENV_INSTALL_EXTRAS} && \
-		pip install -e ".[dev]" \
+		$(MAKE) -s pip-install \
 	) > $@.log 2>&1 \
 	|| (echo "Environment setup failed, check $@.log for details" && exit 1)
 	@touch $@
