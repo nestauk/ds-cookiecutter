@@ -7,8 +7,8 @@ export ENVIRONMENT_TYPE={{ cookiecutter.venv_type }}
 
 VENV_PATH=.venv
 
-# uv configuration
 {% if cookiecutter.venv_type == 'uv' %}
+# uv configuration
 ENV_CREATE=uv venv ${VENV_PATH}
 ENV_ACTIVATE=source ${VENV_PATH}/bin/activate
 ENV_DEACTIVATE=deactivate
