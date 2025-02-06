@@ -131,7 +131,7 @@ endef
 	@echo -n "Installing and configuring git pre-commit hooks"
 	@( \
 		eval "$$("${ENV_ACTIVATE}")" && \
-		pre-commit install --install-hooks \
+		$(call pre-commit install --install-hooks) \
 	) > $@.log 2>&1 \
 	|| (echo "Git pre-commit setup failed, check $@.log for details" && exit 1)
 	@touch $@
