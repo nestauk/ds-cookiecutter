@@ -8,7 +8,7 @@ In this page you will learn how to set up a project using the cookiecutter. The 
 
 _**Prerequisite**: If this is your first time setting up a cookiecutter project you need to install it from https://pypi.org/project/cookiecutter. You can do this in the terminal with `brew install cookiecutter`._
 
-1. **Request repository setup**: First things first, you need a repo created for you. Submit a [Create a repo in the Nesta GitHub org](https://github.com/nestauk/github_support/issues/new/choose) issue from the [github_support](https://github.com/nestauk/github_support) issue page. You will need to provide a project name, suggested repo name, whether public/private, github teams involved, team leading the project, short and long description of the project. An empty repo will be set up for you and you will receive a notification when this is done.
+1. **Request repository setup**: First things first, you need a repo created for you. From the [tech support website](https://nestagroup.atlassian.net/servicedesk/customer/portals), go to _Ask Nesta Technology_, _Request Forms_, then _Request GitHub repository_. You will need to provide a _project name_, _repo name_, whether _public/private_, _github teams involved_, _team leading the project_, _short and long description of the project_. An empty repo will automatically be set up for you within a few minutes: https://github.com/nestauk/your_repo_name. Your team should have admin access on the repository. 
 
 2. **Set up your project locally**: It is important that you _do not clone the repo yet!_ Instead, follow these steps:
 
