@@ -18,6 +18,3 @@ git commit -am "Setup Nesta Data Science cookiecutter" -q
 git checkout -b dev -q
 
 echo "Configured git repo at $(pwd), please enter the project directory & run 'make install'"
-
-# Permit auto-loading of .envrc
-direnv allow
