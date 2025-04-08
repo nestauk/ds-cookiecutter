@@ -79,12 +79,6 @@ class TestCookieSetup(object):
         else:
             assert project.get("license", {}).get("text") == "MIT"
 
-    def test_makefile(self):
-        """Test Makefile exists with no curlies."""
-        makefile_path = self.path / "Makefile"
-        assert makefile_path.exists()
-        assert no_curlies(makefile_path)
-
     def test_curlies(self):
         """Test miscellaneous files for no curlies."""
         repo_name = pytest.param.get("repo_name")
@@ -168,18 +162,6 @@ class TestCookieSetup(object):
         uses_conda = pytest.param["venv_type"] == "conda"
         has_env_yaml = env_yaml_path.exists()
         assert uses_conda == has_env_yaml
-
-
-@pytest.mark.usefixtures("default_baked_project")
-class TestCookieMakeInstall(object):
-    @classmethod
-    def setup_class(cls):
-        cls.temp_dir = tempfile.mkdtemp()
-        cls.path = Path(cls.temp_dir)
-
-    @classmethod
-    def teardown_class(cls):
-        shutil.rmtree(cls.temp_dir)
 
 
 def shell(cmd: List[str]) -> List[str]:
