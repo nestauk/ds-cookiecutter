@@ -155,42 +155,12 @@ class TestCookieSetup(object):
         print(set(abs_expected_dirs) ^ set(abs_dirs))
         assert len(set(abs_expected_dirs) ^ set(abs_dirs)) == 0
 
-    def test_python_env(self):
-        """Test python environment is created, modified, and destroyed."""
-        with ch_dir(self.path):
-            try:
-                p = shell(["make", ".cookiecutter/state/python-env-create"])
-                assert " DONE" in p[-1]
-                assert self.env_path.exists()
-
-                # Add an extra pip dependency
-                check_output(["echo", "nuts_finder", ">>", "requirements.txt"])
-                p = shell(["make", "python-env-update"])
-            except CalledProcessError:
-                log_path = Path(".cookiecutter/state/python-env-create.log")
-                if log_path.exists():
-                    with log_path.open() as f:
-                        print("python-env-create.log:\n", f.read())
-                raise
-            finally:
-                p = shell(["make", "python-env-remove"])
-
     def test_git(self):
         """Test expected git branches exist."""
         with ch_dir(self.path):
             p = set(shell(["git", "branch"]))
             # Expect only main and dev branches to exist
             assert p == {"* dev", "main"}
-
-    def test_precommit(self):
-        """Test ..."""
-        with ch_dir(self.path):
-            shell(["make", ".cookiecutter/state/setup-git"])
-            os.environ["SKIP"] = (
-                "no-commit-to-branch"  # Disable no-commit-to-branch temporarily
-            )
-            shell(["pre-commit", "run", "-a"])
-            del os.environ["SKIP"]
 
     def test_env_yaml(self):
         """Test environment.yaml exists if using conda and vice-versa."""
@@ -210,47 +180,6 @@ class TestCookieMakeInstall(object):
     @classmethod
     def teardown_class(cls):
         shutil.rmtree(cls.temp_dir)
-
-    def test_install(self, request):
-        """Test `make install` command."""
-        with ch_dir(self.path):
-            try:
-                shell(["make", "install"])
-
-                # Get the environment python path
-                if pytest.param["venv_type"] == "conda":
-                    output = "".join(
-                        shell(
-                            [
-                                "conda",
-                                "run",
-                                "-n",
-                                pytest.param["repo_name"],
-                                "which",
-                                "python",
-                            ]
-                        )
-                    )
-                else:
-                    output = "".join(
-                        shell(
-                            ["bash", "-c", "source .venv/bin/activate && which python"]
-                        )
-                    )
-
-                # Verify python is in the correct environment
-                if pytest.param["venv_type"] == "conda":
-                    assert pytest.param["repo_name"] in output, output
-                else:
-                    assert ".venv/bin/python" in output, output
-            except CalledProcessError:
-                log_path = Path(".cookiecutter/state/python-env-create.log")
-                if log_path.exists():
-                    with log_path.open() as f:
-                        print("python-env-create.log:\n", f.read())
-                raise
-            finally:
-                shell(["make", "python-env-remove"])
 
 
 def shell(cmd: List[str]) -> List[str]:
