@@ -8,4 +8,4 @@ _A standard project structure for reproducible and collaborative data science pr
 
 [Developer docs](DEVELOPERS.md)
 
-For DAP team members looking for more information on best practices for using the cookiecutter take a look at this [presentation](https://docs.google.com/presentation/d/1F2vYPstP2sRAysvmnK0wHpCBTl-Vou_m9jraN7vX4E0/edit?usp=sharing)
+For team members looking for more information on best practices for using the cookiecutter take a look at this [presentation](https://docs.google.com/presentation/d/1F2vYPstP2sRAysvmnK0wHpCBTl-Vou_m9jraN7vX4E0/edit?usp=sharing)

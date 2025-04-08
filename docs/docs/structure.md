@@ -16,69 +16,59 @@ Here are a couple of examples from projects:
 
 _**Note:** In the following sections we use `src/` to denote the project name to avoid awkward `<project_name>` placeholders._
 
-## Project configuration - `Makefile`
+## Project configuration
 
-We use [`make`](https://www.gnu.org/software/make/) to manage tasks relating to project setup/configuration/recurring tasks.
+Once you have spun up your project, you will need to configure it for use. This will require setting up some of the tools described below. While the cookiecutter sets up the project structure and will activate the git repo in the project folder, nothing else will be automatically activated. You will need to:
 
-`make` is one of the simplest ways for managing steps that depend on each other, such as project configuration and is a common tool on Unix-based platforms.
+1. Set up your virtual environment using your selected tool, such as `uv`, `poetry`, or `conda`.
+2. Set up pre-commit using `pre-commit install --install-hooks`.
+3. Activate `direnv` if you need environment variables in your shell, using `direnv allow`.
 
-Running `make` from the project base directory will document the commands available along with a short description.
-
-You should run `make install` when you start working on a cookiecutter project. This will create a conda environment with the name of your project and configure git as well.
-
-For more info on the Makefile, see [here](#the-makefile).
+All of these steps are required after a cookiecutter is setup, but critically, are the first steps we should take when working in any repository, whether it's a new project or a clone of a colleague's!
 
 ## Git hooks
 
-We use [pre-commit](https://pre-commit.com/) to check the integrity of git commits before they happen.
+We use [pre-commit](https://pre-commit.com/) to check the integrity of git commits before they happen. You should set this up with your virtual environment. With `uv`, it's as simple as adding it to the environment, sourcing the environment, and running `pre-commit install --install-hooks`.
 
-The steps are specified in `.pre-commit-config.yaml`.
+```bash
+uv add pre-commit
+source .venv/bin/activate
+pre-commit install --install-hooks
+```
 
-Currently the steps that are taken are:
+The steps are specified in `.pre-commit-config.yaml`. Some basic checks are performed on the repository (ensuring no large files commited and fixing trailing whitespace) from a [core set of pre-commit hooks](https://github.com/pre-commit/pre-commit-hooks). More critically, we use [ruff](https://docs.astral.sh/ruff/) to format and lint the repository, an all-in-one alternative to black, flake8, and isort.
 
--   Run the [black](https://github.com/psf/black) code auto formatter
-    -   This means we can have a consistent code style across projects when we are collaborating with other members of the team.
--   Check that no large files were accidentally committed
--   Check that there are no merge conflict strings (e.g. `>>>>>`) lingering in files
--   Fix the end of files to work across operating systems
--   Trim trailing whitespace in files
--   Check Toml files are well formed
--   Check Yaml files are well formed
--   Check we are no committing directly to `dev`, `master`, or `main`
--   Run the prettier formatter (covers files such as Markdown/JSON/YAML/HTML)
+Now, every time you run `git commit`, it should perform these checks automatically 
 
-**Warning:** You need to run `git commit` with your conda environment activated. This is because by default the packages used by pre-commit are installed into your project's conda environment. (note: `pre-commit install --install-hooks` will install the pre-commit hooks in the currently active environment).
+**Warning:** You need to run `git commit` with your virtual environment activated. This is because by default the packages used by pre-commit are installed into your project's environment. (note: `pre-commit install --install-hooks` will install the pre-commit hooks in the currently active environment, which is why we source it before running in the example above).
 
 ## Reproducable environment
 
 The first step in reproducing someone else’s analysis is to reproduce the computational environment it was run in. You need the same tools, the same libraries, and the same versions to make everything play nicely together.
 
-By listing all of your requirements in the repository you can easily track the packages needed to recreate the analysis.
+By listing all of your requirements in the repository you can easily track the packages needed to recreate the analysis. We recommend the use of [uv](https://github.com/astral-sh/uv) to manage the requirements in your project, but you are open to choose other tools such as [poetry](https://python-poetry.org/), Python's built in venv, or [conda](https://docs.conda.io/en/latest/).
 
-Whilst popular for scientific computing and data science, [conda](https://docs.conda.io/en/latest/) poses problems for collaboration and packaging:
-
--   It is hard to reproduce a conda-environment across operating systems
--   It is hard to make your environment "pip-installable" if your environment is fully specified by conda
+Whilst popular for scientific computing and data science, [conda](https://docs.conda.io/en/latest/) poses problems for collaboration and packaging, so we recommend moving away from its use if at all possible.
 
 ### Files
 
-Due to these difficulties, we recommend only using conda to create a virtual environment and list dependencies not available through `pip install` (one example of this is `graph-tool`).
+The files used to track dependencies in a virtual environment will vary based on the tool you use. For `uv` and `poetry`, the entire project will be tracked using the `pyproject.toml` file. The `pyproject.toml` file has already been pre-filled in the cookiecutter, but you should learn how it works so you can make edits and changes as necessary within your projects.
 
--   `environment.yaml` - Defines the base conda environment and any dependencies not "pip-installable".
+You can add or remove dependencies directly from the command line, using `uv add pandas` or `uv remove numpy` to automatically edit the `pyproject.toml` file. You can add development dependencies with the `--dev` flag like so `uv add --dev ipykernel`. You can substitute `poetry` for `uv` depending on the tool you're using.
 
--   `requirements.txt` - Defines the dependencies required to run the code.
-
-    If you need to add a dependency, chances are it goes here!
-
--   `requirements_dev.txt` - Defines development dependencies.
-
-    These are for dependencies that are needed during development but not needed to run the core code. For example, packages to build documentation, run tests, and `ipykernel` to run code in `jupyter` (It's likely that you never need to think about this file)
+If using `conda` or Python's built-in environment manager, you may manually manage requirements in text files, like `requirements.txt` and `requirements_dev.txt`. `conda` will also use an `environment.yaml` file to define the base conda environment and any dependencies not "pip-installable".
 
 ### Commands
 
--   `make conda-update` - Update an existing conda environment (created by `make install`) from `environment.yaml` and run `make pip-install`.
--   `make conda-remove` - Remove an existing conda environment, tidying up the cookiecutters internal state.
--   `make pip-install` - Install our package and requirements in editable mode (including development dependencies).
+You will need to create your virtual environment, install the packages, and activate it using the tool you've selected. Previously, `make install` helped with this setup and updating. Using `uv`, you can run the following:
+
+1. `uv venv` to create a virtual environment in the `.venv` folder
+2. `uv add package` to add dependencies
+3. `uv sync` to ensure your virtual environment is synced with the `uv` lockfile, especially useful when entering new projects
+4. `uv pip install -e .` to install the project to your environment in an editable format
+5. `source .venv/bin/activate` to activate the virtual environment, or `uv run script.py` to directly run any Python script in the environment
+
+These are just some of the commands you might want to run, if you chose `uv`. You should learn and explore whatever tool you choose so you can confidently manage your projects and its dependencies.
 
 ## Secrets and configuration - `.env.*` and `src/config/*`
 
@@ -98,7 +88,7 @@ OTHER_VARIABLE=something
 
 We also have `.envrc` which contains non-secret project configuration shared across users such as the bucket that our input data is stored in.
 
-[`direnv`](https://direnv.net) automatically loads `.envrc` (which itself loads `.env`) making our configuration available.
+[`direnv`](https://direnv.net) automatically loads `.envrc` (which itself loads `.env`) making our configuration available. Add all environment variables directly to `.env` so they are available in Python through `dotenv` as well as in your terminal through `direnv`. You will need to activate `direnv` in the repository by running `direnv allow`. 
 
 #### Store Data science configuration in `src/config/`
 
@@ -146,7 +136,7 @@ Put any data dependencies of your project that your code doesn't fetch here (E.g
 
 Don't ever edit this raw data, especially not manually or in Excel. Don't overwrite your raw data. Don't save multiple versions of the raw data. Treat the data (and its format) as immutable.
 
-Ideally, you should store it in [AWS S3](https://aws.amazon.com/s3/). You can then use the [ds-utils](https://github.com/nestauk/ds-utils) package, which has a neat way of pulling in data into dataframe. Alternatively, if you set the `S3_INPUT_PATH` environment variable (e.g. in `.envrc`) then you can use `make inputs-pull` to pull data from the configured S3 bucket.
+Ideally, you should store it in [AWS S3](https://aws.amazon.com/s3/). You can then use the [ds-utils](https://github.com/nestauk/ds-utils) package, which has a neat way of pulling in data into dataframe. Alternatively, if you set the `S3_INPUT_PATH` environment variable (e.g. in `.env`) then you can use `make inputs-pull` to pull data from the configured S3 bucket.
 
 ### `outputs/.cache/`
 
@@ -242,13 +232,13 @@ It is easier to say when shomething shouldn't be in `analysis` than when somethi
 
 It is important that plots are saved in `outputs/` rather than in different areas of the repository.
 
-## Notebooks - `src/notebooks`
+## Notebooks - `src/analysis/notebooks`
 
-Notebook packages like [Jupyter notebook](http://jupyter.org/) are effective tools for exploratory data analysis, fast prototyping, and communicating results; however, between prototyping and communicating results code should be factored out into proper python modules.
+Notebook packages like [Quarto](https://quarto.org/) are effective tools for exploratory data analysis, fast prototyping, and communicating results; however, between prototyping and communicating results code should be factored out into proper python modules. Compared with Jupyter notebooks, Quarto `.qmd` files are Markdown based text files that render outputs to separate files, making it easier to code review the raw text and ensure sensitive outputs are not version controlled.
 
-We have a notebooks folder for all your notebook needs! For example, if you are prototyping a "sentence transformer" you can place the notebooks for prototyping this feature in notebooks, e.g. `notebooks/sentence_transformer/` or `notebooks/pipeline/sentence_transformer/`.
+We have a notebooks folder for all your notebook needs! For example, if you are prototyping a "sentence transformer" you can place the notebooks for prototyping this feature in notebooks, e.g. `analysis/notebooks/sentence_transformer/` or `analysis/notebooks/pipeline/sentence_transformer/`.
 
-Please try to keep all notebooks within this folder and primarily not on github, especially for code refactoring as the code will be elsewhere, e.g. in the pipeline. However, for collaborating, sharing and QA of analysis, you are welcome to push those to github.
+Please try to keep all notebooks within this folder and primarily not on github, especially for code refactoring as the code will be elsewhere, e.g. in the pipeline. However, for collaborating, sharing and QA of analysis, you are welcome to push those to github. Make sure that you do not save rendered files (e.g. HTML) directly to GitHub.
 
 ### Refactoring
 
@@ -328,30 +318,6 @@ You can write reports in markdown and put them in `outputs/reports` and referenc
 
 ## The Makefile
 
-A Makefile is a build automation tool that is commonly used in software development projects. It is a text file that contains a set of rules and instructions for building, compiling, and managing the project. The primary role of a Makefile is to automate the build process and make it easier for developers to compile and run their code.
+Where did the Makefile go? Previously, our cookiecutter used a Makefile to help manage the environment and its dependencies. However, due to its growing size and complexity, it was becoming difficult to maintain. The Makefile commands were also obfuscating the underlying tools it used, preventing users from growing their experience and confidence in directly managing their project's environments.
 
-Here are some key points to understand about the role of a Makefile in a codebase:
-
--   Build Automation: A Makefile defines a set of rules that specify how to build the project. It includes instructions for compiling source code, linking libraries, and generating executable files or other artifacts. By using a Makefile, developers can automate the build process and ensure that all necessary steps are executed in the correct order.
--   Dependency Management: Makefiles allow developers to define dependencies between different files or components of the project. This ensures that only the necessary parts of the code are rebuilt when changes are made, saving time and resources. Makefiles can track dependencies based on file timestamps or by explicitly specifying the relationships between files.
--   Consistency and Reproducibility: With a Makefile, the build process becomes standardised and reproducible across different environments. Developers can share the Makefile with others, ensuring that everyone follows the same build steps and settings. This helps maintain consistency and reduces the chances of errors or inconsistencies in the build process.
--   Customization and Extensibility: Makefiles are highly customizable and allow developers to define their own build targets and actions. This flexibility enables the integration of additional tools, such as code formatters, linters, or test runners, into the build process. Developers can easily extend the functionality of the Makefile to suit the specific needs of their project.
--   Integration with Version Control: Makefiles are often included in the codebase and tracked by version control systems. This ensures that the build process is documented and can be easily reproduced by other team members. Makefiles can also be integrated into continuous integration (CI) pipelines, allowing for automated builds and tests whenever changes are pushed to the repository.
-
-As part of the cookiecutter, we have a Makefile that can perform some useful administrative tasks for us:
-
-```nohighlight
-Available rules:
-
-clean               Delete all compiled Python files
-conda-update        Update the conda-environment based on changes to `environment.yaml`
-conda-remove        Remove the conda-environment cleanly
-docs                Build the API documentation
-docs-clean          Clean the built API documentation
-docs-open           Open the docs in the browser
-inputs-pull         Pull `inputs/` from S3
-install             Install a project: create conda env; install local package; setup git hooks
-pip-install         Install our package and requirements in editable mode (including development dependencies)
-```
-
-By far the most commonly used command is `make install`, so don't worry too much about the rest!
+We decided to do away with the Makefile and hope to support everyone in their journey of directly managing their projects and dependencies directly.
