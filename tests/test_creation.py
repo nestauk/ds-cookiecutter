@@ -106,8 +106,6 @@ class TestCookieSetup(object):
             ".cookiecutter/state",
             ".recipes",
             "docs",
-            "inputs",
-            "inputs/data",
             "outputs",
             "outputs/data",
             "outputs/.cache",
@@ -117,9 +115,9 @@ class TestCookieSetup(object):
             "outputs/reports",
             repo_name,
             f"{repo_name}/analysis",
+            f"{repo_name}/analysis/notebooks"
             f"{repo_name}/config",
             f"{repo_name}/getters",
-            f"{repo_name}/notebooks",
             f"{repo_name}/pipeline",
             f"{repo_name}/utils",
         ]
