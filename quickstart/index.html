@@ -392,28 +392,6 @@
   
 
     
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guidelines/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Python Environments
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -517,14 +495,11 @@
 <li><code>author_name [Nesta]</code>: add_author or press Enter to confirm Nesta</li>
 <li><code>description [A short description of the project.]</code>: add short description</li>
 <li><code>Select openness: 1 - public 2 - private Choose from 1, 2 [1]</code>: regardless of the choice you can always change it in the future</li>
+<li><code>Select venv_type: 1 - uv 2 - venv 3 - conda</code>: choose how you will manage your virtual environment</li>
 </ul>
 </li>
 <li>
-<p><code>cd</code> to project directory and run <code>make install</code> to:</p>
-<ul>
-<li>Create a conda environment with a name corresponding to the repo_name prompt and install the project package and its dependencies</li>
-<li>Configure and install Git pre-commit hooks</li>
-</ul>
+<p>Setup your project directory as described in </p>
 </li>
 <li>
 <p><strong>Connect your local project to github</strong>: You have set up your project locally and now you have to connect it to the remote repo. When you change directory to your created project folder, you will see that you are in a git repository and the generated cookiecutter has committed itself to the <code>main</code> and <code>dev</code> branches. Connect to the git repo by running <code>git remote add origin git@github.com:nestauk/&lt;REPONAME&gt;</code> to point your local project to the configured repository.</p>
