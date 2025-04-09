@@ -19,7 +19,7 @@ dependencies = []
 repository = "https://github.com/nestauk/{{ cookiecutter.repo_name }}"
 issues = "https://github.com/nestauk/{{ cookiecutter.repo_name }}/issues"
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
     "ipykernel",
     "jupytext",
