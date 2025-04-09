@@ -22,10 +22,9 @@ _**Prerequisite**: If this is your first time setting up a cookiecutter project 
     -   `author_name [Nesta]`: add_author or press Enter to confirm Nesta
     -   `description [A short description of the project.]`: add short description
     -   `Select openness: 1 - public 2 - private Choose from 1, 2 [1]`: regardless of the choice you can always change it in the future
+    -   `Select venv_type: 1 - uv 2 - venv 3 - conda`: choose how you will manage your virtual environment
 
--   `cd` to project directory and run `make install` to:
-    -   Create a conda environment with a name corresponding to the repo_name prompt and install the project package and its dependencies
-    -   Configure and install Git pre-commit hooks
+-  Setup your project directory as described in 
 
 3. **Connect your local project to github**: You have set up your project locally and now you have to connect it to the remote repo. When you change directory to your created project folder, you will see that you are in a git repository and the generated cookiecutter has committed itself to the `main` and `dev` branches. Connect to the git repo by running `git remote add origin git@github.com:nestauk/<REPONAME>` to point your local project to the configured repository.
 
