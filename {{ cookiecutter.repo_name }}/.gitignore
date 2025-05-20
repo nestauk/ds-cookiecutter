@@ -100,9 +100,7 @@ target/
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
 
-# exclude /inputs and /outputs/data except top-level markdown
-/inputs/*
-!/inputs/*.md
+# exclude /outputs/data except top-level markdown
 /outputs/data/*
 !/outputs/data/*.md
 /outputs/models/*
@@ -116,8 +114,8 @@ target/
 *.swo
 *~
 
-# Mypy cache
-.mypy_cache/
+# ruff cache
+.ruff_cache/
 
 # NPM
 node_modules/
