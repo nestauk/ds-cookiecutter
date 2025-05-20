@@ -68,6 +68,12 @@ if [ -n "$path" ] && [ -d "$path" ]; then
     rm -rf "$path"
 fi
 
+AUTOSETUP="{{ cookiecutter.autosetup }}"
+if [ "$AUTOSETUP" = "no" ]; then
+    echo "Auto setup is disabled. Finished."
+    exit 0
+fi
+
 # Create git repo
 git init -q
 git add .
@@ -128,6 +134,7 @@ fi
 echo "Setting up git branches and making initial commit..."
 echo ""
 git checkout -b main -q
+git add .
 SKIP=no-commit-to-branch git commit -am "Setup Nesta Data Science cookiecutter"
 git checkout -b dev -q
 
