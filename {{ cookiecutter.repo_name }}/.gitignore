@@ -1,8 +1,6 @@
 .recipes/
 .cookiecutter/state/
 
-*.lock
-
 # Proposed convention
 scratch*
 
