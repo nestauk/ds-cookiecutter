@@ -41,11 +41,21 @@ comment_magics = true
 default_cell_metadata_filter = "-all"
 
 [tool.ruff.lint]
-select = ["ANN", "B", "C", "D", "E", "F", "I", "N", "W"]
-# S101 - warns about assert being removed when compiled
-# D100 - warns about missing module-level docstrings
-ignore = ["S101", "D100"]
-mccabe = { max-complexity = 10 }
+select = [
+    "ANN", # flake8-annotations
+    "B",   # flake8-bugbear: Likely bugs
+    "C",   # flake8-comprehensions and mccabe complexity
+    "D",   # pydocstyle: Docstring conventions
+    "E",   # pycodestyle: Errors (default)
+    "F",   # pyflakes: Linter
+    "I",   # isort
+    "N",   # pep8-naming: Naming conventions
+    "W",   # pycodestyle: Warnings (default)
+]
+ignore = [
+    "D100", # Warns about missing module-level docstrings
+    "S101", # Warns about assert being removed when compiled
+]
 
 [tool.ruff.lint.isort]
 known-first-party = ["{{ cookiecutter.repo_name }}"]
