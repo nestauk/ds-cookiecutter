@@ -1,20 +1,145 @@
 #!/bin/bash
 
-# Remove environment.yaml if not using conda
+PYTHON_VERSION="{{ cookiecutter.python_version }}"
+VENV_TYPE="{{ cookiecutter.venv_type }}"
+
+# Different validation logic based on venv_type
+if [ "$VENV_TYPE" = "uv" ]; then
+    # For uv, check if version begins with == or >=
+    if [[ "$PYTHON_VERSION" =~ ^(>=|==)3\.[0-9]+(\.([0-9]+|\*)){0,1}$ ]]; then
+        : # Valid python version constraint for uv - already has prefix
+    # If it's just a minor version like 3.10, add == prefix and wildcard
+    elif [[ "$PYTHON_VERSION" =~ ^3\.[0-9]+$ ]]; then
+        PYPROJECT_VERSION="==$PYTHON_VERSION.*"
+        sed -i.bak "s/requires-python = \"$PYTHON_VERSION\"/requires-python = \"$PYPROJECT_VERSION\"/" pyproject.toml
+        rm pyproject.toml.bak
+    # If it's a patch version like 3.10.2, add == prefix
+    elif [[ "$PYTHON_VERSION" =~ ^3\.[0-9]+\.[0-9]+$ ]]; then
+        PYPROJECT_VERSION="==$PYTHON_VERSION"
+        sed -i.bak "s/requires-python = \"$PYTHON_VERSION\"/requires-python = \"$PYPROJECT_VERSION\"/" pyproject.toml
+        rm pyproject.toml.bak
+    else
+        echo "Error: For uv, python_version must be a valid version number (e.g. '3.10', '3.10.2') or have a prefix (e.g. '>=3.10', '==3.10.2')."
+        exit 1
+    fi
+elif [ "$VENV_TYPE" = "venv" ]; then
+    # For venv, require installed Python minor version format (3.x only)
+    if [[ "$PYTHON_VERSION" =~ ^3\.[0-9]+$ ]]; then
+        # Check if this Python version is installed
+        if ! command -v "python$PYTHON_VERSION" >/dev/null 2>&1; then
+            echo "Error: Python $PYTHON_VERSION not found in PATH. Make sure it's installed."
+            exit 1
+        fi
+        PYPROJECT_VERSION="==$PYTHON_VERSION.*"
+        sed -i.bak "s/requires-python = \"$PYTHON_VERSION\"/requires-python = \"$PYPROJECT_VERSION\"/" pyproject.toml
+        rm pyproject.toml.bak
+        sed -i.bak "s/\[dependency-groups\]/\[project.optional-dependencies\]/" pyproject.toml
+        rm pyproject.toml.bak
+    else
+        echo "Error: For venv, python_version must be a minor version number only (e.g. '3.10', not '3.10.2')."
+        exit 1
+    fi
+else  # conda
+    # For conda, allow format (3.x or 3.x.y)
+    if [[ "$PYTHON_VERSION" =~ ^3\.[0-9]+$ ]]; then
+        PYPROJECT_VERSION="==$PYTHON_VERSION.*"
+    elif [[ "$PYTHON_VERSION" =~ ^3\.[0-9]+\.[0-9]+$ ]]; then
+        PYPROJECT_VERSION="==$PYTHON_VERSION"
+    else
+        echo "Error: For conda, python_version must be a plain version number (e.g. '3.10' or '3.10.2')."
+        exit 1
+    fi
+    sed -i.bak "s/requires-python = \"$PYTHON_VERSION\"/requires-python = \"$PYPROJECT_VERSION\"/" pyproject.toml
+    rm pyproject.toml.bak
+    sed -i.bak "s/\[dependency-groups\]/\[project.optional-dependencies\]/" pyproject.toml
+    rm pyproject.toml.bak
+fi
+
+# Remove environment.yaml if not using conda and docs if not included
 # Set path, trim whitespace, and then remove if it exists
 path='{% if cookiecutter.venv_type != "conda" %} environment.yaml {% endif %}'
 path=$(echo "$path" | xargs)
 if [ -n "$path" ] && [ -e "$path" ]; then
     rm "$path"
 fi
+path='{% if cookiecutter.include_docs != "yes" %} docs {% endif %}'
+path=$(echo "$path" | xargs)
+if [ -n "$path" ] && [ -d "$path" ]; then
+    rm -rf "$path"
+fi
 
 # Create git repo
 git init -q
-
-# Setup empty main and dev
-git checkout -b main -q
 git add .
-git commit -am "Setup Nesta Data Science cookiecutter" -q
+
+PROJECT_NAME="{{ cookiecutter.project_name }}"
+
+echo "Setting up virtual environment and installing dependencies and pre-commit hooks..."
+if [ "$VENV_TYPE" = "uv" ]; then
+    uv sync
+    uv run pre-commit install --install-hooks
+    uv run pre-commit run pre-commit-update
+    git add .pre-commit-config.yaml
+    uv run pre-commit run prettier
+    git add .pre-commit-config.yaml
+elif [ "$VENV_TYPE" = "venv" ]; then
+    python$PYTHON_VERSION -m venv .venv
+    source .venv/bin/activate
+    pip install --upgrade pip
+    pip install ".[dev]"
+    pre-commit install --install-hooks
+    pre-commit run pre-commit-update
+    git add .pre-commit-config.yaml
+    pre-commit run prettier
+    git add .pre-commit-config.yaml
+    deactivate
+elif [ "$VENV_TYPE" = "conda" ]; then
+    # Check if conda is initialized in the current shell
+    if ! command -v conda &> /dev/null; then
+        echo "Error: conda command not found. Please ensure conda is installed and initialized."
+        echo "You may need to run 'conda init bash' (or your shell) and restart your terminal."
+        exit 1
+    fi
+    # Check if environment already exists
+    if conda env list | grep -q "^$PROJECT_NAME "; then
+        echo "Warning: conda environment '$PROJECT_NAME' already exists."
+        read -p "Do you want to remove it and create a new one? (y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            echo "Removing existing environment..."
+            conda env remove -n "$PROJECT_NAME" -y
+        else
+            echo "Aborting setup. Please choose a different project name or remove the existing environment."
+            exit 1
+        fi
+    fi
+    conda env create -f environment.yaml -n "$PROJECT_NAME"
+    eval "$(conda shell.bash hook)"
+    conda activate "$PROJECT_NAME"
+    pip install ".[dev]"
+    pre-commit install --install-hooks
+    pre-commit run pre-commit-update
+    git add .pre-commit-config.yaml
+    pre-commit run prettier
+    git add .pre-commit-config.yaml
+    conda deactivate
+fi
+
+echo "Setting up git branches and making initial commit..."
+echo ""
+git checkout -b main -q
+SKIP=no-commit-to-branch git commit -am "Setup Nesta Data Science cookiecutter"
 git checkout -b dev -q
 
-echo "Configured git repo at $(pwd)"
+echo "Successfully configured git repo at $(pwd)"
+
+# Allow direnv to load the environment
+if command -v direnv &> /dev/null; then
+    echo "Authorizing direnv..."
+    direnv allow
+else
+    echo "Note: direnv is not installed. Install it to automatically activate your environment when entering the directory."
+fi
+
+echo ""
+echo "Setup complete! You can now start working on your project."

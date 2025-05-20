@@ -1,0 +1,17 @@
+[project]
+name = "ds-cookiecutter"
+version = "0.3.1"
+description = "DSP cookiecutter template"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocs-material-extensions",
+    "cookiecutter",
+    "tomli",
+    "pytest",
+    "ruff",
+    "pre-commit",
+]
