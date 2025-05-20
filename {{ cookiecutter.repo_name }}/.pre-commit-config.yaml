@@ -14,9 +14,9 @@ repos:
         args: ["-b", dev, "-b", main]
         pass_filenames: false
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.4
+    rev: v0.11.10
     hooks:
-      - id: ruff
+      - id: ruff-check
       - id: ruff-format
   - repo: https://github.com/prettier/pre-commit
     rev: v2.1.2
