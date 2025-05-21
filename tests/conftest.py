@@ -24,7 +24,7 @@ test_params = [
 
 def get_test_id(test_param: dict) -> str:
     assert "venv_type" in test_param and "file_structure" in test_param
-    return test_param["venv_type"], test_param["file_structure"]
+    return f"{test_param['venv_type']}-{test_param['file_structure']}"
 
 
 @pytest.fixture(scope="class", params=test_params, ids=get_test_id)
@@ -33,7 +33,9 @@ def default_baked_project(tmpdir_factory, request):
     out_dir = Path(temp).resolve()
 
     pytest.param = request.param
-    main.cookiecutter(str(CCDS_ROOT), no_input=True, extra_context=pytest.param, output_dir=out_dir)
+    main.cookiecutter(
+        str(CCDS_ROOT), no_input=True, extra_context=pytest.param, output_dir=out_dir
+    )
 
     project_name = pytest.param.get("project_name") or "project_name"
     project_path = out_dir / project_name
@@ -43,7 +45,11 @@ def default_baked_project(tmpdir_factory, request):
     venv_type = pytest.param["venv_type"]
     if venv_type == "conda":
         repo_name = pytest.param["repo_name"]
-        env_dir = Path(check_output(["conda", "info", "--base"]).decode().strip()) / "envs" / repo_name
+        env_dir = (
+            Path(check_output(["conda", "info", "--base"]).decode().strip())
+            / "envs"
+            / repo_name
+        )
     else:  # venv
         env_dir = project_path / ".venv"
     request.cls.env_path = env_dir
