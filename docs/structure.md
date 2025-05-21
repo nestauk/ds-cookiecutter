@@ -38,7 +38,7 @@ pre-commit install --install-hooks
 
 The steps are specified in `.pre-commit-config.yaml`. Some basic checks are performed on the repository (ensuring no large files commited and fixing trailing whitespace) from a [core set of pre-commit hooks](https://github.com/pre-commit/pre-commit-hooks). More critically, we use [ruff](https://docs.astral.sh/ruff/) to format and lint the repository, an all-in-one alternative to black, flake8, and isort.
 
-Now, every time you run `git commit`, it should perform these checks automatically 
+Now, every time you run `git commit`, it should perform these checks automatically
 
 **Warning:** You need to run `git commit` with your virtual environment activated. This is because by default the packages used by pre-commit are installed into your project's environment. (note: `pre-commit install --install-hooks` will install the pre-commit hooks in the currently active environment, which is why we source it before running in the example above).
 
@@ -88,7 +88,7 @@ OTHER_VARIABLE=something
 
 We also have `.envrc` which contains non-secret project configuration shared across users such as the bucket that our input data is stored in.
 
-[`direnv`](https://direnv.net) automatically loads `.envrc` (which itself loads `.env`) making our configuration available. Add all environment variables directly to `.env` so they are available in Python through `dotenv` as well as in your terminal through `direnv`. You will need to activate `direnv` in the repository by running `direnv allow`. 
+[`direnv`](https://direnv.net) automatically loads `.envrc` (which itself loads `.env`) making our configuration available. Add all environment variables directly to `.env` so they are available in Python through `dotenv` as well as in your terminal through `direnv`. You will need to activate `direnv` in the repository by running `direnv allow`.
 
 #### Store Data science configuration in `src/config/`
 
@@ -289,6 +289,7 @@ You can write reports in markdown and put them in `outputs/reports` and referenc
 # Tree
 
 ```nohighlight
+.
 ├── <REPO NAME>                      |  PYTHON PACKAGE
 │   ├── __init__.py                  |
 │   ├── analysis/                    |  Analysis
@@ -303,10 +304,8 @@ You can write reports in markdown and put them in `outputs/reports` and referenc
 ├── docs/                            |  DOCUMENTATION
 ├── pyproject.toml                   |  PROJECT METADATA AND CONFIGURATION
 ├── environment.yaml                 |  CONDA ENVIRONMENT SPECIFICATION (optional component)
-├── inputs/                          |  INPUTS (should be immutable)
 ├── LICENSE                          |
 ├── outputs/                         |  OUTPUTS PRODUCED FROM THE PROJECT
-├── Makefile                         |  TASKS TO COORDINATE PROJECT (`make` shows available commands)
 ├── README.md                        |
 ├── .pre-commit-config.yaml          |  DEFINES CHECKS THAT MUST PASS BEFORE git commit SUCCEEDS
 ├── .gitignore                       |  TELLS git WHAT FILES WE DON'T WANT TO COMMIT

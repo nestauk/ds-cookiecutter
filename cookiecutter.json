@@ -5,7 +5,7 @@
   "description": "A short description of the project.",
   "openness": ["public", "private"],
   "venv_type": ["uv", "venv", "conda"],
-  "file_structure": ["simple", "standard", "full"],
+  "file_structure": ["standard", "simple", "full"],
   "python_version": "3.10",
   "autosetup": ["yes", "no"]
 }
