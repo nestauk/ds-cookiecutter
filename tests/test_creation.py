@@ -68,9 +68,7 @@ class TestCookieSetup(object):
         project = pyproject.get("project", {})
         assert project.get("name") == "nestatestcookie"
         assert project.get("version") == "0.1.0"
-        assert any(
-            author.get("name") == "Nesta" for author in project.get("authors", [])
-        )
+        assert any(author.get("name") == "Nesta" for author in project.get("authors", []))
         if pytest.param.get("openness") == "private":
             assert project.get("license", {}).get("text") == "proprietary"
         else:
@@ -79,24 +77,37 @@ class TestCookieSetup(object):
     def test_curlies(self):
         """Test miscellaneous files for no curlies."""
         repo_name = pytest.param.get("repo_name")
+        file_structure = pytest.param.get("file_structure")
         path_stubs = [
             ".env",
             ".envrc",
             "README.md",
             "pyproject.toml",
-            "docs/conf.py",
-            "docs/index.rst",
-            f"{repo_name}/config/logging.yaml",
             f"{repo_name}/__init__.py",
+            f"{repo_name}/analysis/__init__.py",
+            f"{repo_name}/getters/__init__.py",
         ]
+        if file_structure != "simple":
+            path_stubs += [
+                f"{repo_name}/pipeline/__init__.py",
+                f"{repo_name}/utils/__init__.py",
+                f"{repo_name}/config/base.yaml",
+                f"{repo_name}/config/logging.yaml",
+            ]
+        if file_structure == "full":
+            path_stubs += [
+                "docs/conf.py",
+                "docs/index.rst",
+            ]
         if pytest.param.get("venv_type") == "conda":
-            path_stubs.append("environment.yaml")
+            path_stubs += ["environment.yaml"]
 
         assert all((no_curlies(self.path / path_stub) for path_stub in path_stubs))
 
     def test_folders(self):
         """Test folders we expect to exist, actually exist."""
         repo_name = pytest.param.get("repo_name")
+        file_structure = pytest.param.get("file_structure")
         expected_dirs = [
             "",
             ".git",
@@ -104,7 +115,6 @@ class TestCookieSetup(object):
             ".cookiecutter",
             ".cookiecutter/state",
             ".recipes",
-            "docs",
             "outputs",
             "outputs/data",
             "outputs/.cache",
@@ -113,16 +123,35 @@ class TestCookieSetup(object):
             "outputs/models",
             "outputs/reports",
             repo_name,
-            f"{repo_name}/analysis",
-            f"{repo_name}/analysis/notebooks",
-            f"{repo_name}/config",
-            f"{repo_name}/getters",
-            f"{repo_name}/pipeline",
-            f"{repo_name}/utils",
         ]
+        if file_structure == "simple":
+            expected_dirs += [
+                f"{repo_name}/analysis",
+                f"{repo_name}/notebooks",
+                f"{repo_name}/getters",
+            ]
+        elif file_structure == "standard":
+            expected_dirs += [
+                f"{repo_name}/analysis",
+                f"{repo_name}/analysis/notebooks",
+                f"{repo_name}/config",
+                f"{repo_name}/getters",
+                f"{repo_name}/pipeline",
+                f"{repo_name}/utils",
+            ]
+        elif file_structure == "full":
+            expected_dirs += [
+                "docs",
+                "tests",
+                f"{repo_name}/analysis",
+                f"{repo_name}/analysis/notebooks",
+                f"{repo_name}/config",
+                f"{repo_name}/getters",
+                f"{repo_name}/pipeline",
+                f"{repo_name}/utils",
+            ]
 
         abs_expected_dirs = [str(self.path / d) for d in expected_dirs]
-
         abs_dirs, _, _ = zip(*os.walk(self.path))
         abs_dirs = list(
             filter(

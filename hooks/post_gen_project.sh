@@ -2,6 +2,9 @@
 
 PYTHON_VERSION="{{ cookiecutter.python_version }}"
 VENV_TYPE="{{ cookiecutter.venv_type }}"
+REPO_NAME="{{ cookiecutter.repo_name }}"
+FILE_STRUCTURE="{{ cookiecutter.file_structure }}"
+AUTOSETUP="{{ cookiecutter.autosetup }}"
 
 # Different validation logic based on venv_type
 if [ "$VENV_TYPE" = "uv" ]; then
@@ -62,13 +65,19 @@ path=$(echo "$path" | xargs)
 if [ -n "$path" ] && [ -e "$path" ]; then
     rm "$path"
 fi
-path='{% if cookiecutter.include_docs != "yes" %} docs {% endif %}'
-path=$(echo "$path" | xargs)
-if [ -n "$path" ] && [ -d "$path" ]; then
-    rm -rf "$path"
+
+if [ "$FILE_STRUCTURE" = "simple" ]; then
+    rm -rf docs
+    rm -rf tests
+    rm -rf "$REPO_NAME/config"
+    rm -rf "$REPO_NAME/utils"
+    rm -rf "$REPO_NAME/pipeline"
+    mv "$REPO_NAME/analysis/notebooks" "$REPO_NAME/"
+elif [ "$FILE_STRUCTURE" = "standard" ]; then
+    rm -rf docs
+    rm -rf tests
 fi
 
-AUTOSETUP="{{ cookiecutter.autosetup }}"
 if [ "$AUTOSETUP" = "no" ]; then
     echo "Auto setup is disabled. Finished."
     exit 0
