@@ -47,7 +47,7 @@ jobs:
           brew install coreutils direnv
           which python
           python -m pip install --upgrade pip
-          python -m pip install -r pyproject.toml
+          python -m pip install .
           conda config --add channels conda-forge
           conda config --add channels nodefaults
           $CONDA/bin/conda init bash
@@ -62,7 +62,7 @@ jobs:
           sudo apt-get update -y && sudo apt-get install -y direnv
           which python
           python -m pip install --upgrade pip
-          python -m pip install -r pyproject.toml
+          python -m pip install .
           conda config --add channels conda-forge
           conda config --add channels nodefaults
           $CONDA/bin/conda init bash
