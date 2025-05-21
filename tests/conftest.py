@@ -10,7 +10,7 @@ CCDS_ROOT = Path(__file__).parents[1].resolve()
 base_args = {
     "project_name": "NestaTestCookie".lower(),
     "author_name": "Nesta",
-    "repo_name": "nestatestcookie",
+    "module_name": "nestatestcookie",
     "openness": "public",
     "python_version": "3.12",
     "autosetup": "yes",
@@ -33,9 +33,7 @@ def default_baked_project(tmpdir_factory, request):
     out_dir = Path(temp).resolve()
 
     pytest.param = request.param
-    main.cookiecutter(
-        str(CCDS_ROOT), no_input=True, extra_context=pytest.param, output_dir=out_dir
-    )
+    main.cookiecutter(str(CCDS_ROOT), no_input=True, extra_context=pytest.param, output_dir=out_dir)
 
     project_name = pytest.param.get("project_name") or "project_name"
     project_path = out_dir / project_name
@@ -44,12 +42,8 @@ def default_baked_project(tmpdir_factory, request):
     # Set up env_dir for tests
     venv_type = pytest.param["venv_type"]
     if venv_type == "conda":
-        repo_name = pytest.param["repo_name"]
-        env_dir = (
-            Path(check_output(["conda", "info", "--base"]).decode().strip())
-            / "envs"
-            / repo_name
-        )
+        module_name = pytest.param["module_name"]
+        env_dir = Path(check_output(["conda", "info", "--base"]).decode().strip()) / "envs" / module_name
     else:  # venv
         env_dir = project_path / ".venv"
     request.cls.env_path = env_dir

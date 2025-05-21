@@ -30,7 +30,8 @@ You will be prompted to enter the following information:
 
 -   `You've downloaded ~.cookiecutters/ds-cookiecutter before. Is it okay to delete and re-download it?[yes]` press Enter to confirm yes, it's always best to use the latest version.
 -   `project_name [project_name]`: Enter the title of your project. This will be used in the `README.md` and `pyproject.toml` files.
--   `repo_name [project_name]`: This defaults to a sanitised version of the project name. You can change it to whatever you want, but it is recommended to keep it the same as the project name.
+-   `module_name [project_name]`: This defaults to a sanitised (lower-case, no spaces, no numbers) version of the project name.
+-   `repo_url []`: This is the URL of the repo you created in step 1. If left blank, no attempt will be made to connect the local project to the remote repo.
 -   `author_name [Nesta]`: Add authors in PEP-compliant format or press Enter to confirm "Nesta"
 -   `description [A short description of the project.]`: Add a short description
 -   `openness [public]`: This determines the licence, this can be changed in the future if needed

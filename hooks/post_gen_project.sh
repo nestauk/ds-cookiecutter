@@ -2,7 +2,7 @@
 
 PYTHON_VERSION="{{ cookiecutter.python_version }}"
 VENV_TYPE="{{ cookiecutter.venv_type }}"
-REPO_NAME="{{ cookiecutter.repo_name }}"
+MODULE_NAME="{{ cookiecutter.module_name }}"
 FILE_STRUCTURE="{{ cookiecutter.file_structure }}"
 AUTOSETUP="{{ cookiecutter.autosetup }}"
 
@@ -69,10 +69,10 @@ fi
 if [ "$FILE_STRUCTURE" = "simple" ]; then
     rm -rf docs
     rm -rf tests
-    rm -rf "$REPO_NAME/config"
-    rm -rf "$REPO_NAME/utils"
-    rm -rf "$REPO_NAME/pipeline"
-    mv "$REPO_NAME/analysis/notebooks" "$REPO_NAME/"
+    rm -rf "$MODULE_NAME/config"
+    rm -rf "$MODULE_NAME/utils"
+    rm -rf "$MODULE_NAME/pipeline"
+    mv "$MODULE_NAME/analysis/notebooks" "$MODULE_NAME/"
 elif [ "$FILE_STRUCTURE" = "standard" ]; then
     rm -rf docs
     rm -rf tests
@@ -141,21 +141,51 @@ elif [ "$VENV_TYPE" = "conda" ]; then
 fi
 
 echo "Setting up git branches and making initial commit..."
-echo ""
+echo
 git checkout -b main -q
 git add .
 SKIP=no-commit-to-branch git commit -am "Setup Nesta Data Science cookiecutter"
 git checkout -b dev -q
 
+# # Set up remote using the module_name
+# REPO_URL="git@github.com:nestauk/$MODULE_NAME.git"
+
+# # Ask about force pushing
+# read -p "Do you want set up the remote (pointing at $REPO_URL) and force push? The repository must already exist. This will overwrite any existing branches with the contents of the cookiecutter. (y/N) " -n 1 -r FORCE_REPLY
+# echo
+
+# if [[ $FORCE_REPLY =~ ^[Yy]$ ]]; then
+#     echo
+#     echo "WARNING: This operation will overwrite any existing work in the repository."
+#     read -p "Are you sure you want to force push? (y/N) " -n 1 -r CONFIRM_REPLY
+#     echo
+#     if [[ $CONFIRM_REPLY =~ ^[Yy]$ ]]; then
+#         echo "Force pushing branches to remote..."
+#         git remote add origin "$REPO_URL"
+#         git push -f origin main
+#         git push -f origin dev
+#     else
+#         echo "Not pushing to remote. You can manually add the remote later with the following command:"
+#         echo "git remote add origin $REPO_URL"
+#         echo
+#     fi
+# else
+#     echo "Not pushing to remote. You can add the remote manually later with the following command:"
+#     echo "git remote add origin $REPO_URL"
+#     echo
+# fi
+
 echo "Successfully configured git repo at $(pwd)"
+echo
 
 # Allow direnv to load the environment
 if command -v direnv &> /dev/null; then
     echo "Authorizing direnv..."
+    echo
     direnv allow
 else
     echo "Note: direnv is not installed. Install it to automatically activate your environment when entering the directory."
+    echo
 fi
 
-echo ""
 echo "Setup complete! You can now start working on your project."

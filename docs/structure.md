@@ -18,13 +18,18 @@ _**Note:** In the following sections we use `src/` to denote the project name to
 
 ## Project configuration
 
-Once you have spun up your project, you will need to configure it for use. This will require setting up some of the tools described below. While the cookiecutter sets up the project structure and will activate the git repo in the project folder, nothing else will be automatically activated. You will need to:
+Depending on your choice of `autosetup` the cookiecutter will either stop at establishing the project structure, or it will do the following for you:
 
 1. Set up your virtual environment using your selected tool, such as `uv`, `poetry`, or `conda`.
-2. Set up pre-commit using `pre-commit install --install-hooks`.
-3. Activate `direnv` if you need environment variables in your shell, using `direnv allow`.
+2. Set up pre-commit and install the hooks specified in `.pre-commit-config.yaml`.
+3. Run `direnv allow` in context of the project so that the `.env` and `.envrc` files are automatically loaded (importing environment variables and activating the relevant virtual environment).
+4. Set up the `git` repository using `git init` and create the initial commit on `main` and `dev` branches.
+5. Force push the initial commit to the remote repository (if specified) using `git push -u origin main` and `git push -u origin dev`.
 
-All of these steps are required after a cookiecutter is setup, but critically, are the first steps we should take when working in any repository, whether it's a new project or a clone of a colleague's!
+These steps can be completed manually if the `autosetup` option was not used. Critically, they (with the exception of the `git` parts when cloning a repo) are the first steps we should take when working in any repository, whether it's a new project or a clone of a colleague's!
+
+**The following sections are potentially outdated but go into greater detail about the steps above.
+**
 
 ## Git hooks
 
@@ -42,7 +47,7 @@ Now, every time you run `git commit`, it should perform these checks automatical
 
 **Warning:** You need to run `git commit` with your virtual environment activated. This is because by default the packages used by pre-commit are installed into your project's environment. (note: `pre-commit install --install-hooks` will install the pre-commit hooks in the currently active environment, which is why we source it before running in the example above).
 
-## Reproducable environment
+## Reproducible environment
 
 The first step in reproducing someone else’s analysis is to reproduce the computational environment it was run in. You need the same tools, the same libraries, and the same versions to make everything play nicely together.
 
@@ -288,9 +293,11 @@ You can write reports in markdown and put them in `outputs/reports` and referenc
 
 # Tree
 
+Note that this is for the `full` file structure. The `standard` and `simple` file structures are similar but with fewer folders under `<MODULE NAME>` and the omission of the `docs` and `tests` folders.
+
 ```nohighlight
 .
-├── <REPO NAME>                      |  PYTHON PACKAGE
+├── <MODULE NAME>                    |  PYTHON PACKAGE
 │   ├── __init__.py                  |
 │   ├── analysis/                    |  Analysis
 │   ├── config                       |  Configuration
@@ -315,7 +322,7 @@ You can write reports in markdown and put them in `outputs/reports` and referenc
 └── .cookiecutter                    |  COOKIECUTTER SETUP & CONFIGURATION (user can safely ignore)
 ```
 
-## The Makefile
+## The (old) Makefile
 
 Where did the Makefile go? Previously, our cookiecutter used a Makefile to help manage the environment and its dependencies. However, due to its growing size and complexity, it was becoming difficult to maintain. The Makefile commands were also obfuscating the underlying tools it used, preventing users from growing their experience and confidence in directly managing their project's environments.
 
