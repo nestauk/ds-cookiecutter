@@ -269,15 +269,15 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "cookiecutter" },
-    { name = "mkdocs" },
-    { name = "mkdocs-material" },
-    { name = "mkdocs-material-extensions" },
-    { name = "pre-commit" },
-    { name = "pytest" },
+    { name = "cookiecutter", specifier = ">=2.6.0" },
+    { name = "mkdocs", specifier = ">=1.6.1" },
+    { name = "mkdocs-material", specifier = ">=9.6.14" },
+    { name = "mkdocs-material-extensions", specifier = ">=1.3.1" },
+    { name = "pre-commit", specifier = ">=4.2.0" },
+    { name = "pytest", specifier = ">=8.3.5" },
     { name = "pytest-cov", specifier = ">=6.1.1" },
-    { name = "ruff" },
-    { name = "tomli" },
+    { name = "ruff", specifier = ">=0.11.10" },
+    { name = "tomli", specifier = ">=2.2.1" },
 ]
 
 [[package]]
