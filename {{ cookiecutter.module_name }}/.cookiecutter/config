@@ -1,6 +1,6 @@
 # Change these at your peril:
 export PROJECT_NAME={{ cookiecutter.project_name }}
-export REPO_NAME={{ cookiecutter.repo_name }}
+export MODULE_NAME={{ cookiecutter.module_name }}
 export DESCRIPTION={{ cookiecutter.description }}
 export PROJECT_OPENNESS={{ cookiecutter.openness }}
 export ENVIRONMENT_TYPE={{ cookiecutter.venv_type }}
@@ -25,10 +25,10 @@ ENV_UPDATE=pip install ".[dev]"
 ENV_INSTALL_EXTRAS=true
 {% else %}
 # Conda configuration as default
-ENV_CREATE=conda env create -n ${REPO_NAME} -f environment.yaml
-ENV_ACTIVATE=conda shell.bash activate ${REPO_NAME}
+ENV_CREATE=conda env create -n ${MODULE_NAME} -f environment.yaml
+ENV_ACTIVATE=conda shell.bash activate ${MODULE_NAME}
 ENV_DEACTIVATE=conda deactivate
-ENV_REMOVE=conda env remove -n ${REPO_NAME}
-ENV_UPDATE=conda env update -n ${REPO_NAME} -f environment.yaml
+ENV_REMOVE=conda env remove -n ${MODULE_NAME}
+ENV_UPDATE=conda env update -n ${MODULE_NAME} -f environment.yaml
 ENV_INSTALL_EXTRAS=conda install pip
 {% endif %}

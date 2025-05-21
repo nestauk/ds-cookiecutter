@@ -117,3 +117,6 @@ target/
 
 # NPM
 node_modules/
+
+# Virtual environments
+.venv/
