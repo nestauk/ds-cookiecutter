@@ -47,6 +47,6 @@ You have set up your project locally and now you have to connect it to the remot
 
 ### Team Members
 
--   Open the terminal and `cd` into a folder where you want the project set up.
--   Clone the repository by running `git clone <REPONAME>` and `cd` into the repository.
--   Run `make install` to configure the development environment.
+Clone the repository and `cd` into it; you can then ascertain the `venv_type` used in the project's creation. This can be inferred by the presence of a `uv.lock` file for `uv` or an `environment.yaml` file for `conda`.
+
+The author should then have included a `README.md` file with instructions on how to set up the project. If not, consult the documentation for the `venv_type` or ask the author for help.

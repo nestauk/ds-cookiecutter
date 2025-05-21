@@ -1,8 +1,6 @@
 # Developers guide
 
-## Usage
-
-### Installation
+## Installation
 
 This project uses [`uv`](https://docs.astral.sh/uv/) to manage the virtual environment. To install the project, run:
 
@@ -15,7 +13,7 @@ This will create a virtual environment in `.venv` and install the dependencies l
 
 You can then go on to build docs, run tests, etc. using `uv run` commands.
 
-### Documentation
+## Documentation
 
 We use [mkdocs](http://www.mkdocs.org/) and [mkdocs material](https://squidfunk.github.io/mkdocs-material/) to maintain documentation. You can test them locally with:
 
@@ -27,7 +25,7 @@ uv run mkdocs serve
 
 Docs are automatically published to `gh-pages` branch via. Github actions after a PR is merged into `master`.
 
-### Testing
+## Testing
 
 We use [pytest](https://docs.pytest.org/en/latest/) to run tests. You can run them with:
 
