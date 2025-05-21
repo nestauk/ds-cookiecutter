@@ -120,8 +120,6 @@ class TestCookieSetup(object):
             f"{repo_name}/pipeline",
             f"{repo_name}/utils",
         ]
-        if pytest.param.get("venv_type") != "conda":
-            expected_dirs.append(".venv")
 
         abs_expected_dirs = [str(self.path / d) for d in expected_dirs]
 
@@ -133,6 +131,7 @@ class TestCookieSetup(object):
                         re.match(f".*{stub}", dir)
                         for stub in [
                             ".git/",
+                            ".venv",
                             ".vscode",
                             ".pytest_cache",
                             ".ruff_cache",
