@@ -12,6 +12,9 @@ base_args = {
     "author_name": "Nesta",
     "repo_name": "nestatestcookie",
     "openness": "public",
+    "include_docs": "yes",
+    "python_version": "3.12",
+    "autosetup": "yes",
 }
 test_params = [
     {**base_args, "venv_type": venv_type} for venv_type in ["uv", "venv", "conda"]

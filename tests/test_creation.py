@@ -1,10 +1,7 @@
 import os
 import re
-import shutil
 import sys
-import tempfile
 from contextlib import contextmanager
-from pathlib import Path
 from subprocess import CalledProcessError, check_output
 from typing import List
 
@@ -92,6 +89,8 @@ class TestCookieSetup(object):
             f"{repo_name}/config/logging.yaml",
             f"{repo_name}/__init__.py",
         ]
+        if pytest.param.get("venv_type") == "conda":
+            path_stubs.append("environment.yaml")
 
         assert all((no_curlies(self.path / path_stub) for path_stub in path_stubs))
 
@@ -115,12 +114,14 @@ class TestCookieSetup(object):
             "outputs/reports",
             repo_name,
             f"{repo_name}/analysis",
-            f"{repo_name}/analysis/notebooks"
+            f"{repo_name}/analysis/notebooks",
             f"{repo_name}/config",
             f"{repo_name}/getters",
             f"{repo_name}/pipeline",
             f"{repo_name}/utils",
         ]
+        if pytest.param.get("venv_type") != "conda":
+            expected_dirs.append(".venv")
 
         abs_expected_dirs = [str(self.path / d) for d in expected_dirs]
 
