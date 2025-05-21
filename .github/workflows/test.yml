@@ -68,10 +68,7 @@ jobs:
           $CONDA/bin/conda init bash
 
       - name: Build docs
-        run: |
-          cd docs
-          which python
-          python -m mkdocs build
+        run: python -m mkdocs build
 
       - name: Git config
         run: |
