@@ -22,14 +22,6 @@ issues = "https://github.com/nestauk/{{ cookiecutter.module_name }}/issues"
 [dependency-groups]
 dev = ["ipykernel", "jupytext", "ruff", {% if cookiecutter.file_structure == 'full' %}"pytest", {% endif %}"pre-commit"]
 
-[tool.jupytext]
-# Always pair ipynb notebooks to py:percent files
-default_jupytext_formats = "ipynb,py:percent"
-# Comment out magics (allows code formatting)
-comment_magics = true
-# Strip cell-level metadata (avoid polluting git diffs)
-default_cell_metadata_filter = "-all"
-
 [tool.ruff.lint]
 select = [
     "ANN", # flake8-annotations
