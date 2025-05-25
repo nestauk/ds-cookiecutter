@@ -137,8 +137,8 @@ elif [ "$VENV_TYPE" = "conda" ]; then
     conda deactivate
 fi
 
-echo "Setting up git branches and making initial commit..."
 echo
+echo "Setting up git branches and making initial commit..."
 git checkout -b main -q
 git add .
 SKIP=no-commit-to-branch git commit -am "Setup Nesta Data Science cookiecutter"
