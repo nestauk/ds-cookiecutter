@@ -1,9 +1,6 @@
 .recipes/
 .cookiecutter/state/
 
-# Proposed convention
-scratch*
-
 # Nesta specific
 research_daps/
 *.key
@@ -21,6 +18,7 @@ metaflow.s3.*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*$py.class
 
 # C extensions
 *.so
@@ -56,13 +54,17 @@ pip-delete-this-directory.txt
 # Unit test / coverage reports
 htmlcov/
 .tox/
+.nox/
 .coverage
 .coverage.*
 .cache
 nosetests.xml
 coverage.xml
 *.cover
-.pytest_cache
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
 
 # Translations
 *.mo
