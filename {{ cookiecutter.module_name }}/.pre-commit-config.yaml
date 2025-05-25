@@ -13,20 +13,29 @@ repos:
       - id: no-commit-to-branch
         args: ["-b", dev, "-b", main]
         pass_filenames: false
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.10
-    hooks:
-      - id: ruff-check
-      - id: ruff-format
   - repo: https://github.com/prettier/pre-commit
     rev: v2.1.2
     hooks:
       - id: prettier
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.11
+    hooks:
+      - id: ruff-check
+      - id: ruff-format
   - repo: https://github.com/kynan/nbstripout
     rev: 0.8.1
     hooks:
       - id: nbstripout
+  - repo: https://github.com/mwouts/jupytext
+    rev: v1.17.1
+    hooks:
+      - id: jupytext
+        name: jupytext
+        language: python
+        entry: jupytext --pre-commit-mode --set-formats ipynb,py:percent
+        require_serial: true
+        types_or: [jupyter, python]
   - repo: https://gitlab.com/vojko.pribudic.foss/pre-commit-update
-    rev: v0.6.1
+    rev: v0.7.0
     hooks:
       - id: pre-commit-update
