@@ -94,7 +94,6 @@ if [ "$VENV_TYPE" = "uv" ]; then
     uv sync
     uv run pre-commit install --install-hooks
     uv run pre-commit run pre-commit-update
-    git add .pre-commit-config.yaml
     uv run pre-commit run prettier
     git add .pre-commit-config.yaml
 elif [ "$VENV_TYPE" = "venv" ]; then
@@ -104,7 +103,6 @@ elif [ "$VENV_TYPE" = "venv" ]; then
     pip install ".[dev]"
     pre-commit install --install-hooks
     pre-commit run pre-commit-update
-    git add .pre-commit-config.yaml
     pre-commit run prettier
     git add .pre-commit-config.yaml
     deactivate
@@ -134,7 +132,6 @@ elif [ "$VENV_TYPE" = "conda" ]; then
     pip install ".[dev]"
     pre-commit install --install-hooks
     pre-commit run pre-commit-update
-    git add .pre-commit-config.yaml
     pre-commit run prettier
     git add .pre-commit-config.yaml
     conda deactivate
