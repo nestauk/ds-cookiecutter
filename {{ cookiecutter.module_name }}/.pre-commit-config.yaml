@@ -1,4 +1,8 @@
 repos:
+  - repo: https://gitlab.com/vojko.pribudic.foss/pre-commit-update
+    rev: v0.7.0
+    hooks:
+      - id: pre-commit-update
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
@@ -33,10 +37,6 @@ repos:
     hooks:
       - id: ruff-check
       - id: ruff-format
-  - repo: https://gitlab.com/vojko.pribudic.foss/pre-commit-update
-    rev: v0.7.0
-    hooks:
-      - id: pre-commit-update
   - repo: https://github.com/prettier/pre-commit
     rev: v2.1.2
     hooks:
