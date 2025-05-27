@@ -111,17 +111,22 @@ elif [ "$VENV_TYPE" = "conda" ]; then
         echo "You may need to run 'conda init bash' (or your shell) and restart your terminal."
         exit 1
     fi
-    # Check if environment already exists
+    # Check if the environment already exists
     if conda env list | grep -q "^$MODULE_NAME "; then
         echo "Warning: conda environment '$MODULE_NAME' already exists."
-        read -p "Do you want to remove it and create a new one? (y/N) " -n 1 -r
-        echo
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            echo "Removing existing environment..."
-            conda env remove -n "$MODULE_NAME" -y
+        if [[ -t 0 ]]; then
+            read -p "Do you want to remove it and create a new one? (y/N) " -n 1 -r
+            echo
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                echo "Removing existing environment..."
+                conda env remove -n "$MODULE_NAME" -y
+            else
+                echo "Aborting setup. Please choose a different project name or remove the existing environment."
+                exit 1
+            fi
         else
-            echo "Aborting setup. Please choose a different project name or remove the existing environment."
-            exit 1
+            echo "Non-interactive mode: auto-removing environment."
+            conda env remove -n "$MODULE_NAME" -y
         fi
     fi
     conda env create -f environment.yaml -n "$MODULE_NAME"
