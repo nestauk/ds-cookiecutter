@@ -122,3 +122,13 @@ node_modules/
 
 # Virtual environments
 .venv/
+
+# R specific files
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user/
+*.utf8.md
+*.knit.md
+.Renviron
