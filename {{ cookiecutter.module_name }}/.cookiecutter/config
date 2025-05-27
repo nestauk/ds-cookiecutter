@@ -1,6 +1,0 @@
-# Change these at your peril:
-export PROJECT_NAME={{ cookiecutter.project_name }}
-export MODULE_NAME={{ cookiecutter.module_name }}
-export DESCRIPTION={{ cookiecutter.description }}
-export PROJECT_OPENNESS={{ cookiecutter.openness }}
-export ENVIRONMENT_TYPE={{ cookiecutter.venv_type }}
