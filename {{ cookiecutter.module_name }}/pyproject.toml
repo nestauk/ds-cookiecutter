@@ -6,10 +6,10 @@ build-backend = "setuptools.build_meta"
 packages = ["{{ cookiecutter.module_name }}"]
 
 [project]
-name = "{{ cookiecutter.project_name }}"
+name = "{{ cookiecutter.module_name }}"
 version = "0.1.0"
 description = "{{ cookiecutter.description }}"
-authors = [{ name = "{{ cookiecutter.author_name }}" }]
+authors = [{ name = "Nesta" }]
 license = { text = "{% if cookiecutter.openness == 'public' %}MIT{% else %}proprietary{% endif %}" }
 readme = "README.md"
 requires-python = "{{ cookiecutter.python_version }}"

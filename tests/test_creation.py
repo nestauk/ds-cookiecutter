@@ -39,7 +39,7 @@ class TestCookieSetup(object):
     def test_project_name(self):
         """Test project name matches base path."""
         project = self.path
-        name = "NestaTestCookie".lower()
+        name = "nestatestcookie"
         assert project.name == name
 
     def test_readme(self):
@@ -48,7 +48,7 @@ class TestCookieSetup(object):
         assert readme_path.exists()
         assert no_curlies(readme_path)
         with open(readme_path) as fin:
-            assert "# NestaTestCookie".lower() == next(fin).strip()
+            assert "# Nesta Test Cookie" == next(fin).strip()
 
     def test_license(self):
         """Test LICENSE exists with no curlies."""
@@ -68,7 +68,7 @@ class TestCookieSetup(object):
         project = pyproject.get("project", {})
         assert project.get("name") == "nestatestcookie"
         assert project.get("version") == "0.1.0"
-        assert any(author.get("name") == "Nesta" for author in project.get("authors", []))
+        assert project.get("authors")[0].get("name") == "Nesta"
         if pytest.param.get("openness") == "private":
             assert project.get("license", {}).get("text") == "proprietary"
         else:

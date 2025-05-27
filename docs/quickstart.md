@@ -29,10 +29,9 @@ cookiecutter https://github.com/nestauk/ds-cookiecutter -c <VERSION TAG>
 You will be prompted to enter the following information:
 
 -   `You've downloaded ~.cookiecutters/ds-cookiecutter before. Is it okay to delete and re-download it?[yes]` press Enter to confirm yes, it's always best to use the latest version.
--   `project_name [project_name]`: Enter the title of your project. This will be used in the `README.md` and `pyproject.toml` files.
--   `module_name [project_name]`: This defaults to a sanitised (lower-case, no spaces, no numbers) version of the project name.
+-   `project_name [project_name]`: Enter the title of your project. This will be used in the `README.md` file and docs.
+-   `module_name [project_name]`: This defaults to a sanitised (lower-case, no spaces, no numbers) version of the project name (used in `pyproject.toml` and throughout).
 -   `repo_url []`: This is the URL of the repo you created in step 1. If left blank, no attempt will be made to connect the local project to the remote repo.
--   `author_name [Nesta]`: Add authors in PEP-compliant format or press Enter to confirm "Nesta"
 -   `description [A short description of the project.]`: Add a short description
 -   `openness [public]`: This determines the licence, this can be changed in the future if needed
 -   `venv_type [uv]`: choose how you will manage your virtual environment, the options are [`uv`](https://docs.astral.sh/uv/), [`venv`](https://docs.python.org/3/library/venv.html) or [`conda`](https://docs.conda.io/en/latest/).

@@ -5,7 +5,7 @@
    api/{{ cookiecutter.module_name }}
    License <license>
 
-{{ cookiecutter.project_name }}
+{{ cookiecutter.module_name }}
 ===============================
 
 {{ cookiecutter.description }}

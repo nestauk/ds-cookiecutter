@@ -87,8 +87,6 @@ fi
 git init -q
 git add .
 
-PROJECT_NAME="{{ cookiecutter.project_name }}"
-
 echo "Setting up virtual environment and installing dependencies and pre-commit hooks..."
 if [ "$VENV_TYPE" = "uv" ]; then
     uv sync
@@ -114,21 +112,21 @@ elif [ "$VENV_TYPE" = "conda" ]; then
         exit 1
     fi
     # Check if environment already exists
-    if conda env list | grep -q "^$PROJECT_NAME "; then
-        echo "Warning: conda environment '$PROJECT_NAME' already exists."
+    if conda env list | grep -q "^$MODULE_NAME "; then
+        echo "Warning: conda environment '$MODULE_NAME' already exists."
         read -p "Do you want to remove it and create a new one? (y/N) " -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             echo "Removing existing environment..."
-            conda env remove -n "$PROJECT_NAME" -y
+            conda env remove -n "$MODULE_NAME" -y
         else
             echo "Aborting setup. Please choose a different project name or remove the existing environment."
             exit 1
         fi
     fi
-    conda env create -f environment.yaml -n "$PROJECT_NAME"
+    conda env create -f environment.yaml -n "$MODULE_NAME"
     eval "$(conda shell.bash hook)"
-    conda activate "$PROJECT_NAME"
+    conda activate "$MODULE_NAME"
     pip install ".[dev]"
     pre-commit install --install-hooks
     pre-commit run pre-commit-update
