@@ -35,8 +35,8 @@ repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.11.11
     hooks:
-      - id: ruff-check
       - id: ruff-format
+      - id: ruff-check
   - repo: https://github.com/prettier/pre-commit
     rev: v2.1.2
     hooks:
