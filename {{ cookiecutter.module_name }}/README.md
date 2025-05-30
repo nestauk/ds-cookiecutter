@@ -10,7 +10,7 @@ This project uses Python's built-in [`venv`](https://docs.python.org/3/library/v
 This project uses [`conda`](https://docs.conda.io/en/latest/) for virtual environment management. If you are new to `conda`, you can find the [quickstart guide here](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html).
 {%- endif %}
 
-We also utilise `direnv` via the `.envrc` file which - upon entering the directory - will automatically:
+We also utilise `direnv` via the `.envrc` file to automatically:
 
 - Import your environment variables from `.env`
 - Activate your virtual environment (_only if you comment out the relevant lines in `.envrc`_)
