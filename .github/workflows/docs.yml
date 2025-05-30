@@ -27,5 +27,4 @@ jobs:
       - name: Deploy
         run: |
           git fetch origin gh-pages
-          cd docs
           $CONDA/bin/mkdocs gh-deploy --clean
