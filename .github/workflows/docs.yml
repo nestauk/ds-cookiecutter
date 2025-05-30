@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           $CONDA/bin/python -m pip install --upgrade pip
-          $CONDA/bin/python -m pip install -r requirements.txt
+          $CONDA/bin/python -m pip install .
 
       - name: Deploy
         run: |
