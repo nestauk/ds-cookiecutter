@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://nestauk.github.io/ds-cookiecutter/structure/">
       
       
-        <link rel="prev" href="../quickstart/">
+        <link rel="prev" href="../developers/">
       
       
       
@@ -22,7 +22,7 @@
     
     
       
-        <title>Structure - Cookiecutter Data Science @ Nesta</title>
+        <title>Template structure - Cookiecutter Data Science @ Nesta</title>
       
     
     
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Structure
+              Template structure
             
           </span>
         </div>
@@ -297,6 +297,28 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../developers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -314,7 +336,7 @@
   
   
   <span class="md-ellipsis">
-    Structure
+    Template structure
     
   </span>
   
@@ -327,7 +349,7 @@
   
   
   <span class="md-ellipsis">
-    Structure
+    Template structure
     
   </span>
   
@@ -368,13 +390,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#reproducable-environment" class="md-nav__link">
+  <a href="#reproducible-environment" class="md-nav__link">
     <span class="md-ellipsis">
-      Reproducable environment
+      Reproducible environment
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Reproducable environment">
+    <nav class="md-nav" aria-label="Reproducible environment">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -630,13 +652,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#reproducable-environment" class="md-nav__link">
+  <a href="#reproducible-environment" class="md-nav__link">
     <span class="md-ellipsis">
-      Reproducable environment
+      Reproducible environment
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Reproducable environment">
+    <nav class="md-nav" aria-label="Reproducible environment">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -878,23 +900,27 @@
 </ul>
 <p><em><strong>Note:</strong> In the following sections we use <code>src/</code> to denote the project name to avoid awkward <code>&lt;project_name&gt;</code> placeholders.</em></p>
 <h2 id="project-configuration">Project configuration<a class="headerlink" href="#project-configuration" title="Permanent link">&para;</a></h2>
-<p>Once you have spun up your project, you will need to configure it for use. This will require setting up some of the tools described below. While the cookiecutter sets up the project structure and will activate the git repo in the project folder, nothing else will be automatically activated. You will need to:</p>
+<p>Depending on your choice of <code>autosetup</code> the cookiecutter will either stop at establishing the project structure, or it will do the following for you:</p>
 <ol>
 <li>Set up your virtual environment using your selected tool, such as <code>uv</code>, <code>poetry</code>, or <code>conda</code>.</li>
-<li>Set up pre-commit using <code>pre-commit install --install-hooks</code>.</li>
-<li>Activate <code>direnv</code> if you need environment variables in your shell, using <code>direnv allow</code>.</li>
+<li>Set up pre-commit and install the hooks specified in <code>.pre-commit-config.yaml</code>.</li>
+<li>Run <code>direnv allow</code> in context of the project so that the <code>.env</code> and <code>.envrc</code> files are automatically loaded (importing environment variables and activating the relevant virtual environment).</li>
+<li>Set up the <code>git</code> repository using <code>git init</code> and create the initial commit on <code>main</code> and <code>dev</code> branches.</li>
+<li>Force push the initial commit to the remote repository (if specified) using <code>git push -u origin main</code> and <code>git push -u origin dev</code>.</li>
 </ol>
-<p>All of these steps are required after a cookiecutter is setup, but critically, are the first steps we should take when working in any repository, whether it's a new project or a clone of a colleague's!</p>
+<p>These steps can be completed manually if the <code>autosetup</code> option was not used. Critically, they (with the exception of the <code>git</code> parts when cloning a repo) are the first steps we should take when working in any repository, whether it's a new project or a clone of a colleague's!</p>
+<p>**The following sections are potentially outdated but go into greater detail about the steps above.
+**</p>
 <h2 id="git-hooks">Git hooks<a class="headerlink" href="#git-hooks" title="Permanent link">&para;</a></h2>
 <p>We use <a href="https://pre-commit.com/">pre-commit</a> to check the integrity of git commits before they happen. You should set this up with your virtual environment. With <code>uv</code>, it's as simple as adding it to the environment, sourcing the environment, and running <code>pre-commit install --install-hooks</code>.</p>
-<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>add<span class="w"> </span>pre-commit
-<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-pre-commit<span class="w"> </span>install<span class="w"> </span>--install-hooks
-</code></pre></div>
+<pre><code class="language-bash">uv add pre-commit
+source .venv/bin/activate
+pre-commit install --install-hooks
+</code></pre>
 <p>The steps are specified in <code>.pre-commit-config.yaml</code>. Some basic checks are performed on the repository (ensuring no large files commited and fixing trailing whitespace) from a <a href="https://github.com/pre-commit/pre-commit-hooks">core set of pre-commit hooks</a>. More critically, we use <a href="https://docs.astral.sh/ruff/">ruff</a> to format and lint the repository, an all-in-one alternative to black, flake8, and isort.</p>
-<p>Now, every time you run <code>git commit</code>, it should perform these checks automatically </p>
+<p>Now, every time you run <code>git commit</code>, it should perform these checks automatically</p>
 <p><strong>Warning:</strong> You need to run <code>git commit</code> with your virtual environment activated. This is because by default the packages used by pre-commit are installed into your project's environment. (note: <code>pre-commit install --install-hooks</code> will install the pre-commit hooks in the currently active environment, which is why we source it before running in the example above).</p>
-<h2 id="reproducable-environment">Reproducable environment<a class="headerlink" href="#reproducable-environment" title="Permanent link">&para;</a></h2>
+<h2 id="reproducible-environment">Reproducible environment<a class="headerlink" href="#reproducible-environment" title="Permanent link">&para;</a></h2>
 <p>The first step in reproducing someone else’s analysis is to reproduce the computational environment it was run in. You need the same tools, the same libraries, and the same versions to make everything play nicely together.</p>
 <p>By listing all of your requirements in the repository you can easily track the packages needed to recreate the analysis. We recommend the use of <a href="https://github.com/astral-sh/uv">uv</a> to manage the requirements in your project, but you are open to choose other tools such as <a href="https://python-poetry.org/">poetry</a>, Python's built in venv, or <a href="https://docs.conda.io/en/latest/">conda</a>.</p>
 <p>Whilst popular for scientific computing and data science, <a href="https://docs.conda.io/en/latest/">conda</a> poses problems for collaboration and packaging, so we recommend moving away from its use if at all possible.</p>
@@ -917,24 +943,24 @@ pre-commit<span class="w"> </span>install<span class="w"> </span>--install-hooks
 <h4 id="store-your-secrets-in-a-special-file">Store your secrets in a special file<a class="headerlink" href="#store-your-secrets-in-a-special-file" title="Permanent link">&para;</a></h4>
 <p>Create a <code>.env</code> file in the project root folder. Thanks to the <code>.gitignore</code>, this file should never get committed into the version control repository.</p>
 <p>Here's an example:</p>
-<div class="highlight"><pre><span></span><code># example .env file
+<pre><code class="language-nohighlight"># example .env file
 DATABASE_URL=postgres://username:password@localhost:5432/dbname
 OTHER_VARIABLE=something
-</code></pre></div>
+</code></pre>
 <p>We also have <code>.envrc</code> which contains non-secret project configuration shared across users such as the bucket that our input data is stored in.</p>
-<p><a href="https://direnv.net"><code>direnv</code></a> automatically loads <code>.envrc</code> (which itself loads <code>.env</code>) making our configuration available. Add all environment variables directly to <code>.env</code> so they are available in Python through <code>dotenv</code> as well as in your terminal through <code>direnv</code>. You will need to activate <code>direnv</code> in the repository by running <code>direnv allow</code>. </p>
+<p><a href="https://direnv.net"><code>direnv</code></a> automatically loads <code>.envrc</code> (which itself loads <code>.env</code>) making our configuration available. Add all environment variables directly to <code>.env</code> so they are available in Python through <code>dotenv</code> as well as in your terminal through <code>direnv</code>. You will need to activate <code>direnv</code> in the repository by running <code>direnv allow</code>.</p>
 <h4 id="store-data-science-configuration-in-srcconfig">Store Data science configuration in <code>src/config/</code><a class="headerlink" href="#store-data-science-configuration-in-srcconfig" title="Permanent link">&para;</a></h4>
 <p>If there are certain variables that are useful throughout a codebase, it is useful to store these in a single place rather than having to define them throughout the project.</p>
 <p><code>src/config/base.yaml</code> provides a place to document these global variables.</p>
 <p>For example, if you were working on a fuzzy-matching the PATSTAT patent database to the Companies House database and wanted to only merge above a certain match score you may add a section to the configuration like the following,</p>
-<div class="highlight"><pre><span></span><code><span class="nt">patstat_companies_house</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">match_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">90</span>
-</code></pre></div>
+<pre><code class="language-yaml">patstat_companies_house:
+    match_threshold: 90
+</code></pre>
 <p>and load that value into your code with,</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">src</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span>
+<pre><code class="language-python">from src import config
 
-<span class="n">config</span><span class="p">[</span><span class="s2">&quot;patstat_companies_house&quot;</span><span class="p">][</span><span class="s2">&quot;match_threshold&quot;</span><span class="p">]</span>
-</code></pre></div>
+config[&quot;patstat_companies_house&quot;][&quot;match_threshold&quot;]
+</code></pre>
 <p>This centralisation provides a clearer log of decisions and decreases the chance that a different match threshold gets incorrectly used somewhere else in the codebase.</p>
 <p>Config files are also useful for storing model parameters. Storing model parameters in a config makes it much easier to test different model configurations and document and reproduce your model once it’s been trained. You can easily reference your config file to make changes and write your final documentation rather than having to dig through code. Depending on the complexity of your repository, it may make sense to create separate config files for each of your models.</p>
 <p>For example, if training an SVM classifier you may want to test different values of the regularisation parameter ‘C’. You could create a file called
@@ -966,41 +992,42 @@ Anywhere in the code base we need to load data we should do so by importing and 
 <li>If we want to see what data is available, we have a folder in the project to go to and we let the code speak for itself as much as possible - e.g. the following is a lot more informative than an inline call to <code>pd.read_csv</code> like we had above</li>
 </ul>
 <p>Here are two examples:</p>
-<div class="highlight"><pre><span></span><code>    <span class="c1"># File: getters/companies_house.py</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data getters for the companies house data.</span>
+<pre><code class="language-python">    # File: getters/companies_house.py
+    &quot;&quot;&quot;Data getters for the companies house data.
 
-<span class="sd">    Data source: https://download.companieshouse.gov.uk/en_output.html</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+    Data source: https://download.companieshouse.gov.uk/en_output.html
+    &quot;&quot;&quot;
+    import pandas as pd
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_sector</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load Companies House sector labels.</span>
+    def get_sector() -&gt; pd.DataFrame:
+        &quot;&quot;&quot;Load Companies House sector labels.
 
-<span class="sd">        Returns:</span>
-<span class="sd">            Sector information for ...</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;path/to/file&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;sic_code&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
-</code></pre></div>
+        Returns:
+            Sector information for ...
+        &quot;&quot;&quot;
+        return pd.read_csv(&quot;path/to/file&quot;, sep=&quot;\t&quot;, dtype={&quot;sic_code&quot;: str})
+</code></pre>
 <p>or using ds-utils:</p>
-<div class="highlight"><pre><span></span><code>    <span class="c1">#File: getters/asq_data.py</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data getters for the ASQ data.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">nesta_ds_utils.loading_saving</span><span class="w"> </span><span class="kn">import</span> <span class="n">S3</span>
+<pre><code class="language-python">    #File: getters/asq_data.py
+    &quot;&quot;&quot;Data getters for the ASQ data.
+    &quot;&quot;&quot;
+    import pandas as pd
+    from nesta_ds_utils.loading_saving import S3
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_asq_data</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load ASQ data for assessments taken in 2022.</span>
+    def get_asq_data() -&gt; pd.DataFrame:
+    &quot;&quot;&quot;Load ASQ data for assessments taken in 2022.
 
 
-<span class="sd">    Returns: Dataframe of the ASQ data at individual level including information on …</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">S3</span><span class="o">.</span><span class="n">download_obj</span><span class="p">(</span>
-        <span class="n">bucket</span><span class="o">=</span><span class="s2">&quot;bucket_name&quot;</span><span class="p">,</span>
-        <span class="n">path_from</span><span class="o">=</span><span class="s2">&quot;data/raw/data_asq.csv&quot;</span><span class="p">,</span>
-        <span class="n">download_as</span><span class="o">=</span><span class="s2">&quot;dataframe&quot;</span><span class="p">,</span>
-        <span class="n">kwargs_reading</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;engine&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">},</span>
-    <span class="p">)</span>
-</code></pre></div>
+    Returns: Dataframe of the ASQ data at individual level including information on …
+    &quot;&quot;&quot;
+    return S3.download_obj(
+        bucket=&quot;bucket_name&quot;,
+        path_from=&quot;data/raw/data_asq.csv&quot;,
+        download_as=&quot;dataframe&quot;,
+        kwargs_reading={&quot;engine&quot;: &quot;python&quot;},
+    )
+
+</code></pre>
 <h2 id="pipeline-components-srcpipeline">Pipeline components - <code>src/pipeline</code><a class="headerlink" href="#pipeline-components-srcpipeline" title="Permanent link">&para;</a></h2>
 <p>This folder contains pipeline components. Put as much data science as possible here.</p>
 <p>We recommend the use of <a href="https://docs.metaflow.org">metaflow</a> to write these pipeline components.</p>
@@ -1027,9 +1054,9 @@ Anywhere in the code base we need to load data we should do so by importing and 
 <p>We often find it easiest to refactor frequently, otherwise you might get duplicates of functions across the codebase , e.g. if it's a data preprocessing task, put it in the pipeline at <code>src/pipelines/&lt;descriptive name for task&gt;</code>; if it's useful utility code, refactor it to <code>src/utils/</code>; if it's loading data, refactor it to <code>src/getters</code>.</p>
 <h4 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h4>
 <p>Add the following to your notebook (or IPython REPL):</p>
-<div class="highlight"><pre><span></span><code>%load_ext autoreload
+<pre><code>%load_ext autoreload
 %autoreload 2
-</code></pre></div>
+</code></pre>
 <p>Now when you save code in a python module, the notebook will automatically load in the latest changes without you having to restart the kernel, re-import the module etc.</p>
 <h3 id="share-with-gists">Share with gists<a class="headerlink" href="#share-with-gists" title="Permanent link">&para;</a></h3>
 <p>As the git filter above stops the sharing of outputs directly via. the git repository, another way is needed to share the outputs of quick and dirty analysis.
@@ -1050,7 +1077,9 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
 <h2 id="report-outputsreports">Report - <code>outputs/reports</code><a class="headerlink" href="#report-outputsreports" title="Permanent link">&para;</a></h2>
 <p>You can write reports in markdown and put them in <code>outputs/reports</code> and reference plots in <code>outputs/figures</code>.</p>
 <h1 id="tree">Tree<a class="headerlink" href="#tree" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code>├── &lt;REPO NAME&gt;                      |  PYTHON PACKAGE
+<p>Note that this is for the <code>full</code> file structure. The <code>standard</code> and <code>simple</code> file structures are similar but with fewer folders under <code>&lt;MODULE NAME&gt;</code> and the omission of the <code>docs</code> and <code>tests</code> folders.</p>
+<pre><code class="language-nohighlight">.
+├── &lt;MODULE NAME&gt;                    |  PYTHON PACKAGE
 │   ├── __init__.py                  |
 │   ├── analysis/                    |  Analysis
 │   ├── config                       |  Configuration
@@ -1064,19 +1093,17 @@ This requires <a href="https://github.com/Jupyter-contrib/jupyter_nbextensions_c
 ├── docs/                            |  DOCUMENTATION
 ├── pyproject.toml                   |  PROJECT METADATA AND CONFIGURATION
 ├── environment.yaml                 |  CONDA ENVIRONMENT SPECIFICATION (optional component)
-├── inputs/                          |  INPUTS (should be immutable)
 ├── LICENSE                          |
 ├── outputs/                         |  OUTPUTS PRODUCED FROM THE PROJECT
-├── Makefile                         |  TASKS TO COORDINATE PROJECT (`make` shows available commands)
 ├── README.md                        |
 ├── .pre-commit-config.yaml          |  DEFINES CHECKS THAT MUST PASS BEFORE git commit SUCCEEDS
-├── .gitignore                       |  TELLS git WHAT FILES WE DON&#39;T WANT TO COMMIT
+├── .gitignore                       |  TELLS git WHAT FILES WE DON'T WANT TO COMMIT
 ├── .github/                         |  GITHUB CONFIGURATION
 ├── .env                             |  SECRETS (never commit to git!)
 ├── .envrc                           |  SHARED PROJECT CONFIGURATION VARIABLES
 └── .cookiecutter                    |  COOKIECUTTER SETUP &amp; CONFIGURATION (user can safely ignore)
-</code></pre></div>
-<h2 id="the-makefile">The Makefile<a class="headerlink" href="#the-makefile" title="Permanent link">&para;</a></h2>
+</code></pre>
+<h2 id="the-old-makefile">The (old) Makefile<a class="headerlink" href="#the-old-makefile" title="Permanent link">&para;</a></h2>
 <p>Where did the Makefile go? Previously, our cookiecutter used a Makefile to help manage the environment and its dependencies. However, due to its growing size and complexity, it was becoming difficult to maintain. The Makefile commands were also obfuscating the underlying tools it used, preventing users from growing their experience and confidence in directly managing their project's environments.</p>
 <p>We decided to do away with the Makefile and hope to support everyone in their journey of directly managing their projects and dependencies directly.</p>
 

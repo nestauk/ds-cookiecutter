@@ -16,7 +16,7 @@
         <link rel="prev" href="..">
       
       
-        <link rel="next" href="../structure/">
+        <link rel="next" href="../developers/">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -340,11 +340,44 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#project-configurer" class="md-nav__link">
+  <a href="#project-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Project Configurer
+      Project Configuration
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Project Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-request-repository-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Request repository setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-set-up-your-project-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Set up your project locally
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-connect-your-local-project-to-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Connect your local project to github
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -377,12 +410,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../developers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../structure/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Structure
+    Template structure
     
   </span>
   
@@ -429,11 +484,44 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#project-configurer" class="md-nav__link">
+  <a href="#project-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Project Configurer
+      Project Configuration
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Project Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-request-repository-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Request repository setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-set-up-your-project-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Set up your project locally
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-connect-your-local-project-to-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Connect your local project to github
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -472,48 +560,39 @@
 
 <h1 id="project-set-up">Project Set Up<a class="headerlink" href="#project-set-up" title="Permanent link">&para;</a></h1>
 <h2 id="your-guide-to-setting-up-a-nesta-cookiecutter-project">Your Guide to Setting Up a Nesta Cookiecutter Project<a class="headerlink" href="#your-guide-to-setting-up-a-nesta-cookiecutter-project" title="Permanent link">&para;</a></h2>
-<p>In this page you will learn how to set up a project using the cookiecutter. The steps are different depending on whether you are the first one setting up a project (<a href="#project-configurer">Project Configurer</a>) or whether a project already exists and you are just setting it up locally (<a href="#team-members">Team Member</a>).</p>
-<h3 id="project-configurer">Project Configurer<a class="headerlink" href="#project-configurer" title="Permanent link">&para;</a></h3>
+<p>In this page you will learn how to set up a project using the cookiecutter. The steps are different depending on whether you are the first one setting up a project (<a href="#project-configuration">Project Configurer</a>) or whether a project already exists and you are just setting it up locally (<a href="#team-members">Team Member</a>).</p>
+<h3 id="project-configuration">Project Configuration<a class="headerlink" href="#project-configuration" title="Permanent link">&para;</a></h3>
 <p><em><strong>Prerequisite</strong>: If this is your first time setting up a cookiecutter project you need to install it from https://pypi.org/project/cookiecutter. You can do this in the terminal with <code>brew install cookiecutter</code>.</em></p>
-<ol>
-<li>
-<p><strong>Request repository setup</strong>: First things first, you need a repo created for you. From the <a href="https://nestagroup.atlassian.net/servicedesk/customer/portals">tech support website</a>, go to <em>Ask Nesta Technology</em>, <em>Request Forms</em>, then <em>Request GitHub repository</em>. You will need to provide a <em>project name</em>, <em>repo name</em>, whether <em>public/private</em>, <em>github teams involved</em>, <em>team leading the project</em>, <em>short and long description of the project</em>. An empty repo will automatically be set up for you within a few minutes: https://github.com/nestauk/your_repo_name. Your team should have admin access on the repository. </p>
-</li>
-<li>
-<p><strong>Set up your project locally</strong>: It is important that you <em>do not clone the repo yet!</em> Instead, follow these steps:</p>
-</li>
-<li>
-<p>Open the terminal and <code>cd</code> to a folder where you eventually want your repo to be</p>
-</li>
-<li>Run <code>cookiecutter https://github.com/nestauk/ds-cookiecutter</code>. This will automatically install the latest version. If you want to install a different version run <code>cookiecutter https://github.com/nestauk/ds-cookiecutter -c &lt;VERSION TAG&gt;</code></li>
-<li>
-<p>You will be presented with the following:</p>
+<h4 id="1-request-repository-setup">1. Request repository setup<a class="headerlink" href="#1-request-repository-setup" title="Permanent link">&para;</a></h4>
+<p>First things first, you need a repo created for you. From the <a href="https://nestagroup.atlassian.net/servicedesk/customer/portals">tech support website</a>, go to <em>Ask Nesta Technology</em>, <em>Request Forms</em>, then <em>Request GitHub repository</em>. You will need to provide a <em>project name</em>, <em>repo name</em>, whether <em>public/private</em>, <em>github teams involved</em>, <em>team leading the project</em>, <em>short and long description of the project</em>. An empty repo will automatically be set up for you within a few minutes: https://github.com/nestauk/your_repo_name. Your team should have admin access on the repository.</p>
+<h4 id="2-set-up-your-project-locally">2. Set up your project locally<a class="headerlink" href="#2-set-up-your-project-locally" title="Permanent link">&para;</a></h4>
+<p>It is important that you <em>do not clone the repo yet!</em> Instead, open the terminal and <code>cd</code> to a folder where you eventually want your repo to be, then run the cookiecutter:</p>
+<pre><code class="language-bash">cookiecutter https://github.com/nestauk/ds-cookiecutter
+</code></pre>
+<p>This will automatically install the latest version. If you want to install a different version run:</p>
+<pre><code class="language-bash">cookiecutter https://github.com/nestauk/ds-cookiecutter -c &lt;VERSION TAG&gt;
+</code></pre>
+<p>You will be prompted to enter the following information:</p>
 <ul>
 <li><code>You've downloaded ~.cookiecutters/ds-cookiecutter before. Is it okay to delete and re-download it?[yes]</code> press Enter to confirm yes, it's always best to use the latest version.</li>
-<li><code>project_name [Project_name]</code>: add_a_name_here</li>
-<li><code>repo_name [add_a_name_here]</code>: add_a_name_here</li>
-<li><code>author_name [Nesta]</code>: add_author or press Enter to confirm Nesta</li>
-<li><code>description [A short description of the project.]</code>: add short description</li>
-<li><code>Select openness: 1 - public 2 - private Choose from 1, 2 [1]</code>: regardless of the choice you can always change it in the future</li>
-<li><code>Select venv_type: 1 - uv 2 - venv 3 - conda</code>: choose how you will manage your virtual environment</li>
+<li><code>project_name [project_name]</code>: Enter the title of your project. This will be used in the <code>README.md</code> file and docs.</li>
+<li><code>module_name [project_name]</code>: This defaults to a sanitised (lower-case, no spaces, no numbers) version of the project name (used in <code>pyproject.toml</code> and throughout).</li>
 </ul>
-</li>
-<li>
-<p>Setup your project directory as described in </p>
-</li>
-<li>
-<p><strong>Connect your local project to github</strong>: You have set up your project locally and now you have to connect it to the remote repo. When you change directory to your created project folder, you will see that you are in a git repository and the generated cookiecutter has committed itself to the <code>main</code> and <code>dev</code> branches. Connect to the git repo by running <code>git remote add origin git@github.com:nestauk/&lt;REPONAME&gt;</code> to point your local project to the configured repository.</p>
-</li>
-<li>
-<p><strong>You are all set!</strong></p>
-</li>
-</ol>
-<h3 id="team-members">Team Members<a class="headerlink" href="#team-members" title="Permanent link">&para;</a></h3>
+<!-- -   `repo_url []`: This is the URL of the repo you created in step 1. If left blank, no attempt will be made to connect the local project to the remote repo. -->
 <ul>
-<li>Open the terminal and <code>cd</code> into a folder where you want the project set up.</li>
-<li>Clone the repository by running <code>git clone &lt;REPONAME&gt;</code> and <code>cd</code> into the repository.</li>
-<li>Run <code>make install</code> to configure the development environment.</li>
+<li><code>description [A short description of the project.]</code>: Add a short description</li>
+<li><code>openness [public]</code>: This determines the licence, this can be changed in the future if needed</li>
+<li><code>python_version [3.13]</code>: the behaviour of this prompt depends on the <code>venv_type</code> you selected. If you selected <code>uv</code> you may provide a PEP compliant expression for the <code>pyproject.toml</code> (e.g. <code>&gt;=3.10</code>, <code>==3.11.*</code>, etc.). If you selected <code>venv</code> it must be a single version available on your system (e.g. <code>3.10</code>, <code>3.11</code>, etc.). If you selected <code>conda</code>, you needn't have the version installed but again you must specify a single version (e.g. <code>3.10</code>, <code>3.10.2</code>, etc.). The <code>pyproject.toml</code> will be created with the specified version.</li>
+<li><code>venv_type [uv]</code>: choose how you will manage your virtual environment, the options are <a href="https://docs.astral.sh/uv/"><code>uv</code></a>, <a href="https://docs.python.org/3/library/venv.html"><code>venv</code></a> or <a href="https://docs.conda.io/en/latest/"><code>conda</code></a>.</li>
+<li><code>file_structure [standard]</code>: choose the complexity of your project. The options are: <code>simple</code> (basic and recommended for small projects); <code>standard</code> (a good balance between simplicity and complexity); and <code>full</code> (includes folders for documentation and testing).</li>
+<li><code>autosetup [yes]</code>: this will automatically set up the project's virtual environment, pre-commit hooks and git repository for you. If you select <code>no</code>, you will have to do this manually later.'</li>
 </ul>
+<h4 id="3-connect-your-local-project-to-github">3. Connect your local project to github<a class="headerlink" href="#3-connect-your-local-project-to-github" title="Permanent link">&para;</a></h4>
+<p>You have set up your project locally and now you have to connect it to the remote repo. When you change directory to your created project folder, you will see that you are in a git repository and the generated cookiecutter has committed itself to the <code>main</code> and <code>dev</code> branches. Connect to the git repo by running <code>git remote add origin git@github.com:nestauk/&lt;REPONAME&gt;</code> to point your local project to the configured repository.</p>
+<p><strong>Now you are all set!</strong></p>
+<h3 id="team-members">Team Members<a class="headerlink" href="#team-members" title="Permanent link">&para;</a></h3>
+<p>Clone the repository and <code>cd</code> into it; you can then ascertain the <code>venv_type</code> used in the project's creation. This can be inferred by the presence of a <code>uv.lock</code> file for <code>uv</code> or an <code>environment.yaml</code> file for <code>conda</code>.</p>
+<p>The author should then have included a <code>README.md</code> file with instructions on how to set up the project. If not, consult the documentation for the <code>venv_type</code> or ask the author for help.</p>
 
 
 

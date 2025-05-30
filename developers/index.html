@@ -10,9 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://nestauk.github.io/ds-cookiecutter/examples/">
+        <link rel="canonical" href="https://nestauk.github.io/ds-cookiecutter/developers/">
       
       
+        <link rel="prev" href="../quickstart/">
+      
+      
+        <link rel="next" href="../structure/">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -20,7 +24,7 @@
     
     
       
-        <title>Example project structures - Cookiecutter Data Science @ Nesta</title>
+        <title>Development - Cookiecutter Data Science @ Nesta</title>
       
     
     
@@ -74,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#example-project-structures" class="md-skip">
+        <a href="#developers-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -109,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Example project structures
+              Development
             
           </span>
         </div>
@@ -295,6 +299,115 @@
       
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Github actions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release process
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
   
   
     <li class="md-nav__item">
@@ -303,7 +416,7 @@
   
   
   <span class="md-ellipsis">
-    Structure
+    Template structure
     
   </span>
   
@@ -333,6 +446,59 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Github actions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release process
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -350,9 +516,43 @@
   
 
 
-<h1 id="example-project-structures">Example project structures<a class="headerlink" href="#example-project-structures" title="Permanent link">&para;</a></h1>
+<h1 id="developers-guide">Developers guide<a class="headerlink" href="#developers-guide" title="Permanent link">&para;</a></h1>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<p>This project uses <a href="https://docs.astral.sh/uv/"><code>uv</code></a> to manage the virtual environment. To install the project, run:</p>
+<pre><code class="language-bash">uv sync
+uv run pre-commit install --install-hooks
+</code></pre>
+<p>This will create a virtual environment in <code>.venv</code> and install the dependencies listed in <code>pyproject.toml</code>.</p>
+<p>You can then go on to build docs, run tests, etc. using <code>uv run</code> commands.</p>
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
+<p>We use <a href="http://www.mkdocs.org/">mkdocs</a> and <a href="https://squidfunk.github.io/mkdocs-material/">mkdocs material</a> to maintain documentation. You can test them locally with:</p>
+<pre><code class="language-bash">uv run mkdocs serve
+</code></pre>
+<p>:note: mkdocs material uses a superset of Markdown, see <a href="https://squidfunk.github.io/mkdocs-material/reference/admonitions/">the reference</a></p>
+<p>Docs are automatically published to <code>gh-pages</code> branch via. Github actions after a PR is merged into <code>master</code>.</p>
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<p>We use <a href="https://docs.pytest.org/en/latest/">pytest</a> to run tests. You can run them with:</p>
+<pre><code class="language-bash">uv run pytest
+</code></pre>
+<p>You can also run tests with coverage using:</p>
+<pre><code class="language-bash">uv run pytest --cov=.
+</code></pre>
+<h2 id="github-actions">Github actions<a class="headerlink" href="#github-actions" title="Permanent link">&para;</a></h2>
+<p>There are several workflows in <code>.github/workflows</code>:</p>
 <ul>
-<li><img alt="🚧" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f6a7.svg" title=":construction:" /> <a href="industrial_taxonomy/">Constructing an industrial taxonomy using business website descriptions</a> <img alt="🚧" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f6a7.svg" title=":construction:" /></li>
+<li><code>docs.yml</code> - Deploys documentation to github pages on push to master (e.g. after PR merged)</li>
+<li><code>release.yml</code> - Drafts release notes based on merged PR's</li>
+<li><code>labeler.yml</code> - Sets the repository to use the issue labels defined in <code>.github/labels.yml</code></li>
+<li><code>test.yml</code> - Runs tests on PR's or on push to master (e.g. after PR merged)</li>
+</ul>
+<h2 id="release-process">Release process<a class="headerlink" href="#release-process" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Each PR should have a <code>major</code>/<code>minor</code>/<code>patch</code> label assigned based on the desired version increment, e.g. <code>minor</code> will go from <code>x.y.z -&gt; x.(y+1).z</code></li>
+<li>After a PR is merged then draft release notes will be generated/updated <a href="https://github.com/nestauk/ds-cookiecutter/releases">here</a> (see <code>release.yml</code> above)</li>
+<li>In the Github UI: rewrite the drafts into something informative to a user and then click release<ul>
+<li>:warning: Releases should be made little and often - commits on <code>master</code> are immediately visible to cookiecutter users</li>
+</ul>
+</li>
 </ul>
 
 
