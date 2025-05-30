@@ -3,7 +3,11 @@ docs/site/
 # OSX Junk
 .DS_Store
 
-# test cache
+# test and linting cache
 .cache/*
 tests/__pycache__/*
 *.pytest_cache/
+*.ruff_cache/
+
+# virtual environments
+.venv/

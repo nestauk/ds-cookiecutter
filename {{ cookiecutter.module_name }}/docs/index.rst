@@ -2,10 +2,10 @@
    :hidden:
    :maxdepth: 1
 
-   api/{{ cookiecutter.repo_name }}
+   api/{{ cookiecutter.module_name }}
    License <license>
 
-{{ cookiecutter.project_name }}
+{{ cookiecutter.module_name }}
 ===============================
 
 {{ cookiecutter.description }}

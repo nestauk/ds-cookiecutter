@@ -44,20 +44,13 @@ markdown_extensions:
   - def_list
   - admonition
   - pymdownx.details
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid-experimental
-          format: !!python/name:pymdownx.superfences.fence_code_format
   - footnotes
   - pymdownx.highlight
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
   - attr_list
 extra_css:
   - css/extra.css
 nav:
   - Home: index.md
   - Quickstart: quickstart.md
-  - Structure: structure.md
+  - Development: developers.md
+  - Template structure: structure.md

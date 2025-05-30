@@ -1,8 +1,10 @@
 {
-  "project_name": "project_name",
-  "repo_name": "{{ cookiecutter.project_name.lstrip('0123456789.- ').replace(' ', '_').replace('-', '_').lower() }}",
-  "author_name": "Nesta",
+  "project_name": "Project Name",
+  "module_name": "{{ cookiecutter.project_name.lstrip('0123456789.- ').replace(' ', '_').replace('-', '_').lower() }}",
   "description": "A short description of the project.",
   "openness": ["public", "private"],
-  "venv_type": ["uv", "venv", "conda"]
+  "python_version": "3.13",
+  "venv_type": ["uv", "venv", "conda"],
+  "file_structure": ["standard", "simple", "full"],
+  "autosetup": ["yes", "no"]
 }

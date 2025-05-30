@@ -1,15 +1,13 @@
 import os
 import re
-import shutil
 import sys
-import tempfile
 from contextlib import contextmanager
-from pathlib import Path
 from subprocess import CalledProcessError, check_output
 from typing import List
 
 import pytest
 import tomli
+from pygit2 import Repository
 
 
 @contextmanager
@@ -42,7 +40,7 @@ class TestCookieSetup(object):
     def test_project_name(self):
         """Test project name matches base path."""
         project = self.path
-        name = "NestaTestCookie".lower()
+        name = "nestatestcookie"
         assert project.name == name
 
     def test_readme(self):
@@ -51,7 +49,7 @@ class TestCookieSetup(object):
         assert readme_path.exists()
         assert no_curlies(readme_path)
         with open(readme_path) as fin:
-            assert "# NestaTestCookie".lower() == next(fin).strip()
+            assert "# Nesta Test Cookie" == next(fin).strip()
 
     def test_license(self):
         """Test LICENSE exists with no curlies."""
@@ -71,9 +69,7 @@ class TestCookieSetup(object):
         project = pyproject.get("project", {})
         assert project.get("name") == "nestatestcookie"
         assert project.get("version") == "0.1.0"
-        assert any(
-            author.get("name") == "Nesta" for author in project.get("authors", [])
-        )
+        assert project.get("authors")[0].get("name") == "Nesta"
         if pytest.param.get("openness") == "private":
             assert project.get("license", {}).get("text") == "proprietary"
         else:
@@ -81,23 +77,38 @@ class TestCookieSetup(object):
 
     def test_curlies(self):
         """Test miscellaneous files for no curlies."""
-        repo_name = pytest.param.get("repo_name")
+        module_name = pytest.param.get("module_name")
+        file_structure = pytest.param.get("file_structure")
         path_stubs = [
             ".env",
             ".envrc",
             "README.md",
             "pyproject.toml",
-            "docs/conf.py",
-            "docs/index.rst",
-            f"{repo_name}/config/logging.yaml",
-            f"{repo_name}/__init__.py",
+            f"{module_name}/__init__.py",
+            f"{module_name}/analysis/__init__.py",
+            f"{module_name}/getters/__init__.py",
         ]
+        if file_structure != "simple":
+            path_stubs += [
+                f"{module_name}/pipeline/__init__.py",
+                f"{module_name}/utils/__init__.py",
+                f"{module_name}/config/base.yaml",
+                f"{module_name}/config/logging.yaml",
+            ]
+        if file_structure == "full":
+            path_stubs += [
+                "docs/conf.py",
+                "docs/index.rst",
+            ]
+        if pytest.param.get("venv_type") == "conda":
+            path_stubs += ["environment.yaml"]
 
         assert all((no_curlies(self.path / path_stub) for path_stub in path_stubs))
 
     def test_folders(self):
         """Test folders we expect to exist, actually exist."""
-        repo_name = pytest.param.get("repo_name")
+        module_name = pytest.param.get("module_name")
+        file_structure = pytest.param.get("file_structure")
         expected_dirs = [
             "",
             ".git",
@@ -105,7 +116,6 @@ class TestCookieSetup(object):
             ".cookiecutter",
             ".cookiecutter/state",
             ".recipes",
-            "docs",
             "outputs",
             "outputs/data",
             "outputs/.cache",
@@ -113,17 +123,36 @@ class TestCookieSetup(object):
             "outputs/figures/vegalite",
             "outputs/models",
             "outputs/reports",
-            repo_name,
-            f"{repo_name}/analysis",
-            f"{repo_name}/analysis/notebooks"
-            f"{repo_name}/config",
-            f"{repo_name}/getters",
-            f"{repo_name}/pipeline",
-            f"{repo_name}/utils",
+            module_name,
         ]
+        if file_structure == "simple":
+            expected_dirs += [
+                f"{module_name}/analysis",
+                f"{module_name}/notebooks",
+                f"{module_name}/getters",
+            ]
+        elif file_structure == "standard":
+            expected_dirs += [
+                f"{module_name}/analysis",
+                f"{module_name}/analysis/notebooks",
+                f"{module_name}/config",
+                f"{module_name}/getters",
+                f"{module_name}/pipeline",
+                f"{module_name}/utils",
+            ]
+        elif file_structure == "full":
+            expected_dirs += [
+                "docs",
+                "tests",
+                f"{module_name}/analysis",
+                f"{module_name}/analysis/notebooks",
+                f"{module_name}/config",
+                f"{module_name}/getters",
+                f"{module_name}/pipeline",
+                f"{module_name}/utils",
+            ]
 
         abs_expected_dirs = [str(self.path / d) for d in expected_dirs]
-
         abs_dirs, _, _ = zip(*os.walk(self.path))
         abs_dirs = list(
             filter(
@@ -132,6 +161,7 @@ class TestCookieSetup(object):
                         re.match(f".*{stub}", dir)
                         for stub in [
                             ".git/",
+                            ".venv",
                             ".vscode",
                             ".pytest_cache",
                             ".ruff_cache",
@@ -150,9 +180,9 @@ class TestCookieSetup(object):
     def test_git(self):
         """Test expected git branches exist."""
         with ch_dir(self.path):
-            p = set(shell(["git", "branch"]))
-            # Expect only main and dev branches to exist
-            assert p == {"* dev", "main"}
+            repo = Repository(".")
+            assert list(repo.branches) == ["dev", "main"]
+            assert not repo.status()  # checking status is empty
 
     def test_env_yaml(self):
         """Test environment.yaml exists if using conda and vice-versa."""

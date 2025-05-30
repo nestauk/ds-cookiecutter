@@ -1,4 +1,8 @@
 repos:
+  - repo: https://gitlab.com/vojko.pribudic.foss/pre-commit-update
+    rev: v0.7.0
+    hooks:
+      - id: pre-commit-update
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
@@ -13,9 +17,9 @@ repos:
         args: ["-b", dev, "-b", master, "-b", main]
         pass_filenames: false
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.4
+    rev: v0.11.12
     hooks:
-      - id: ruff
+      - id: ruff-check
       - id: ruff-format
   - repo: https://github.com/prettier/pre-commit
     rev: v2.1.2
@@ -31,7 +35,3 @@ repos:
       - id: prettier
         name: Prettier (except markdown)
         exclude: ".md"
-  - repo: https://gitlab.com/vojko.pribudic.foss/pre-commit-update
-    rev: v0.6.1
-    hooks:
-      - id: pre-commit-update

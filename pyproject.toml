@@ -1,0 +1,50 @@
+[project]
+name = "ds-cookiecutter"
+version = "0.4.0"
+description = "DSP cookiecutter template"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "cookiecutter>=2.6.0",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.14",
+    "mkdocs-material-extensions>=1.3.1",
+    "pre-commit>=4.2.0",
+    "pygit2>=1.18.0",
+    "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
+    "ruff>=0.11.10",
+    "tomli>=2.2.1",
+]
+
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "ANN", # flake8-annotations
+    "B",   # flake8-bugbear: Likely bugs
+    "C",   # flake8-comprehensions and mccabe complexity
+    "D",   # pydocstyle: Docstring conventions
+    "E",   # pycodestyle: Errors (default)
+    "F",   # pyflakes: Linter
+    "I",   # isort
+    "N",   # pep8-naming: Naming conventions
+    "W",   # pycodestyle: Warnings (default)
+]
+ignore = [
+    "D100", # Warns about missing module-level docstrings
+    "S101", # Warns about assert being removed when compiled
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401", "E402", "D104"]
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
