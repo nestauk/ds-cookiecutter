@@ -3,7 +3,7 @@
 ## Setup
 
 {% if cookiecutter.venv_type == 'uv' -%}
-This project uses [`uv`](https://docs.astral.sh/uv/) for virtual environment management. If you are new to `uv`, you can find the [quickstart guide here](https://docs.astral.sh/uv/quickstart.html).
+This project uses [`uv`](https://docs.astral.sh/uv/) for virtual environment management. If you are new to `uv`, you can find the [quickstart guide here](https://docs.astral.sh/uv/getting-started/).
 {%- elif cookiecutter.venv_type == 'venv' -%}
 This project uses Python's built-in [`venv`](https://docs.python.org/3/library/venv.html) for virtual environment management. If you are new to `venv`, you can find the [quickstart guide here](https://docs.python.org/3/library/venv.html#creating-virtual-environments).
 {%- elif cookiecutter.venv_type == 'conda' -%}
