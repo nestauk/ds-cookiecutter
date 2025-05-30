@@ -7,6 +7,7 @@ from typing import List
 
 import pytest
 import tomli
+from pygit2 import Repository
 
 
 @contextmanager
@@ -179,9 +180,9 @@ class TestCookieSetup(object):
     def test_git(self):
         """Test expected git branches exist."""
         with ch_dir(self.path):
-            p = set(shell(["git", "branch"]))
-            # Expect only main and dev branches to exist
-            assert p == {"* dev", "main"}
+            repo = Repository(".")
+            assert list(repo.branches) == ["dev", "main"]
+            assert not repo.status()  # checking status is empty
 
     def test_env_yaml(self):
         """Test environment.yaml exists if using conda and vice-versa."""
