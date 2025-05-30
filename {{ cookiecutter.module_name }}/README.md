@@ -10,11 +10,15 @@ This project uses Python's built-in [`venv`](https://docs.python.org/3/library/v
 This project uses [`conda`](https://docs.conda.io/en/latest/) for virtual environment management. If you are new to `conda`, you can find the [quickstart guide here](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html).
 {%- endif %}
 
-We also (optionally) support `direnv` via the `.envrc` file which will automatically activate the environment for you on entry.
+We also utilise `direnv` via the `.envrc` file which - upon entering the directory - will automatically:
 
-After installing the required tools (we recommend doing this via [`brew`](https://brew.sh/) on macOS), you **must** run the following commands in your terminal to set up the project:
+- Import your environment variables from `.env`
+- Activate your virtual environment (_only if you comment out the relevant lines in `.envrc`_)
+
+After installing `direnv`{% if cookiecutter.venv_type == 'uv' or cookiecutter.venv_type == 'conda' %} and {% endif %}{% if cookiecutter.venv_type == 'uv' -%}`uv`{%- elif cookiecutter.venv_type == 'conda' -%}`conda`{%- endif %} on your system (we recommend doing this via [`brew`](https://brew.sh/) on macOS), you **must** run the following commands in your terminal to set up the project:
 
 ```bash
+direnv allow
 {% if cookiecutter.venv_type == 'uv' -%}
 uv sync
 uv run pre-commit install --install-hooks
@@ -29,12 +33,6 @@ conda activate {{ cookiecutter.module_name }}
 pip install ".[dev]"
 pre-commit install --install-hooks
 {%- endif %}
-```
-
-And optionally:
-
-```bash
-direnv allow
 ```
 
 ## Contributor guidelines

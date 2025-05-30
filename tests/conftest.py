@@ -13,7 +13,6 @@ base_args = {
     "openness": "public",
     "python_version": "3.12",
     "autosetup": "yes",
-    "use_direnv": "yes",
 }
 test_params = [
     {**base_args, "venv_type": venv_type, "file_structure": file_structure}

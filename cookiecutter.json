@@ -5,7 +5,6 @@
   "openness": ["public", "private"],
   "python_version": "3.13",
   "venv_type": ["uv", "venv", "conda"],
-  "use_direnv": ["no", "yes"],
   "file_structure": ["standard", "simple", "full"],
   "autosetup": ["yes", "no"]
 }

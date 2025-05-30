@@ -5,7 +5,6 @@ VENV_TYPE="{{ cookiecutter.venv_type }}"
 MODULE_NAME="{{ cookiecutter.module_name }}"
 FILE_STRUCTURE="{{ cookiecutter.file_structure }}"
 AUTOSETUP="{{ cookiecutter.autosetup }}"
-USE_DIRENV="{{ cookiecutter.use_direnv }}"
 
 # Different validation logic based on venv_type
 if [ "$VENV_TYPE" = "uv" ]; then
@@ -79,17 +78,13 @@ elif [ "$FILE_STRUCTURE" = "standard" ]; then
     rm -rf tests
 fi
 
-if [ "$USE_DIRENV" = "yes" ]; then
-    if command -v direnv &> /dev/null; then
-        echo
-        echo "Authorizing direnv..."
-        direnv allow
-    else
-        echo
-        echo "Note: direnv is not installed. Install it to automatically activate your environment when entering the directory."
-    fi
+if command -v direnv &> /dev/null; then
+    echo
+    echo "Authorizing direnv..."
+    direnv allow
 else
-    rm -f .envrc
+    echo
+    echo "Note: direnv is not installed. Install it to automatically activate your environment when entering the directory."
 fi
 
 if [ "$AUTOSETUP" = "no" ]; then
