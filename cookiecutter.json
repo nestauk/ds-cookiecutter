@@ -3,8 +3,9 @@
   "module_name": "{{ cookiecutter.project_name.lstrip('0123456789.- ').replace(' ', '_').replace('-', '_').lower() }}",
   "description": "A short description of the project.",
   "openness": ["public", "private"],
-  "venv_type": ["uv", "venv", "conda"],
-  "file_structure": ["standard", "simple", "full"],
   "python_version": "3.13",
+  "venv_type": ["uv", "venv", "conda"],
+  "use_direnv": ["no", "yes"],
+  "file_structure": ["standard", "simple", "full"],
   "autosetup": ["yes", "no"]
 }

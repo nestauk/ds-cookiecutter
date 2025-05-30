@@ -22,6 +22,9 @@ issues = "https://github.com/nestauk/{{ cookiecutter.module_name }}/issues"
 [dependency-groups]
 dev = ["ipykernel", "jupytext", "ruff", {% if cookiecutter.file_structure == 'full' %}"pytest", {% endif %}"pre-commit"]
 
+[tool.ruff]
+line-length = 120
+
 [tool.ruff.lint]
 select = [
     "ANN", # flake8-annotations

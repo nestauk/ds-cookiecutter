@@ -13,6 +13,7 @@ base_args = {
     "openness": "public",
     "python_version": "3.12",
     "autosetup": "yes",
+    "use_direnv": "yes",
 }
 test_params = [
     {**base_args, "venv_type": venv_type, "file_structure": file_structure}
@@ -27,7 +28,7 @@ def get_test_id(test_param: dict) -> str:
 
 
 @pytest.fixture(scope="class", params=test_params, ids=get_test_id)
-def default_baked_project(tmpdir_factory, request):
+def default_baked_project(tmpdir_factory: pytest.TempdirFactory, request: pytest.FixtureRequest):
     temp = tmpdir_factory.mktemp("data-project")
     out_dir = Path(temp).resolve()
 

@@ -31,12 +31,13 @@ You will be prompted to enter the following information:
 -   `You've downloaded ~.cookiecutters/ds-cookiecutter before. Is it okay to delete and re-download it?[yes]` press Enter to confirm yes, it's always best to use the latest version.
 -   `project_name [project_name]`: Enter the title of your project. This will be used in the `README.md` file and docs.
 -   `module_name [project_name]`: This defaults to a sanitised (lower-case, no spaces, no numbers) version of the project name (used in `pyproject.toml` and throughout).
--   `repo_url []`: This is the URL of the repo you created in step 1. If left blank, no attempt will be made to connect the local project to the remote repo.
+<!-- -   `repo_url []`: This is the URL of the repo you created in step 1. If left blank, no attempt will be made to connect the local project to the remote repo. -->
 -   `description [A short description of the project.]`: Add a short description
 -   `openness [public]`: This determines the licence, this can be changed in the future if needed
--   `venv_type [uv]`: choose how you will manage your virtual environment, the options are [`uv`](https://docs.astral.sh/uv/), [`venv`](https://docs.python.org/3/library/venv.html) or [`conda`](https://docs.conda.io/en/latest/).
--   `file_structure [standard]`: choose the complexity of your project. The options are: `simple` (basic and recommended for small projects); `standard` (a good balance between simplicity and complexity); and `full` (includes folders for documentation and testing).
 -   `python_version [3.13]`: the behaviour of this prompt depends on the `venv_type` you selected. If you selected `uv` you may provide a PEP compliant expression for the `pyproject.toml` (e.g. `>=3.10`, `==3.11.*`, etc.). If you selected `venv` it must be a single version available on your system (e.g. `3.10`, `3.11`, etc.). If you selected `conda`, you needn't have the version installed but again you must specify a single version (e.g. `3.10`, `3.10.2`, etc.). The `pyproject.toml` will be created with the specified version.
+-   `venv_type [uv]`: choose how you will manage your virtual environment, the options are [`uv`](https://docs.astral.sh/uv/), [`venv`](https://docs.python.org/3/library/venv.html) or [`conda`](https://docs.conda.io/en/latest/).
+-   `use_direnv [no]`: this will set up a `.envrc` file loading environment variables and activating your venv for you via [direnv](https://direnv.net/).
+-   `file_structure [standard]`: choose the complexity of your project. The options are: `simple` (basic and recommended for small projects); `standard` (a good balance between simplicity and complexity); and `full` (includes folders for documentation and testing).
 -   `autosetup [yes]`: this will automatically set up the project's virtual environment, pre-commit hooks and git repository for you. If you select `no`, you will have to do this manually later.'
 
 #### 3. Connect your local project to github

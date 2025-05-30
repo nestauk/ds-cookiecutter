@@ -5,6 +5,7 @@ VENV_TYPE="{{ cookiecutter.venv_type }}"
 MODULE_NAME="{{ cookiecutter.module_name }}"
 FILE_STRUCTURE="{{ cookiecutter.file_structure }}"
 AUTOSETUP="{{ cookiecutter.autosetup }}"
+USE_DIRENV="{{ cookiecutter.use_direnv }}"
 
 # Different validation logic based on venv_type
 if [ "$VENV_TYPE" = "uv" ]; then
@@ -78,6 +79,19 @@ elif [ "$FILE_STRUCTURE" = "standard" ]; then
     rm -rf tests
 fi
 
+if [ "$USE_DIRENV" = "yes" ]; then
+    if command -v direnv &> /dev/null; then
+        echo
+        echo "Authorizing direnv..."
+        direnv allow
+    else
+        echo
+        echo "Note: direnv is not installed. Install it to automatically activate your environment when entering the directory."
+    fi
+else
+    rm -f .envrc
+fi
+
 if [ "$AUTOSETUP" = "no" ]; then
     echo "Auto setup is disabled. Finished."
     exit 0
@@ -87,23 +101,16 @@ fi
 git init -q
 git add .
 
-echo "Setting up virtual environment and installing dependencies and pre-commit hooks..."
+echo
+echo "Setting up virtual environment and installing dependencies..."
 if [ "$VENV_TYPE" = "uv" ]; then
     uv sync
-    uv run pre-commit install --install-hooks
-    uv run pre-commit run pre-commit-update
-    uv run pre-commit run prettier
-    git add .pre-commit-config.yaml
+    source .venv/bin/activate
 elif [ "$VENV_TYPE" = "venv" ]; then
     python$PYTHON_VERSION -m venv .venv
     source .venv/bin/activate
     pip install --upgrade pip
     pip install ".[dev]"
-    pre-commit install --install-hooks
-    pre-commit run pre-commit-update
-    pre-commit run prettier
-    git add .pre-commit-config.yaml
-    deactivate
 elif [ "$VENV_TYPE" = "conda" ]; then
     # Check if conda is initialized in the current shell
     if ! command -v conda &> /dev/null; then
@@ -133,14 +140,24 @@ elif [ "$VENV_TYPE" = "conda" ]; then
     eval "$(conda shell.bash hook)"
     conda activate "$MODULE_NAME"
     pip install ".[dev]"
-    pre-commit install --install-hooks
-    pre-commit run pre-commit-update
-    pre-commit run prettier
-    git add .pre-commit-config.yaml
-    conda deactivate
 fi
 
 echo
+echo "Setting up pre-commit hooks..."
+
+pre-commit install --install-hooks
+pre-commit run pre-commit-update
+git add .pre-commit-config.yaml
+pre-commit run prettier
+git add .pre-commit-config.yaml
+
+# Deactivate the virtual environment
+if [ "$VENV_TYPE" = "uv" ] || [ "$VENV_TYPE" = "venv" ]; then
+    deactivate
+elif [ "$VENV_TYPE" = "conda" ]; then
+    conda deactivate
+fi
+
 echo "Setting up git branches and making initial commit..."
 git checkout -b main -q
 git add .
@@ -178,14 +195,5 @@ git checkout -b dev -q
 echo "Successfully configured git repo at $(pwd)"
 echo
 
-# Allow direnv to load the environment
-if command -v direnv &> /dev/null; then
-    echo "Authorizing direnv..."
-    echo
-    direnv allow
-else
-    echo "Note: direnv is not installed. Install it to automatically activate your environment when entering the directory."
-    echo
-fi
 
 echo "Setup complete! You can now start working on your project."
