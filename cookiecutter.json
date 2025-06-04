@@ -1,10 +1,11 @@
 {
   "project_name": "Project Name",
   "module_name": "{{ cookiecutter.project_name.lstrip('0123456789.- ').replace(' ', '_').replace('-', '_').lower() }}",
+  "repo_url": "",
   "description": "A short description of the project.",
   "openness": ["public", "private"],
-  "python_version": "3.13",
   "venv_type": ["uv", "venv", "conda"],
+  "python_version": "3.13",
   "file_structure": ["standard", "simple", "full"],
   "autosetup": ["yes", "no"]
 }
