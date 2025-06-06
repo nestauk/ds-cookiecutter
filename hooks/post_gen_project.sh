@@ -5,6 +5,7 @@ VENV_TYPE="{{ cookiecutter.venv_type }}"
 MODULE_NAME="{{ cookiecutter.module_name }}"
 FILE_STRUCTURE="{{ cookiecutter.file_structure }}"
 AUTOSETUP="{{ cookiecutter.autosetup }}"
+REPO_URL="{{ cookiecutter.repo_url }}"
 
 # Different validation logic based on venv_type
 if [ "$VENV_TYPE" = "uv" ]; then
@@ -159,36 +160,29 @@ git add .
 SKIP=no-commit-to-branch git commit -am "Setup Nesta Data Science cookiecutter"
 git checkout -b dev -q
 
-# # Set up remote using the module_name
-# REPO_URL="git@github.com:nestauk/$MODULE_NAME.git"
-
-# # Ask about force pushing
-# read -p "Do you want set up the remote (pointing at $REPO_URL) and force push? The repository must already exist. This will overwrite any existing branches with the contents of the cookiecutter. (y/N) " -n 1 -r FORCE_REPLY
-# echo
-
-# if [[ $FORCE_REPLY =~ ^[Yy]$ ]]; then
-#     echo
-#     echo "WARNING: This operation will overwrite any existing work in the repository."
-#     read -p "Are you sure you want to force push? (y/N) " -n 1 -r CONFIRM_REPLY
-#     echo
-#     if [[ $CONFIRM_REPLY =~ ^[Yy]$ ]]; then
-#         echo "Force pushing branches to remote..."
-#         git remote add origin "$REPO_URL"
-#         git push -f origin main
-#         git push -f origin dev
-#     else
-#         echo "Not pushing to remote. You can manually add the remote later with the following command:"
-#         echo "git remote add origin $REPO_URL"
-#         echo
-#     fi
-# else
-#     echo "Not pushing to remote. You can add the remote manually later with the following command:"
-#     echo "git remote add origin $REPO_URL"
-#     echo
-# fi
-
-echo "Successfully configured git repo at $(pwd)"
+echo "Successfully configured git repo at $(pwd)/.git"
 echo
 
+if [ -n "$REPO_URL" ]; then
+    echo "Setting up remote repository..."
+    git remote add origin "$REPO_URL"
+    echo "WARNING: Do you want to force push your local repository to the remote provided? This operation will overwrite any existing work in the repository!"
+    echo "This is fine if this is just initial setup as the repository should be empty."
+    read -p "Are you sure you want to force push? (y/N) " -n 1 -r CONFIRM_REPLY
+    echo
+    if [[ $CONFIRM_REPLY =~ ^[Yy]$ ]]; then
+        echo "Force pushing branches to remote..."
+        git push -uf origin main
+        git push -uf origin dev
+        echo
+    else
+        echo "Not pushing to remote. You can manually force push the branches later with the following command:"
+        echo "git push -uf origin <BRANCH_NAME>"
+        echo
+    fi
+else
+    echo "No remote repository URL provided. You can set it up later."
+    echo
+fi
 
 echo "Setup complete! You can now start working on your project."
