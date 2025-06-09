@@ -9,8 +9,9 @@ repos:
       - id: check-added-large-files
       - id: check-merge-conflict
       - id: end-of-file-fixer
-        exclude: .cookiecutter/config
-      - id: trailing-whitespace
+        exclude: ^.cookiecutter/config
+      - id: trailing-whitespace{% if cookiecutter.use_r == 'yes' %}
+        exclude: ^renv/{% endif %}
       - id: check-toml
       - id: check-yaml
         exclude: "docs/mkdocs.yml"
@@ -40,4 +41,13 @@ repos:
   - repo: https://github.com/prettier/pre-commit
     rev: v2.1.2
     hooks:
-      - id: prettier
+      - id: prettier{% if cookiecutter.use_r == 'yes' %}
+        exclude: ^renv/
+  # - repo: https://github.com/lorenzwalthert/pre-commit-hooks
+  #   rev: v0.4.3
+  #   hooks:
+  #     - id: lintr
+  #     - id: style-files
+  #     - id: parsable-R
+  #     - id: no-browser-statement
+  #     - id: no-debug-statement{% endif %}
