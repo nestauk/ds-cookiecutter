@@ -35,9 +35,7 @@ pre-commit install --install-hooks
 {%- endif %}
 ```
 
-{%- if cookiecutter.use_r == 'yes' %}
-
-### R Setup
+{% if cookiecutter.use_r == 'yes' %}### R Setup
 
 _Note: even if you plan to only work in R, you still **must** set up the Python environment as described above for pre-commit hooks and other potential Python dependencies._
 
