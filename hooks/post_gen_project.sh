@@ -83,6 +83,7 @@ fi
 if [ "$USE_R" = "no" ]; then
     rm -f .lintr
     rm -f .Renviron
+    rm -f DESCRIPTION
 fi
 
 if command -v direnv &> /dev/null; then
@@ -153,9 +154,7 @@ if [ "$USE_R" = "yes" ]; then
     fi
 
     Rscript -e "if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv', repos='https://cloud.r-project.org')"
-    Rscript -e "renv::init(bare = TRUE)"
-    Rscript -e "install.packages(c('languageserver'), repos='https://cloud.r-project.org', type = 'source')"
-    Rscript -e "renv::snapshot()"
+    Rscript -e "renv::init()"
     echo
 fi
 

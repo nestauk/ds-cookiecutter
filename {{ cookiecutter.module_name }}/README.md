@@ -45,7 +45,7 @@ To set up `renv` and the R environment in this repo, run the following commands 
 
 ```bash
 Rscript -e "if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv', repos='https://cloud.r-project.org')"
-Rscript -e "renv::restore()"
+Rscript -e "renv::install()"
 ```
 
 As you add new R packages to your project, you can run `renv::snapshot()` to update the `renv.lock` file and commit the changes to `git`, which will ensure that others can recreate the same environment.
