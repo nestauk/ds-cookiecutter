@@ -1,4 +1,4 @@
-Package: ahl_oohp_kfc
+Package: {{ cookiecutter.module_name }}
 Suggests:
     knitr,
     rmarkdown,
