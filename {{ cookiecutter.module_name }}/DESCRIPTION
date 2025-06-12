@@ -3,4 +3,8 @@ Suggests:
     knitr,
     rmarkdown,
     jsonlite,
-    languageserver
+    languageserver,
+    usethis,
+    devtools,
+    lintr,
+    styler
