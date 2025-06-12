@@ -84,6 +84,7 @@ if [ "$USE_R" = "no" ]; then
     rm -f .lintr
     rm -f .Renviron
     rm -f DESCRIPTION
+    rm -f "$MODULE_NAME.Rproj"
 fi
 
 if command -v direnv &> /dev/null; then
