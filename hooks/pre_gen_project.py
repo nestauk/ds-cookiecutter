@@ -21,3 +21,11 @@ if repo_url:
     if exit_code != 0:
         print("ERROR: The repository URL %s does not exist!" % repo_url)
         sys.exit(1)
+
+use_r = "{{ cookiecutter.use_r }}"
+
+if use_r == "yes":
+    exit_code = os.system("Rscript -e 'quit(status = 0)'")
+    if exit_code != 0:
+        print("ERROR: R is not installed on your system. Please install R before proceeding.")
+        sys.exit(1)

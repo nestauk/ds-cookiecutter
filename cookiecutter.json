@@ -7,5 +7,6 @@
   "venv_type": ["uv", "venv", "conda"],
   "python_version": "3.13",
   "file_structure": ["standard", "simple", "full"],
+  "use_r": ["no", "yes"],
   "autosetup": ["yes", "no"]
 }

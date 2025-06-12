@@ -1,0 +1,10 @@
+Package: {{ cookiecutter.module_name }}
+Suggests:
+    knitr,
+    rmarkdown,
+    jsonlite,
+    languageserver,
+    usethis,
+    devtools,
+    lintr,
+    styler
