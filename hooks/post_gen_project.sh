@@ -155,7 +155,7 @@ if [ "$USE_R" = "yes" ]; then
     fi
 
     Rscript -e "if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv', repos='https://cloud.r-project.org')"
-    Rscript -e "renv::init()"
+    Rscript -e "renv::init(restart = FALSE); renv::snapshot()"
     echo
 fi
 
