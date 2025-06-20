@@ -6,6 +6,7 @@ MODULE_NAME="{{ cookiecutter.module_name }}"
 FILE_STRUCTURE="{{ cookiecutter.file_structure }}"
 AUTOSETUP="{{ cookiecutter.autosetup }}"
 REPO_URL="{{ cookiecutter.repo_url }}"
+USE_R="{{ cookiecutter.use_r }}"
 
 # Different validation logic based on venv_type
 if [ "$VENV_TYPE" = "uv" ]; then
@@ -79,6 +80,13 @@ elif [ "$FILE_STRUCTURE" = "standard" ]; then
     rm -rf tests
 fi
 
+if [ "$USE_R" = "no" ]; then
+    rm -f .lintr
+    rm -f .Renviron
+    rm -f DESCRIPTION
+    rm -f "$MODULE_NAME.Rproj"
+fi
+
 if command -v direnv &> /dev/null; then
     echo
     echo "Authorizing direnv..."
@@ -136,6 +144,19 @@ elif [ "$VENV_TYPE" = "conda" ]; then
     eval "$(conda shell.bash hook)"
     conda activate "$MODULE_NAME"
     pip install ".[dev]"
+fi
+
+if [ "$USE_R" = "yes" ]; then
+    echo
+    echo "Setting up R environment..."
+    if ! command -v Rscript &> /dev/null; then
+        echo "Error: Rscript command not found. Please ensure R is installed."
+        exit 1
+    fi
+
+    Rscript -e "if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv', repos='https://cloud.r-project.org')"
+    Rscript -e "renv::init(restart = FALSE); renv::snapshot()"
+    echo
 fi
 
 echo
