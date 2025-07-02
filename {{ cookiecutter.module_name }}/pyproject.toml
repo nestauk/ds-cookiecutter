@@ -20,7 +20,7 @@ repository = "{{ formatted_url }}"
 issues = "{{ formatted_url }}/issues"
 {% endif %}
 [dependency-groups]
-dev = ["ipykernel", "jupytext", "ruff", {% if cookiecutter.file_structure == 'full' %}"pytest", {% endif %}{% if cookiecutter.use_r == 'yes' %}"radian", {% endif %}"pre-commit"]
+dev = ["ipykernel", "jupytext", "nbstripout", "ruff", {% if cookiecutter.file_structure == 'full' %}"pytest", {% endif %}{% if cookiecutter.use_r == 'yes' %}"radian", {% endif %}"pre-commit"]
 
 [tool.ruff]
 line-length = 120
