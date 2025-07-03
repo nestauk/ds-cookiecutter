@@ -14,7 +14,7 @@
     "module_name": "Module name (lowercase, no spaces or special characters except underscores)",
     "repo_url": "Repository URL (optional)",
     "description": "Project description",
-    "openness": "Select a level of openness",
+    "openness": "Select a level of openness (note this does not change the privacy setting of a connected GitHub repository)",
     "venv_type": "Select a virtual environment type",
     "python_version": "Project Python version (strict e.g. 3.13 or PEP-compliant constraint e.g., >=3.13)",
     "file_structure": "Select a file structure",
