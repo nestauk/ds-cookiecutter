@@ -18,86 +18,12 @@ repos:
       - id: no-commit-to-branch
         args: ["-b", dev, "-b", main]
         pass_filenames: false
-  - repo: local
+  - repo: https://github.com/nestauk/pre-commit-hooks
+    rev: v1.1.1
     hooks:
       - id: nbstripout-preserve-timestamp
-        name: nbstripout (preserve timestamp)
-        entry: >-
-          bash -c '
-          for file in "$@"; do
-            if [[ "$file" == *.ipynb && -f "$file" ]]; then
-              original_timestamp=$(stat -f "%m" "$file" 2>/dev/null || stat -c "%Y" "$file" 2>/dev/null);
-              nbstripout "$file";
-              if [[ -n "$original_timestamp" ]]; then
-                touch -t $(date -r "$original_timestamp" "+%Y%m%d%H%M.%S") "$file" 2>/dev/null || \
-                touch -d "@$original_timestamp" "$file" 2>/dev/null;
-              fi;
-            fi;
-          done;
-          ' _
-        language: system
-        types: [jupyter]
       - id: jupytext-enforce-pairing
-        name: jupytext (enforce pairing)
-        entry: >-
-          bash -c '
-          failed=0;
-          for nb in "$@"; do
-            py="${nb%.ipynb}.py";
-            if [[ "$nb" == *.ipynb && ! -f "$py" ]]; then
-              echo "⚠️  Missing paired file: $py - generating it using jupytext..." >&2;
-              jupytext --set-formats ipynb,py:percent "$nb";
-              if [[ ! -f "$py" ]]; then
-                echo "❌ Paired file $py still missing after generation attempt." >&2;
-                failed=1;
-              elif [[ -f "$py" ]]; then
-                echo "✅ Paired file generated" >&2;
-              fi;
-            fi;
-            if ! git ls-files --error-unmatch "$py" >/dev/null 2>&1; then
-              echo "❌ Paired file exists but is not tracked by git: $py" >&2;
-              echo "💡 Run: git add \"$py\"" >&2;
-              failed=1;
-            fi;
-          done;
-          exit $failed;
-          ' _
-        language: system
-        types: [jupyter]
-      - id: jupytext-sync-smart
-        name: jupytext (smart sync)
-        entry: >-
-          bash -c '
-          declare -A processed;
-          for file in "$@"; do
-            if [[ "$file" == *.ipynb ]]; then
-              nb_file="$file";
-              py_file="${file%.ipynb}.py";
-            elif [[ "$file" == *.py ]]; then
-              py_file="$file";
-              nb_file="${file%.py}.ipynb";
-            else
-              continue;
-            fi;
-            pair_key="${nb_file}:${py_file}";
-            if [[ ${processed[$pair_key]} ]]; then
-              continue;
-            fi;
-            processed[$pair_key]=1;
-            if [[ -f "$nb_file" && -f "$py_file" ]]; then
-              echo "❌ Files are out of sync, syncing via jupytext..." >&2;
-              jupytext --sync "$py_file";
-              echo "✅ Files synced" >&2;
-              if git ls-files --modified | grep "$py_file" >/dev/null 2>&1; then
-                echo "💡 Untracked modification from sync, run: git add \"$py_file\"" >&2;
-              elif git ls-files --modified | grep "$nb_file" >/dev/null 2>&1; then
-                echo "💡 Untracked modification from sync, run: git add \"$nb_file\"" >&2;
-              fi;
-            fi;
-          done;
-          ' _
-        language: system
-        types_or: [jupyter, python]
+      - id: jupytext-smart-sync
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.12.2
     hooks:
