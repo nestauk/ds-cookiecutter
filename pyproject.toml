@@ -1,6 +1,6 @@
 [project]
 name = "ds-cookiecutter"
-version = "0.6.0"
+version = "0.6.1"
 description = "DSP cookiecutter template"
 readme = "README.md"
 requires-python = ">=3.10"

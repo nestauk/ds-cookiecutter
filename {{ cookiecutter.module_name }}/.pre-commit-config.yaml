@@ -19,13 +19,13 @@ repos:
         args: ["-b", dev, "-b", main]
         pass_filenames: false
   - repo: https://github.com/nestauk/pre-commit-hooks
-    rev: v1.1.1
+    rev: v1.2.0
     hooks:
       - id: nbstripout-preserve-timestamp
       - id: jupytext-enforce-pairing
       - id: jupytext-smart-sync
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.12.2
+    rev: v0.12.4
     hooks:
       - id: ruff-format
       - id: ruff-check
