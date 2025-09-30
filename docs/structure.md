@@ -47,6 +47,12 @@ Now, every time you run `git commit`, it should perform these checks automatical
 
 **Warning:** You need to run `git commit` with your virtual environment activated. This is because by default the packages used by pre-commit are installed into your project's environment. (note: `pre-commit install --install-hooks` will install the pre-commit hooks in the currently active environment, which is why we source it before running in the example above).
 
+## GitHub Actions
+
+Since `pre-commit` runs locally on individual machines, we have also put in GitHub Actions to ensure that the `pre-commit` checks are also run on any pull requests, and any pushes
+to `dev` or `main`. These should be used by reviewers to ensure that any code meets the standards set in the `pre-commit-config.yaml` prior to merging. Given `pre-commit` is setup
+by default with the project, no manual setup should be required. Every time you update `pre-commit`, these checks will be reflected and run in GitHub Actions.
+
 ## Reproducible environment
 
 The first step in reproducing someone else’s analysis is to reproduce the computational environment it was run in. You need the same tools, the same libraries, and the same versions to make everything play nicely together.
