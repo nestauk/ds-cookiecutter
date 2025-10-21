@@ -49,8 +49,7 @@ Now, every time you run `git commit`, it should perform these checks automatical
 
 ## GitHub Actions
 
-Since `pre-commit` runs locally on individual machines, we have also put in GitHub Actions to ensure that the `pre-commit` checks are also run on any pull requests, and any pushes
-to `dev` or `main`. These should be used by reviewers to ensure that any code meets the standards set in the `pre-commit-config.yaml` prior to merging. Given `pre-commit` is setup
+Since `pre-commit` runs locally on individual machines, we have also put in GitHub Actions to ensure that the `pre-commit` checks are also run on any pull requests. These should be used by reviewers to ensure that any code meets the standards set in the `pre-commit-config.yaml` prior to merging. Given `pre-commit` is setup
 by default with the project, no manual setup should be required. Every time you update `pre-commit`, these checks will be reflected and run in GitHub Actions.
 
 ## Reproducible environment
