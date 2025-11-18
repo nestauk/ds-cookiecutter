@@ -113,6 +113,7 @@ class TestCookieSetup(object):
             "",
             ".git",
             ".github",
+            ".github/workflows",
             ".cookiecutter",
             ".cookiecutter/state",
             ".recipes",
