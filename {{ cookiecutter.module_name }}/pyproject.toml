@@ -1,9 +1,6 @@
 [build-system]
-requires = ["setuptools>=61.0.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools]
-packages = ["{{ cookiecutter.module_name }}"]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "{{ cookiecutter.module_name }}"
@@ -22,6 +19,9 @@ issues = "{{ formatted_url }}/issues"
 [dependency-groups]
 dev = ["ipykernel", "jupytext", "nbstripout", "ruff", {% if cookiecutter.file_structure == 'full' %}"pytest", {% endif %}{% if cookiecutter.use_r == 'yes' %}"radian", {% endif %}"pre-commit"]
 
+[tool.uv]
+package = true
+
 [tool.ruff]
 line-length = 120
 
@@ -30,7 +30,6 @@ select = [
     "ANN", # flake8-annotations
     "B",   # flake8-bugbear: Likely bugs
     "C",   # flake8-comprehensions and mccabe complexity
-    "D",   # pydocstyle: Docstring conventions
     "E",   # pycodestyle: Errors (default)
     "F",   # pyflakes: Linter
     "I",   # isort
