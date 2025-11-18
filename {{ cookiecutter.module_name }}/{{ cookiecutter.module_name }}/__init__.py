@@ -1,4 +1,4 @@
-"""{{ cookiecutter.module_name }}."""
+"""{{ cookiecutter.module_name }}"""
 
 import logging
 import logging.config
