@@ -1,4 +1,5 @@
 import shutil
+import sys
 from pathlib import Path
 from subprocess import check_output
 
@@ -11,7 +12,7 @@ base_args = {
     "project_name": "Nesta Test Cookie",
     "module_name": "nestatestcookie",
     "openness": "public",
-    "python_version": "3.13",
+    "python_version": f"{sys.version_info.major}.{sys.version_info.minor}",
     "autosetup": "yes",
 }
 test_params = [
