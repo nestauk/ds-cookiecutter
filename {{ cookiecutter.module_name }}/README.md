@@ -63,6 +63,17 @@ If you use RStudio, we recommend opening this folder via "Open Project" and comm
 
 [Technical and working style guidelines](https://github.com/nestauk/ds-cookiecutter/blob/master/GUIDELINES.md)
 
+### Versioning
+
+We use [Semantic Versioning](https://semver.org/) for versioning. This project's versioning is inferred dynamically at build via `hatchling`, based on the value in the base `__init__.py` file.
+
+To update and release the package:
+
+1. Update the version in `{{ cookiecutter.module_name }}/__init__.py` (and any other relevant places)
+2. Open a release PR with the version changes
+3. Once approved and merged, create a new release and tag on GitHub with the matching version number
+4. User's can then install the package via `uv add <repository URL> --tag <version>`
+
 ---
 
 <small><p>Project based on <a target="_blank" href="https://github.com/nestauk/ds-cookiecutter">Nesta's data science project template</a>

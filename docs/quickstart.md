@@ -51,7 +51,7 @@ git push --set-upstream --force origin dev
 
 **Now you are all set!**
 
-### 4. Next steps
+### 4. Developing your project
 
 The versioning in your package is accessible internally via `{{ cookiecutter.module_name }}.__version__` specified in `__init__.py` and externally via `pip show {{ cookiecutter.module_name }}` once installed.
 
