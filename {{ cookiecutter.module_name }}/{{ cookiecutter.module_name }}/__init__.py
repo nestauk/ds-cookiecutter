@@ -18,6 +18,9 @@ def get_yaml_config(file_path: Path) -> Optional[dict]:
 # Define project base directory
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 
+__version__ = "0.1.0"
+VERSION = "v" + __version__
+
 # Define log output locations
 info_out = str(PROJECT_DIR / "info.log")
 error_out = str(PROJECT_DIR / "errors.log")
