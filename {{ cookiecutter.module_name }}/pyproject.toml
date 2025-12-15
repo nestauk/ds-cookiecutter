@@ -42,6 +42,8 @@ select = [
 ignore = [
     "D100", # Warns about missing module-level docstrings
     "S101", # Warns about assert being removed when compiled
+    "ANN002", # Warns about missing type annotation on *args
+    "ANN003", # Warns about missing type annotation on **kwargs
 ]
 
 [tool.ruff.lint.isort]
