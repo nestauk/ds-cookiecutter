@@ -1,7 +1,11 @@
 #!/bin/bash
+set -euo pipefail
+
+ORG="nestauk"
+REPO_NAME="{{ cookiecutter.repo_name }}"
+VISIBILITY="{% if cookiecutter.openness == 'private' %}--private{% else %}--public{% endif %}"
 
 # Remove environment.yaml if not using conda
-# Set path, trim whitespace, and then remove if it exists
 path='{% if cookiecutter.venv_type != "conda" %} environment.yaml {% endif %}'
 path=$(echo "$path" | xargs)
 if [ -n "$path" ] && [ -e "$path" ]; then
@@ -11,38 +15,26 @@ fi
 # Permit auto-loading of .envrc
 direnv allow
 
-# Create git repo
+# Local git setup
 git init -q
-
-# Setup empty main and dev
 git checkout -b main -q
 git add .
 git commit -am "Setup Nesta Data Science cookiecutter" -q
 git checkout -b dev -q
 
-# Create remote repository
-GITHUB_USER=$(gh api user | jq -r '.login')
-REPO_NAME="{{ cookiecutter.repo_name }}"
-OPENNESS="{% if cookiecutter.openness == 'private' %}--private{% else %}--public{% endif %}"
-gh repo create $REPO_NAME $OPENNESS --source=. --remote=origin --push
+{% if cookiecutter.create_remote == 'yes' %}
+# Verify gh auth before touching remote
+if ! gh auth status >/dev/null 2>&1; then
+    echo "Error: gh not authenticated. Run 'gh auth login' then push manually." >&2
+    exit 1
+fi
 
-# Transfer the repository to the organisation
-gh api "repos/$GITHUB_USER/$REPO_NAME/transfer" -f "new_owner=nesta-cookiecutter-test"
+# Create remote in nestauk org, push both branches, default to dev
+gh repo create "$ORG/$REPO_NAME" $VISIBILITY --source=. --remote=origin
+git push -u origin main
+git push -u origin dev
+gh repo edit "$ORG/$REPO_NAME" --default-branch dev
 
-# Create issue on github_support
-
-ISSUE_TITLE="Configure repository: $REPO_NAME"
-ISSUE_BODY="Repository setup requested for $REPO_NAME
-
-Please configure:
-- Branch protection rules
-- Team access
-- Any other standard Nesta repository settings
-
-Thank you!"
-
-ISSUE_URL=$(gh issue create --repo nesta-cookiecutter-test/github_support --title "$ISSUE_TITLE" --body "$ISSUE_BODY")
-
-echo "Repository created and transferred: https://github.com/nesta-cookiecutter-test/$REPO_NAME"
-echo "Support issue created: $ISSUE_URL"
-echo "Configured git repo at $(pwd), please enter the project directory & run 'make install'"
+echo "Repo: https://github.com/$ORG/$REPO_NAME"
+{% endif %}
+echo "Configured git repo at $(pwd), enter project directory & run 'make install'"
