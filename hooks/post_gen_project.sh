@@ -36,5 +36,6 @@ git push -u origin dev
 gh repo edit "$ORG/$REPO_NAME" --default-branch dev
 
 echo "Repo: https://github.com/$ORG/$REPO_NAME"
+{% else %}
+echo "Configured git repo. You need to manually set GitHub remote."
 {% endif %}
-echo "Configured git repo at $(pwd), enter project directory & run 'make install'"
