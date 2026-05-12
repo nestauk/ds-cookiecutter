@@ -185,12 +185,7 @@ git checkout -b dev -q
 {% if cookiecutter.auto_configure == 'yes' %}
 # Verify gh auth before touching remote
 if ! gh auth status >/dev/null 2>&1; then
-    echo "Error: gh not authenticated. Run 'gh auth login' then follow the steps in {% if cookiecutter.auto_configure == 'yes' %}
-# Verify gh auth before touching remote
-if ! gh auth status >/dev/null 2>&1; then
     echo "Error: gh not authenticated. Run 'gh auth login' then follow the steps in https://nestauk.github.io/ds-cookiecutter/quickstart/#3-connect-your-local-project-to-github" >&2
-    exit 1
-fi." >&2
     exit 1
 fi
 
