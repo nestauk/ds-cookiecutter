@@ -19,7 +19,7 @@ BASE_CONTEXT = {
     "file_structure": "simple",
     "use_r": "no",
     "repo_url": "",
-    "create_remote": "yes",
+    "auto_configure": "yes",
 }
 
 
@@ -29,9 +29,7 @@ def _render(context: dict) -> str:
 
 def _write_stub(path: Path, name: str, body: str = "exit 0") -> None:
     stub = path / name
-    stub.write_text(
-        f'#!/bin/bash\necho "{name} $*" >> "$STUB_LOG"\n{body}\n'
-    )
+    stub.write_text(f'#!/bin/bash\necho "{name} $*" >> "$STUB_LOG"\n{body}\n')
     stub.chmod(stub.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 
 
@@ -52,10 +50,7 @@ def stub_env(tmp_path):
     real_git = shutil.which("git")
     assert real_git, "git must be on PATH to run these tests"
     (bin_dir / "git").write_text(
-        f'#!/bin/bash\n'
-        f'echo "git $*" >> "$STUB_LOG"\n'
-        f'if [ "$1" = "push" ]; then exit 0; fi\n'
-        f'exec {real_git} "$@"\n'
+        f'#!/bin/bash\necho "git $*" >> "$STUB_LOG"\nif [ "$1" = "push" ]; then exit 0; fi\nexec {real_git} "$@"\n'
     )
     (bin_dir / "git").chmod(0o755)
 
@@ -82,8 +77,7 @@ def _run_hook(tmp_path: Path, context: dict, env: dict) -> subprocess.CompletedP
     (work / ".pre-commit-config.yaml").write_text("repos: []\n")
     # Minimal pyproject.toml so the sed substitution succeeds
     (work / "pyproject.toml").write_text(
-        f'[project]\nrequires-python = "{context["python_version"]}"\n'
-        '[dependency-groups]\n'
+        f'[project]\nrequires-python = "{context["python_version"]}"\n[dependency-groups]\n'
     )
     # Fake activated venv so `source .venv/bin/activate` and `deactivate` work
     venv_bin = work / ".venv" / "bin"
@@ -109,10 +103,7 @@ class TestCreateRemoteYes:
         assert result.returncode == 0, result.stderr
         log_text = log.read_text()
         assert "gh auth status" in log_text
-        assert (
-            "gh repo create nestauk/testrepo --public --source=. --remote=origin"
-            in log_text
-        )
+        assert "gh repo create nestauk/testrepo --public --source=. --remote=origin" in log_text
 
     def test_pushes_both_branches(self, tmp_path, stub_env):
         env, log = stub_env
@@ -126,9 +117,7 @@ class TestCreateRemoteYes:
         env, log = stub_env
         result = _run_hook(tmp_path, BASE_CONTEXT, env)
         assert result.returncode == 0, result.stderr
-        assert (
-            "gh repo edit nestauk/testrepo --default-branch dev" in log.read_text()
-        )
+        assert "gh repo edit nestauk/testrepo --default-branch dev" in log.read_text()
 
     def test_private_visibility_flag(self, tmp_path, stub_env):
         env, log = stub_env
@@ -142,10 +131,10 @@ class TestCreateRemoteYes:
         bin_dir = Path(env["PATH"].split(os.pathsep)[0])
         # Replace gh stub so `gh auth status` returns nonzero
         (bin_dir / "gh").write_text(
-            '#!/bin/bash\n'
+            "#!/bin/bash\n"
             'echo "gh $*" >> "$STUB_LOG"\n'
             'if [ "$1" = "auth" ] && [ "$2" = "status" ]; then exit 1; fi\n'
-            'exit 0\n'
+            "exit 0\n"
         )
         (bin_dir / "gh").chmod(0o755)
         result = _run_hook(tmp_path, BASE_CONTEXT, env)
@@ -156,11 +145,11 @@ class TestCreateRemoteYes:
 
 
 class TestCreateRemoteLocal:
-    """create_remote='local' configures project locally but skips GitHub."""
+    """auto_configure='local' configures project locally but skips GitHub."""
 
     def test_skips_all_remote_calls(self, tmp_path, stub_env):
         env, log = stub_env
-        ctx = {**BASE_CONTEXT, "create_remote": "local"}
+        ctx = {**BASE_CONTEXT, "auto_configure": "local"}
         result = _run_hook(tmp_path, ctx, env)
         assert result.returncode == 0, result.stderr
         log_text = log.read_text()
@@ -171,14 +160,14 @@ class TestCreateRemoteLocal:
 
     def test_prints_manual_remote_message(self, tmp_path, stub_env):
         env, _ = stub_env
-        ctx = {**BASE_CONTEXT, "create_remote": "local"}
+        ctx = {**BASE_CONTEXT, "auto_configure": "local"}
         result = _run_hook(tmp_path, ctx, env)
         assert result.returncode == 0, result.stderr
         assert "manually set GitHub remote" in result.stdout
 
     def test_runs_project_configuration(self, tmp_path, stub_env):
         env, log = stub_env
-        ctx = {**BASE_CONTEXT, "create_remote": "local"}
+        ctx = {**BASE_CONTEXT, "auto_configure": "local"}
         result = _run_hook(tmp_path, ctx, env)
         assert result.returncode == 0, result.stderr
         log_text = log.read_text()
@@ -189,11 +178,11 @@ class TestCreateRemoteLocal:
 
 
 class TestCreateRemoteNo:
-    """create_remote='no' skips project configuration entirely."""
+    """auto_configure='no' skips project configuration entirely."""
 
     def test_skips_all_remote_calls(self, tmp_path, stub_env):
         env, log = stub_env
-        ctx = {**BASE_CONTEXT, "create_remote": "no"}
+        ctx = {**BASE_CONTEXT, "auto_configure": "no"}
         result = _run_hook(tmp_path, ctx, env)
         assert result.returncode == 0, result.stderr
         log_text = log.read_text()
@@ -204,7 +193,7 @@ class TestCreateRemoteNo:
 
     def test_skips_project_configuration(self, tmp_path, stub_env):
         env, log = stub_env
-        ctx = {**BASE_CONTEXT, "create_remote": "no"}
+        ctx = {**BASE_CONTEXT, "auto_configure": "no"}
         result = _run_hook(tmp_path, ctx, env)
         assert result.returncode == 0, result.stderr
         log_text = log.read_text()
@@ -216,7 +205,7 @@ class TestCreateRemoteNo:
 
     def test_prints_skipped_message(self, tmp_path, stub_env):
         env, _ = stub_env
-        ctx = {**BASE_CONTEXT, "create_remote": "no"}
+        ctx = {**BASE_CONTEXT, "auto_configure": "no"}
         result = _run_hook(tmp_path, ctx, env)
         assert result.returncode == 0, result.stderr
         assert "Skipped project configuration" in result.stdout

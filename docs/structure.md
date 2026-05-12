@@ -18,7 +18,7 @@ _**Note:** In the following sections we use `src/` to denote the project name to
 
 ## Project configuration
 
-After establishing the project structure, the cookiecutter can automatically do the following for you (depending on the value of `create_remote`):
+After establishing the project structure, the cookiecutter can automatically do the following for you (depending on the value of `auto_configure`):
 
 1. Set up your virtual environment using your selected tool, such as `uv`, `poetry`, or `conda`.
 2. Set up pre-commit and install the hooks specified in `.pre-commit-config.yaml`.
@@ -26,7 +26,7 @@ After establishing the project structure, the cookiecutter can automatically do 
 4. Set up the `git` repository using `git init` and create the initial commit on `main` and `dev` branches.
 5. Create a GitHub repo under `nestauk` and push `main` and `dev` to it (`git push -u origin main` / `dev`).
 
-The `create_remote` option controls which of the above steps run:
+The `auto_configure` option controls which of the above steps run:
 
 - `yes` — run all five steps: configure the project locally **and** create the GitHub remote.
 - `local` — run steps 1–4 only: configure the project locally but do not create or push to a GitHub remote (link a remote manually later).

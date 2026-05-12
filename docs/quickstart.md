@@ -36,14 +36,14 @@ You will be prompted to enter the following information:
 -   `python_version [3.13]`: The behaviour of this prompt depends on the `venv_type` you selected. If you selected `uv` you may provide a PEP compliant expression for the `pyproject.toml` (e.g. `>=3.10`, `==3.11.*`, etc., or just `3.13`). If you selected `venv` it must be a single version that is **available** on your system (e.g. `3.10` if you have it installed). If you selected `conda`, you needn't have the version installed but again you must specify a single version (e.g. `3.10`, `3.10.2`, etc.). The `pyproject.toml` will be created with the specified version.
 -   `file_structure [standard]`: choose the complexity of your project. The options are: `simple` (basic and recommended for small projects: includes folders for analysis, getters and notebooks); `standard` (a good balance between simplicity and complexity: adds folders for utils, config and pipelines; moves notebooks into analysis); and `full` (adds folders separate from the module for documentation and testing).
 -   `use_r [no]`: whether you want to use R in your project. If you select `yes`, the cookiecutter will create an `renv` environment and set up some auxiliary things for the project, such as an `.Renviron` file for AWS credentials.
--   `create_remote [yes]`: controls how much of the project configuration the cookiecutter performs automatically.
+-   `auto_configure [yes]`: controls how much of the project configuration the cookiecutter performs automatically.
     -   `yes`: configure the project locally (venv, pre-commit, direnv, git init, initial commits on `main`/`dev`) **and** create a GitHub repo under `nestauk` (using `gh`), pushing `main` and `dev`.
     -   `local`: configure the project locally as above but skip the GitHub remote — link a remote manually (see step 3).
     -   `no`: skip all configuration. No environment, pre-commit, `direnv`, `git init`, or GitHub remote. Run those steps yourself when ready (see [Project configuration](structure.md#project-configuration)).
 
 ### 3. Connect your local project to github
 
-If you set `create_remote` to `yes`, the GitHub repo has already been created and both branches pushed — you're done. If you set it to `local`, the local git repo is initialised with `main` and `dev` branches; link the remote manually by running `git remote add origin git@github.com:nestauk/<REPONAME>` to point your local project at the configured repository. Then (force) push each branch to the remote repository with, **this will overwrite anything on the remote branches**:
+If you set `auto_configure` to `yes`, the GitHub repo has already been created and both branches pushed — you're done. If you set it to `local`, the local git repo is initialised with `main` and `dev` branches; link the remote manually by running `git remote add origin git@github.com:nestauk/<REPONAME>` to point your local project at the configured repository. Then (force) push each branch to the remote repository with, **this will overwrite anything on the remote branches**:
 
 ```bash
 git checkout main

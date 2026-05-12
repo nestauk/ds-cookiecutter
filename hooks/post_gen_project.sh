@@ -90,7 +90,7 @@ if [ "$USE_R" = "no" ]; then
     rm -f "$MODULE_NAME.Rproj"
 fi
 
-{% if cookiecutter.create_remote != 'no' %}
+{% if cookiecutter.auto_configure != 'no' %}
 if command -v direnv &> /dev/null; then
     echo
     echo "Authorizing direnv..."
@@ -182,7 +182,7 @@ git add .
 SKIP=no-commit-to-branch git commit -am "Setup Nesta Data Science cookiecutter"
 git checkout -b dev -q
 
-{% if cookiecutter.create_remote == 'yes' %}
+{% if cookiecutter.auto_configure == 'yes' %}
 # Verify gh auth before touching remote
 if ! gh auth status >/dev/null 2>&1; then
     echo "Error: gh not authenticated. Run 'gh auth login' then push manually." >&2
