@@ -1,9 +1,25 @@
 {
-  "project_name": "project_name",
-  "repo_name": "{{ cookiecutter.project_name.lstrip('0123456789.- ').replace(' ', '_').replace('-', '_').lower() }}",
-  "author_name": "Nesta",
+  "project_name": "Project Name",
+  "module_name": "{{ cookiecutter.project_name.lstrip('0123456789.- ').replace(' ', '_').replace('-', '_').lower() }}",
+  "repo_url": "",
   "description": "A short description of the project.",
   "openness": ["public", "private"],
   "create_remote": ["yes", "no"],
-  "venv_type": ["uv", "venv", "conda"]
+  "venv_type": ["uv", "venv", "conda"],
+  "python_version": "3.13",
+  "file_structure": ["standard", "simple", "full"],
+  "use_r": ["no", "yes"],
+  "autosetup": ["yes", "no"],
+  "__prompts__": {
+    "project_name": "Project name",
+    "module_name": "Module name (lowercase, no spaces or special characters except underscores)",
+    "repo_url": "Repository URL (optional)",
+    "description": "Project description",
+    "openness": "Select a level of openness (note this does not change the privacy setting of a connected GitHub repository)",
+    "venv_type": "Select a virtual environment type",
+    "python_version": "Project Python version (strict e.g. 3.13 or PEP-compliant constraint e.g., >=3.13)",
+    "file_structure": "Select a file structure",
+    "use_r": "Use R?",
+    "autosetup": "Run auto-setup?"
+  }
 }

@@ -1,0 +1,56 @@
+site_name: Cookiecutter Data Science @ Nesta
+site_description: A project template and directory structure for Nesta Python data science projects.
+site_url: https://nestauk.github.io/ds-cookiecutter
+repo_name: nestauk/ds-cookiecutter
+repo_url: https://github.com/nestauk/ds-cookiecutter
+edit_uri: edit/master/docs/docs
+# copyright: Adapted from the <a href="http://drivendata.github.io/cookiecutter-data-science/">Drivendata data science cookiecutter</a>
+extra:
+  homepage: https://nestauk.github.io/ds-cookiecutter
+theme:
+  name: material
+  # disable_nav_previous_next: true
+  # disable_footer: false
+  logo: favicon.ico
+  favicon: favicon.ico
+  features:
+    - navigation.instant
+    - navigation.tracking
+    # - navigation.tabs
+    - navigation.sections
+    - navigation.top
+  font:
+    text: Century Gothic
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: amber
+      accent: pink
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+markdown_extensions:
+  - toc:
+      permalink: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - def_list
+  - admonition
+  - pymdownx.details
+  - footnotes
+  - pymdownx.highlight
+  - attr_list
+extra_css:
+  - css/extra.css
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - Development: developers.md
+  - Template structure: structure.md

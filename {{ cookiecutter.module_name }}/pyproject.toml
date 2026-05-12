@@ -1,0 +1,60 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "{{ cookiecutter.module_name }}/__init__.py"
+
+[project]
+name = "{{ cookiecutter.module_name }}"
+dynamic = ["version"]
+description = "{{ cookiecutter.description }}"
+authors = [{ name = "Nesta" }]
+license = { text = "{% if cookiecutter.openness == 'public' %}MIT{% else %}proprietary{% endif %}" }
+readme = "README.md"
+requires-python = "{{ cookiecutter.python_version }}"
+dependencies = []
+{% if cookiecutter.repo_url %}{% set formatted_url = cookiecutter.repo_url.startswith('git@github.com:') and 'https://github.com/' + cookiecutter.repo_url[15:].rstrip('.git') or cookiecutter.repo_url.rstrip('.git') %}
+[project.urls]
+repository = "{{ formatted_url }}"
+issues = "{{ formatted_url }}/issues"
+{% endif %}
+[dependency-groups]
+dev = ["ipykernel", "jupytext", "nbstripout", "ruff", {% if cookiecutter.file_structure == 'full' %}"pytest", {% endif %}{% if cookiecutter.use_r == 'yes' %}"radian", {% endif %}"pre-commit"]
+
+[tool.uv]
+package = true
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "ANN", # flake8-annotations
+    "B",   # flake8-bugbear: Likely bugs
+    "C",   # flake8-comprehensions and mccabe complexity
+    "E",   # pycodestyle: Errors (default)
+    "F",   # pyflakes: Linter
+    "I",   # isort
+    "N",   # pep8-naming: Naming conventions
+    "W",   # pycodestyle: Warnings (default)
+]
+ignore = [
+    "D100", # Warns about missing module-level docstrings
+    "S101", # Warns about assert being removed when compiled
+    "ANN002", # Warns about missing type annotation on *args
+    "ANN003", # Warns about missing type annotation on **kwargs
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["{{ cookiecutter.module_name }}"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401", "E402", "D104"]
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = "dynamic"

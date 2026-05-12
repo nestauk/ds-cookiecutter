@@ -1,0 +1,8 @@
+channels:
+  - nodefaults
+  - conda-forge
+dependencies:
+  - pip
+  - python={{ cookiecutter.python_version }}
+  # Only put dependencies that are NOT available with pip here (e.g. graph-tool)
+  # or that enable extra functionality such as GPU/MKL support
