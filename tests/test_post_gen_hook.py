@@ -12,9 +12,13 @@ import pytest
 HOOK_PATH = Path(__file__).parents[1] / "hooks" / "post_gen_project.sh"
 
 BASE_CONTEXT = {
-    "repo_name": "testrepo",
+    "module_name": "testrepo",
     "openness": "public",
     "venv_type": "uv",
+    "python_version": "3.13",
+    "file_structure": "simple",
+    "use_r": "no",
+    "repo_url": "",
     "create_remote": "yes",
 }
 
@@ -41,6 +45,8 @@ def stub_env(tmp_path):
 
     _write_stub(bin_dir, "gh")
     _write_stub(bin_dir, "direnv")
+    _write_stub(bin_dir, "uv")
+    _write_stub(bin_dir, "pre-commit")
 
     # git wrapper: log all calls, short-circuit `push`, delegate everything else
     real_git = shutil.which("git")
@@ -72,6 +78,21 @@ def _run_hook(tmp_path: Path, context: dict, env: dict) -> subprocess.CompletedP
     script.chmod(0o755)
     # Hook expects to optionally remove this file when venv_type != conda
     (work / "environment.yaml").write_text("")
+    # pre-commit config — staged by the hook between pre-commit runs
+    (work / ".pre-commit-config.yaml").write_text("repos: []\n")
+    # Minimal pyproject.toml so the sed substitution succeeds
+    (work / "pyproject.toml").write_text(
+        f'[project]\nrequires-python = "{context["python_version"]}"\n'
+        '[dependency-groups]\n'
+    )
+    # Fake activated venv so `source .venv/bin/activate` and `deactivate` work
+    venv_bin = work / ".venv" / "bin"
+    venv_bin.mkdir(parents=True)
+    (venv_bin / "activate").write_text("deactivate() { :; }\n")
+    # Module dir referenced by file_structure cleanup
+    (work / context["module_name"]).mkdir()
+    (work / context["module_name"] / "analysis").mkdir()
+    (work / context["module_name"] / "analysis" / "notebooks").mkdir()
     return subprocess.run(
         ["bash", str(script)],
         cwd=work,

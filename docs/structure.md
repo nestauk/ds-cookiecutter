@@ -18,15 +18,15 @@ _**Note:** In the following sections we use `src/` to denote the project name to
 
 ## Project configuration
 
-Depending on your choice of `autosetup` the cookiecutter will either stop at establishing the project structure, or it will do the following for you:
+After establishing the project structure, the cookiecutter automatically does the following for you:
 
 1. Set up your virtual environment using your selected tool, such as `uv`, `poetry`, or `conda`.
 2. Set up pre-commit and install the hooks specified in `.pre-commit-config.yaml`.
 3. Run `direnv allow` in context of the project so that the `.env` and `.envrc` files are automatically loaded (importing environment variables and activating the relevant virtual environment).
 4. Set up the `git` repository using `git init` and create the initial commit on `main` and `dev` branches.
-5. Force push the initial commit to the remote repository (if specified) using `git push -u origin main` and `git push -u origin dev`.
+5. If `create_remote` is `yes`, create a GitHub repo under `nestauk` and push `main` and `dev` to it (`git push -u origin main` / `dev`). Otherwise, link a remote manually.
 
-These steps can be completed manually if the `autosetup` option was not used. Critically, they (with the exception of the `git` parts when cloning a repo) are the first steps we should take when working in any repository, whether it's a new project or a clone of a colleague's!
+Critically, these steps (with the exception of the `git` parts when cloning a repo) are the first steps we should take when working in any repository, whether it's a new project or a clone of a colleague's!
 
 **The following sections are potentially outdated but go into greater detail about the steps above.
 **

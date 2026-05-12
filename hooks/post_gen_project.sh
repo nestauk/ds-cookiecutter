@@ -2,11 +2,11 @@
 set -euo pipefail
 
 ORG="nestauk"
-REPO_NAME="{{ cookiecutter.repo_name }}"
 VISIBILITY="{% if cookiecutter.openness == 'private' %}--private{% else %}--public{% endif %}"
 PYTHON_VERSION="{{ cookiecutter.python_version }}"
 VENV_TYPE="{{ cookiecutter.venv_type }}"
 MODULE_NAME="{{ cookiecutter.module_name }}"
+REPO_NAME="$MODULE_NAME"
 FILE_STRUCTURE="{{ cookiecutter.file_structure }}"
 REPO_URL="{{ cookiecutter.repo_url }}"
 USE_R="{{ cookiecutter.use_r }}"
@@ -161,9 +161,9 @@ echo
 echo "Setting up pre-commit hooks..."
 
 pre-commit install --install-hooks
-pre-commit run pre-commit-update
+pre-commit run pre-commit-update || true
 git add .pre-commit-config.yaml
-pre-commit run prettier
+pre-commit run prettier || true
 git add .pre-commit-config.yaml
 
 # Deactivate the virtual environment
