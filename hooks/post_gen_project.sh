@@ -11,6 +11,14 @@ FILE_STRUCTURE="{{ cookiecutter.file_structure }}"
 REPO_URL="{{ cookiecutter.repo_url }}"
 USE_R="{{ cookiecutter.use_r }}"
 
+{% if cookiecutter.auto_configure == 'yes' %}
+# Verify gh auth before touching remote
+if ! gh auth status >/dev/null 2>&1; then
+    echo "Error: gh not authenticated. Run 'gh auth login' then rerun the cookiecutter." >&2
+    exit 1
+fi
+{% endif %}
+
 # Different validation logic based on venv_type
 if [ "$VENV_TYPE" = "uv" ]; then
     # For uv, check if version begins with == or >=
@@ -183,12 +191,6 @@ SKIP=no-commit-to-branch git commit -am "Setup Nesta Data Science cookiecutter"
 git checkout -b dev -q
 
 {% if cookiecutter.auto_configure == 'yes' %}
-# Verify gh auth before touching remote
-if ! gh auth status >/dev/null 2>&1; then
-    echo "Error: gh not authenticated. Run 'gh auth login' then follow the steps in https://nestauk.github.io/ds-cookiecutter/quickstart/#3-connect-your-local-project-to-github" >&2
-    exit 1
-fi
-
 # Create remote in nestauk org, push both branches, default to dev
 gh repo create "$ORG/$REPO_NAME" $VISIBILITY --source=. --remote=origin
 git push -u origin main
