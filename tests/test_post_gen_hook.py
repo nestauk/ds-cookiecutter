@@ -155,7 +155,42 @@ class TestCreateRemoteYes:
         assert "gh repo create" not in log_text
 
 
+class TestCreateRemoteLocal:
+    """create_remote='local' configures project locally but skips GitHub."""
+
+    def test_skips_all_remote_calls(self, tmp_path, stub_env):
+        env, log = stub_env
+        ctx = {**BASE_CONTEXT, "create_remote": "local"}
+        result = _run_hook(tmp_path, ctx, env)
+        assert result.returncode == 0, result.stderr
+        log_text = log.read_text()
+        assert "gh auth status" not in log_text
+        assert "gh repo create" not in log_text
+        assert "gh repo edit" not in log_text
+        assert "git push" not in log_text
+
+    def test_prints_manual_remote_message(self, tmp_path, stub_env):
+        env, _ = stub_env
+        ctx = {**BASE_CONTEXT, "create_remote": "local"}
+        result = _run_hook(tmp_path, ctx, env)
+        assert result.returncode == 0, result.stderr
+        assert "manually set GitHub remote" in result.stdout
+
+    def test_runs_project_configuration(self, tmp_path, stub_env):
+        env, log = stub_env
+        ctx = {**BASE_CONTEXT, "create_remote": "local"}
+        result = _run_hook(tmp_path, ctx, env)
+        assert result.returncode == 0, result.stderr
+        log_text = log.read_text()
+        assert "git init" in log_text
+        assert "git commit" in log_text
+        assert "direnv allow" in log_text
+        assert "pre-commit install" in log_text
+
+
 class TestCreateRemoteNo:
+    """create_remote='no' skips project configuration entirely."""
+
     def test_skips_all_remote_calls(self, tmp_path, stub_env):
         env, log = stub_env
         ctx = {**BASE_CONTEXT, "create_remote": "no"}
@@ -167,9 +202,21 @@ class TestCreateRemoteNo:
         assert "gh repo edit" not in log_text
         assert "git push" not in log_text
 
-    def test_prints_manual_remote_message(self, tmp_path, stub_env):
+    def test_skips_project_configuration(self, tmp_path, stub_env):
+        env, log = stub_env
+        ctx = {**BASE_CONTEXT, "create_remote": "no"}
+        result = _run_hook(tmp_path, ctx, env)
+        assert result.returncode == 0, result.stderr
+        log_text = log.read_text()
+        assert "git init" not in log_text
+        assert "git commit" not in log_text
+        assert "direnv allow" not in log_text
+        assert "pre-commit install" not in log_text
+        assert "uv sync" not in log_text
+
+    def test_prints_skipped_message(self, tmp_path, stub_env):
         env, _ = stub_env
         ctx = {**BASE_CONTEXT, "create_remote": "no"}
         result = _run_hook(tmp_path, ctx, env)
         assert result.returncode == 0, result.stderr
-        assert "manually set GitHub remote" in result.stdout
+        assert "Skipped project configuration" in result.stdout

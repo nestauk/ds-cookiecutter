@@ -13,7 +13,7 @@ base_args = {
     "module_name": "nestatestcookie",
     "openness": "public",
     "python_version": f"{sys.version_info.major}.{sys.version_info.minor}",
-    "create_remote": "no",
+    "create_remote": "local",
 }
 test_params = [
     {**base_args, "venv_type": venv_type, "file_structure": file_structure}

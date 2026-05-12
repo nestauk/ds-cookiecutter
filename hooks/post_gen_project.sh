@@ -90,6 +90,7 @@ if [ "$USE_R" = "no" ]; then
     rm -f "$MODULE_NAME.Rproj"
 fi
 
+{% if cookiecutter.create_remote != 'no' %}
 if command -v direnv &> /dev/null; then
     echo
     echo "Authorizing direnv..."
@@ -197,6 +198,9 @@ gh repo edit "$ORG/$REPO_NAME" --default-branch dev
 echo "Repo: https://github.com/$ORG/$REPO_NAME"
 {% else %}
 echo "Configured git repo. You need to manually set GitHub remote."
+{% endif %}
+{% else %}
+echo "Skipped project configuration. See docs/structure.md for the setup steps to run manually when ready."
 {% endif %}
 
 echo "Setup complete! You can now start working on your project."
