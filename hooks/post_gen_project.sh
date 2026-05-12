@@ -160,6 +160,8 @@ fi
 echo
 echo "Setting up pre-commit hooks..."
 
+
+# Use || true to ensure we don't exit setup on non-zero return
 pre-commit install --install-hooks
 pre-commit run pre-commit-update || true
 git add .pre-commit-config.yaml
