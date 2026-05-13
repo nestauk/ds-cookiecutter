@@ -18,15 +18,21 @@ _**Note:** In the following sections we use `src/` to denote the project name to
 
 ## Project configuration
 
-Depending on your choice of `autosetup` the cookiecutter will either stop at establishing the project structure, or it will do the following for you:
+After establishing the project structure, the cookiecutter can automatically do the following for you (depending on the value of `auto_configure`):
 
 1. Set up your virtual environment using your selected tool, such as `uv`, `poetry`, or `conda`.
 2. Set up pre-commit and install the hooks specified in `.pre-commit-config.yaml`.
 3. Run `direnv allow` in context of the project so that the `.env` and `.envrc` files are automatically loaded (importing environment variables and activating the relevant virtual environment).
 4. Set up the `git` repository using `git init` and create the initial commit on `main` and `dev` branches.
-5. Force push the initial commit to the remote repository (if specified) using `git push -u origin main` and `git push -u origin dev`.
+5. Create a GitHub repo under `nestauk` and push `main` and `dev` to it (`git push -u origin main` / `dev`).
 
-These steps can be completed manually if the `autosetup` option was not used. Critically, they (with the exception of the `git` parts when cloning a repo) are the first steps we should take when working in any repository, whether it's a new project or a clone of a colleague's!
+The `auto_configure` option controls which of the above steps run:
+
+- `yes` — run all five steps: configure the project locally **and** create the GitHub remote.
+- `local` — run steps 1–4 only: configure the project locally but do not create or push to a GitHub remote (link a remote manually later).
+- `no` — skip all five steps. The project files are generated but no environment is created, no git repo is initialised, and no GitHub remote is created. Run the steps above manually when you are ready.
+
+Critically, these steps (with the exception of the `git` parts when cloning a repo) are the first steps we should take when working in any repository, whether it's a new project or a clone of a colleague's!
 
 **The following sections are potentially outdated but go into greater detail about the steps above.
 **

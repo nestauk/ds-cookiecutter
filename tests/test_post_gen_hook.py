@@ -1,0 +1,238 @@
+"""Tests for hooks/post_gen_project.sh remote-repo creation behavior."""
+
+import os
+import shutil
+import stat
+import subprocess
+from pathlib import Path
+
+import jinja2
+import pytest
+
+HOOK_PATH = Path(__file__).parents[1] / "hooks" / "post_gen_project.sh"
+
+BASE_CONTEXT = {
+    "module_name": "testrepo",
+    "openness": "public",
+    "venv_type": "uv",
+    "python_version": "3.13",
+    "file_structure": "simple",
+    "use_r": "no",
+    "repo_url": "",
+    "auto_configure": "yes",
+}
+
+
+def _render(context: dict) -> str:
+    return jinja2.Template(HOOK_PATH.read_text()).render(cookiecutter=context)
+
+
+def _write_stub(path: Path, name: str, body: str = "exit 0") -> None:
+    stub = path / name
+    stub.write_text(f'#!/bin/bash\necho "{name} $*" >> "$STUB_LOG"\n{body}\n')
+    stub.chmod(stub.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+
+
+@pytest.fixture
+def stub_env(tmp_path):
+    """Build PATH with stub binaries for gh, direnv, and git-push interception."""
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    log = tmp_path / "stub.log"
+    log.touch()
+
+    _write_stub(bin_dir, "gh")
+    _write_stub(bin_dir, "direnv")
+    _write_stub(bin_dir, "uv")
+    _write_stub(bin_dir, "pre-commit")
+
+    # git wrapper: log all calls, short-circuit `push`, delegate everything else
+    real_git = shutil.which("git")
+    assert real_git, "git must be on PATH to run these tests"
+    (bin_dir / "git").write_text(
+        f'#!/bin/bash\necho "git $*" >> "$STUB_LOG"\nif [ "$1" = "push" ]; then exit 0; fi\nexec {real_git} "$@"\n'
+    )
+    (bin_dir / "git").chmod(0o755)
+
+    env = os.environ.copy()
+    env["PATH"] = f"{bin_dir}{os.pathsep}{env['PATH']}"
+    env["STUB_LOG"] = str(log)
+    # Ensure git commit works in CI without global config
+    env["GIT_AUTHOR_NAME"] = "Test"
+    env["GIT_AUTHOR_EMAIL"] = "test@example.com"
+    env["GIT_COMMITTER_NAME"] = "Test"
+    env["GIT_COMMITTER_EMAIL"] = "test@example.com"
+    return env, log
+
+
+def _run_hook(tmp_path: Path, context: dict, env: dict) -> subprocess.CompletedProcess:
+    work = tmp_path / "work"
+    work.mkdir()
+    script = work / "post_gen_project.sh"
+    script.write_text(_render(context))
+    script.chmod(0o755)
+    # Hook expects to optionally remove this file when venv_type != conda
+    (work / "environment.yaml").write_text("")
+    # pre-commit config — staged by the hook between pre-commit runs
+    (work / ".pre-commit-config.yaml").write_text("repos: []\n")
+    # Minimal pyproject.toml so the sed substitution succeeds
+    (work / "pyproject.toml").write_text(
+        f'[project]\nrequires-python = "{context["python_version"]}"\n[dependency-groups]\n'
+    )
+    # Fake activated venv so `source .venv/bin/activate` and `deactivate` work
+    venv_bin = work / ".venv" / "bin"
+    venv_bin.mkdir(parents=True)
+    (venv_bin / "activate").write_text("deactivate() { :; }\n")
+    # Module dir referenced by file_structure cleanup
+    (work / context["module_name"]).mkdir()
+    (work / context["module_name"] / "analysis").mkdir()
+    (work / context["module_name"] / "analysis" / "notebooks").mkdir()
+    return subprocess.run(
+        ["bash", str(script)],
+        cwd=work,
+        env=env,
+        capture_output=True,
+        text=True,
+    )
+
+
+class TestCreateRemoteYes:
+    def test_calls_gh_repo_create_under_nestauk(self, tmp_path, stub_env):
+        env, log = stub_env
+        result = _run_hook(tmp_path, BASE_CONTEXT, env)
+        assert result.returncode == 0, result.stderr
+        log_text = log.read_text()
+        assert "gh auth status" in log_text
+        assert "gh repo create nestauk/testrepo --public --source=. --remote=origin" in log_text
+
+    def test_pushes_both_branches(self, tmp_path, stub_env):
+        env, log = stub_env
+        result = _run_hook(tmp_path, BASE_CONTEXT, env)
+        assert result.returncode == 0, result.stderr
+        log_text = log.read_text()
+        assert "git push -u origin main" in log_text
+        assert "git push -u origin dev" in log_text
+
+    def test_sets_default_branch_to_dev(self, tmp_path, stub_env):
+        env, log = stub_env
+        result = _run_hook(tmp_path, BASE_CONTEXT, env)
+        assert result.returncode == 0, result.stderr
+        assert "gh repo edit nestauk/testrepo --default-branch dev" in log.read_text()
+
+    def test_private_visibility_flag(self, tmp_path, stub_env):
+        env, log = stub_env
+        ctx = {**BASE_CONTEXT, "openness": "private"}
+        result = _run_hook(tmp_path, ctx, env)
+        assert result.returncode == 0, result.stderr
+        assert "gh repo create nestauk/testrepo --private" in log.read_text()
+
+    def test_fails_when_gh_not_authenticated(self, tmp_path, stub_env):
+        env, log = stub_env
+        bin_dir = Path(env["PATH"].split(os.pathsep)[0])
+        # Replace gh stub so `gh auth status` returns nonzero
+        (bin_dir / "gh").write_text(
+            "#!/bin/bash\n"
+            'echo "gh $*" >> "$STUB_LOG"\n'
+            'if [ "$1" = "auth" ] && [ "$2" = "status" ]; then exit 1; fi\n'
+            "exit 0\n"
+        )
+        (bin_dir / "gh").chmod(0o755)
+        result = _run_hook(tmp_path, BASE_CONTEXT, env)
+        assert result.returncode != 0
+        assert "gh not authenticated" in result.stderr
+        log_text = log.read_text()
+        assert "gh repo create" not in log_text
+
+    def test_bails_immediately_when_gh_not_authenticated(self, tmp_path, stub_env):
+        """gh check is first thing in script — nothing else should run on failure."""
+        env, log = stub_env
+        bin_dir = Path(env["PATH"].split(os.pathsep)[0])
+        (bin_dir / "gh").write_text(
+            "#!/bin/bash\n"
+            'echo "gh $*" >> "$STUB_LOG"\n'
+            'if [ "$1" = "auth" ] && [ "$2" = "status" ]; then exit 1; fi\n'
+            "exit 0\n"
+        )
+        (bin_dir / "gh").chmod(0o755)
+        result = _run_hook(tmp_path, BASE_CONTEXT, env)
+        assert result.returncode != 0
+        log_text = log.read_text()
+        # No side effects — pyproject sed, git init, direnv, venv, pre-commit all skipped
+        assert "git init" not in log_text
+        assert "git add" not in log_text
+        assert "git commit" not in log_text
+        assert "git checkout" not in log_text
+        assert "git push" not in log_text
+        assert "direnv" not in log_text
+        assert "uv sync" not in log_text
+        assert "pre-commit" not in log_text
+        # pyproject.toml untouched
+        work = tmp_path / "work"
+        assert 'requires-python = "3.13"' in (work / "pyproject.toml").read_text()
+
+
+class TestCreateRemoteLocal:
+    """auto_configure='local' configures project locally but skips GitHub."""
+
+    def test_skips_all_remote_calls(self, tmp_path, stub_env):
+        env, log = stub_env
+        ctx = {**BASE_CONTEXT, "auto_configure": "local"}
+        result = _run_hook(tmp_path, ctx, env)
+        assert result.returncode == 0, result.stderr
+        log_text = log.read_text()
+        assert "gh auth status" not in log_text
+        assert "gh repo create" not in log_text
+        assert "gh repo edit" not in log_text
+        assert "git push" not in log_text
+
+    def test_prints_manual_remote_message(self, tmp_path, stub_env):
+        env, _ = stub_env
+        ctx = {**BASE_CONTEXT, "auto_configure": "local"}
+        result = _run_hook(tmp_path, ctx, env)
+        assert result.returncode == 0, result.stderr
+        assert "manually set GitHub remote" in result.stdout
+
+    def test_runs_project_configuration(self, tmp_path, stub_env):
+        env, log = stub_env
+        ctx = {**BASE_CONTEXT, "auto_configure": "local"}
+        result = _run_hook(tmp_path, ctx, env)
+        assert result.returncode == 0, result.stderr
+        log_text = log.read_text()
+        assert "git init" in log_text
+        assert "git commit" in log_text
+        assert "direnv allow" in log_text
+        assert "pre-commit install" in log_text
+
+
+class TestCreateRemoteNo:
+    """auto_configure='no' skips project configuration entirely."""
+
+    def test_skips_all_remote_calls(self, tmp_path, stub_env):
+        env, log = stub_env
+        ctx = {**BASE_CONTEXT, "auto_configure": "no"}
+        result = _run_hook(tmp_path, ctx, env)
+        assert result.returncode == 0, result.stderr
+        log_text = log.read_text()
+        assert "gh auth status" not in log_text
+        assert "gh repo create" not in log_text
+        assert "gh repo edit" not in log_text
+        assert "git push" not in log_text
+
+    def test_skips_project_configuration(self, tmp_path, stub_env):
+        env, log = stub_env
+        ctx = {**BASE_CONTEXT, "auto_configure": "no"}
+        result = _run_hook(tmp_path, ctx, env)
+        assert result.returncode == 0, result.stderr
+        log_text = log.read_text()
+        assert "git init" not in log_text
+        assert "git commit" not in log_text
+        assert "direnv allow" not in log_text
+        assert "pre-commit install" not in log_text
+        assert "uv sync" not in log_text
+
+    def test_prints_skipped_message(self, tmp_path, stub_env):
+        env, _ = stub_env
+        ctx = {**BASE_CONTEXT, "auto_configure": "no"}
+        result = _run_hook(tmp_path, ctx, env)
+        assert result.returncode == 0, result.stderr
+        assert "Skipped project configuration" in result.stdout

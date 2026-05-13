@@ -1,12 +1,23 @@
 #!/bin/bash
+set -euo pipefail
 
+ORG="nestauk"
+VISIBILITY="{% if cookiecutter.openness == 'private' %}--private{% else %}--public{% endif %}"
 PYTHON_VERSION="{{ cookiecutter.python_version }}"
 VENV_TYPE="{{ cookiecutter.venv_type }}"
 MODULE_NAME="{{ cookiecutter.module_name }}"
+REPO_NAME="$MODULE_NAME"
 FILE_STRUCTURE="{{ cookiecutter.file_structure }}"
-AUTOSETUP="{{ cookiecutter.autosetup }}"
 REPO_URL="{{ cookiecutter.repo_url }}"
 USE_R="{{ cookiecutter.use_r }}"
+
+{% if cookiecutter.auto_configure == 'yes' %}
+# Verify gh auth before touching remote
+if ! gh auth status >/dev/null 2>&1; then
+    echo "Error: gh not authenticated. Run 'gh auth login' then rerun the cookiecutter." >&2
+    exit 1
+fi
+{% endif %}
 
 # Different validation logic based on venv_type
 if [ "$VENV_TYPE" = "uv" ]; then
@@ -87,6 +98,7 @@ if [ "$USE_R" = "no" ]; then
     rm -f "$MODULE_NAME.Rproj"
 fi
 
+{% if cookiecutter.auto_configure != 'no' %}
 if command -v direnv &> /dev/null; then
     echo
     echo "Authorizing direnv..."
@@ -94,11 +106,6 @@ if command -v direnv &> /dev/null; then
 else
     echo
     echo "Note: direnv is not installed. Install it to automatically activate your environment when entering the directory."
-fi
-
-if [ "$AUTOSETUP" = "no" ]; then
-    echo "Auto setup is disabled. Finished."
-    exit 0
 fi
 
 # Create git repo
@@ -162,10 +169,12 @@ fi
 echo
 echo "Setting up pre-commit hooks..."
 
+
+# Use || true to ensure we don't exit setup on non-zero return
 pre-commit install --install-hooks
-pre-commit run pre-commit-update
+pre-commit run pre-commit-update || true
 git add .pre-commit-config.yaml
-pre-commit run prettier
+pre-commit run prettier || true
 git add .pre-commit-config.yaml
 
 # Deactivate the virtual environment
@@ -181,29 +190,19 @@ git add .
 SKIP=no-commit-to-branch git commit -am "Setup Nesta Data Science cookiecutter"
 git checkout -b dev -q
 
-echo "Successfully configured git repo at $(pwd)/.git"
-echo
+{% if cookiecutter.auto_configure == 'yes' %}
+# Create remote in nestauk org, push both branches, default to dev
+gh repo create "$ORG/$REPO_NAME" $VISIBILITY --source=. --remote=origin
+git push -u origin main
+git push -u origin dev
+gh repo edit "$ORG/$REPO_NAME" --default-branch dev
 
-if [ -n "$REPO_URL" ]; then
-    echo "Setting up remote repository..."
-    git remote add origin "$REPO_URL"
-    echo "WARNING: Do you want to force push your local repository to the remote provided? This operation will overwrite any existing work in the repository!"
-    echo "This is fine if this is just initial setup as the repository should be empty."
-    read -p "Are you sure you want to force push? (y/N) " -n 1 -r CONFIRM_REPLY
-    echo
-    if [[ $CONFIRM_REPLY =~ ^[Yy]$ ]]; then
-        echo "Force pushing branches to remote..."
-        git push -uf origin main
-        git push -uf origin dev
-        echo
-    else
-        echo "Not pushing to remote. You can manually force push the branches later with the following command:"
-        echo "git push -uf origin <BRANCH_NAME>"
-        echo
-    fi
-else
-    echo "No remote repository URL provided. You can set it up later."
-    echo
-fi
+echo "Repo: https://github.com/$ORG/$REPO_NAME"
+{% else %}
+echo "Configured git repo. You need to manually set GitHub remote."
+{% endif %}
+{% else %}
+echo "Skipped project configuration. See docs/structure.md for the setup steps to run manually when ready."
+{% endif %}
 
 echo "Setup complete! You can now start working on your project."
