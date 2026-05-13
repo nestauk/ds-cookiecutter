@@ -1038,15 +1038,21 @@
 </ul>
 <p><em><strong>Note:</strong> In the following sections we use <code>src/</code> to denote the project name to avoid awkward <code>&lt;project_name&gt;</code> placeholders.</em></p>
 <h2 id="project-configuration">Project configuration<a class="headerlink" href="#project-configuration" title="Permanent link">&para;</a></h2>
-<p>Depending on your choice of <code>autosetup</code> the cookiecutter will either stop at establishing the project structure, or it will do the following for you:</p>
+<p>After establishing the project structure, the cookiecutter can automatically do the following for you (depending on the value of <code>auto_configure</code>):</p>
 <ol>
 <li>Set up your virtual environment using your selected tool, such as <code>uv</code>, <code>poetry</code>, or <code>conda</code>.</li>
 <li>Set up pre-commit and install the hooks specified in <code>.pre-commit-config.yaml</code>.</li>
 <li>Run <code>direnv allow</code> in context of the project so that the <code>.env</code> and <code>.envrc</code> files are automatically loaded (importing environment variables and activating the relevant virtual environment).</li>
 <li>Set up the <code>git</code> repository using <code>git init</code> and create the initial commit on <code>main</code> and <code>dev</code> branches.</li>
-<li>Force push the initial commit to the remote repository (if specified) using <code>git push -u origin main</code> and <code>git push -u origin dev</code>.</li>
+<li>Create a GitHub repo under <code>nestauk</code> and push <code>main</code> and <code>dev</code> to it (<code>git push -u origin main</code> / <code>dev</code>).</li>
 </ol>
-<p>These steps can be completed manually if the <code>autosetup</code> option was not used. Critically, they (with the exception of the <code>git</code> parts when cloning a repo) are the first steps we should take when working in any repository, whether it's a new project or a clone of a colleague's!</p>
+<p>The <code>auto_configure</code> option controls which of the above steps run:</p>
+<ul>
+<li><code>yes</code> — run all five steps: configure the project locally <strong>and</strong> create the GitHub remote.</li>
+<li><code>local</code> — run steps 1–4 only: configure the project locally but do not create or push to a GitHub remote (link a remote manually later).</li>
+<li><code>no</code> — skip all five steps. The project files are generated but no environment is created, no git repo is initialised, and no GitHub remote is created. Run the steps above manually when you are ready.</li>
+</ul>
+<p>Critically, these steps (with the exception of the <code>git</code> parts when cloning a repo) are the first steps we should take when working in any repository, whether it's a new project or a clone of a colleague's!</p>
 <p>**The following sections are potentially outdated but go into greater detail about the steps above.
 **</p>
 <h2 id="git-hooks">Git hooks<a class="headerlink" href="#git-hooks" title="Permanent link">&para;</a></h2>
