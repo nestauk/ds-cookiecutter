@@ -6,13 +6,9 @@ In this page you will learn how to set up / work with a project using the cookie
 
 _**Prerequisite**: If this is your first time setting up a cookiecutter project you need to install it from https://pypi.org/project/cookiecutter. You can do this in the terminal on macOS with `brew install cookiecutter`._
 
-### 1. Request repository setup
+### 1. Set up your project locally
 
-First things first, you need a repo created for you. From the [tech support website](https://nestagroup.atlassian.net/servicedesk/customer/portals), go to _Ask Nesta Technology_, _Request Forms_, then _Request GitHub repository_. You will need to provide a _project name_, _repo name_, whether _public/private_, _github teams involved_, _team leading the project_, _short and long description of the project_. An empty repo will automatically be set up for you within a few minutes: https://github.com/nestauk/your_repo_name. Your team should have admin access on the repository.
-
-### 2. Set up your project locally
-
-It is important that you _do not clone the repo yet!_ Instead, open the terminal and `cd` to a folder where you eventually want your repo to be, then run the cookiecutter:
+Open the terminal and `cd` to a folder where you eventually want your repo to be, then run the cookiecutter:
 
 ```bash
 cookiecutter https://github.com/nestauk/ds-cookiecutter
@@ -41,7 +37,7 @@ You will be prompted to enter the following information:
     -   `local`: configure the project locally as above but skip the GitHub remote — link a remote manually (see step 3).
     -   `no`: skip all configuration. No environment, pre-commit, `direnv`, `git init`, or GitHub remote. Run those steps yourself when ready (see [Project configuration](structure.md#project-configuration)).
 
-### 3. Connect your local project to github
+### 2. Connect your local project to github
 
 If you set `auto_configure` to `yes`, the GitHub repo has already been created and both branches pushed — you're done. If you set it to `local`, the local git repo is initialised with `main` and `dev` branches; link the remote manually by running `git remote add origin git@github.com:nestauk/<REPONAME>` to point your local project at the configured repository. Then (force) push each branch to the remote repository with, **this will overwrite anything on the remote branches**:
 
@@ -54,7 +50,7 @@ git push --set-upstream --force origin dev
 
 **Now you are all set!**
 
-### 4. Releasing your project as a package
+### 3. Releasing your project as a package
 
 The `README` is pre-populated with instructions for releasing. The versioning in your package is accessible internally via `{{ cookiecutter.module_name }}.__version__` and specified in `{{ cookiecutter.module_name }}__init__.py` and externally via `pip show {{ cookiecutter.module_name }}` once installed.
 
