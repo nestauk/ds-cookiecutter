@@ -359,10 +359,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-request-repository-setup" class="md-nav__link">
+  <a href="#1-set-up-your-project-locally" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Request repository setup
+        1. Set up your project locally
       
     </span>
   </a>
@@ -370,10 +370,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-set-up-your-project-locally" class="md-nav__link">
+  <a href="#2-connect-your-local-project-to-github" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Set up your project locally
+        2. Connect your local project to github
       
     </span>
   </a>
@@ -381,21 +381,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-connect-your-local-project-to-github" class="md-nav__link">
+  <a href="#3-releasing-your-project-as-a-package" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Connect your local project to github
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-releasing-your-project-as-a-package" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Releasing your project as a package
+        3. Releasing your project as a package
       
     </span>
   </a>
@@ -519,10 +508,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-request-repository-setup" class="md-nav__link">
+  <a href="#1-set-up-your-project-locally" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Request repository setup
+        1. Set up your project locally
       
     </span>
   </a>
@@ -530,10 +519,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-set-up-your-project-locally" class="md-nav__link">
+  <a href="#2-connect-your-local-project-to-github" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Set up your project locally
+        2. Connect your local project to github
       
     </span>
   </a>
@@ -541,21 +530,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-connect-your-local-project-to-github" class="md-nav__link">
+  <a href="#3-releasing-your-project-as-a-package" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Connect your local project to github
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-releasing-your-project-as-a-package" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Releasing your project as a package
+        3. Releasing your project as a package
       
     </span>
   </a>
@@ -602,10 +580,8 @@
 <p>In this page you will learn how to set up / work with a project using the cookiecutter. The steps are different depending on whether <a href="#setting-up-a-new-project">you are the one setting up a project</a> or whether a project already exists and <a href="#working-with-an-existing-project">you are just cloning it to set it up for yourself</a>.</p>
 <h2 id="setting-up-a-new-project">Setting up a new project<a class="headerlink" href="#setting-up-a-new-project" title="Permanent link">&para;</a></h2>
 <p><em><strong>Prerequisite</strong>: If this is your first time setting up a cookiecutter project you need to install it from https://pypi.org/project/cookiecutter. You can do this in the terminal on macOS with <code>brew install cookiecutter</code>.</em></p>
-<h3 id="1-request-repository-setup">1. Request repository setup<a class="headerlink" href="#1-request-repository-setup" title="Permanent link">&para;</a></h3>
-<p>First things first, you need a repo created for you. From the <a href="https://nestagroup.atlassian.net/servicedesk/customer/portals">tech support website</a>, go to <em>Ask Nesta Technology</em>, <em>Request Forms</em>, then <em>Request GitHub repository</em>. You will need to provide a <em>project name</em>, <em>repo name</em>, whether <em>public/private</em>, <em>github teams involved</em>, <em>team leading the project</em>, <em>short and long description of the project</em>. An empty repo will automatically be set up for you within a few minutes: https://github.com/nestauk/your_repo_name. Your team should have admin access on the repository.</p>
-<h3 id="2-set-up-your-project-locally">2. Set up your project locally<a class="headerlink" href="#2-set-up-your-project-locally" title="Permanent link">&para;</a></h3>
-<p>It is important that you <em>do not clone the repo yet!</em> Instead, open the terminal and <code>cd</code> to a folder where you eventually want your repo to be, then run the cookiecutter:</p>
+<h3 id="1-set-up-your-project-locally">1. Set up your project locally<a class="headerlink" href="#1-set-up-your-project-locally" title="Permanent link">&para;</a></h3>
+<p>Open the terminal and <code>cd</code> to a folder where you eventually want your repo to be, then run the cookiecutter:</p>
 <pre><code class="language-bash">cookiecutter https://github.com/nestauk/ds-cookiecutter
 </code></pre>
 <p>This will automatically install the latest version. If you want to install a different version run:</p>
@@ -630,7 +606,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="3-connect-your-local-project-to-github">3. Connect your local project to github<a class="headerlink" href="#3-connect-your-local-project-to-github" title="Permanent link">&para;</a></h3>
+<h3 id="2-connect-your-local-project-to-github">2. Connect your local project to github<a class="headerlink" href="#2-connect-your-local-project-to-github" title="Permanent link">&para;</a></h3>
 <p>If you set <code>auto_configure</code> to <code>yes</code>, the GitHub repo has already been created and both branches pushed — you're done. If you set it to <code>local</code>, the local git repo is initialised with <code>main</code> and <code>dev</code> branches; link the remote manually by running <code>git remote add origin git@github.com:nestauk/&lt;REPONAME&gt;</code> to point your local project at the configured repository. Then (force) push each branch to the remote repository with, <strong>this will overwrite anything on the remote branches</strong>:</p>
 <pre><code class="language-bash">git checkout main
 git push --set-upstream --force origin main
@@ -638,7 +614,7 @@ git checkout dev
 git push --set-upstream --force origin dev
 </code></pre>
 <p><strong>Now you are all set!</strong></p>
-<h3 id="4-releasing-your-project-as-a-package">4. Releasing your project as a package<a class="headerlink" href="#4-releasing-your-project-as-a-package" title="Permanent link">&para;</a></h3>
+<h3 id="3-releasing-your-project-as-a-package">3. Releasing your project as a package<a class="headerlink" href="#3-releasing-your-project-as-a-package" title="Permanent link">&para;</a></h3>
 <p>The <code>README</code> is pre-populated with instructions for releasing. The versioning in your package is accessible internally via <code>{{ cookiecutter.module_name }}.__version__</code> and specified in <code>{{ cookiecutter.module_name }}__init__.py</code> and externally via <code>pip show {{ cookiecutter.module_name }}</code> once installed.</p>
 <h2 id="working-with-an-existing-project">Working with an existing project<a class="headerlink" href="#working-with-an-existing-project" title="Permanent link">&para;</a></h2>
 <p>If you are a team member, you will not need to set up the project from scratch. Instead, you will clone an existing project that has already been set up.</p>
