@@ -106,6 +106,17 @@ We also have `.envrc` which contains non-secret project configuration shared acr
 
 [`direnv`](https://direnv.net) automatically loads `.envrc` (which itself loads `.env`) making our configuration available. Add all environment variables directly to `.env` so they are available in Python through `dotenv` as well as in your terminal through `direnv`. You will need to activate `direnv` in the repository by running `direnv allow`.
 
+If you use `uv` and have a private `UV_INDEX` configured globally, uncomment `unset UV_INDEX` in `.envrc` to avoid polluting `uv.lock` with private index configuration.
+
+If private index settings have already affected your lockfile, use this rollback/failsafe sequence:
+
+```bash
+unset UV_INDEX
+uv sync --no-cache --upgrade
+# or
+uv lock --no-cache --upgrade
+```
+
 #### Store Data science configuration in `src/config/`
 
 If there are certain variables that are useful throughout a codebase, it is useful to store these in a single place rather than having to define them throughout the project.

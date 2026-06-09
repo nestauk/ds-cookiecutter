@@ -61,6 +61,21 @@ If you use RStudio, we recommend opening this folder via "Open Project" and comm
 
 {% endif %}## Contributor guidelines
 
+{% if cookiecutter.venv_type == 'uv' -%}
+### UV private index failsafe
+
+If you have a private `UV_INDEX` configured globally, uncomment `unset UV_INDEX` in `.envrc` before running lock/sync commands in this repository.
+
+If a lockfile has already been generated with a private index, use this rollback/failsafe sequence:
+
+```bash
+unset UV_INDEX
+uv sync --no-cache --upgrade
+# or
+uv lock --no-cache --upgrade
+```
+{%- endif %}
+
 [Technical and working style guidelines](https://github.com/nestauk/ds-cookiecutter/blob/master/GUIDELINES.md)
 
 ### Versioning
