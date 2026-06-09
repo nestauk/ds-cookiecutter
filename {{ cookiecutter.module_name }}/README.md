@@ -64,7 +64,7 @@ If you use RStudio, we recommend opening this folder via "Open Project" and comm
 {% if cookiecutter.venv_type == 'uv' -%}
 ### UV private index failsafe
 
-If you have a private `UV_INDEX` configured globally, uncomment `unset UV_INDEX` in `.envrc` before running lock/sync commands in this repository.
+`unset UV_INDEX` is enabled by default in `.envrc` to prevent private index settings from leaking into `uv.lock`. If you need to use a private `UV_INDEX` in this project, comment out the `unset UV_INDEX` line.
 
 If a lockfile has already been generated with a private index, use this rollback/failsafe sequence:
 
