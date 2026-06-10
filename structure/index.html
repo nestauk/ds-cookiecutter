@@ -1096,6 +1096,13 @@ OTHER_VARIABLE=something
 </code></pre>
 <p>We also have <code>.envrc</code> which contains non-secret project configuration shared across users such as the bucket that our input data is stored in.</p>
 <p><a href="https://direnv.net"><code>direnv</code></a> automatically loads <code>.envrc</code> (which itself loads <code>.env</code>) making our configuration available. Add all environment variables directly to <code>.env</code> so they are available in Python through <code>dotenv</code> as well as in your terminal through <code>direnv</code>. You will need to activate <code>direnv</code> in the repository by running <code>direnv allow</code>.</p>
+<p>If you use <code>uv</code>, <code>unset UV_INDEX</code> is enabled by default in <code>.envrc</code> to avoid polluting <code>uv.lock</code> with private index configuration. If you need private index access in this project, comment out <code>unset UV_INDEX</code>.</p>
+<p>If private index settings have already affected your lockfile, use this rollback/failsafe sequence:</p>
+<pre><code class="language-bash">unset UV_INDEX
+uv sync --no-cache --upgrade
+# or
+uv lock --no-cache --upgrade
+</code></pre>
 <h4 id="store-data-science-configuration-in-srcconfig">Store Data science configuration in <code>src/config/</code><a class="headerlink" href="#store-data-science-configuration-in-srcconfig" title="Permanent link">&para;</a></h4>
 <p>If there are certain variables that are useful throughout a codebase, it is useful to store these in a single place rather than having to define them throughout the project.</p>
 <p><code>src/config/base.yaml</code> provides a place to document these global variables.</p>
