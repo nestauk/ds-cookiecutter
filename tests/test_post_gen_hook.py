@@ -18,7 +18,7 @@ BASE_CONTEXT = {
     "python_version": "3.13",
     "file_structure": "simple",
     "use_r": "no",
-    "repo_url": "",
+    "org": "nestauk",
     "auto_configure": "yes",
 }
 
@@ -125,6 +125,15 @@ class TestCreateRemoteYes:
         result = _run_hook(tmp_path, ctx, env)
         assert result.returncode == 0, result.stderr
         assert "gh repo create nestauk/testrepo --private" in log.read_text()
+
+    def test_custom_org(self, tmp_path, stub_env):
+        env, log = stub_env
+        ctx = {**BASE_CONTEXT, "org": "myorg"}
+        result = _run_hook(tmp_path, ctx, env)
+        assert result.returncode == 0, result.stderr
+        log_text = log.read_text()
+        assert "gh repo create myorg/testrepo --public --source=. --remote=origin" in log_text
+        assert "gh repo edit myorg/testrepo --default-branch dev" in log_text
 
     def test_fails_when_gh_not_authenticated(self, tmp_path, stub_env):
         env, log = stub_env

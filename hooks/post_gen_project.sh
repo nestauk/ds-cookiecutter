@@ -1,14 +1,13 @@
 #!/bin/bash
 set -euo pipefail
 
-ORG="nestauk"
+ORG="{{ cookiecutter.org }}"
 VISIBILITY="{% if cookiecutter.openness == 'private' %}--private{% else %}--public{% endif %}"
 PYTHON_VERSION="{{ cookiecutter.python_version }}"
 VENV_TYPE="{{ cookiecutter.venv_type }}"
 MODULE_NAME="{{ cookiecutter.module_name }}"
 REPO_NAME="$MODULE_NAME"
 FILE_STRUCTURE="{{ cookiecutter.file_structure }}"
-REPO_URL="{{ cookiecutter.repo_url }}"
 USE_R="{{ cookiecutter.use_r }}"
 
 {% if cookiecutter.auto_configure == 'yes' %}

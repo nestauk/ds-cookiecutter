@@ -14,11 +14,11 @@ license = { text = "{% if cookiecutter.openness == 'public' %}MIT{% else %}propr
 readme = "README.md"
 requires-python = "{{ cookiecutter.python_version }}"
 dependencies = []
-{% if cookiecutter.repo_url %}{% set formatted_url = cookiecutter.repo_url.startswith('git@github.com:') and 'https://github.com/' + cookiecutter.repo_url[15:].rstrip('.git') or cookiecutter.repo_url.rstrip('.git') %}
+{% set repo_url = 'https://github.com/' + cookiecutter.org + '/' + cookiecutter.module_name %}
 [project.urls]
-repository = "{{ formatted_url }}"
-issues = "{{ formatted_url }}/issues"
-{% endif %}
+repository = "{{ repo_url }}"
+issues = "{{ repo_url }}/issues"
+
 [dependency-groups]
 dev = ["ipykernel", "jupytext", "nbstripout", "ruff", {% if cookiecutter.file_structure == 'full' %}"pytest", {% endif %}{% if cookiecutter.use_r == 'yes' %}"radian", {% endif %}"pre-commit"]
 

@@ -1,7 +1,7 @@
 {
   "project_name": "Project Name",
   "module_name": "{{ cookiecutter.project_name.lstrip('0123456789.- ').replace(' ', '_').replace('-', '_').lower() }}",
-  "repo_url": "",
+  "org": "nestauk",
   "description": "A short description of the project.",
   "openness": ["public", "private"],
   "auto_configure": ["yes", "local", "no"],
@@ -12,7 +12,7 @@
   "__prompts__": {
     "project_name": "Project name",
     "module_name": "Module name (lowercase, no spaces or special characters except underscores)",
-    "repo_url": "Repository URL (optional)",
+    "org": "GitHub organisation or user for the repository",
     "description": "Project description",
     "openness": "Select a level of openness (note this does not change the privacy setting of a connected GitHub repository)",
     "auto_configure": "Project configuration mode: yes=configure project and create GitHub remote, local=configure project only, no=skip configuration entirely",
