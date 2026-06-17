@@ -35,7 +35,20 @@ pre-commit install --install-hooks
 {%- endif %}
 ```
 
-{% if cookiecutter.use_r == 'yes' %}### R Setup
+{% if cookiecutter.venv_type == 'uv' -%}### UV private index failsafe
+
+`unset UV_INDEX` is enabled by default in `.envrc` to prevent private index settings from leaking into `uv.lock`. If you need to use a private `UV_INDEX` in this project, comment out the `unset UV_INDEX` line.
+
+If a lockfile has already been generated with a private index, use this rollback/failsafe sequence:
+
+```bash
+unset UV_INDEX
+uv sync --no-cache --upgrade
+# or
+uv lock --no-cache --upgrade
+```
+
+{% endif %}{% if cookiecutter.use_r == 'yes' %}### R Setup
 
 _Note: even if you plan to only work in R, you still **must** set up the Python environment as described above for pre-commit hooks and other potential Python dependencies._
 
@@ -60,21 +73,6 @@ AWS_REGION=eu-west-2
 If you use RStudio, we recommend opening this folder via "Open Project" and committing the `.Rproj` file to your repository, as it contains useful project settings for ensuring reproducibility when others work on the project.
 
 {% endif %}## Contributor guidelines
-
-{% if cookiecutter.venv_type == 'uv' -%}
-### UV private index failsafe
-
-`unset UV_INDEX` is enabled by default in `.envrc` to prevent private index settings from leaking into `uv.lock`. If you need to use a private `UV_INDEX` in this project, comment out the `unset UV_INDEX` line.
-
-If a lockfile has already been generated with a private index, use this rollback/failsafe sequence:
-
-```bash
-unset UV_INDEX
-uv sync --no-cache --upgrade
-# or
-uv lock --no-cache --upgrade
-```
-{%- endif %}
 
 [Technical and working style guidelines](https://github.com/nestauk/ds-cookiecutter/blob/master/GUIDELINES.md)
 
