@@ -24,7 +24,7 @@ After establishing the project structure, the cookiecutter can automatically do 
 2. Set up pre-commit and install the hooks specified in `.pre-commit-config.yaml`.
 3. Run `direnv allow` in context of the project so that the `.env` and `.envrc` files are automatically loaded (importing environment variables and activating the relevant virtual environment).
 4. Set up the `git` repository using `git init` and create the initial commit on `main` and `dev` branches.
-5. Create a GitHub repo under `nestauk` and push `main` and `dev` to it (`git push -u origin main` / `dev`).
+5. Create a GitHub repo under your specified organisation or individual (defaults to `nestauk`) and push `main` and `dev` to it (`git push -u origin main` / `dev`).
 
 The `auto_configure` option controls which of the above steps run:
 
