@@ -1,23 +1,14 @@
 #!/bin/bash
 set -euo pipefail
 
-ORG="nestauk"
+ORG="{{ cookiecutter.org }}"
 VISIBILITY="{% if cookiecutter.openness == 'private' %}--private{% else %}--public{% endif %}"
 PYTHON_VERSION="{{ cookiecutter.python_version }}"
 VENV_TYPE="{{ cookiecutter.venv_type }}"
 MODULE_NAME="{{ cookiecutter.module_name }}"
 REPO_NAME="$MODULE_NAME"
 FILE_STRUCTURE="{{ cookiecutter.file_structure }}"
-REPO_URL="{{ cookiecutter.repo_url }}"
 USE_R="{{ cookiecutter.use_r }}"
-
-{% if cookiecutter.auto_configure == 'yes' %}
-# Verify gh auth before touching remote
-if ! gh auth status >/dev/null 2>&1; then
-    echo "Error: gh not authenticated. Run 'gh auth login' then rerun the cookiecutter." >&2
-    exit 1
-fi
-{% endif %}
 
 # Different validation logic based on venv_type
 if [ "$VENV_TYPE" = "uv" ]; then

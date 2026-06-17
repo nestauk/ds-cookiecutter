@@ -18,7 +18,7 @@ BASE_CONTEXT = {
     "python_version": "3.13",
     "file_structure": "simple",
     "use_r": "no",
-    "repo_url": "",
+    "org": "nestauk",
     "auto_configure": "yes",
 }
 
@@ -102,7 +102,6 @@ class TestCreateRemoteYes:
         result = _run_hook(tmp_path, BASE_CONTEXT, env)
         assert result.returncode == 0, result.stderr
         log_text = log.read_text()
-        assert "gh auth status" in log_text
         assert "gh repo create nestauk/testrepo --public --source=. --remote=origin" in log_text
 
     def test_pushes_both_branches(self, tmp_path, stub_env):
@@ -126,49 +125,14 @@ class TestCreateRemoteYes:
         assert result.returncode == 0, result.stderr
         assert "gh repo create nestauk/testrepo --private" in log.read_text()
 
-    def test_fails_when_gh_not_authenticated(self, tmp_path, stub_env):
+    def test_custom_org(self, tmp_path, stub_env):
         env, log = stub_env
-        bin_dir = Path(env["PATH"].split(os.pathsep)[0])
-        # Replace gh stub so `gh auth status` returns nonzero
-        (bin_dir / "gh").write_text(
-            "#!/bin/bash\n"
-            'echo "gh $*" >> "$STUB_LOG"\n'
-            'if [ "$1" = "auth" ] && [ "$2" = "status" ]; then exit 1; fi\n'
-            "exit 0\n"
-        )
-        (bin_dir / "gh").chmod(0o755)
-        result = _run_hook(tmp_path, BASE_CONTEXT, env)
-        assert result.returncode != 0
-        assert "gh not authenticated" in result.stderr
+        ctx = {**BASE_CONTEXT, "org": "myorg"}
+        result = _run_hook(tmp_path, ctx, env)
+        assert result.returncode == 0, result.stderr
         log_text = log.read_text()
-        assert "gh repo create" not in log_text
-
-    def test_bails_immediately_when_gh_not_authenticated(self, tmp_path, stub_env):
-        """gh check is first thing in script — nothing else should run on failure."""
-        env, log = stub_env
-        bin_dir = Path(env["PATH"].split(os.pathsep)[0])
-        (bin_dir / "gh").write_text(
-            "#!/bin/bash\n"
-            'echo "gh $*" >> "$STUB_LOG"\n'
-            'if [ "$1" = "auth" ] && [ "$2" = "status" ]; then exit 1; fi\n'
-            "exit 0\n"
-        )
-        (bin_dir / "gh").chmod(0o755)
-        result = _run_hook(tmp_path, BASE_CONTEXT, env)
-        assert result.returncode != 0
-        log_text = log.read_text()
-        # No side effects — pyproject sed, git init, direnv, venv, pre-commit all skipped
-        assert "git init" not in log_text
-        assert "git add" not in log_text
-        assert "git commit" not in log_text
-        assert "git checkout" not in log_text
-        assert "git push" not in log_text
-        assert "direnv" not in log_text
-        assert "uv sync" not in log_text
-        assert "pre-commit" not in log_text
-        # pyproject.toml untouched
-        work = tmp_path / "work"
-        assert 'requires-python = "3.13"' in (work / "pyproject.toml").read_text()
+        assert "gh repo create myorg/testrepo --public --source=. --remote=origin" in log_text
+        assert "gh repo edit myorg/testrepo --default-branch dev" in log_text
 
 
 class TestCreateRemoteLocal:

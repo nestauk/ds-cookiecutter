@@ -25,7 +25,7 @@ You will be prompted to enter the following information:
 -   `You've downloaded ~.cookiecutters/ds-cookiecutter before. Is it okay to delete and re-download it?[yes]` press Enter to confirm yes, it's always best to use the latest version.
 -   `project_name [project_name]`: Enter the title of your project. This will be used in the `README.md` file and docs.
 -   `module_name [project_name]`: This defaults to a sanitised (lower-case, no spaces, no numbers) version of the project name (used in `pyproject.toml` and throughout).
--   `repo_url []`: This is the URL / SSH address of the repo you created in step 1 (starts with `git@github` or `https://github` respectively). If left blank, no attempt will be made to connect the local project to the remote repo.
+-   `org [nestauk]`: The GitHub organisation or user under which the repository will be created or referenced. Used to populate repository URLs in `pyproject.toml` and for `gh repo create` when `auto_configure` is set to `yes`.
 -   `description [A short description of the project.]`: Add a short description
 -   `openness [public]`: This determines the licence and can be changed in the future if needed, it **does not** affect the privacy setting of the GitHub repository. The options are: `public` (MIT licence) and `private` (Nesta proprietary copyright licence).
 -   `venv_type [uv]`: choose how you will manage your virtual environment, the options are [`uv`](https://docs.astral.sh/uv/), [`venv`](https://docs.python.org/3/library/venv.html) or [`conda`](https://docs.conda.io/en/latest/).
@@ -33,7 +33,7 @@ You will be prompted to enter the following information:
 -   `file_structure [standard]`: choose the complexity of your project. The options are: `simple` (basic and recommended for small projects: includes folders for analysis, getters and notebooks); `standard` (a good balance between simplicity and complexity: adds folders for utils, config and pipelines; moves notebooks into analysis); and `full` (adds folders separate from the module for documentation and testing).
 -   `use_r [no]`: whether you want to use R in your project. If you select `yes`, the cookiecutter will create an `renv` environment and set up some auxiliary things for the project, such as an `.Renviron` file for AWS credentials.
 -   `auto_configure [yes]`: controls how much of the project configuration the cookiecutter performs automatically.
-    -   `yes`: configure the project locally (venv, pre-commit, direnv, git init, initial commits on `main`/`dev`) **and** create a GitHub repo under `nestauk` (using `gh`), pushing `main` and `dev`.
+    -   `yes`: configure the project locally (venv, pre-commit, direnv, git init, initial commits on `main`/`dev`) **and** create a GitHub repo under your chosen `org` (using `gh`), pushing `main` and `dev`. Before any files are generated, a pre-flight check confirms that `gh` is installed and authenticated and that `org` is either your GitHub username (for a personal repo) or an organisation you belong to.
     -   `local`: configure the project locally as above but skip the GitHub remote — link a remote manually (see step 3).
     -   `no`: skip all configuration. No environment, pre-commit, `direnv`, `git init`, or GitHub remote. Run those steps yourself when ready (see [Project configuration](structure.md#project-configuration)).
 
