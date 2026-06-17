@@ -33,7 +33,7 @@ You will be prompted to enter the following information:
 -   `file_structure [standard]`: choose the complexity of your project. The options are: `simple` (basic and recommended for small projects: includes folders for analysis, getters and notebooks); `standard` (a good balance between simplicity and complexity: adds folders for utils, config and pipelines; moves notebooks into analysis); and `full` (adds folders separate from the module for documentation and testing).
 -   `use_r [no]`: whether you want to use R in your project. If you select `yes`, the cookiecutter will create an `renv` environment and set up some auxiliary things for the project, such as an `.Renviron` file for AWS credentials.
 -   `auto_configure [yes]`: controls how much of the project configuration the cookiecutter performs automatically.
-    -   `yes`: configure the project locally (venv, pre-commit, direnv, git init, initial commits on `main`/`dev`) **and** create a GitHub repo under your chosen `org` (using `gh`), pushing `main` and `dev`.
+    -   `yes`: configure the project locally (venv, pre-commit, direnv, git init, initial commits on `main`/`dev`) **and** create a GitHub repo under your chosen `org` (using `gh`), pushing `main` and `dev`. Before any files are generated, a pre-flight check confirms that `gh` is installed and authenticated and that `org` is either your GitHub username (for a personal repo) or an organisation you belong to.
     -   `local`: configure the project locally as above but skip the GitHub remote — link a remote manually (see step 3).
     -   `no`: skip all configuration. No environment, pre-commit, `direnv`, `git init`, or GitHub remote. Run those steps yourself when ready (see [Project configuration](structure.md#project-configuration)).
 
