@@ -19,6 +19,12 @@ dependencies = [
 ]
 
 
+# Emit `.pre-commit-config.yaml` in prettier's style so the two hooks don't fight.
+[tool.pre-commit-update.yaml]
+mapping = 2
+sequence = 4
+offset = 2
+
 [tool.ruff]
 line-length = 120
 
