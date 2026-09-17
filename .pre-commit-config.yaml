@@ -11,13 +11,14 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
       - id: check-toml
+        exclude: '^\{\{ cookiecutter\.module_name \}\}/pyproject\.toml$'
       - id: check-yaml
         exclude: "docs/mkdocs.yml"
       - id: no-commit-to-branch
         args: ["-b", dev, "-b", master, "-b", main]
         pass_filenames: false
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.17
+    rev: v0.16.7
     hooks:
       - id: ruff-check
       - id: ruff-format
